@@ -50,6 +50,7 @@ public class BannerService {
 		banner.setImage(image);
 		banner.setTitle(form.getTitle());
 		banner.setLink(form.getLink());
+		banner.setLinkTargetBlank(form.isLinkTargetBlank());
 		int sort = bannerRepository.findMaxSortByType(form.getType(), form.getLanguage());
 		sort++;
 		banner.setSort(sort);
@@ -76,6 +77,7 @@ public class BannerService {
 		banner.setImage(image);
 		banner.setTitle(form.getTitle());
 		banner.setLink(form.getLink());
+		banner.setLinkTargetBlank(form.isLinkTargetBlank());
 		banner.setType(form.getType());
 
 		banner.setUpdatedAt(now);

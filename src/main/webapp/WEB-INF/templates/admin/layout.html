@@ -54,7 +54,7 @@
 <div>
 	<div th:fragment="sidebar" id="sidebar">
 		<a href="#" class="wr-account" data-toggle="collapse">
-			<img th:src="@{/_admin/resources/img/thumbnail.jpg}" src="../../resources/admin/img/tb-logo.png" class="wr-account-picture img-thumbnail"/>
+			<img th:src="@{${USER.getGravatarUrl(300)}}" src="../../resources/admin/img/tb-logo.png" class="wr-account-picture img-thumbnail"/>
 			<span class="wr-account-name" th:text="${USER.name}"></span>
 		</a>
 		<ul class="nav nav-stacked">

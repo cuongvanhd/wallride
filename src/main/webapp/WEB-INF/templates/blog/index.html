@@ -37,7 +37,7 @@
 					<div class="container">
 						<ul class="slides">
 							<li th:each="mainBanner : ${mainBanners}">
-								<a th:if="${mainBanner.link ne null}" href="#" target="_blank" th:href="${mainBanner.link}">
+								<a th:if="${mainBanner.link ne null}" href="#" th:target="${mainBanner.linkTargetBlank ? '_blank' : '_self'}" th:href="${mainBanner.link}">
 									<img th:src="@{__${WEBSITE_PATH}__/media/__${mainBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${mainBanner.title}" class="wr-post-cover" />
 								</a>
 								<img th:if="${mainBanner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${mainBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${mainBanner.title}" class="wr-post-cover" />
@@ -53,7 +53,7 @@
 					<div class="flexslider">
 						<ul class="slides">
 							<li th:each="subBanner : ${subBanners}">
-								<a th:if="${subBanner.link ne null}" href="#" target="_blank" th:href="${subBanner.link}">
+								<a th:if="${subBanner.link ne null}" href="#" th:target="${subBanner.linkTargetBlank ? '_blank' : '_self'}" th:href="${subBanner.link}">
 									<img th:src="@{__${WEBSITE_PATH}__/media/__${subBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${subBanner.title}" class="wr-post-cover" />
 								</a>
 								<img th:if="${subBanner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${subBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${subBanner.title}" class="wr-post-cover" />

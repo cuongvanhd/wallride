@@ -6,8 +6,10 @@ import org.hibernate.annotations.Formula;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.springframework.util.DigestUtils;
 
 import javax.persistence.*;
+import java.io.UnsupportedEncodingException;
 
 @Entity
 @Table(name="user")
@@ -90,6 +92,11 @@ public class User extends DomainObject<Long> {
 
 	public int getArticleCount() {
 		return articleCount;
+	}
+
+	public String getGravatarUrl(int size) throws UnsupportedEncodingException {
+		String hash = DigestUtils.md5DigestAsHex(getEmail().getBytes("CP1252"));
+		return String.format("https://secure.gravatar.com/avatar/%s?size=%d&d=mm", hash, size);
 	}
 
 	@Override

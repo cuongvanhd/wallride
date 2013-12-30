@@ -122,6 +122,12 @@
 							</div>
 						</fieldset>
 						<fieldset>
+							<div class="form-group" th:classappend="${#fields.hasErrors('linkTargetBlank')}? has-error">
+								<label><input type="checkbox" th:field="*{linkTargetBlank}" /> Open link in new tab</label>
+								<span class="help-block" th:each="err : ${#fields.errors('linkTargetBlank')}" th:text="${err}" />
+							</div>
+						</fieldset>
+						<fieldset>
 							<div class="form-group" th:classappend="${#fields.hasErrors('type')}? has-error">
 								<label class="radio-inline" th:each="t : ${types}">
 									<input type="radio" th:field="*{type}" name="type" th:value="${t}" th:text="${#messages.msg('Banner.Type.' + t)}" />

@@ -2,8 +2,8 @@ package org.wallride.core.domain;
 
 import org.hibernate.annotations.*;
 
-import javax.persistence.*;
 import javax.persistence.CascadeType;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.List;
