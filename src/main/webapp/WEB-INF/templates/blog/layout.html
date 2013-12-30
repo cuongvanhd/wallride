@@ -253,12 +253,12 @@
 							</div>
 							<div th:fragment="side-banner" class="well center">
 								<ul class="list-inline">
-									<li th:each="asideBanner : ${asideBanners}">
+									<li th:each="banner : ${ASIDE_BANNERS}">
 										<div class="banner">
-											<a th:if="${asideBanner.link ne null}" href="#" th:target="${asideBanner.linkTargetBlank ? '_blank' : '_self'}" th:href="${asideBanner.link}">
-												<img th:src="@{__${WEBSITE_PATH}__/media/__${asideBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${asideBanner.title}" class="wr-post-cover" />
+											<a th:if="${banner.link ne null}" href="#" th:target="${banner.linkTargetBlank ? '_blank' : '_self'}" th:href="${banner.link}">
+												<img th:src="@{__${WEBSITE_PATH}__/media/__${banner.image.id}__(w=1200,h=375,m=1)}" th:alt="${banner.title}" class="wr-post-cover" />
 											</a>
-											<img th:if="${asideBanner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${asideBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${asideBanner.title}" class="wr-post-cover" />
+											<img th:if="${banner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${banner.image.id}__(w=1200,h=375,m=1)}" th:alt="${banner.title}" class="wr-post-cover" />
 										</div>
 									</li>
 								</ul>
