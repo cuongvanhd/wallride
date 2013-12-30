@@ -20,6 +20,10 @@ public class Banner extends DomainObject<Long> implements Comparable<Banner> {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private long id;
 
+	@Column(length=3, nullable=false)
+	@Field
+	private String language;
+
 	@Column(length=200)
 	private String title;
 
@@ -44,6 +48,14 @@ public class Banner extends DomainObject<Long> implements Comparable<Banner> {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	public String getTitle() {
