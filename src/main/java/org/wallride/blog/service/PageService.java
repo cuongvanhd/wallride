@@ -1,6 +1,5 @@
 package org.wallride.blog.service;
 
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.wallride.core.domain.Page;
@@ -42,7 +41,7 @@ public class PageService {
 //		return pages;
 //	}
 
-	public Page readPage(String code) {
-		return pageRepository.findByCode(code, LocaleContextHolder.getLocale().getLanguage());
+	public Page readPage(String code, String language) {
+		return pageRepository.findByCode(code, language);
 	}
 }

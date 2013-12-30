@@ -1,60 +1,12 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html th:lang="${#locale.language}">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta charset="utf-8" />
-		<title>お探しのページは見つかりませんでした｜Sake JAPAN</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,600' rel='stylesheet' type='text/css' />
-		<!-- Stylesheets -->
-		<link href="assets/tmpl/style/bootstrap.css" rel="stylesheet" />
-		<link href="assets/tmpl/style/font-awesome.css" rel="stylesheet" />
-		<link href="assets/tmpl/style/prettyPhoto.css" rel="stylesheet" />
-
-		<link href="assets/css/style.css" rel="stylesheet" />
-		<link href="assets/css/index.css" rel="stylesheet" />
-		<link href="assets/css/color.css" rel="stylesheet" />
-
-		<!-- Favicon -->
-		<link rel="shortcut icon" href="assets/img/icon/sakejapan-icon-3.png" />
-
-		<style>
-		.h3-not-found {
-			background: url('assets/img/line.png') repeat-x bottom;
-		}
-		.h3-not-found img {
-			background: url('assets/img/ssi-title-404.png');
-			background-repeat: no-repeat;
-			width: 307px;
-			height: 34px;
-		}
-		.h3-not-found.en img {
-			background: url('assets/img/ssi-title-404-en.png');
-			background-repeat: no-repeat;
-			width: 402px;
-			height: 57px;
-			}
-		}
-		ul.leading li a{
-			font-weight: bold;
-			font-size: 15px;
-		}
-		ul.leading li {
-			list-style: none;
-		}
-		ul.leading li i {
-			color: #82ae46;
-		}
-		@media (max-width: 480px){
-			.navbar-fixed-bottom {
-				position: static;
-			}
-		}
-
-		</style>
-
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>404 Not Found｜Sake JAPAN</title>
+		<link th:replace="layout::head-link" />
+		<script th:replace="layout::head-script"></script>
 	</head>
 	<body>
 		<!-- header -->
@@ -62,86 +14,39 @@
 			<div class="container">
 				<div class="row">
 					<div class="header-left logo">
-						<h1><a href="#"><img src="assets/img/logo-157.png" style="height: 50px;" /><small>日本酒・焼酎のポータルサイト</small></a></h1>
+						<h1><a th:href="@{__${WEBSITE_PATH}__/}" href="#"><img th:src="@{/resources/img/logo-157.png}" src="assets/img/logo-157.png" style="height: 50px;" /><small>日本酒・焼酎のポータルサイト</small></a></h1>
 					</div>
 				</div>
 			</div>
 			<div class="obi-washi"></div>
 		</header><!-- /header -->
-
 		<!-- .top -->
 		<div class="top">
 			<div class="container">
 				<ol class="breadcrumb">
-					<li><a href="#">TOP</a></li>
-					<li class="active">お探しのページは見つかりませんでした</li>
+					<li><a th:href="@{__${WEBSITE_PATH}__/}">TOP</a></li>
+					<li class="active">404 Not Found</li>
 				</ol>
 			</div>
 		</div><!-- /.top -->
 		<div class="obi-nami-bottom"></div>
-
 		<!-- .content -->
 		<div class="content 404">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<h3 class="h3-not-found"><img src="assets/img/space.gif" /></h3>
-						<p>
-							お探しのページは一時的にアクセス出来ない状況か、移動または削除されてしまった可能性がございます。<br />
-							<ul class="leading">
-								<li>
-									<i class="icon-circle-arrow-right"></i><a href="#">TOPへ</a>
-								</li>
-								<li>
-									<i class="icon-circle-arrow-right"></i><a href="#">サイトマップへ</a>
-								</li>
-							</ul>
-						</p>
+						<div class="page-header">
+							<h1>404 NotFound</h1>
+						</div>
+						<p>お探しのページは一時的にアクセス出来ない状況か、移動または削除されてしまった可能性がございます。</p>
+						<ul class="list-unstyled">
+							<li><i class="icon-circle-arrow-right"></i> <a th:href="@{__${WEBSITE_PATH}__/}">TOPへ</a></li>
+							<li><i class="icon-circle-arrow-right"></i> <a th:href="@{__${WEBSITE_PATH}__/sitemap}">サイトマップへ</a></li>
+						</ul>
 					</div>
-					<hr />
 				</div>
 			</div>
 		</div>
-
-		<!-- footer -->
-		<footer class="navbar-fixed-bottom">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="notes well">
-							<div class="pull-left">
-								<img src="assets/img/footimg1.jpg" alt="STOP未成年者飲酒" />
-								<img src="assets/img/footimg2.jpg" alt="のんだあとはリサイクル" />
-							</div>
-							<ul>
-								<li>お酒は20歳になってから。</li>
-								<li>お酒はおいしく適量を。</li>
-								<li>飲酒運転は絶対にやめましょう。</li>
-								<li>妊娠中や授乳期の飲酒は、胎児・乳児の発育に影響する恐れがありますので、気をつけましょう。</li>
-								<li>のんだあとはリサイクル。</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="copy">
-							<h6>
-								Sake <span class="color">JAPAN</span>
-							</h6>
-							<p>
-								Copyright &copy; <a href="#">NPO法人FBO（料飲専門家団体連合会）</a> -
-								<a href="#">運営会社</a> |
-								<a href="#">プライバシーポリシー</a> |
-								<a href="#">動作環境について</a> |
-								<a href="#">サイトマップ</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</footer><!-- /footer -->
-
+		<div th:replace="layout::footer" class="footer"></div><!-- /.footer -->
 	</body>
 </html>

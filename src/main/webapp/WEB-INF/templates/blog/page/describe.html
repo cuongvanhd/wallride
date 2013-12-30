@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html th:lang="${#locale.language}">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<meta charset="utf-8"/>
@@ -14,7 +14,8 @@
 		<!--<meta property="og:image" th:if="${page.cover}" th:content="@{__${WEBSITE_LINK}__/media/__${page.cover.id}__}" />-->
 		<meta property="og:type" content="article"/>
 		<title th:text="${page.title + ' | Sake JAPAN'}"></title>
-		<link th:replace="layout::head" />
+		<link th:replace="layout::head-link" />
+		<script th:replace="layout::head-script"></script>
 	</head>
 
 	<body>
