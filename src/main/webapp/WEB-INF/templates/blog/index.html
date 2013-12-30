@@ -36,11 +36,11 @@
 				<div class="flexslider">
 					<div class="container">
 						<ul class="slides">
-							<li th:each="mainBanner : ${mainBanners}">
-								<a th:if="${mainBanner.link ne null}" href="#" th:target="${mainBanner.linkTargetBlank ? '_blank' : '_self'}" th:href="${mainBanner.link}">
-									<img th:src="@{__${WEBSITE_PATH}__/media/__${mainBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${mainBanner.title}" class="wr-post-cover" />
+							<li th:each="banner : ${MAIN_BANNERS}">
+								<a th:if="${banner.link ne null}" href="#" th:target="${banner.linkTargetBlank ? '_blank' : '_self'}" th:href="${banner.link}">
+									<img th:src="@{__${WEBSITE_PATH}__/media/__${banner.image.id}__(w=1200,h=375,m=1)}" th:alt="${banner.title}" class="wr-post-cover" />
 								</a>
-								<img th:if="${mainBanner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${mainBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${mainBanner.title}" class="wr-post-cover" />
+								<img th:if="${banner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${banner.image.id}__(w=1200,h=375,m=1)}" th:alt="${banner.title}" class="wr-post-cover" />
 							</li>
 						</ul>
 					</div>
@@ -52,11 +52,11 @@
 				<div class="container">
 					<div class="flexslider">
 						<ul class="slides">
-							<li th:each="subBanner : ${subBanners}">
-								<a th:if="${subBanner.link ne null}" href="#" th:target="${subBanner.linkTargetBlank ? '_blank' : '_self'}" th:href="${subBanner.link}">
-									<img th:src="@{__${WEBSITE_PATH}__/media/__${subBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${subBanner.title}" class="wr-post-cover" />
+							<li th:each="banner : ${SUB_BANNERS}">
+								<a th:if="${banner.link ne null}" href="#" th:target="${banner.linkTargetBlank ? '_blank' : '_self'}" th:href="${banner.link}">
+									<img th:src="@{__${WEBSITE_PATH}__/media/__${banner.image.id}__(w=1200,h=375,m=1)}" th:alt="${banner.title}" class="wr-post-cover" />
 								</a>
-								<img th:if="${subBanner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${subBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${subBanner.title}" class="wr-post-cover" />
+								<img th:if="${banner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${banner.image.id}__(w=1200,h=375,m=1)}" th:alt="${banner.title}" class="wr-post-cover" />
 							</li>
 						</ul>
 					</div>
@@ -137,13 +137,8 @@
 					</div>
 					<div class="col-md-3">
 						<div class="sidebar">
-							<div class="movie-box well washi">
-								<h3 class="movie-title">
-									<img class="title-movie" th:src="@{/resources/img/space.gif}" alt="酒TVおすすめ動画"/>
-								</h3>
-								<iframe class="movie" src="http://www.youtube.com/embed/dW7bB5yBJms?feature=player_detailpage" frameborder="0" allowfullscreen="true"></iframe>
-							</div>
-							<div th:replace="layout::side-banner" class="well center"></div>
+							<div th:replace="layout::side-movie"></div>
+							<div th:replace="layout::side-banner"></div>
 						</div><!-- /.sidebar -->
 					</div>
 				</div>

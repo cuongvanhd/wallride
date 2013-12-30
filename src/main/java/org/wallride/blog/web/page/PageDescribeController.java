@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.wallride.blog.service.BannerService;
 import org.wallride.blog.service.PageService;
 import org.wallride.blog.web.article.ArticleDescribeController;
 import org.wallride.core.domain.Page;
@@ -31,9 +30,6 @@ public class PageDescribeController {
 
 	@Inject
 	private PageTreeService pageTreeService;
-
-	@Inject
-	private BannerService bannerService;
 
 	@Inject
 	private ArticleDescribeController articleDescribeController;

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.wallride.core.domain.*;
 import org.wallride.core.repository.ArticleCategoryRepository;
 import org.wallride.core.repository.ArticleRepository;
+import org.wallride.core.repository.BannerRepository;
 import org.wallride.core.repository.PageRepository;
 
 import javax.inject.Inject;
@@ -24,6 +25,10 @@ public class DefaultModelAttributeService {
 
 	@Inject
 	private PageRepository pageRepository;
+
+	@Inject
+	private BannerRepository bannerRepository;
+
 	@Cacheable(value="articles", key="'list.category-code.'+#language+'.'+#code+'.'+#status")
 	public SortedSet<Article> readArticlesByCategoryCode(String language, String code, Post.Status status) {
 		return articleRepository.findByCategoryCode(language, code, status);
@@ -56,5 +61,9 @@ public class DefaultModelAttributeService {
 	public PageTree readPageTree(String language, Post.Status status) {
 		List<Page> pages = pageRepository.findByLanguageAndStatus(language, status);
 		return new PageTree(pages);
+	}
+
+	public List<Banner> readBanners(Banner.Type type, String language) {
+		return bannerRepository.findByType(type, language);
 	}
 }

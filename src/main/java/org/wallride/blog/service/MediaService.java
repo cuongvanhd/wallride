@@ -8,7 +8,6 @@ import org.im4java.core.IMOperation;
 import org.im4java.process.Pipe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;

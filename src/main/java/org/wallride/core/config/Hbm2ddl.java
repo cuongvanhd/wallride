@@ -1,16 +1,11 @@
-import java.io.IOException;
-
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.dialect.MySQL5InnoDBDialect;
-import org.hibernate.ejb.Ejb3Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.wallride.core.config.DataConfig;
 import org.wallride.core.domain.*;
+
+import java.io.IOException;
 
 @SuppressWarnings("deprecation")
 public class Hbm2ddl {

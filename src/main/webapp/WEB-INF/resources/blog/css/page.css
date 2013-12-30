@@ -60,8 +60,8 @@
   font-size: 20px;
 }
 
-.page-sake-learn h3,
-.page-sake-enjoy h3 {
+.post-content .page-sake-learn h3,
+.post-content .page-sake-enjoy h3 {
   border-left: 5px solid #447c8d;
   background: url('../img/line-sake.png') repeat-x bottom;
 }

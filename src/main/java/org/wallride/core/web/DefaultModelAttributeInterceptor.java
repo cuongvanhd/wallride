@@ -14,10 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.util.UrlPathHelper;
 import org.wallride.admin.support.AuthorizedUser;
-import org.wallride.core.domain.CategoryTree;
-import org.wallride.core.domain.PageTree;
-import org.wallride.core.domain.Post;
-import org.wallride.core.domain.Setting;
+import org.wallride.core.domain.*;
 import org.wallride.core.service.CategoryTreeService;
 import org.wallride.core.service.DefaultModelAttributeService;
 import org.wallride.core.service.PageTreeService;
@@ -113,6 +110,10 @@ public class DefaultModelAttributeInterceptor extends HandlerInterceptorAdapter 
 		PageTree pageTreeAll = pageTreeService.readPageTree(currentLanguage);
 		mv.addObject("PAGE_TREE", pageTreePublished);
 		mv.addObject("PAGE_TREE_ALL", pageTreeAll);
+
+		mv.addObject("MAIN_BANNERS", defaultModelAttributeService.readBanners(Banner.Type.MAIN, currentLanguage));
+		mv.addObject("SUB_BANNERS", defaultModelAttributeService.readBanners(Banner.Type.SUB, currentLanguage));
+		mv.addObject("ASIDE_BANNERS", defaultModelAttributeService.readBanners(Banner.Type.ASIDE, currentLanguage));
 
 		mv.addObject("NEW_ARTICLES", defaultModelAttributeService.readArticlesByCategoryCode(currentLanguage, "news", Post.Status.PUBLISHED));
 
