@@ -49,7 +49,7 @@ public class ArticleDescribeController {
 			return "redirect:/{language}/{year}/{month}/{day}/{code}";
 		}
 
-		List<Banner> asideBanners = bannerService.readBanners(Banner.Type.ASIDE);
+		List<Banner> asideBanners = bannerService.readBanners(Banner.Type.ASIDE, language);
 
 		model.addAttribute("article", article);
 		model.addAttribute("asideBanners", asideBanners);

@@ -56,7 +56,7 @@ public class PageIndexController {
 		model.addAttribute("page", child.getPage());
 		model.addAttribute("category", code);
 
-		List<Banner> asideBanners = bannerService.readBanners(Banner.Type.ASIDE);
+		List<Banner> asideBanners = bannerService.readBanners(Banner.Type.ASIDE, language);
 		model.addAttribute("asideBanners", asideBanners);
 
 		return "/page/describe";

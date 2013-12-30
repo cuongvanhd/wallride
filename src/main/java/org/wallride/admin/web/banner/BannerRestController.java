@@ -96,7 +96,7 @@ public class BannerRestController {
 			AuthorizedUser authorizedUser,
 			HttpServletRequest request,
 			HttpServletResponse response) throws BindException {
-		Banner banner = bannerService.deleteBanner(id);
+		Banner banner = bannerService.deleteBanner(id, language);
 		FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
 		flashMap.put("deletedBanner", banner);
 		RequestContextUtils.getFlashMapManager(request).saveOutputFlashMap(flashMap, request, response);
@@ -105,10 +105,13 @@ public class BannerRestController {
 
 	@RequestMapping(value="/{language}/banners/{type}", method= RequestMethod.PUT, consumes= MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
-	BannerIndexModel sort(@PathVariable String language,@PathVariable Banner.Type type, @RequestBody List<Map<String, Object>> data) {
-		bannerService.updateBannerSort(data);
+	BannerIndexModel sort(
+			@PathVariable String language,
+			@PathVariable Banner.Type type,
+			@RequestBody List<Map<String, Object>> data) {
+		bannerService.updateBannerSort(data, language);
 
-		List<Banner> banners = bannerService.readBannersByType(type);
+		List<Banner> banners = bannerService.readBannersByType(type, language);
 		return new BannerIndexModel(banners);
 	}
 }

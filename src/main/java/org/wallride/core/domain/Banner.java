@@ -30,6 +30,9 @@ public class Banner extends DomainObject<Long> implements Comparable<Banner> {
 	@Column(length=500)
 	private String link;
 
+	@Column(name="link_target_blank", nullable=false)
+	private boolean linkTargetBlank;
+
 	@Column(nullable=false)
 	private int sort = -1;
 
@@ -72,6 +75,14 @@ public class Banner extends DomainObject<Long> implements Comparable<Banner> {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public boolean isLinkTargetBlank() {
+		return linkTargetBlank;
+	}
+
+	public void setLinkTargetBlank(boolean linkTargetBlank) {
+		this.linkTargetBlank = linkTargetBlank;
 	}
 
 	public int getSort() {

@@ -10,6 +10,9 @@ import javax.validation.constraints.NotNull;
 public class BannerCreateForm extends DomainObjectCreateForm {
 
 	@NotNull
+	private String language;
+
+	@NotNull
 	private Banner.Type type;
 
 	@NotNull
@@ -19,6 +22,14 @@ public class BannerCreateForm extends DomainObjectCreateForm {
 
 	@URL
 	private String link;
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 
 	public Banner.Type getType() {
 		return type;

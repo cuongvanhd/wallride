@@ -16,8 +16,8 @@ public class BannerService {
 	@Inject
 	private BannerRepository bannerRepository;
 
-	@Cacheable(value="banners", key="'list.'+#type")
-	public List<Banner> readBanners(Banner.Type type) {
-		return bannerRepository.findByType(type);
+//	@Cacheable(value="banners", key="'list.'+#type")
+	public List<Banner> readBanners(Banner.Type type, String language) {
+		return bannerRepository.findByType(type, language);
 	}
 }

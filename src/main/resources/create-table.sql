@@ -17,9 +17,11 @@ create table article_tag (
 
 create table banner (
 	id bigint not null auto_increment,
+	language varchar(3) not null,
 	type varchar(50) not null,
 	title varchar(200),
 	link varchar(500),
+	link_target_blank boolean not null,
 	sort integer not null,
 	image_id varchar(50),
 	created_at datetime not null,

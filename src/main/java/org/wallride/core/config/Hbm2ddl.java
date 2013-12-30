@@ -27,6 +27,7 @@ public class Hbm2ddl {
 				.addAnnotatedClass(Post.class)
 				.addAnnotatedClass(Article.class)
 				.addAnnotatedClass(Page.class)
+				.addAnnotatedClass(Banner.class)
 				.addAnnotatedClass(Media.class)
 				.addAnnotatedClass(NavigationItem.class)
 				.addAnnotatedClass(NavigationItemCategory.class)
