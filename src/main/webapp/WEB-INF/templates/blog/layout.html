@@ -216,11 +216,11 @@
 					</div>
 					<div class="col-md-3">
 						<div class="sidebar">
-							<div class="movie-box well washi">
+							<div th:fragment="side-movie" id="side-movie" class="movie-box well washi">
 								<h3 class="movie-title">
 									<img class="title-movie" th:src="@{/resources/img/space.gif}" alt="酒TVおすすめ動画"/>
 								</h3>
-								<iframe class="movie" src="http://www.youtube.com/embed/dW7bB5yBJms?feature=player_detailpage" frameborder="0" allowfullscreen="true"></iframe>
+								<div class="movie-embed" style="height: 200px"></div>
 								<script th:inline="javascript">
 									/*<![CDATA[*/
 									function handleGoogleApiClientLoad() {
@@ -239,24 +239,10 @@
 												});
 												request.execute(function(response) {
 													var item = response.items[0];
-													console.dir(item);
 													var html = $(
-															'<div class="col-md-6">' +
-																	'<div class="movie-box well washi">' +
-																	'<h3 class="movie-title">' +
-																	'<img class="title-movie" th:src="@{/resources/img/space.gif}" alt="酒TVおすすめ動画"/>' +
-																	'</h3>' +
-																	'<div class="box-youtube" style="padding-top: 56.25%;">' +
-																	'<iframe class="movie" src="http://www.youtube.com/embed/' + item.id + '?feature=player_detailpage" frameborder="0" allowfullscreen="allowfullscreen"></iframe>' +
-																	'</div>' +
-																	'</div>' +
-																	'</div>' +
-																	'<div class="col-md-6">' +
-																	'<h4>' + item.snippet.title + '</h4>' +
-																	'<pre>' + item.snippet.description + '</pre>' +
-																	'</div>'
+														'<iframe class="movie" src="http://www.youtube.com/embed/' + item.id + '?feature=player_detailpage" frameborder="0" allowfullscreen="true"></iframe>'
 													);
-													$('#recommend').append(html);
+													$('#side-movie .movie-embed').append(html);
 												});
 											});
 										});
@@ -265,7 +251,6 @@
 								</script>
 								<script src="https://apis.google.com/js/client.js?onload=handleGoogleApiClientLoad"></script>
 							</div>
-							<!-- <hr /> -->
 							<div th:fragment="side-banner" class="well center">
 								<ul class="list-inline">
 									<li th:each="asideBanner : ${asideBanners}">

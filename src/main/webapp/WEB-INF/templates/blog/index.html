@@ -137,13 +137,8 @@
 					</div>
 					<div class="col-md-3">
 						<div class="sidebar">
-							<div class="movie-box well washi">
-								<h3 class="movie-title">
-									<img class="title-movie" th:src="@{/resources/img/space.gif}" alt="酒TVおすすめ動画"/>
-								</h3>
-								<iframe class="movie" src="http://www.youtube.com/embed/dW7bB5yBJms?feature=player_detailpage" frameborder="0" allowfullscreen="true"></iframe>
-							</div>
-							<div th:replace="layout::side-banner" class="well center"></div>
+							<div th:replace="layout::side-movie"></div>
+							<div th:replace="layout::side-banner"></div>
 						</div><!-- /.sidebar -->
 					</div>
 				</div>
