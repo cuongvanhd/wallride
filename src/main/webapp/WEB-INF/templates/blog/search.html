@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" th:content="${WEBSITE_SEO_KEYWORDS} ? ${WEBSITE_SEO_KEYWORDS} : ${WEBSITE_TITLE}" />
+		<meta name="keywords" th:content="${WEBSITE_SEO_DESCRIPTION} ? ${WEBSITE_SEO_DESCRIPTION} : ${WEBSITE_TITLE}" />
+		<meta name="author" content="" />
+		<meta property="og:site_name" th:content="${WEBSITE_TITLE}"/>
+		<meta property="og:title" />
+		<meta property="og:url" th:content="@{__${WEBSITE_LINK}__}" />
+		<!--//TODO-->
+		<!--<meta property="og:image" th:if="${page.cover}" th:content="@{__${WEBSITE_LINK}__/media/__${page.cover.id}__}" />-->
+		<meta property="og:type" content="article"/>
+		<title>Sake JAPAN</title>
+		<link th:replace="layout::head-link" />
+		<script th:replace="layout::head-script"></script>
+	</head>
+	<body>
+		<!-- header -->
+		<header th:replace="layout::header"></header><!-- /header -->
+		<!-- .top -->
+		<div class="top">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="#">TOP</a></li>
+					<li class="active">サイトマップ</li>
+				</ol>
+			</div>
+		</div><!-- /.top -->
+		<div class="obi-nami-bottom"></div>
+		<div class="content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-9">
+						<h1 class="title-info"><img th:src="@{/resources/img/space.gif}" class="title-search" alt="検索結果" /></h1>
+						<ul class="list-unstyled">
+							<li th:each="post : ${posts}">
+								<a href="" th:text="${post.title}">Post Title</a>
+								<p th:text="${_utils.ellipsis(post.body, 300)}">Post Body</p>
+								<span><a href="">http://sakejapan.com/xxx</a></span>
+							</li>
+						</ul>
+						<div class="pagination-group" th:if="${paginator}">
+							<div class="pull-left pagination-summary"><span th:text="${paginator.start}"></span> - <span th:text="${paginator.end}"></span> / <span th:text="${paginator.total}"></span></div>
+							<div class="pull-right">
+								<ul class="pagination paginateon-sm">
+									<li th:classappend="${paginator.hasPrevious() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/articles/index(page=${paginator.previousNumber},token=${token})}">Prev</a></li>
+									<li th:each="no : ${paginator.numbers}" th:classappend="${paginator.number eq no ? 'active' : ''}"><a th:href="@{__${ADMIN_PATH}__/articles/index(page=${no},token=${token})}" th:text="${no}"></a></li>
+									<li th:classappend="${paginator.hasNext() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/articles/index(page=${paginator.nextNumber},token=${token})}">Next</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="sidebar">
+							<div th:replace="layout::side-movie"></div>
+							<div th:replace="layout::side-banner"></div>
+						</div><!-- /.sidebar -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="layout::footer" class="footer"></div><!-- /.footer -->
+	</body>
+</html>
