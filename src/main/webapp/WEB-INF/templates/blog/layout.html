@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="ja" prefix="og: http://ogp.me/ns#">
-	<head th:fragment="head" th:remove="tag">
+<html th:lang="${#locale.language}" prefix="og: http://ogp.me/ns#">
+	<head>
+		<meta charset="utf-8" />
+		<title>Sake JAPAN</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!--/*/ <th:block th:fragment="head-link"> /*/-->
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,600' rel='stylesheet' type='text/css'/>
-		<!-- Favicon -->
 		<link th:href="@{/resources/img/favicon.png}" rel="shortcut icon" />
-		<!-- Stylesheets -->
 		<link th:href="@{/resources/tmpl/style/bootstrap.css}" rel="stylesheet"/>
 		<link th:href="@{/resources/tmpl/style/font-awesome.css}" rel="stylesheet"/>
 		<link th:href="@{/resources/tmpl/style/prettyPhoto.css}" rel="stylesheet"/>
-		<!-- Flexslider -->
 		<link th:href="@{/resources/tmpl/style/flexslider.css}" rel="stylesheet"/>
 		<link th:href="@{/resources/css/common.css}" rel="stylesheet"/>
 		<link th:href="@{/resources/css/index-__${#locale.language}__.css}" rel="stylesheet"/>
 		<link th:href="@{/resources/css/nav-__${#locale.language}__.css}" rel="stylesheet"/>
 		<link th:href="@{/resources/css/page.css}" rel="stylesheet"/>
-		<!--//TODO -->
-		<!-- HTML5 Support for IE -->
+		<!--/*/ </th:block> /*/-->
+		<!--/*/ <th:block th:fragment="head-script"> /*/-->
 		<!--[if lt IE 9]>
 		<script src="@{/resources/tmpl/js/html5shim.js}"></script>
 		<![endif]-->
@@ -31,8 +32,8 @@
 		<script th:src="@{/resources/tmpl/js/jquery.flexslider-min.js}"></script>
 		<script th:src="@{/resources/lib/jquery.navgoco.js}"></script>
 		<script th:src="@{/resources/js/custom.js}"></script>
+		<!--/*/ </th:block> /*/-->
 	</head>
-
 	<body>
 		<!-- header -->
 		<header th:fragment="header">
@@ -71,7 +72,6 @@
 							<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 						</button>
 					</div>
-
 					<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 						<ul class="nav navbar-nav">
 							<li class="dropdown"><a href="#" class="nav-1 dropdown-toggle"  data-toggle="dropdown" alt="知る・学ぶ"></a>
@@ -113,107 +113,13 @@
 				</div>
 			</div><!-- /.navbar -->
 			<div class="obi-washi"></div>
-
 		</header><!-- /header -->
 		<div class="obi-nami-bottom"></div>
 		<!-- .content -->
 		<div class="content">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-md-12 news">
-								<h3>
-									<img class="title title-news" th:src="@{/resources/img/space.gif}" alt="最新ニュース"/>
-									<span class="pull-right">
-										<a href="#">
-											<img class="link-list" th:src="@{/resources/img/space.gif}" alt="一覧へ"/>
-										</a>
-									</span>
-								</h3>
-								<ul>
-									<li><a href="#">11月9日（土）開催セミナー「地酒祭りのアイテムが再び勢ぞろい！地酒大show秋の陣 in名古屋」</a></li>
-									<li><a href="#">10/20(日)足利市@ばんな寺純米酒まつり</a></li>
-									<li><a href="#">「ＳＡＫＥビジネスのフロンティア じり貧からの逆襲　ＳＡＫＥビジネスの新しいデザイン」 後援することとなりました</a></li>
-									<li><a href="#">名古屋@大人の日本酒講座</a></li>
-									<li><a href="#">11/29(金)神戸@旭酒造「獺祭」と「トランテアン」シェフ佐々木康二の饗宴　獺祭の夕べ</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 sake">
-								<h3><img class="title title-sake" th:src="@{/resources/img/space.gif}" alt="日本酒"/></h3>
-								<div class="row">
-									<div class="col-md-6">
-										<section class="sake-leam">
-											<h4><img class="title title-sake-leam" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
-											<ul>
-												<li><a href="article-index.html">日本酒とは</a></li>
-												<li><a href="#">日本酒の基礎知識</a></li>
-												<li><a href="#">日本酒のテイスティングと4タイプ分類</a></li>
-												<li><a href="#">日本酒のサービスプロモーション</a></li>
-												<li><a href="#">各県「地酒」事情</a></li>
-												<li><a href="#">日本酒に関する資格・検定</a></li>
-												<li><a href="#">日本酒情報サイト</a></li>
-											</ul>
-											<img th:src="@{/resources/img/space.gif}" class="image"/>
-										</section>
-									</div>
-									<div class="col-md-6">
-										<section class="sake-enjoy">
-											<h4><img class="title title-sake-enjoy" th:src="@{/resources/img/space.gif}" alt="楽しむ"/></h4>
-											<ul>
-												<li><a href="#">日本酒面白話</a></li>
-												<li><a href="#">蔵元紀行</a></li>
-												<li><a href="#">季節のおすすめ日本酒</a></li>
-												<li><a href="#">日本酒きき酒師のいる店</a></li>
-												<li><a href="#">お料理と合わせる日本酒</a></li>
-												<li><a href="#">日本酒のプロフェッショナル達</a></li>
-											</ul>
-											<img th:src="@{/resources/img/space.gif}" class="image"/>
-										</section>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 shochu">
-
-								<h3><img class="title title-shochu" th:src="@{/resources/img/space.gif}" alt="焼酎"/></h3>
-								<div class="row">
-									<div class="col-md-6">
-										<section class="shochu-leam">
-											<h4><img class="title title-shochu-leam" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
-											<ul>
-												<li><a href="#">焼酎とは</a></li>
-												<li><a href="#">焼酎の基礎知識</a></li>
-												<li><a href="#">焼酎のテイスティングと4タイプ分類</a></li>
-												<li><a href="#">焼酎のサービスプロモーション</a></li>
-												<li><a href="#">焼酎「各県」事情</a></li>
-												<li><a href="#">焼酎に関する資格・検定</a></li>
-												<li><a href="#">焼酎情報サイト</a></li>
-											</ul>
-											<img th:src="@{/resources/img/space.gif}" class="image"/>
-										</section>
-									</div>
-									<div class="col-md-6">
-										<section class="shochu-enjoy">
-											<h4><img class="title title-shochu-enjoy" th:src="@{/resources/img/space.gif}" alt="楽しむ"/></h4>
-											<ul>
-												<li><a href="#">焼酎面白話</a></li>
-												<li><a href="#">蔵元紀行</a></li>
-												<li><a href="#">季節のおすすめ焼酎</a></li>
-												<li><a href="#">焼酎きき酒師のいる店</a></li>
-												<li><a href="#">お料理と合わせる焼酎</a></li>
-												<li><a href="#">焼酎のプロフェッショナル達</a></li>
-											</ul>
-											<img th:src="@{/resources/img/space.gif}" class="image"/>
-										</section>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<div class="col-md-9"></div>
 					<div class="col-md-3">
 						<div class="sidebar">
 							<div th:fragment="side-movie" id="side-movie" class="movie-box well washi">
