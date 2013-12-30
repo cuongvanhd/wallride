@@ -28,7 +28,6 @@ import org.wallride.core.support.Paginator;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.ValidationException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -367,8 +366,8 @@ public class PageService {
 		return pageRepository.save(page);
 	}
 	*/
-	
-	public Page deletePage(PageDeleteForm form, BindingResult result) throws ValidationException {
+
+	public Page deletePage(PageDeleteForm form, BindingResult result) throws BindException {
 		Page page = pageRepository.findByIdForUpdate(form.getId());
 		Page parent = page.getParent();
 		for (Page child : page.getChildren()) {
@@ -412,7 +411,7 @@ public class PageService {
 			deleteForm.setId(id);
 			deleteForm.setConfirmed(bulkDeleteForm.isConfirmed());
 			deleteForm.setLanguage(bulkDeleteForm.getLanguage());
-			
+
 			final BeanPropertyBindingResult r = new BeanPropertyBindingResult(deleteForm, "form");
 			r.setMessageCodesResolver(messageCodesResolver);
 
@@ -422,12 +421,17 @@ public class PageService {
 			try {
 				page = transactionTemplate.execute(new TransactionCallback<Page>() {
 					public Page doInTransaction(TransactionStatus status) {
-						return deletePage(deleteForm, r);
+						try {
+							return deletePage(deleteForm, r);
+						}
+						catch (BindException e) {
+							throw new RuntimeException(e);
+						}
 					}
 				});
 				pages.add(page);
 			}
-			catch (ValidationException e) {
+			catch (Exception e) {
 				logger.debug("Errors: {}", r);
 				result.addAllErrors(r);
 			}
