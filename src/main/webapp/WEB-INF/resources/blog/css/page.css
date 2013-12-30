@@ -66,8 +66,8 @@
   background: url('../img/line-sake.png') repeat-x bottom;
 }
 
-.page-shochu-learn h3,
-.page-shochu-enjoy h3 {
+.post-content .page-shochu-learn h3,
+.post-content .page-shochu-enjoy h3 {
   border-left: 5px solid #a8602b;
   background: url('../img/line-shochu.png') repeat-x bottom;
 }

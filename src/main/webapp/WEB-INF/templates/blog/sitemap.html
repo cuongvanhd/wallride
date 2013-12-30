@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" th:content="${WEBSITE_SEO_KEYWORDS} ? ${WEBSITE_SEO_KEYWORDS} : ${WEBSITE_TITLE}" />
+		<meta name="keywords" th:content="${WEBSITE_SEO_DESCRIPTION} ? ${WEBSITE_SEO_DESCRIPTION} : ${WEBSITE_TITLE}" />
+		<meta name="author" content="" />
+		<meta property="og:site_name" th:content="${WEBSITE_TITLE}"/>
+		<meta property="og:title" />
+		<meta property="og:url" th:content="@{__${WEBSITE_LINK}__}" />
+		<!--//TODO-->
+		<!--<meta property="og:image" th:if="${page.cover}" th:content="@{__${WEBSITE_LINK}__/media/__${page.cover.id}__}" />-->
+		<meta property="og:type" content="article"/>
+		<title>Sake JAPAN</title>
+		<link th:replace="layout::head-link" />
+		<script th:replace="layout::head-script"></script>
+	</head>
+	<body>
+		<!-- header -->
+		<header th:replace="layout::header"></header><!-- /header -->
+		<!-- .top -->
+		<div class="top">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="#">TOP</a></li>
+					<li class="active">サイトマップ</li>
+				</ol>
+			</div>
+		</div><!-- /.top -->
+		<div class="obi-nami-bottom"></div>
+		<div class="content">
+			<div class="container">
+				<h1 class="title-info"><img th:src="@{/resources/img/space.gif}" class="title-sitemap" alt="サイトマップ" /></h1>
+				<div class="row">
+					<div class="col-md-8">
+						<h2>日本酒</h2>
+						<div class="row">
+							<div class="col-md-6">
+								<h3>知る・学ぶ</h3>
+								<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'sake-learn'}" class="list-unstyled">
+									<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+								</ul>
+							</div>
+							<div class="col-md-6">
+								<h3>楽しむ</h3>
+								<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'sake-enjoy'}" class="list-unstyled">
+									<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+								</ul>
+							</div>
+						</div>
+						<h2>焼酎</h2>
+						<div class="row">
+							<div class="col-md-6">
+								<h3>知る・学ぶ</h3>
+								<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'shochu-learn'}" class="list-unstyled">
+									<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+								</ul>
+							</div>
+							<div class="col-md-6">
+								<h3>楽しむ</h3>
+								<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'shochu-enjoy'}" class="list-unstyled">
+									<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<h2>トピックス</h2>
+						<div class="row">
+							<div class="col-md-12">
+								<ul class="list-unstyled">
+									<li><a th:href="@{__${WEBSITE_PATH}__/category/news}">ニュース・イベント</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/tv}">酒TV</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/category/pressrelease}">プレスリリース</a></li>
+								</ul>
+							</div>
+						</div>
+						<h2>概要</h2>
+						<div class="row">
+							<div class="col-md-12">
+								<ul class="list-unstyled">
+									<li><a th:href="@{__${WEBSITE_PATH}__/media}">メディア掲載</a></li>
+									<li><a th:href="@{http://www.fbo.or.jp/?page_id=136}" target="_blank">よくある質問</a></li>
+									<li><a th:href="@{http://www.fbo.or.jp/?page_id=50}" target="_blank">お問合わせ</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/company}">運営会社</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/policy}">プライバシーポリシー</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/environment}">動作環境について</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="layout::footer" class="footer"></div><!-- /.footer -->
+	</body>
+</html>
