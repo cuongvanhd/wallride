@@ -1,60 +1,60 @@
 /* article */
 
-.post-content .title-category {
+.title-category {
   font-size: 26px;
   vertical-align: bottom;
 }
 
-.post-content .title-category small{
+.title-category small{
   font-size: 60%;
 }
 
-.post-content .title-icon{
+.title-icon{
   background: url('../img/title.png') no-repeat top left;
   margin-right: 5px;
 }
 
-.post-content .page-sake-learn,
-.post-content .page-sake-enjoy,
-.post-content .page-shochu-learn
-.post-content .page-shochu-enjoy {
+.content .page-sake-learn,
+.content .page-sake-enjoy,
+.content .page-shochu-learn
+.content .page-shochu-enjoy {
 	margin-top: 15px;
 }
 
-.post-content .title-info ul,
-.post-content .page-sake-learn ul,
-.post-content .page-sake-enjoy ul,
-.post-content .page-shochu-learn ul,
-.post-content .page-shochu-enjoy ul {
+.content .title-info ul,
+.content .page-sake-learn ul,
+.content .page-sake-enjoy ul,
+.content .page-shochu-learn ul,
+.content .page-shochu-enjoy ul {
 	margin-bottom: 0px;
 }
 
-.post-content .page-sake-learn .title-icon,
-.post-content .page-sake-enjoy .title-icon {
+.page-sake-learn .title-icon,
+.page-sake-enjoy .title-icon {
 	background-position: 0 -574px; width: 45px; height: 45px;
 }
-.post-content .page-shochu-learn .title-icon,
-.post-content .page-shochu-enjoy .title-icon {
+.page-shochu-learn .title-icon,
+.page-shochu-enjoy .title-icon {
 	background-position: 0 -881px; width: 45px; height: 45px;
 }
 
-.post-content .article-title a {
+.article-title a {
   display: inline-block;
   border-bottom: none;
   margin-bottom: 3px;
   padding-bottom: 10px;
 }
 
-.post-content .article-title a:hover {
+.article-title a:hover {
   border-bottom: none;
   /*background: #82ae46;
   background: url('../img/bg-3.png');*/
 }
 
-.post-content .page-sake-learn h3,
-.post-content .page-sake-enjoy h3,
-.post-content .page-shochu-learn h3,
-.post-content .page-shochu-enjoy h3 {
+.page-sake-learn h3,
+.page-sake-enjoy h3,
+.page-shochu-learn h3,
+.page-shochu-enjoy h3 {
   padding-left: 5px;
   margin-top: 10px;
   font-size: 20px;
@@ -66,38 +66,38 @@
   background: url('../img/line-sake.png') repeat-x bottom;
 }
 
-.post-content .page-shochu-learn h3,
-.post-content .page-shochu-enjoy h3 {
+.page-shochu-learn h3,
+.page-shochu-enjoy h3 {
   border-left: 5px solid #a8602b;
   background: url('../img/line-shochu.png') repeat-x bottom;
 }
 
-.post-content .page-sake-learn .article-title h3,
-.post-content .page-sake-enjoy .article-title h3,
-.post-content .page-shochu-learn .article-title h3,
-.post-content .page-shochu-enjoy .article-title h3 {
+.page-sake-learn .article-title h3,
+.page-sake-enjoy .article-title h3,
+.page-shochu-learn .article-title h3,
+.page-shochu-enjoy .article-title h3 {
   padding-left: 5px;
   padding-top: 5px;
   margin-top: 0px;
   font-size: 22px;
 }
 
-.post-content .page-sake-learn .article-title h3,
-.post-content .page-sake-enjoy .article-title h3 {
+.page-sake-learn .article-title h3,
+.page-sake-enjoy .article-title h3 {
   border-left: 5px solid #447c8d;
   background: url('../img/bg-sake-title.png');
 }
 
-.post-content .page-shochu-learn .article-title h3,
-.post-content .page-shochu-enjoy .article-title h3 {
+.page-shochu-learn .article-title h3,
+.page-shochu-enjoy .article-title h3 {
   border-left: 5px solid #a8602b;
   background: url('../img/bg-shochu-title.png');
 }
 
-.post-content .page-sake-learn h4,
-.post-content .page-sake-enjoy h4,
-.post-content .page-shochu-learn h4,
-.post-content .page-shochu-enjoy h4 {
+.page-sake-learn h4,
+.page-sake-enjoy h4,
+.page-shochu-learn h4,
+.page-shochu-enjoy h4 {
   padding-left: 5px;
   margin-top: 0;
   font-size: 18px;
