@@ -26,26 +26,29 @@ public class BannerIndexController {
 	}
 
 	@ModelAttribute("countMain")
-	public long countMain() {
-		return bannerService.countBannersByType(Banner.Type.MAIN);
+	public long countMain(@PathVariable String language) {
+		return bannerService.countBannersByType(Banner.Type.MAIN, language);
 	}
 
 	@ModelAttribute("countSub")
-	public long countSub() {
-		return bannerService.countBannersByType(Banner.Type.SUB);
+	public long countSub(@PathVariable String language) {
+		return bannerService.countBannersByType(Banner.Type.SUB, language);
 	}
 
 	@ModelAttribute("countAside")
-	public long countAside() {
-		return bannerService.countBannersByType(Banner.Type.ASIDE);
+	public long countAside(@PathVariable String language) {
+		return bannerService.countBannersByType(Banner.Type.ASIDE, language);
 	}
 
 	@RequestMapping
-	public String index(@PathVariable String language, Model model, @RequestParam(required = false) Banner.Type type) {
+	public String index(
+			@PathVariable String language,
+			@RequestParam(required = false) Banner.Type type,
+			Model model) {
 		if(type == null) {
 			type = Banner.Type.MAIN;
 		}
-		List<Banner> banners = bannerService.readBannersByType(type);
+		List<Banner> banners = bannerService.readBannersByType(type, language);
 		model.addAttribute("type", type);
 		model.addAttribute("banners", banners);
 		return "/banner/index";

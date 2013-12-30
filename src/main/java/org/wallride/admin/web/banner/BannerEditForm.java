@@ -14,6 +14,9 @@ public class BannerEditForm extends DomainObjectEditForm {
 	private Long id;
 
 	@NotNull
+	private String language;
+
+	@NotNull
 	private Banner.Type type;
 
 	@NotNull
@@ -30,6 +33,14 @@ public class BannerEditForm extends DomainObjectEditForm {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	public Banner.Type getType() {

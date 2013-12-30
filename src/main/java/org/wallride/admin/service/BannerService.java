@@ -4,7 +4,6 @@ import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
@@ -43,6 +42,7 @@ public class BannerService {
 		}
 
 		Banner banner = new Banner();
+		banner.setLanguage(form.getLanguage());
 		Media image = null;
 		if (form.getImageId() != null) {
 			image = entityManager.getReference(Media.class, form.getImageId());
@@ -50,7 +50,7 @@ public class BannerService {
 		banner.setImage(image);
 		banner.setTitle(form.getTitle());
 		banner.setLink(form.getLink());
-		int sort = bannerRepository.findMaxSortByType(form.getType());
+		int sort = bannerRepository.findMaxSortByType(form.getType(), form.getLanguage());
 		sort++;
 		banner.setSort(sort);
 
@@ -67,8 +67,8 @@ public class BannerService {
 	@CacheEvict(value="banners", allEntries=true)
 	public Banner updateBanner(BannerEditForm form, BindingResult errors, AuthorizedUser authorizedUser) throws BindException {
 		LocalDateTime now = new LocalDateTime();
-		Banner banner = bannerRepository.findByIdForUpdate(form.getId());
-
+		Banner banner = bannerRepository.findByIdForUpdate(form.getId(), form.getLanguage());
+		banner.setLanguage(form.getLanguage());
 		Media image = null;
 		if (form.getImageId() != null) {
 			image = entityManager.getReference(Media.class, form.getImageId());
@@ -133,19 +133,19 @@ public class BannerService {
 */
 
 	@CacheEvict(value="banners", allEntries=true)
-	public Banner deleteBanner(long id) {
-		Banner banner = bannerRepository.findByIdForUpdate(id);
+	public Banner deleteBanner(long id, String language) {
+		Banner banner = bannerRepository.findByIdForUpdate(id, language);
 		bannerRepository.delete(banner);
-		bannerRepository.decrementSortBySortGreaterThan(banner.getSort());
+		bannerRepository.decrementSortBySortGreaterThan(banner.getSort(), language);
 		return banner;
 	}
 
 	@CacheEvict(value="banners", allEntries=true)
-	public void updateBannerSort(List<Map<String, Object>> data) {
+	public void updateBannerSort(List<Map<String, Object>> data, String language) {
 		for (int i = 0; i < data.size(); i++) {
 			Map<String, Object> map = data.get(i);
 			if (map.get("item_id") != null) {
-				Banner banner = bannerRepository.findByIdForUpdate(Long.parseLong((String) map.get("item_id")));
+				Banner banner = bannerRepository.findByIdForUpdate(Long.parseLong((String) map.get("item_id")), language);
 				if (banner != null) {
 					banner.setSort(i);
 					bannerRepository.save(banner);
@@ -154,18 +154,18 @@ public class BannerService {
 		}
 	}
 
-	@Cacheable(value="banners", key="'list.'+#type")
-	public List<Banner> readBannersByType(Banner.Type type) {
-		return bannerRepository.findByType(type);
+//	@Cacheable(value="banners", key="'list.'+#type")
+	public List<Banner> readBannersByType(Banner.Type type, String language) {
+		return bannerRepository.findByType(type, language);
 	}
 
-	@Cacheable(value="banners", key="'id.'+#id")
-	public Banner readBannerById(long id) {
-		return bannerRepository.findById(id);
+//	@Cacheable(value="banners", key="'id.'+#id")
+	public Banner readBannerById(long id, String language) {
+		return bannerRepository.findById(id, language);
 	}
 
-	@Cacheable(value="banners", key="'count.'+#type")
-	public long countBannersByType(Banner.Type type) {
-		return bannerRepository.countByType(type);
+//	@Cacheable(value="banners", key="'count.'+#type")
+	public long countBannersByType(Banner.Type type, String language) {
+		return bannerRepository.countByType(type, language);
 	}
 }

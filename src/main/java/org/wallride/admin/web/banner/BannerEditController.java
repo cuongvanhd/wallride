@@ -29,8 +29,10 @@ public class BannerEditController {
 	private CategoryService categoryService;
 
 	@ModelAttribute("banner")
-	public Banner banner(@RequestParam long id) {
-		return bannerService.readBannerById(id);
+	public Banner banner(
+			@PathVariable String language,
+			@RequestParam long id) {
+		return bannerService.readBannerById(id, language);
 	}
 
 	@ModelAttribute("types")
