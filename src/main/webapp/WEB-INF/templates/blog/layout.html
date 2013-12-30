@@ -52,13 +52,12 @@
 							</ul>
 						</div>
 						<div class="form-search">
-							<form class="form-inline" role="form">
+							<form th:action="@{__${WEBSITE_PATH}__/search}" class="form-inline" role="form">
 								<div class="form-group">
-									<input type="text" class="form-control" id="search" th:placeholder="#{SearchThisSite}" />
+									<input type="text" name="keyword" class="form-control" th:placeholder="#{SearchThisSite}" />
 									<span th:text="${_request}"></span>
 								</div>
-								<button type="submit" class="btn btn-default" th:text="#{Search}">
-									検索</button>
+								<button type="submit" name="search" class="btn btn-default" th:text="#{Search}">検索</button>
 							</form>
 						</div>
 					</div>
@@ -282,7 +281,7 @@
 									<a th:href="@{__${WEBSITE_PATH}__/company}" th:text="#{Company}">運営会社</a> |
 									<a th:href="@{__${WEBSITE_PATH}__/policy}" th:text="#{PrivacyPolicy}">プライバシーポリシー</a> |
 									<a th:href="@{__${WEBSITE_PATH}__/environment}" th:text="#{Environment}">動作環境について</a> |
-									<a href="#" th:text="#{SiteMap}">サイトマップ</a>
+									<a th:href="@{__${WEBSITE_PATH}__/sitemap}" th:text="#{SiteMap}">サイトマップ</a>
 								</p>
 							</div>
 						</div>

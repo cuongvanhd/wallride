@@ -10,6 +10,7 @@ import org.apache.lucene.util.Version;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.springframework.util.StringUtils;
+import org.wallride.core.domain.Article;
 import org.wallride.core.domain.Page;
 import org.wallride.core.domain.Post;
 
@@ -27,16 +28,14 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
 
 	@Override
 	public List<Long> findByFullTextSearchTerm(PostFullTextSearchTerm term) {
-		FullTextEntityManager fullTextEntityManager =  Search.getFullTextEntityManager(entityManager);
+		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 
 		Query query = null;
 		if (StringUtils.hasText(term.getKeyword())) {
 			Analyzer analyzer = fullTextEntityManager.getSearchFactory().getAnalyzer("synonyms");
 			String[] fields = new String[] {
-					// Post
 					"title", "body",
-					// Post
-					"categories.name", "tags.name",
+					"categories.name",
 			};
 			MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_36, fields, analyzer);
 			parser.setDefaultOperator(Operator.AND);
@@ -57,7 +56,8 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
 			return new ArrayList<>();
 		}
 
-		javax.persistence.Query persistenceQuery = fullTextEntityManager.createFullTextQuery(query, Post.class, Page.class)
+		javax.persistence.Query persistenceQuery = fullTextEntityManager
+				.createFullTextQuery(query, Article.class, Page.class)
 				.setProjection("id");
 
 		@SuppressWarnings("unchecked")
@@ -70,5 +70,4 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
 
 		return new ArrayList<>(ids);
 	}
-
 }

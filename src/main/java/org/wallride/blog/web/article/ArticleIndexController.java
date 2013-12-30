@@ -47,12 +47,12 @@ public class ArticleIndexController {
 			@RequestParam(required=false) String token,
 			HttpSession session,
 			Model model) {
-		DomainObjectSearchCondition<ArticleSearchForm> condition = DomainObjectSearchCondition.resolve(session, ArticleSearchForm.class, token);
+		DomainObjectSearchCondition<PostSearchForm> condition = DomainObjectSearchCondition.resolve(session, PostSearchForm.class, token);
 		if (condition == null) {
-			ArticleSearchForm form = new ArticleSearchForm() {};
+			PostSearchForm form = new PostSearchForm() {};
 			form.setLanguage(language);
 			Paginator<Long> paginator = articleService.readArticles(form);
-			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
+			condition = new DomainObjectSearchCondition<PostSearchForm>(session, form, paginator);
 		}
 		if (page != null && condition.getPaginator().hasElement()) {
 			condition.getPaginator().setNumber(page);
