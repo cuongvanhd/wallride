@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" th:replace="layout::head(${WEBSITE_TITLE})" />
+		<title>WallRide</title>
+	</head>
+	<body>
+		<header th:replace="layout::header"></header>
+		<div>
+			<div th:replace="layout::sidebar"></div>
+			<div id="main">
+				<ol class="breadcrumb">
+					<li><a th:href="@{__${ADMIN_PATH}__}">ダッシュボード</a></li>
+					<li class="active">バナー一覧</li>
+				</ol>
+				<div class="page-header clearfix">
+					<h1>バナー</h1>
+				</div>
+				<div class="alert alert-success" th:if="${savedBanner ne null}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					バナーを保存しました。
+				</div>
+				<div class="alert alert-success" th:if="${deletedBanner ne null}">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					バナーを削除しました。
+				</div>
+				<div class="form-group">
+					<ul class="list-inline" style="line-height: 30px;">
+						<li><a th:href="@{__${ADMIN_PATH}__/banners/index(type=MAIN)}">メイン</a>　<span class="total" th:text="${'(' + countMain + ')'}">(0)</span> | </li>
+						<li><a th:href="@{__${ADMIN_PATH}__/banners/index(type=SUB)}">サブ</a>　<span class="total" th:text="${'(' + countSub + ')'}">(0)</span> | </li>
+						<li><a th:href="@{__${ADMIN_PATH}__/banners/index(type=ASIDE)}">アサイド</a>　<span class="total" th:text="${'(' + countAside + ')'}">(0)</span>　</li>
+					</ul>
+				</div>
+				<div class="page-header clearfix">
+					<div class="row">
+						<div class="col-sm-2">
+							<a th:href="@{__${ADMIN_PATH}__/banners/create}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> 新規追加</a>
+							<!--<a th:href="@{__${ADMIN_PATH}__/banners/index?part=banner-create-dialog}" data-toggle="modal" data-target="#banner-create-modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> 新規追加</a>-->
+						</div>
+						<div class="col-sm-10">
+							<div class="pull-right">
+								<button id="update-banner-sort" type="submit" class="btn btn-primary" data-loading-text="保存中..." disabled="true">並び順を保存</button>
+								<script th:inline="javascript">
+									$(function() {
+										$('#update-banner-sort').click(function(e) {
+											e.preventDefault();
+											$(this).button('loading');
+											var data = $('#banner-tree').nestedSortable('toArray', {startDepthCount: 0});
+											$.ajax({
+												url: /*[[@{__${ADMIN_PATH}__/banners/__${type}__.json}]]*/ '#',
+												type: 'put',
+												dataType: 'json',
+												data: JSON.stringify(data),
+												contentType: 'application/json',
+												success: function() {
+													location = /*[[@{__${ADMIN_PATH}__/banners/index?updated(type=${type})}]]*/ '#';
+												},
+												error: function() {
+												}
+											});
+										});
+									});
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+				<ul id="banner-tree" class="sortable tree">
+					<li th:each="b : ${banners}" th:id="${'banner-tree_' + b.id}">
+						<div class="banner row">
+							<div class="wr-tree-options col-sm-5" style="overflow: hidden; max-height:100px; padding-left: 0">
+								<div class="wr-tree-option img">
+									<img th:if="${b.image ne null}" th:src="@{${_utils.getMediaUrl(b.image)}(w=1200,h=500,m=1)}" class="wr-post-cover" />
+								</div>
+							</div>
+							<div class="wr-tree-options col-sm-5">
+								<dl style="margin: 0; padding: 10px;">
+									<dt>タイトル</dt>
+									<dd th:text="${b.title}?:'-'">Title</dd>
+									<dt>リンク先</dt>
+									<dd><a th:href="${b.link}" target="_blank" th:text="${b.link}">/code</a></dd>
+								</dl>
+							</div>
+							<div class="wr-tree-options col-sm-2 pull-right text-right" style="padding-right: 0;">
+								<a style="padding:10px" class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/banners/edit(id=${b.id})}" ><span class="glyphicon glyphicon-pencil"></span> 編集</a>
+								<button style="padding:10px" class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/banners/index(part=banner-delete-dialog,id=${b.id})}" data-toggle="modal" data-target="#banner-delete-modal"><span class="glyphicon glyphicon-remove"></span></button>
+							</div>
+						</div>
+					</li>
+
+				</ul>
+				<!--<ul th:unless="${#lists.isEmpty(bannerTree.rootNodes)}" th:replace="banner/index::banner(${bannerTree.rootNodes})"></ul>
+				<ul id="banner-tree" class="sortable tree" th:fragment="banner(nodes)">
+					<li th:each="node : ${nodes}" th:id="${'banner-tree_' + node.banner.id}">
+						<div class="banner clearfix">
+							<div class="wr-tree-options pull-left">
+								<span class="wr-tree-option disclose"><span class="glyphicon glyphicon-chevron-right"></span></span>
+								<span class="wr-tree-option title" th:text="${node.banner.name}"></span>
+								<span class="wr-tree-option" th:text="${'/' + node.banner.code}">/code</span>
+							</div>
+							<div class="wr-tree-options pull-right">
+								<span class="badge wr-tree-option" th:text="${node.banner.articleCount}">16</span>
+								<button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/banners/index(part=banner-edit-dialog,id=${node.banner.id})}" data-toggle="modal" data-target="#banner-edit-modal"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+								<button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/banners/index(part=banner-create-dialog,parentId=${node.banner.id})}" data-toggle="modal" data-target="#banner-create-modal"><span class="glyphicon glyphicon-plus"></span> 追加</button>
+								<button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/banners/index(part=banner-delete-dialog,id=${node.banner.id})}" data-toggle="modal" data-target="#banner-delete-modal"><span class="glyphicon glyphicon-remove"></span></button>
+							</div>
+						</div>
+						<ul th:unless="${#lists.isEmpty(node.children)}" th:include="banner/index::banner(${node.children})"></ul>
+					</li>
+				</ul>
+				-->
+				<!-- #banner-create-modal -->
+				<div id="banner-create-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+					<div id="banner-create-dialog" class="modal-dialog">
+						<form>
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title">新規バナー追加</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<input type="text" name="title" class="form-control" placeholder="バナータイトル" />
+									</div>
+									<div class="form-group">
+										<input type="text" name="link" class="form-control" placeholder="リンクURL" />
+									</div>
+									<div class="form-group">
+										<label class="label-radio">
+											<input type="radio" name="type" value="MAIN"/> Main
+										</label>
+										<label class="label-radio">
+											<input type="radio" name="type" value="ASIDE"/> Sub
+										</label>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-default" data-dismiss="modal">キャンセル</button>
+									<button class="btn btn-primary" id="save-banner">保存</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!--/#banner-create-modal -->
+				<script th:inline="javascript">
+					$(function() {
+						$('#main').on('click', '#save-banner', function(e) {
+							e.preventDefault();
+							var self = this;
+							$(self).button('loading');
+							var form = $(this).closest('form');
+							var data = {
+								title: $(':input[name="title"]', form).val(),
+								link: $(':input[name="link"]', form).val(),
+								type: $(':input[name="type"]', form).val()
+							};
+							$.ajax({
+								url: /*[[@{__${ADMIN_PATH}__/banners.json}]]*/ '#',
+								type: 'post',
+								data: data,
+								success: function() {
+									location = /*[[@{__${ADMIN_PATH}__/banners/index?created}]]*/ '#';
+								},
+								error: function(jqXHR) {
+									$.each(jqXHR.responseJSON.fieldErrors, function(field, message) {
+										var field = $(':input[name="' + field + '"]', form);
+										$(field).closest('.form-group').addClass('has-error');
+									});
+									$(self).button('reset');
+								}
+							});
+						});
+						$('#main').on('hidden.bs.modal', '#banner-create-modal', function() {
+							$(this).removeData('bs.modal');
+						});
+					});
+				</script>
+				<script th:inline="javascript">
+					$(function() {
+						$('#main').on('click', '#update-banner', function(e) {
+							e.preventDefault();
+							var self = $(this);
+							self.button('loading');
+							var form = self.closest('form');
+							var data = {
+								parentId: $(':input[name="parentId"]', form).val(),
+								code: $(':input[name="code"]', form).val(),
+								name: $(':input[name="name"]', form).val(),
+								description: $(':input[name="description"]', form).val()
+							};
+							/*[+
+							 var url = [[@{__${ADMIN_PATH}__/banners/}]] + self.data('id') + '.json';
+							 +]*/
+							$.ajax({
+								url: url,
+								type: 'post',
+								data: data,
+								success: function() {
+									location = /*[[@{__${ADMIN_PATH}__/banners/index?updated}]]*/ '#';
+								},
+								error: function(jqXHR) {
+									$.each(jqXHR.responseJSON.fieldErrors, function(field, message) {
+										var field = $(':input[name="' + field + '"]', form);
+										$(field).closest('.form-group').addClass('has-error');
+									});
+									$(self).button('reset');
+								}
+							});
+						});
+						$('#main').on('hidden.bs.modal', '#banner-edit-modal', function() {
+							$(this).removeData('bs.modal');
+						});
+					});
+				</script>
+				<!-- #banner-delete-modal -->
+				<div id="banner-delete-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+					<div id="banner-delete-dialog" class="modal-dialog">
+						<form>
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title">Delete Banner</h4>
+								</div>
+								<div class="modal-body">
+									<p>本当に削除しますか？</p>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-default" data-dismiss="modal">キャンセル</button>
+									<button id="delete-banner" class="btn btn-primary" th:attr="data-id=${targetId}">削除</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!--/#banner-delete-modal -->
+				<script th:inline="javascript">
+					$(function() {
+						$('#banner-tree').nestedSortable({
+							forcePlaceholderSize: true,
+							handle: 'div',
+							helper:	'clone',
+							items: 'li',
+							opacity: .6,
+							placeholder: 'placeholder',
+							revert: 250,
+							tabSize: 25,
+							tolerance: 'pointer',
+							toleranceElement: '> div',
+							listType: 'ul',
+							//isTree: true,
+							expandOnHover: 700,
+							maxLevels: 1
+							//startCollapsed: true
+						});
+						$('#main').on('sortupdate', '#banner-tree', function() {
+							$('#update-banner-sort').prop('disabled', false);
+							$('button', $(this)).prop('disabled', true);
+						});
+						$('#main').on('click', '#delete-banner', function(e) {
+							e.preventDefault();
+							var self = $(this);
+							self.button('loading');
+							/*[+
+							 var url = [[@{__${ADMIN_PATH}__/banners/}]] + self.data('id') + '.json';
+							 +]*/
+							$.ajax({
+								url: url,
+								type: 'delete',
+								success: function() {
+									$('#banner-tree_' + self.data('id')).fadeOut(300, function() {
+										location = /*[[@{__${ADMIN_PATH}__/banners/index?deleted}]]*/ '#';
+									});
+								},
+								error: function() {
+								}
+							});
+						});
+					});
+				</script>
+			</div>
+		</div>
+		<footer>
+		</footer>
+	</body>
+</html>

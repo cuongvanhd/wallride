@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="keywords" th:content="${WEBSITE_SEO_KEYWORDS} ? ${WEBSITE_SEO_KEYWORDS} : ${WEBSITE_TITLE}" />
+		<meta name="description" th:content="${WEBSITE_SEO_DESCRIPTION} ? ${WEBSITE_SEO_DESCRIPTION} : ${WEBSITE_TITLE}" />
+		<meta name="author" content="" />
+		<meta property="og:site_name" th:content="${WEBSITE_TITLE}"/>
+		<meta property="og:title" th:content="記事一覧"/>
+		<meta property="og:url" th:content="@{__${WEBSITE_LINK}__}" />
+		<!--//TODO-->
+		<!--<meta property="og:image" th:if="${page.cover}" th:content="@{__${WEBSITE_LINK}__/media/__${page.cover.id}__}" />-->
+		<meta property="og:type" content="article"/>
+		<title>Sake JAPAN</title>
+		<link th:replace="layout::head" />
+	</head>
+	<body>
+	<!-- header -->
+	<header th:replace="layout::header"></header><!-- /header -->
+	<!-- .top -->
+	<div class="top">
+		<div class="container">
+			<ol class="breadcrumb">
+				<li><a th:href="@{/}">TOP</a></li>
+				<li class="active" th:text="#{__${code}__}">記事一覧</li>
+			</ol>
+		</div>
+	</div><!-- /.top -->
+	<div class="obi-nami-bottom"></div>
+
+	<div class="content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-9" th:classappend="${code}">
+						<h3 class="title-info"><img th:class="${'title-' + code}" th:src="@{/resources/img/space.gif}" alt="最新ニュース"/></h3>
+						<article th:each="article : ${articles}">
+							<time th:text="${article.date.toString('yyyy/MM/dd')}"></time>
+							<h4><a th:href="@{__${WEBSITE_PATH}__/__${article.date.toString('yyyy/MM/dd')}__/__${article.code}__}"><span th:text="${article.title}"></span></a></h4>
+						</article>
+					</div>
+					<div class="col-md-3">
+						<div class="sidebar">
+							<div class="movie-box well washi">
+								<h3 class="movie-title">
+									<img class="title-movie" th:src="@{/resources/img/space.gif}" alt="酒TVおすすめ動画"/>
+								</h3>
+								<iframe class="movie" src="http://www.youtube.com/embed/dW7bB5yBJms?feature=player_detailpage" frameborder="0" allowfullscreen="true"></iframe>
+							</div>
+							<div th:replace="layout::side-banner" class="well center"></div>
+						</div><!-- /.sidebar -->
+					</div>
+				</div>
+			</div>
+	</div>
+	<div th:replace="layout::footer" class="footer"></div><!-- /.footer -->
+	</body>
+</html>

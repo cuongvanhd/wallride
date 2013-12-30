@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" th:replace="layout::head(${WEBSITE_TITLE})" />
+	<title>WallRide</title>
+</head>
+<body>
+<header th:replace="layout::header"></header>
+<div>
+	<div th:replace="layout::sidebar"></div>
+	<div id="main">
+		<ol class="breadcrumb">
+			<li><a th:href="@{__${ADMIN_PATH}__/}">ダッシュボード</a></li>
+			<li><a th:href="@{__${ADMIN_PATH}__/banners/index}">バナー一覧</a></li>
+			<li class="active">バナー編集</li>
+		</ol>
+		<form th:include="banner/create::form(title=バナー編集,banner=${banner})" th:action="@{__${ADMIN_PATH}__/banners/edit}" th:object="${form}" action="#" method="post">
+		</form>
+	</div>
+</div>
+<footer>
+</footer>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="keywords" th:content="${WEBSITE_SEO_KEYWORDS} ? ${WEBSITE_SEO_KEYWORDS} : ${WEBSITE_TITLE}" />
+		<meta name="description" th:content="${WEBSITE_SEO_DESCRIPTION} ? ${WEBSITE_SEO_DESCRIPTION} : ${WEBSITE_TITLE}" />
+		<meta name="author" content="" />
+		<meta property="og:site_name" th:content="${WEBSITE_TITLE}"/>
+		<meta property="og:title" th:content="${page.title}"/>
+		<meta property="og:url" th:content="@{__${WEBSITE_LINK}__}" />
+		<!--//TODO-->
+		<!--<meta property="og:image" th:if="${page.cover}" th:content="@{__${WEBSITE_LINK}__/media/__${page.cover.id}__}" />-->
+		<meta property="og:type" content="article"/>
+		<title th:text="${page.title + ' | Sake JAPAN'}"></title>
+		<link th:replace="layout::head" />
+	</head>
+
+	<body>
+		<!-- header -->
+		<header th:replace="layout::header"></header><!-- /header -->
+		<!-- .top -->
+		<div class="top">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a th:href="@{/}">TOP</a></li>
+					<th:block th:each="bread : ${breadcrumb}">
+						<li><a th:href="@{__${WEBSITE_PATH}____${bread.value}__}"><span th:text="${bread.key.title}"></span></a></li>
+					</th:block>
+					<li class="active" th:text="${page.title}">日本酒の本質</li>
+				</ol>
+			</div>
+		</div><!-- /.top -->
+		<div class="obi-nami-bottom"></div>
+
+		<div class="content" th:classappend="${page.parent ne null} ? ${'page-' + PAGE_TREE.getRootNodeByCode(page.code).page.code} : ${'page-' + page.code}">
+			<div class="container">
+				<div>
+					<div class="row">
+						<div class="col-md-9 post-content">
+							<h1 class="title-category"><img class="title-icon" th:src="@{/resources/img/space.gif}"/><span th:text="${page.title}"></span>
+								<small th:if="${page.parent ne null}">
+									<span th:text="${'-' + page.parent.title + '-'}"></span>
+								</small>
+							</h1>
+							<hr/>
+							<div class="row">
+								<div class="col-md-12">
+									<div th:utext="${_utils.replaceMediaUrlForResized(page.body)}"></div>
+								</div>
+							</div>
+							<div class="row" th:unless="${#lists.isEmpty(page.children)}" th:each="child : ${page.children}">
+								<div class="col-md-12 article-title">
+									<h3 th:text="${child.title}"></h3>
+									<div class="thumbnail pull-right" th:if="${child.cover ne null}" >
+										<img th:src="@{__${WEBSITE_PATH}__/media/__${child.cover.id}__(w=180,h=130,m=1)}" class="wr-post-cover" />
+									</div>
+									<div class="article-prev" th:text="${_utils.ellipsis(child.body,50)}"></div>
+									<a th:if="${page.parent ne null}" th:href="@{__${WEBSITE_PATH}__/__${breadcrumb.get(page.parent)}__/__${page.code}__/__${child.code}__}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
+									<a th:unless="${page.parent ne null}" th:href="@{__${WEBSITE_PATH}__/__${page.code}__/__${child.code}__}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<!-- sidebar -->
+							<div class="sidebar">
+								<!-- .sidemenu -->
+								<div class="sidemenu">
+									<th:block th:if="${page.children ne null}">
+									<ul th:replace="page/describe::page(${page.parent ne null} ? ${PAGE_TREE.getRootNodeByCode(page.code).children} : ${PAGE_TREE.getNodeByCode(page.code).children})"></ul>
+									<ul th:fragment="page(nodes)" id="nav-category" class="nav" th:unless="${#lists.isEmpty(nodes)}">
+										<li th:each="node : ${nodes}" th:class="${not #lists.isEmpty(node.children) and not #lists.isEmpty(node.page)}? (${page.parent ne null} ? (${page.parent.code eq node.page.code}? 'panel-title open' : 'panel-title') : 'panel-title')" th:classappend="${page.title eq node.page.title}? 'active'">
+											<a th:href="${#lists.isEmpty(node.children)}? @{__${WEBSITE_PATH}____${PAGE_TREE.getPath(node.page.code)}__/__${node.page.code}__} : '#'" th:text="${node.page.title}">日本酒とは</a>
+											<ul th:unless="${#lists.isEmpty(node.children)}" th:include="page/describe::page(${node.children})"></ul>
+										</li>
+									</ul>
+									</th:block>
+								</div><!-- /.sidemenu -->
+								<div th:replace="layout::side-banner" class="well center"></div>
+							</div><!-- /sidebar -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="layout::footer" class="footer"></div><!-- /.footer -->
+	</body>
+</html>

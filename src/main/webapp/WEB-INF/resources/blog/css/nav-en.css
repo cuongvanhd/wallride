@@ -1,0 +1,26 @@
+.nav-1,
+.nav-2,
+.nav-3,
+.nav-4,
+.nav-5,
+.nav-6,
+.nav-7,
+.nav-8 {
+	background: url('../img/nav-en.png') no-repeat center center;
+}
+.nav-1{ background-position: 0 0; width: 109px; height: 30px; }
+.nav-1:hover{ background-position: 0 -80px; width: 109px; height: 30px; }
+.nav-2{ background-position: 0 -160px; width: 65px; height: 30px; }
+.nav-2:hover{ background-position: 0 -240px; width: 65px; height: 30px; }
+.nav-3{ background-position: 0 -320px; width: 126px; height: 30px; }
+.nav-3:hover{ background-position: 0 -400px; width: 126px; height: 30px; }
+.nav-4{ background-position: 0 -480px; width: 93px; height: 30px; }
+.nav-4:hover{ background-position: 0 -560px; width: 93px; height: 30px; }
+.nav-5{ background-position: 0 -640px; width: 120px; height: 30px; }
+.nav-5:hover{ background-position: 0 -720px; width: 120px; height: 30px; }
+.nav-6{ background-position: 0 -800px; width: 69px; height: 30px; }
+.nav-6:hover{ background-position: 0 -880px; width: 69px; height: 30px; }
+.nav-7{ background-position: 0 -960px; width: 63px; height: 30px; }
+.nav-7:hover{ background-position: 0 -1040px; width: 63px; height: 30px; }
+.nav-8{ background-position: 0 -1120px; width: 80px; height: 30px; }
+.nav-8:hover{ background-position: 0 -1200px; width: 80px; height: 30px; }

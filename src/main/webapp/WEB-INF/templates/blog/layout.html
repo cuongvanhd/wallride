@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns#">
+	<head th:fragment="head" th:remove="tag">
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,600' rel='stylesheet' type='text/css'/>
+		<!-- Favicon -->
+		<link th:href="@{/resources/img/favicon.png}" rel="shortcut icon" />
+		<!-- Stylesheets -->
+		<link th:href="@{/resources/tmpl/style/bootstrap.css}" rel="stylesheet"/>
+		<link th:href="@{/resources/tmpl/style/font-awesome.css}" rel="stylesheet"/>
+		<link th:href="@{/resources/tmpl/style/prettyPhoto.css}" rel="stylesheet"/>
+		<!-- Flexslider -->
+		<link th:href="@{/resources/tmpl/style/flexslider.css}" rel="stylesheet"/>
+		<link th:href="@{/resources/css/common.css}" rel="stylesheet"/>
+		<link th:href="@{/resources/css/index-__${#locale.language}__.css}" rel="stylesheet"/>
+		<link th:href="@{/resources/css/nav-__${#locale.language}__.css}" rel="stylesheet"/>
+		<link th:href="@{/resources/css/page.css}" rel="stylesheet"/>
+		<!--//TODO -->
+		<!-- HTML5 Support for IE -->
+		<!--[if lt IE 9]>
+		<script src="@{/resources/tmpl/js/html5shim.js}"></script>
+		<![endif]-->
+		<script th:src="@{/resources/tmpl/js/jquery.js}"></script>
+		<script th:src="@{/resources/tmpl/js/bootstrap.js}"></script>
+		<script th:src="@{/resources/tmpl/js/jquery.isotope.js}"></script>
+		<script th:src="@{/resources/tmpl/js/jquery.prettyPhoto.js}"></script>
+		<script th:src="@{/resources/tmpl/js/jquery.cslider.js}"></script>
+		<script th:src="@{/resources/tmpl/js/modernizr.custom.28468.js}"></script>
+		<script th:src="@{/resources/tmpl/js/filter.js}"></script>
+		<script th:src="@{/resources/tmpl/js/cycle.js}"></script>
+		<script th:src="@{/resources/tmpl/js/easing.js}"></script>
+		<script th:src="@{/resources/tmpl/js/jquery.flexslider-min.js}"></script>
+		<script th:src="@{/resources/lib/jquery.navgoco.js}"></script>
+		<script th:src="@{/resources/js/custom.js}"></script>
+	</head>
+
+	<body>
+		<!-- header -->
+		<header th:fragment="header">
+			<div class="container">
+				<div class="row">
+					<div class="header-left logo">
+						<h1><a th:href="@{/__${#locale.language}__/}"><img th:src="@{/resources/img/logo-157.png}" style="height: 50px;"/><small th:text="#{PortalSiteOfSakeAndShochu}"></small></a></h1>
+					</div>
+					<div class="header-right">
+						<div class="lang">
+							<ul>
+								<li th:each="key : ${LANGUAGE_LINKS.keySet()}" th:class="${key eq #locale.language} ? 'active'">
+									<a th:if="${key ne #locale.language}" th:href="${LANGUAGE_LINKS.get(key)}" th:text="${#messages.msg('Language.' + key)}">English</a>
+									<span th:if="${key eq #locale.language}" th:text="${#messages.msg('Language.' + key)}">English</span>
+								</li>
+							</ul>
+						</div>
+						<div class="form-search">
+							<form class="form-inline" role="form">
+								<div class="form-group">
+									<input type="text" class="form-control" id="search" th:placeholder="#{SearchThisSite}" />
+									<span th:text="${_request}"></span>
+								</div>
+								<button type="submit" class="btn btn-default" th:text="#{Search}">
+									検索</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- .navbar -->
+			<div class="navbar bs-docs-nav" role="banner">
+				<div class="container">
+					<div class="navbar-header">
+						<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+							<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+						</button>
+					</div>
+
+					<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+						<ul class="nav navbar-nav">
+							<li class="dropdown"><a href="#" class="nav-1 dropdown-toggle"  data-toggle="dropdown" alt="知る・学ぶ"></a>
+								<ul class="dropdown-menu">
+									<th:block th:each="node : ${PAGE_TREE.rootNodes}" th:switch="${node.page.code}">
+										<th:block th:case="sake-learn">
+											<li role="presentation" class="dropdown-header sake" th:text="#{Sake}">日本酒</li>
+											<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+										</th:block>
+										<th:block th:case="shochu-learn">
+											<li role="presentation" class="dropdown-header shochu" th:text="#{Shochu}">焼酎</li>
+											<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+										</th:block>
+									</th:block>
+								</ul>
+							</li>
+							<li class="dropdown"><a href="#" class="nav-2 dropdown-toggle" data-toggle="dropdown" alt="楽しむ"></a>
+								<ul class="dropdown-menu">
+									<th:block th:each="node : ${PAGE_TREE.rootNodes}" th:switch="${node.page.code}">
+										<th:block th:case="sake-enjoy">
+											<li role="presentation" class="dropdown-header sake" th:text="#{Sake}">日本酒</li>
+											<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+										</th:block>
+										<th:block th:case="shochu-enjoy">
+											<li role="presentation" class="dropdown-header shochu" th:text="#{Shochu}">焼酎</li>
+											<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+										</th:block>
+									</th:block>
+								</ul>
+							</li>
+							<li><a th:href="@{__${WEBSITE_PATH}__/category/news}" class="nav-3" alt="ニュース・イベント"></a></li>
+							<li><a th:href="@{__${WEBSITE_PATH}__/tv}" class="nav-4" alt="酒TV"></a></li>
+							<li><a th:href="@{__${WEBSITE_PATH}__/category/pressrelease}" class="nav-5" alt="プレスリリース"></a></li>
+							<li><a th:href="@{__${WEBSITE_PATH}__/media}" class="nav-6" alt="メディア掲載"></a></li>
+							<li><a href="http://www.fbo.or.jp/?page_id=136" target="_blank" class="nav-7" alt="よくある質問"></a></li>
+							<li><a href="http://www.fbo.or.jp/?page_id=50" target="_blank" class="nav-8" alt="お問合せ"></a></li>
+						</ul>
+					</nav>
+				</div>
+			</div><!-- /.navbar -->
+			<div class="obi-washi"></div>
+
+		</header><!-- /header -->
+		<div class="obi-nami-bottom"></div>
+		<!-- .content -->
+		<div class="content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-md-12 news">
+								<h3>
+									<img class="title title-news" th:src="@{/resources/img/space.gif}" alt="最新ニュース"/>
+									<span class="pull-right">
+										<a href="#">
+											<img class="link-list" th:src="@{/resources/img/space.gif}" alt="一覧へ"/>
+										</a>
+									</span>
+								</h3>
+								<ul>
+									<li><a href="#">11月9日（土）開催セミナー「地酒祭りのアイテムが再び勢ぞろい！地酒大show秋の陣 in名古屋」</a></li>
+									<li><a href="#">10/20(日)足利市@ばんな寺純米酒まつり</a></li>
+									<li><a href="#">「ＳＡＫＥビジネスのフロンティア じり貧からの逆襲　ＳＡＫＥビジネスの新しいデザイン」 後援することとなりました</a></li>
+									<li><a href="#">名古屋@大人の日本酒講座</a></li>
+									<li><a href="#">11/29(金)神戸@旭酒造「獺祭」と「トランテアン」シェフ佐々木康二の饗宴　獺祭の夕べ</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 sake">
+								<h3><img class="title title-sake" th:src="@{/resources/img/space.gif}" alt="日本酒"/></h3>
+								<div class="row">
+									<div class="col-md-6">
+										<section class="sake-leam">
+											<h4><img class="title title-sake-leam" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
+											<ul>
+												<li><a href="article-index.html">日本酒とは</a></li>
+												<li><a href="#">日本酒の基礎知識</a></li>
+												<li><a href="#">日本酒のテイスティングと4タイプ分類</a></li>
+												<li><a href="#">日本酒のサービスプロモーション</a></li>
+												<li><a href="#">各県「地酒」事情</a></li>
+												<li><a href="#">日本酒に関する資格・検定</a></li>
+												<li><a href="#">日本酒情報サイト</a></li>
+											</ul>
+											<img th:src="@{/resources/img/space.gif}" class="image"/>
+										</section>
+									</div>
+									<div class="col-md-6">
+										<section class="sake-enjoy">
+											<h4><img class="title title-sake-enjoy" th:src="@{/resources/img/space.gif}" alt="楽しむ"/></h4>
+											<ul>
+												<li><a href="#">日本酒面白話</a></li>
+												<li><a href="#">蔵元紀行</a></li>
+												<li><a href="#">季節のおすすめ日本酒</a></li>
+												<li><a href="#">日本酒きき酒師のいる店</a></li>
+												<li><a href="#">お料理と合わせる日本酒</a></li>
+												<li><a href="#">日本酒のプロフェッショナル達</a></li>
+											</ul>
+											<img th:src="@{/resources/img/space.gif}" class="image"/>
+										</section>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 shochu">
+
+								<h3><img class="title title-shochu" th:src="@{/resources/img/space.gif}" alt="焼酎"/></h3>
+								<div class="row">
+									<div class="col-md-6">
+										<section class="shochu-leam">
+											<h4><img class="title title-shochu-leam" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
+											<ul>
+												<li><a href="#">焼酎とは</a></li>
+												<li><a href="#">焼酎の基礎知識</a></li>
+												<li><a href="#">焼酎のテイスティングと4タイプ分類</a></li>
+												<li><a href="#">焼酎のサービスプロモーション</a></li>
+												<li><a href="#">焼酎「各県」事情</a></li>
+												<li><a href="#">焼酎に関する資格・検定</a></li>
+												<li><a href="#">焼酎情報サイト</a></li>
+											</ul>
+											<img th:src="@{/resources/img/space.gif}" class="image"/>
+										</section>
+									</div>
+									<div class="col-md-6">
+										<section class="shochu-enjoy">
+											<h4><img class="title title-shochu-enjoy" th:src="@{/resources/img/space.gif}" alt="楽しむ"/></h4>
+											<ul>
+												<li><a href="#">焼酎面白話</a></li>
+												<li><a href="#">蔵元紀行</a></li>
+												<li><a href="#">季節のおすすめ焼酎</a></li>
+												<li><a href="#">焼酎きき酒師のいる店</a></li>
+												<li><a href="#">お料理と合わせる焼酎</a></li>
+												<li><a href="#">焼酎のプロフェッショナル達</a></li>
+											</ul>
+											<img th:src="@{/resources/img/space.gif}" class="image"/>
+										</section>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="sidebar">
+							<div class="movie-box well washi">
+								<h3 class="movie-title">
+									<img class="title-movie" th:src="@{/resources/img/space.gif}" alt="酒TVおすすめ動画"/>
+								</h3>
+								<iframe class="movie" src="http://www.youtube.com/embed/dW7bB5yBJms?feature=player_detailpage" frameborder="0" allowfullscreen="true"></iframe>
+								<script th:inline="javascript">
+									/*<![CDATA[*/
+									function handleGoogleApiClientLoad() {
+										gapi.client.setApiKey('AIzaSyD9Pstj8XqEuZ2A046pfQ8WvLnu8qWKJyo');
+										gapi.client.load('youtube', 'v3', function() {
+											var recommendRequest = gapi.client.youtube.search.list({
+												channelId: 'UCtctsgjiKW4qH67M1TRFyQg', // takashi hashiguchi
+												part: 'snippet',
+												type: 'video',
+												order: 'date'
+											});
+											recommendRequest.execute(function(response) {
+												var request = gapi.client.youtube.videos.list({
+													id: response.items[0].id.videoId,
+													part: 'snippet'
+												});
+												request.execute(function(response) {
+													var item = response.items[0];
+													console.dir(item);
+													var html = $(
+															'<div class="col-md-6">' +
+																	'<div class="movie-box well washi">' +
+																	'<h3 class="movie-title">' +
+																	'<img class="title-movie" th:src="@{/resources/img/space.gif}" alt="酒TVおすすめ動画"/>' +
+																	'</h3>' +
+																	'<div class="box-youtube" style="padding-top: 56.25%;">' +
+																	'<iframe class="movie" src="http://www.youtube.com/embed/' + item.id + '?feature=player_detailpage" frameborder="0" allowfullscreen="allowfullscreen"></iframe>' +
+																	'</div>' +
+																	'</div>' +
+																	'</div>' +
+																	'<div class="col-md-6">' +
+																	'<h4>' + item.snippet.title + '</h4>' +
+																	'<pre>' + item.snippet.description + '</pre>' +
+																	'</div>'
+													);
+													$('#recommend').append(html);
+												});
+											});
+										});
+									};
+									/*]]>*/
+								</script>
+								<script src="https://apis.google.com/js/client.js?onload=handleGoogleApiClientLoad"></script>
+							</div>
+							<!-- <hr /> -->
+							<div th:fragment="side-banner" class="well center">
+								<ul class="list-inline">
+									<li th:each="asideBanner : ${asideBanners}">
+										<div class="banner">
+											<a th:if="${asideBanner.link ne null}" href="#" target="_blank" th:href="${asideBanner.link}">
+												<img th:src="@{__${WEBSITE_PATH}__/media/__${asideBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${asideBanner.title}" class="wr-post-cover" />
+											</a>
+											<img th:if="${asideBanner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${asideBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${asideBanner.title}" class="wr-post-cover" />
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div><!-- /.sidebar -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div th:fragment="footer" class="footer">
+			<div class="obi-washi-top"></div>
+			<!-- .social-links -->
+			<div class="social-links">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+
+							<p class="">
+								<span class="title">Follow Us On</span>
+								<a href="https://www.facebook.com/food.b.org" target="_blank">
+									<i class="icon-facebook"></i><span class="hidden-xs-inline">Facebook</span>
+								</a>
+								<a href="https://twitter.com/FBO_HQ" target="_blank">
+									<i class="icon-twitter"></i><span class="hidden-xs-inline">Twitter</span>
+								</a>
+							</p>
+
+						</div>
+					</div>
+				</div>
+			</div><!-- /.social-links -->
+			<div class="obi-washi-bottom"></div>
+
+			<!-- footer -->
+			<footer>
+				<div class="container">
+					<div class="row">
+						<div class="widgets">
+							<div class="col-md-12">
+								<h4><img class="title-kura" th:src="@{/resources/img/space.gif}" alt="日本の蔵元"/></h4>
+								<ul class="list-inline">
+									<li><a href="#">北海道</a></li>
+									<li><a href="#">青森県</a></li>
+									<li><a href="#">岩手県</a></li>
+									<li><a href="#">宮城県</a></li>
+									<li><a href="#">秋田県</a></li>
+									<li><a href="#">山形県</a></li>
+									<li><a href="#">福島県</a></li>
+									<li><a href="#">茨城県</a></li>
+									<li><a href="#">栃木県</a></li>
+									<li><a href="#">群馬県</a></li>
+									<li><a href="#">埼玉県</a></li>
+									<li><a href="#">千葉県</a></li>
+									<li><a href="#">東京都</a></li>
+									<li><a href="#">神奈川県</a></li>
+									<li><a href="#">新潟県</a></li>
+									<li><a href="#">富山県</a></li>
+									<li><a href="#">石川県</a></li>
+									<li><a href="#">福井県</a></li>
+									<li><a href="#">山梨県</a></li>
+									<li><a href="#">長野県</a></li>
+									<li><a href="#">岐阜県</a></li>
+									<li><a href="#">静岡県</a></li>
+									<li><a href="#">愛知県</a></li>
+									<li><a href="#">三重県</a></li>
+									<li><a href="#">滋賀県</a></li>
+									<li><a href="#">京都府</a></li>
+									<li><a href="#">大阪府</a></li>
+									<li><a href="#">兵庫県</a></li>
+									<li><a href="#">奈良県</a></li>
+									<li><a href="#">和歌山県</a></li>
+									<li><a href="#">鳥取県</a></li>
+									<li><a href="#">島根県</a></li>
+									<li><a href="#">岡山県</a></li>
+									<li><a href="#">広島県</a></li>
+									<li><a href="#">山口県</a></li>
+									<li><a href="#">徳島県</a></li>
+									<li><a href="#">香川県</a></li>
+									<li><a href="#">愛媛県</a></li>
+									<li><a href="#">高知県</a></li>
+									<li><a href="#">福岡県</a></li>
+									<li><a href="#">佐賀県</a></li>
+									<li><a href="#">長崎県</a></li>
+									<li><a href="#">熊本県</a></li>
+									<li><a href="#">大分県</a></li>
+									<li><a href="#">宮崎県</a></li>
+									<li><a href="#">鹿児島県</a></li>
+									<li><a href="#">沖縄県</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="notes well">
+								<div class="pull-left">
+									<img th:src="@{/resources/img/footimg1.jpg}" alt="STOP未成年者飲酒"/>
+									<img th:src="@{/resources/img/footimg2.jpg}" alt="のんだあとはリサイクル"/>
+								</div>
+								<pre><p th:utext="#{DrinkWarning}"></p></pre>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="copy">
+								<h6>
+									Sake <span class="color">JAPAN</span>
+								</h6>
+								<p>
+									Copyright &copy; <a href="http://www.fbo.or.jp/" target="_blank" th:text="#{FBO}">NPO法人FBO（料飲専門家団体連合会）</a> -
+									<a th:href="@{__${WEBSITE_PATH}__/company}" th:text="#{Company}">運営会社</a> |
+									<a th:href="@{__${WEBSITE_PATH}__/policy}" th:text="#{PrivacyPolicy}">プライバシーポリシー</a> |
+									<a th:href="@{__${WEBSITE_PATH}__/environment}" th:text="#{Environment}">動作環境について</a> |
+									<a href="#" th:text="#{SiteMap}">サイトマップ</a>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</footer><!-- /footer -->
+		</div>
+	</body>
+</html>

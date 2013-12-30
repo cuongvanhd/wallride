@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="keywords" th:content="${WEBSITE_SEO_KEYWORDS} ? ${WEBSITE_SEO_KEYWORDS} : ${WEBSITE_TITLE}" />
+		<meta name="description" th:content="${WEBSITE_SEO_DESCRIPTION} ? ${WEBSITE_SEO_DESCRIPTION} : ${WEBSITE_TITLE}" />
+		<meta name="author" content="" />
+		<meta property="og:site_name" th:content="${WEBSITE_TITLE}"/>
+		<meta property="og:title" th:content="${WEBSITE_TITLE}"/>
+		<meta property="og:url" th:content="@{__${WEBSITE_LINK}__}" />
+		<!--//TODO-->
+		<!--<meta property="og:image" th:if="${page.cover}" th:content="@{__${WEBSITE_LINK}__/media/__${page.cover.id}__}" />-->
+		<meta property="og:type" content="article"/>
+		<title>Sake JAPAN</title>
+		<link th:replace="layout::head" />
+		<style>
+			@media (min-width: 1200px) {
+				.full-slider .flexslider .slides {
+					min-height: 300px;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- header -->
+		<header th:replace="layout::header"></header><!-- /header -->
+
+		<!-- .slider -->
+		<div class="slider">
+			<!-- .full-slider start -->
+			<div class="full-slider" id="full-slider">
+				<!-- .flexslider -->
+				<div class="flexslider">
+					<div class="container">
+						<ul class="slides">
+							<li th:each="mainBanner : ${mainBanners}">
+								<a th:if="${mainBanner.link ne null}" href="#" target="_blank" th:href="${mainBanner.link}">
+									<img th:src="@{__${WEBSITE_PATH}__/media/__${mainBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${mainBanner.title}" class="wr-post-cover" />
+								</a>
+								<img th:if="${mainBanner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${mainBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${mainBanner.title}" class="wr-post-cover" />
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /.full-slider -->
+			<!-- .banner-slider -->
+			<div class="banner-slider" id="banner-slider">
+				<div class="container">
+					<div class="flexslider">
+						<ul class="slides">
+							<li th:each="subBanner : ${subBanners}">
+								<a th:if="${subBanner.link ne null}" href="#" target="_blank" th:href="${subBanner.link}">
+									<img th:src="@{__${WEBSITE_PATH}__/media/__${subBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${subBanner.title}" class="wr-post-cover" />
+								</a>
+								<img th:if="${subBanner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${subBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${subBanner.title}" class="wr-post-cover" />
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div><!-- /.banner-slider -->
+		</div><!-- /.slider -->
+		<div class="obi-nami-bottom"></div>
+		<!-- .content -->
+		<div class="content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-md-12 news">
+								<h3 class="title-info"><img class="title-news" th:src="@{/resources/img/space.gif}" alt="最新ニュース"/>
+									<span class="pull-right">
+										<a th:href="@{__${WEBSITE_PATH}__/category/news}">
+											<img class="link-list" th:src="@{/resources/img/space.gif}" alt="一覧へ"/>
+										</a>
+									</span>
+								</h3>
+								<ul>
+									<li th:each="article : ${NEW_ARTICLES}"><a th:href="@{__${WEBSITE_PATH}__/__${article.date.toString('yyyy/MM/dd')}__/__${article.code}__}"><span th:text="${article.date.toString('M月d日')} + '   ' + ${article.title}"></span></a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12" role="sake">
+								<h3><img class="title title-sake" th:src="@{/resources/img/space.gif}" alt="日本酒"/></h3>
+								<div class="row">
+									<div class="col-md-6">
+										<section class="sake-learn">
+											<h4><img class="title title-sake-learn" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
+											<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'sake-learn'}">
+												<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+											</ul>
+											<img th:src="@{/resources/img/space.gif}" class="image"/>
+										</section>
+									</div>
+									<div class="col-md-6">
+										<section class="sake-enjoy">
+											<h4><img class="title title-sake-enjoy" th:src="@{/resources/img/space.gif}" alt="楽しむ"/></h4>
+											<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'sake-enjoy'}">
+												<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+											</ul>
+											<img th:src="@{/resources/img/space.gif}" class="image"/>
+										</section>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12" role="shochu">
+								<h3><img class="title title-shochu" th:src="@{/resources/img/space.gif}" alt="焼酎"/></h3>
+								<div class="row">
+									<div class="col-md-6">
+										<section class="shochu-learn page-shochu-learn">
+											<h4><img class="title title-shochu-learn" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
+											<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'shochu-learn'}">
+												<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+											</ul>
+											<img th:src="@{/resources/img/space.gif}" class="image"/>
+										</section>
+									</div>
+									<div class="col-md-6">
+										<section class="shochu-enjoy page-shochu-enjoy">
+											<h4><img class="title title-shochu-enjoy" th:src="@{/resources/img/space.gif}" alt="楽しむ"/></h4>
+											<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'shochu-enjoy'}">
+												<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+											</ul>
+											<img th:src="@{/resources/img/space.gif}" class="image"/>
+										</section>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="sidebar">
+							<div class="movie-box well washi">
+								<h3 class="movie-title">
+									<img class="title-movie" th:src="@{/resources/img/space.gif}" alt="酒TVおすすめ動画"/>
+								</h3>
+								<iframe class="movie" src="http://www.youtube.com/embed/dW7bB5yBJms?feature=player_detailpage" frameborder="0" allowfullscreen="true"></iframe>
+							</div>
+							<div th:replace="layout::side-banner" class="well center"></div>
+						</div><!-- /.sidebar -->
+					</div>
+				</div>
+			</div>
+		</div><!-- /.content -->
+		<div th:replace="layout::footer" class="footer"></div><!-- /.footer -->
+	</body>
+</html>

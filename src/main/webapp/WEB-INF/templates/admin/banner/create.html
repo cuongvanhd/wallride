@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="utf-8" th:replace="layout::head(${WEBSITE_TITLE})" />
+	<title>WallRide</title>
+</head>
+<body>
+	<header th:replace="layout::header"></header>
+	<div>
+		<div th:replace="layout::sidebar"></div>
+		<div id="main">
+			<ol class="breadcrumb">
+				<li><a th:href="@{__${ADMIN_PATH}__/}">ダッシュボード</a></li>
+				<li><a th:href="@{__${ADMIN_PATH}__/banners/index}">バナー一覧</a></li>
+				<li class="active">新規バナー追加</li>
+			</ol>
+			<form th:fragment="form(title,banner)" th:action="@{__${ADMIN_PATH}__/banners/create}" th:object="${form}" action="#" method="post">
+				<input type="hidden" name="id" th:if="${banner} ne null" th:value="${banner.id}"  />
+				<div class="row">
+					<div class="col-sm-12 wr-post-main">
+						<div class="page-header">
+							<h1 th:text="${title}?:'新規バナー追加'">Add New Banner</h1>
+						</div>
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('all')}">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							入力内容に誤りがあります。
+						</div>
+						<fieldset>
+							<div class="form-group" th:classappend="${#fields.hasErrors('imageId')}? has-error">
+								<div id="post-cover-dropzone" class="wr-post-cover-dropzone col-sm-12" style="">
+									<p class="placeholder help-block">バナー画像(メイン：1200px x 375px, アサイド：240px x 40px 推奨)</p>
+									<div class="dragover hide"><span class="help-block">ファイルをドラッグ＆ドロップしてください</span></div>
+									<div class="wrap-hover">
+										<div class="message hide">
+											<span class="help-block">ファイルをドラッグ＆ドロップしてください</span>
+										</div>
+										<div class="remove hide"><a href=""><span class="glyphicon glyphicon-remove"></span></a></div>
+									</div>
+									<div class="progress hide"><div class="progress-bar progress-bar-success"></div></div>
+									<input type="hidden" th:field="*{imageId}" />
+									<img th:if="${form.imageId ne null}" th:src="@{${_utils.getMediaUrl(form.imageId)}(w=1200,h=500,m=1)}" class="wr-post-cover" />
+								</div>
+								<span class="help-block" th:each="err : ${#fields.errors('imageId')}" th:text="${err}" />
+							</div>
+							<script th:inline="javascript">
+								$(function() {
+									$('#post-cover-dropzone').mouseenter(function() {
+										if($('#post-cover-dropzone input[name="imageId"]').val() != '') {
+											$('#post-cover-dropzone .message').text('ファイルをドラッグ＆ドロップしてください').removeClass('hide');
+											$('#post-cover-dropzone .remove').removeClass('hide');
+											$('#post-cover-dropzone .wrap-hover').addClass('has');
+										} else {
+											$('#post-cover-dropzone .message').text('ファイルをドラッグ＆ドロップしてください').removeClass('hide');
+											$('#post-cover-dropzone .remove').addClass('hide');
+											$('#post-cover-dropzone .wrap-hover').removeClass('has');
+										}
+									}).mouseleave(function() {
+												$('#post-cover-dropzone .wrap-hover').addClass('hide');
+											});
+
+									$('#post-cover-dropzone').fileupload({
+										url: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
+										paramName: 'file',
+										dropZone: $('#post-cover-dropzone'),
+										dragover: function(e) {
+											var dropZone = $('#post-cover-dropzone');
+											var timeout = window.dropZoneTimeout;
+											if (!timeout) {
+												$('#post-cover-dropzone .dragover').removeClass('hide');
+											} else {
+												clearTimeout(timeout);
+											}
+											var found = false;
+											var node = e.target;
+											do {
+												if (node === dropZone[0]) {
+													found = true;
+													break;
+												}
+												node = node.parentNode;
+											} while (node != null);
+											if (found) {
+												$('#post-cover-dropzone .dragover').removeClass('hide');
+											}
+											else {
+												$('#post-cover-dropzone .dragover').addClass('hide');
+											}
+											window.dropZoneTimeout = setTimeout(function () {
+												window.dropZoneTimeout = null;
+												$('#post-cover-dropzone .dragover').addClass('hide');
+											}, 100);
+										},
+										start: function(e) {
+											$('#post-cover-dropzone .progress').removeClass('hide');
+										},
+										progressall: function (e, data) {
+											var progress = parseInt(data.loaded / data.total * 100, 10);
+											$('#post-cover-dropzone .progress-bar').css('width', progress + '%');
+										},
+										done: function(e, data) {
+											$('#post-cover-dropzone :input[name="imageId"]').val(data.result.id);
+											var img = $('<img class="wr-post-cover" />').attr('src', data.result.filelink + '?' + $.param({w: 1200, h: 500, m: 1}));
+											$('#post-cover-dropzone img').remove();
+											$('#post-cover-dropzone').append(img);
+											$('#post-cover-dropzone .progress').addClass('hide');
+											$('#post-cover-dropzone .progress-bar').css('width', '0%');
+										}
+									});
+								});
+							</script>
+						</fieldset>
+						<fieldset>
+							<div class="form-group" th:classappend="${#fields.hasErrors('title')}? has-error">
+								<input type="text" th:field="*{title}" class="form-control" placeholder="タイトルを入力してください" />
+								<span class="help-block" th:each="err : ${#fields.errors('title')}" th:text="${err}" />
+							</div>
+						</fieldset>
+						<fieldset>
+							<div class="form-group" th:classappend="${#fields.hasErrors('link')}? has-error">
+								<input type="text" th:field="*{link}" name="link" class="form-control" placeholder="リンクURL" />
+								<span class="help-block" th:each="err : ${#fields.errors('link')}" th:text="${err}" />
+							</div>
+						</fieldset>
+						<fieldset>
+							<div class="form-group" th:classappend="${#fields.hasErrors('type')}? has-error">
+								<label class="radio-inline" th:each="t : ${types}">
+									<input type="radio" th:field="*{type}" name="type" th:value="${t}" th:text="${#messages.msg('Banner.Type.' + t)}" />
+								</label>
+								<span class="help-block" th:each="err : ${#fields.errors('type')}" th:text="${err}" />
+							</div>
+						</fieldset>
+						<div class="">
+							<button name="save" class="btn btn-primary">保存</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<footer>
+	</footer>
+</body>
+</html>

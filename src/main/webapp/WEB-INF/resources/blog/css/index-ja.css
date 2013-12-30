@@ -1,0 +1,72 @@
+/* index.html */
+
+/* CSS sprite */
+
+/* title */
+
+.title-news,
+.title-movie,
+.title-sake,
+.title-shochu,
+.title-enjoy,
+.title-sake-enjoy,
+.title-shochu-enjoy,
+.title-sake-learn,
+.title-shochu-learn,
+.title-learn,
+.title-media,
+.title-kura,
+.title-pressrelease,
+.title-tv {
+  background: url('../img/title.png') no-repeat top left;
+}
+
+.title-kura{ background-position: 0 0; width: 215px; height: 20px; }
+.title-media{ background-position: 0 -70px; width: 170px; height: 20px; }
+.title-movie{ background-position: 0 -140px; width: 167px; height: 32px; }
+.title-news{ background-position: 0 -222px; width: 161px; height: 20px; }
+.title-newsevents{ background-position: 0 -292px; width: 241px; height: 20px; }
+.title-pressrelease{ background-position: 0 -362px; width: 205px; height: 20px; }
+.title-sake-enjoy{ background-position: 0 -432px; width: 136px; height: 21px; }
+.title-sake-learn{ background-position: 0 -503px; width: 227px; height: 21px; }
+.title-sake{ background-position: 0 -574px; width: 120px; height: 45px; }
+.title-tv{ background-position: 0 -669px; width: 108px; height: 20px; }
+.title-shochu-enjoy{ background-position: 0 -739px; width: 150px; height: 21px; }
+.title-shochu-learn{ background-position: 0 -810px; width: 242px; height: 21px; }
+.title-shochu{ background-position: 0 -881px; width: 104px; height: 45px; }
+
+.movie-title {
+  text-align: center;
+}
+
+.content .text-muted {
+  min-height: 80px;
+}
+
+/* icon */
+
+i.sakura {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url('../img/icon.png') no-repeat top left;
+  background-position: 0 -132px;
+}
+
+.icon-sake {
+  width: 45px;
+  height: 45px;
+  background: url('../img/icon-sake.png');
+}
+
+.icon-shochu {
+  width: 45px;
+  height: 45px;
+  background: url('../img/icon-shochu.png');
+}
+
+.link-detail {
+	background: url('../img/link-detail.png');
+	width: 110px;
+	height: 20px;
+}
