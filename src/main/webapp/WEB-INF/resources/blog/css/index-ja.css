@@ -17,7 +17,8 @@
 .title-media,
 .title-kura,
 .title-pressrelease,
-.title-tv {
+.title-tv,
+.title-sitemap {
   background: url('../img/title.png') no-repeat top left;
 }
 
@@ -30,10 +31,12 @@
 .title-sake-enjoy{ background-position: 0 -432px; width: 136px; height: 21px; }
 .title-sake-learn{ background-position: 0 -503px; width: 227px; height: 21px; }
 .title-sake{ background-position: 0 -574px; width: 120px; height: 45px; }
-.title-tv{ background-position: 0 -669px; width: 108px; height: 20px; }
+.title-saketv{ background-position: 0 -669px; width: 108px; height: 20px; }
 .title-shochu-enjoy{ background-position: 0 -739px; width: 150px; height: 21px; }
 .title-shochu-learn{ background-position: 0 -810px; width: 242px; height: 21px; }
 .title-shochu{ background-position: 0 -881px; width: 104px; height: 45px; }
+.title-sitemap{ background-position: 0 -976px; width: 169px; height: 20px; }
+
 
 .movie-title {
   text-align: center;

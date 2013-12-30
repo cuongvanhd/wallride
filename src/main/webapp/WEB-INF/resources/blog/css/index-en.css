@@ -10,23 +10,25 @@
 .title-learn,
 .title-kura,
 .title-pressrelease,
-.title-tv {
+.title-tv,
+.title-sitemap {
 	background: url('../img/title-en.png') no-repeat top left;
 }
 
-.title-kura { background-position: 0 0; width: 215px; height: 20px; }
-.title-media { background-position: 0 -70px; width: 137px; height: 20px; }
-.title-movie { background-position: 0 -140px; width: 101px; height: 32px; }
-.title-news { background-position: 0 -222px; width: 124px; height: 20px; }
-.title-newsivents { background-position: 0 -292px; width: 208px; height: 20px; }
-.title-pressrelease { background-position: 0 -362px; width: 197px; height: 20px; }
-.title-sake { background-position: 0 -432px; width: 115px; height: 45px; }
-.title-sake-enjoy { background-position: 0 -527px; width: 133px; height: 21px; }
-.title-sake-learn { background-position: 0 -598px; width: 229px; height: 21px; }
-.title-tv { background-position: 0 -669px; width: 126px; height: 20px; }
-.title-shochu { background-position: 0 -739px; width: 154px; height: 45px; }
-.title-shochu-enjoy { background-position: 0 -834px; width: 153px; height: 21px; }
-.title-shochu-learn { background-position: 0 -905px; width: 249px; height: 21px; }
+.title-kura{ background-position: 0 0; width: 215px; height: 20px; }
+.title-media{ background-position: 0 -70px; width: 137px; height: 20px; }
+.title-movie{ background-position: 0 -140px; width: 101px; height: 32px; }
+.title-news{ background-position: 0 -222px; width: 124px; height: 20px; }
+.title-newsivents{ background-position: 0 -292px; width: 208px; height: 20px; }
+.title-pressrelease{ background-position: 0 -362px; width: 197px; height: 20px; }
+.title-sake{ background-position: 0 -432px; width: 115px; height: 45px; }
+.title-sake-enjoy{ background-position: 0 -527px; width: 133px; height: 21px; }
+.title-sake-learn{ background-position: 0 -598px; width: 229px; height: 21px; }
+.title-saketv{ background-position: 0 -669px; width: 126px; height: 20px; }
+.title-shochu{ background-position: 0 -739px; width: 154px; height: 45px; }
+.title-shochu-enjoy{ background-position: 0 -834px; width: 153px; height: 21px; }
+.title-shochu-learn{ background-position: 0 -905px; width: 249px; height: 21px; }
+.title-sitemap{ background-position: 0 -976px; width: 163px; height: 20px; }
 
 .link-list {
 	background: url('../img/link-list-en.png') no-repeat center center;
