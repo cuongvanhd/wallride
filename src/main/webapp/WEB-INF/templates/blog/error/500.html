@@ -1,1 +1,52 @@
-500 Internal Server Error
+<!DOCTYPE html>
+<html th:lang="${#locale.language}">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>500 Internal Server Error｜Sake JAPAN</title>
+		<link th:replace="layout::head-link" />
+		<script th:replace="layout::head-script"></script>
+	</head>
+	<body>
+		<!-- header -->
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="header-left logo">
+						<h1><a th:href="@{__${WEBSITE_PATH}__/}" href="#"><img th:src="@{/resources/img/logo-157.png}" src="assets/img/logo-157.png" style="height: 50px;" /><small>日本酒・焼酎のポータルサイト</small></a></h1>
+					</div>
+				</div>
+			</div>
+			<div class="obi-washi"></div>
+		</header><!-- /header -->
+		<!-- .top -->
+		<div class="top">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="#">TOP</a></li>
+					<li class="active">500 Internal Server Error</li>
+				</ol>
+			</div>
+		</div><!-- /.top -->
+		<div class="obi-nami-bottom"></div>
+		<!-- .content -->
+		<div class="content 404">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="page-header">
+							<h1>500 Internal Server Error</h1>
+						</div>
+						<p>内部エラーが発生しています。</p>
+						<ul class="list-unstyled">
+							<li><i class="icon-circle-arrow-right"></i> <a th:href="@{__${WEBSITE_PATH}__/}">TOPへ</a></li>
+							<li><i class="icon-circle-arrow-right"></i> <a th:href="@{__${WEBSITE_PATH}__/sitemap}">サイトマップへ</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="layout::footer" class="footer"></div><!-- /.footer -->
+	</body>
+</html>
