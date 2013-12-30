@@ -12,7 +12,9 @@ import org.wallride.blog.web.article.ArticleDescribeController;
 import org.wallride.core.domain.Page;
 import org.wallride.core.domain.PageTree;
 import org.wallride.core.domain.Post;
+import org.wallride.core.domain.Setting;
 import org.wallride.core.service.PageTreeService;
+import org.wallride.core.service.SettingService;
 import org.wallride.core.web.HttpNotFoundException;
 
 import javax.inject.Inject;
@@ -30,6 +32,9 @@ public class PageDescribeController {
 
 	@Inject
 	private PageTreeService pageTreeService;
+
+	@Inject
+	private SettingService settingService;
 
 	@Inject
 	private ArticleDescribeController articleDescribeController;
@@ -53,9 +58,12 @@ public class PageDescribeController {
 			return v;
 		}
 
-		Page page = pageService.readPage(lastCode);
+		Page page = pageService.readPage(lastCode, language);
 		if (page == null) {
-			throw new HttpNotFoundException();
+			page = pageService.readPage(lastCode, settingService.readSettingAsString(Setting.Key.DEFAULT_LANGUAGE));
+			if (page == null) {
+				throw new HttpNotFoundException();
+			}
 		}
 
 		PageTree pageTree = pageTreeService.readPageTree(language, Post.Status.PUBLISHED);

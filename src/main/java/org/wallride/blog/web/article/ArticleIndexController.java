@@ -12,7 +12,9 @@ import org.wallride.blog.service.ArticleService;
 import org.wallride.core.domain.Article;
 import org.wallride.core.domain.Category;
 import org.wallride.core.domain.CategoryTree;
+import org.wallride.core.domain.Setting;
 import org.wallride.core.service.CategoryTreeService;
+import org.wallride.core.service.SettingService;
 import org.wallride.core.support.Paginator;
 import org.wallride.core.web.DomainObjectSearchCondition;
 import org.wallride.core.web.HttpNotFoundException;
@@ -34,6 +36,9 @@ public class ArticleIndexController {
 
 	@Inject
 	private CategoryTreeService categoryTreeService;
+
+	@Inject
+	private SettingService settingService;
 
 /*	@RequestMapping("/{language}/")
 	public String index(
@@ -160,7 +165,12 @@ public class ArticleIndexController {
 		CategoryTree categoryTree = categoryTreeService.readCategoryTree(language);
 		Category category = categoryTree.getCategoryByCode(lastCode);
 		if (category == null) {
-			throw new HttpNotFoundException();
+			String defaultLanguage = settingService.readSettingAsString(Setting.Key.DEFAULT_LANGUAGE);
+			categoryTree = categoryTreeService.readCategoryTree(defaultLanguage);
+			category = categoryTree.getCategoryByCode(lastCode);
+			if (category == null) {
+				throw new HttpNotFoundException();
+			}
 		}
 
 		DomainObjectSearchCondition<ArticleSearchForm> condition = DomainObjectSearchCondition.resolve(session, ArticleSearchForm.class, token);

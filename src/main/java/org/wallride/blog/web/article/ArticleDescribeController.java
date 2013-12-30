@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wallride.blog.service.ArticleService;
 import org.wallride.core.domain.Article;
+import org.wallride.core.domain.Setting;
+import org.wallride.core.service.SettingService;
 import org.wallride.core.web.HttpNotFoundException;
 
 import javax.inject.Inject;
@@ -18,6 +20,9 @@ public class ArticleDescribeController {
 
 	@Inject
 	private ArticleService articleService;
+
+	@Inject
+	private SettingService settingService;
 
 	@RequestMapping
 	public String describe(
@@ -30,7 +35,10 @@ public class ArticleDescribeController {
 			RedirectAttributes redirectAttributes) {
 		Article article = articleService.readArticle(code, language);
 		if (article == null) {
-			throw new HttpNotFoundException();
+			article = articleService.readArticle(code, settingService.readSettingAsString(Setting.Key.DEFAULT_LANGUAGE));
+			if (article == null) {
+				throw new HttpNotFoundException();
+			}
 		}
 
 		LocalDate date = new LocalDate(year, month, day);
