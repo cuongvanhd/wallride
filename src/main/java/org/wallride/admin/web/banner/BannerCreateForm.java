@@ -23,6 +23,8 @@ public class BannerCreateForm extends DomainObjectCreateForm {
 	@URL
 	private String link;
 
+	private boolean linkTargetBlank;
+
 	public String getLanguage() {
 		return language;
 	}
@@ -61,5 +63,13 @@ public class BannerCreateForm extends DomainObjectCreateForm {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public boolean isLinkTargetBlank() {
+		return linkTargetBlank;
+	}
+
+	public void setLinkTargetBlank(boolean linkTargetBlank) {
+		this.linkTargetBlank = linkTargetBlank;
 	}
 }

@@ -27,6 +27,8 @@ public class BannerEditForm extends DomainObjectEditForm {
 	@URL
 	private String link;
 
+	private boolean linkTargetBlank;
+
 	public Long getId() {
 		return id;
 	}
@@ -73,6 +75,14 @@ public class BannerEditForm extends DomainObjectEditForm {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public boolean isLinkTargetBlank() {
+		return linkTargetBlank;
+	}
+
+	public void setLinkTargetBlank(boolean linkTargetBlank) {
+		this.linkTargetBlank = linkTargetBlank;
 	}
 
 	public static BannerEditForm fromDomainObject(Banner banner) {

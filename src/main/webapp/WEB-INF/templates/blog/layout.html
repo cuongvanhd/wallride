@@ -270,7 +270,7 @@
 								<ul class="list-inline">
 									<li th:each="asideBanner : ${asideBanners}">
 										<div class="banner">
-											<a th:if="${asideBanner.link ne null}" href="#" target="_blank" th:href="${asideBanner.link}">
+											<a th:if="${asideBanner.link ne null}" href="#" th:target="${asideBanner.linkTargetBlank ? '_blank' : '_self'}" th:href="${asideBanner.link}">
 												<img th:src="@{__${WEBSITE_PATH}__/media/__${asideBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${asideBanner.title}" class="wr-post-cover" />
 											</a>
 											<img th:if="${asideBanner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${asideBanner.image.id}__(w=1200,h=375,m=1)}" th:alt="${asideBanner.title}" class="wr-post-cover" />
