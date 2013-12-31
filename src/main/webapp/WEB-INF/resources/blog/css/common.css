@@ -30,15 +30,13 @@ h3,h4,h5,h6 {
 }
 
 h2 {
-	font-size: 32px;
-	line-height: 45px;
+	font-size: 18px;
+	line-height: 1.5em;
 }
 
 h3 {
-	font-size: 26px;
-	line-height: 35px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	font-size: 16px;
+	line-height: 1.5em;
 }
 
 h4 {
@@ -1204,6 +1202,7 @@ div.ppt {
 
 .sidebar .movie-box .movie-title {
 	margin-top: 0;
+	margin-bottom: 10px;
 }
 
 .sidebar .banner {
