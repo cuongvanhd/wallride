@@ -10,29 +10,29 @@
 		<div th:replace="layout::sidebar"></div>
 		<div id="main">
 			<ol class="breadcrumb">
-				<li><a th:href="@{__${ADMIN_PATH}__/}">ダッシュボード</a></li>
-				<li><a th:href="@{__${ADMIN_PATH}__/banners/index}">バナー一覧</a></li>
-				<li class="active">新規バナー追加</li>
+				<li><a th:href="@{__${ADMIN_PATH}__/}" th:text="#{Dashboard}">ダッシュボード</a></li>
+				<li><a th:href="@{__${ADMIN_PATH}__/banners/index}" th:text="#{AllBanners}">バナー一覧</a></li>
+				<li class="active" th:text="#{AddNewBanner}">新規バナー追加</li>
 			</ol>
 			<form th:fragment="form(title,banner)" th:action="@{__${ADMIN_PATH}__/banners/create}" th:object="${form}" action="#" method="post">
 				<input type="hidden" name="id" th:if="${banner} ne null" th:value="${banner.id}"  />
 				<div class="row">
 					<div class="col-sm-12 wr-post-main">
 						<div class="page-header">
-							<h1 th:text="${title}?:'新規バナー追加'">Add New Banner</h1>
+							<h1 th:text="${title}?:#{AddNewBanner}">Add New Banner</h1>
 						</div>
 						<div class="alert alert-danger" th:if="${#fields.hasErrors('all')}">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							入力内容に誤りがあります。
+							<span th:text="#{Error}">入力内容に誤りがあります。</span>
 						</div>
 						<fieldset>
 							<div class="form-group" th:classappend="${#fields.hasErrors('imageId')}? has-error">
 								<div id="post-cover-dropzone" class="wr-post-cover-dropzone col-sm-12" style="">
-									<p class="placeholder help-block">バナー画像(メイン：1200px x 375px, アサイド：240px x 40px 推奨)</p>
-									<div class="dragover hide"><span class="help-block">ファイルをドラッグ＆ドロップしてください</span></div>
+									<p class="placeholder help-block" th:text="#{BannerImage}">バナー画像</p>
+									<div class="dragover hide"><span class="help-block" th:text="#{DragDrop}">ファイルをドラッグ＆ドロップしてください</span></div>
 									<div class="wrap-hover">
 										<div class="message hide">
-											<span class="help-block">ファイルをドラッグ＆ドロップしてください</span>
+											<span class="help-block" th:text="#{DragDrop}">ファイルをドラッグ＆ドロップしてください</span>
 										</div>
 										<div class="remove hide"><a href=""><span class="glyphicon glyphicon-remove"></span></a></div>
 									</div>
@@ -111,19 +111,19 @@
 						</fieldset>
 						<fieldset>
 							<div class="form-group" th:classappend="${#fields.hasErrors('title')}? has-error">
-								<input type="text" th:field="*{title}" class="form-control" placeholder="タイトルを入力してください" />
+								<input type="text" th:field="*{title}" class="form-control" th:attr="placeholder=#{EnterTitle}" />
 								<span class="help-block" th:each="err : ${#fields.errors('title')}" th:text="${err}" />
 							</div>
 						</fieldset>
 						<fieldset>
 							<div class="form-group" th:classappend="${#fields.hasErrors('link')}? has-error">
-								<input type="text" th:field="*{link}" name="link" class="form-control" placeholder="リンクURL" />
+								<input type="text" th:field="*{link}" name="link" class="form-control" th:attr="placeholder=#{URLPath}" />
 								<span class="help-block" th:each="err : ${#fields.errors('link')}" th:text="${err}" />
 							</div>
 						</fieldset>
 						<fieldset>
 							<div class="form-group" th:classappend="${#fields.hasErrors('linkTargetBlank')}? has-error">
-								<label><input type="checkbox" th:field="*{linkTargetBlank}" /> Open link in new tab</label>
+								<label><input type="checkbox" th:field="*{linkTargetBlank}" /> <span th:text="#{OpenLinkInNewTab}">Open link in new tab</span></label>
 								<span class="help-block" th:each="err : ${#fields.errors('linkTargetBlank')}" th:text="${err}" />
 							</div>
 						</fieldset>
@@ -136,7 +136,7 @@
 							</div>
 						</fieldset>
 						<div class="">
-							<button name="save" class="btn btn-primary">保存</button>
+							<button name="save" class="btn btn-primary" th:text="#{Save}">保存</button>
 						</div>
 					</div>
 				</div>

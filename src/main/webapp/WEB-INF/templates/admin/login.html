@@ -63,10 +63,10 @@
 		<div class="container">
 			<form th:action="@{login}" action="#" method="post" class="form-signin">
 				<h2 class="form-signin-heading">WallRide</h2>
-				<input type="text" name="username" class="form-control" placeholder="Username" autofocus="autofocus" autocomplete="off" />
-				<input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off" />
-				<label class="checkbox"> <input type="checkbox" name="remember-me" /> Remember me</label>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+				<input type="text" name="username" class="form-control" th:attr="placeholder=#{UserName}" autofocus="autofocus" autocomplete="off" />
+				<input type="password" name="password" class="form-control" th:attr="placeholder=#{Password}" autocomplete="off" />
+				<label class="checkbox"> <input type="checkbox" name="remember-me" th:text="#{RememberMe}"/></label>
+				<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{LogIn}">Log in</button>
 			</form>
 		</div>
 	</body>

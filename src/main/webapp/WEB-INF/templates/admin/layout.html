@@ -53,16 +53,29 @@
 </header>
 <div>
 	<div th:fragment="sidebar" id="sidebar">
-		<a href="#" class="wr-account" data-toggle="collapse">
-			<img th:src="@{${USER.getGravatarUrl(300)}}" src="../../resources/admin/img/tb-logo.png" class="wr-account-picture img-thumbnail"/>
-			<span class="wr-account-name" th:text="${USER.name}"></span>
-		</a>
+		<div class="accordion-group">
+			<div class="accordion-heading account">
+				<a href="#collapseZero" class="wr-account accordion-toggle collapsed" data-toggle="collapse" data-parent="#sidebar">
+					<img th:src="@{${USER.getGravatarUrl(300)}}" src="../../resources/admin/img/tb-logo.png" class="wr-account-picture img-thumbnail"/>
+					<span class="wr-account-name" th:text="${USER.name}"></span>
+				</a>
+			</div>
+			<div id="collapseZero" class="accordion-body collapse">
+				<div class="accordion-inner">
+					<ul class="nav">
+						<li><a th:href="@{__${ADMIN_PATH}__/users/describe(id=${USER.id})}"><span class="glyphicon glyphicon-user"></span> <span th:text="#{Profile}">プロフィール</span></a></li>
+						<li><a th:href="@{/_admin/logout}"><span class="glyphicon glyphicon-off"></span> <span th:text="#{LogOut}">ログアウト</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
 		<ul class="nav nav-stacked">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Articles}">Articles</span></a>
 				<ul class="nav dropdown-menu">
 					<li><a th:href="@{__${ADMIN_PATH}__/articles/create}" href="article-create.html"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewArticle}">Add New Article</span></a></li>
-					<li><a th:href="@{__${ADMIN_PATH}__/articles/index}" href="articles.html"><span class="glyphicon glyphicon-list"></span> <span th:text="#{AllArticles}">Articles</span></a></li>
+					<li><a th:href="@{__${ADMIN_PATH}__/articles/index}" href="articles.html"><span class="glyphicon glyphicon-list"></span> <span th:text="#{Articles}">Articles</span></a></li>
 					<li><a th:href="@{__${ADMIN_PATH}__/categories/index}"><span class="glyphicon glyphicon-folder-open"></span> <span th:text="#{Categories}">Categories</span></a></li>
 				</ul>
 			</li>
@@ -70,7 +83,7 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-book"></span> <span th:text="#{Pages}">Pages</span></a>
 				<ul class="nav dropdown-menu">
 					<li><a th:href="@{__${ADMIN_PATH}__/pages/create}"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewPage}">Add New Page</span></a></li>
-					<li><a th:href="@{__${ADMIN_PATH}__/pages/index}"><span class="glyphicon glyphicon-list"></span> <span th:text="#{AllPages}">Pages</span></a></li>
+					<li><a th:href="@{__${ADMIN_PATH}__/pages/index}"><span class="glyphicon glyphicon-list"></span> <span th:text="#{Pages}">Pages</span></a></li>
 				</ul>
 			</li>
 			<li class="dropdown">
@@ -83,8 +96,8 @@
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <span th:text="#{Users}">Users</span></a>
 				<ul class="nav dropdown-menu">
-					<li><a th:href="@{__${ADMIN_PATH}__/users/invitations/index}"><span class="glyphicon glyphicon-send"></span> Invite New</a></li>
-					<li><a th:href="@{__${ADMIN_PATH}__/users/index}"><span class="glyphicon glyphicon-list"></span> Users</a></li>
+					<li><a th:href="@{__${ADMIN_PATH}__/users/invitations/index}"><span class="glyphicon glyphicon-send"></span> <span th:text="#{InviteNew}">Invite New</span></a></li>
+					<li><a th:href="@{__${ADMIN_PATH}__/users/index}"><span class="glyphicon glyphicon-list"></span> <span th:text="#{Users}">Users</span></a></li>
 				</ul>
 			</li>
 		</ul>

@@ -13,9 +13,9 @@
 					<div class="col-sm-12">
 						<div class="pull-left">
 							<ol class="breadcrumb">
-								<li><a th:href="@{__${ADMIN_PATH}__/}">ダッシュボード</a></li>
-								<li><a th:href="@{__${ADMIN_PATH}__/user/}">ユーザー一覧</a></li>
-								<li class="active"></li>
+								<li><a th:href="@{__${ADMIN_PATH}__/}" th:text="#{Dashboard}">ダッシュボード</a></li>
+								<li><a th:href="@{__${ADMIN_PATH}__/users/index}" th:text="#{AllUsers}">ユーザ一覧</a></li>
+								<li class="active" th:text="${user.name}"></li>
 							</ol>
 						</div>
 						<div class="pull-right">
@@ -37,15 +37,15 @@
 						</div>
 						<table class="table">
 							<tr>
-								<th>ログインID</th>
+								<th th:text="#{LoginId}">ログインID</th>
 								<td th:text="${user.loginId}">ログインID</td>
 							</tr>
 							<tr>
-								<th>メールアドレス</th>
+								<th th:text="#{Email}">メールアドレス</th>
 								<td th:text="${user.email}">メールアドレス</td>
 							</tr>
 							<tr>
-								<th>投稿記事数</th>
+								<th th:text="#{Posts}">投稿記事数</th>
 								<td th:text="${user.articleCount}">投稿記事数</td>
 							</tr>
 						</table>
