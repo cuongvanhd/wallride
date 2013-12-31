@@ -46,11 +46,11 @@
 								$(function() {
 									$('#post-cover-dropzone').mouseenter(function() {
 										if($('#post-cover-dropzone input[name="imageId"]').val() != '') {
-											$('#post-cover-dropzone .message').text('ファイルをドラッグ＆ドロップしてください').removeClass('hide');
+											$('#post-cover-dropzone .message').text($('#post-cover-dropzone .dragover .help-block').text()).removeClass('hide');
 											$('#post-cover-dropzone .remove').removeClass('hide');
 											$('#post-cover-dropzone .wrap-hover').addClass('has');
 										} else {
-											$('#post-cover-dropzone .message').text('ファイルをドラッグ＆ドロップしてください').removeClass('hide');
+											$('#post-cover-dropzone .message').text($('#post-cover-dropzone .dragover .help-block').text()).removeClass('hide');
 											$('#post-cover-dropzone .remove').addClass('hide');
 											$('#post-cover-dropzone .wrap-hover').removeClass('has');
 										}
