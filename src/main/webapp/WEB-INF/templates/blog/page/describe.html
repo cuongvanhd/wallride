@@ -51,15 +51,17 @@
 									<div th:utext="${_utils.replaceMediaUrlForResized(page.body)}"></div>
 								</div>
 							</div>
-							<div class="row" th:unless="${#lists.isEmpty(page.children)}" th:each="child : ${page.children}">
+							<div class="row" style="margin-bottom: 15px;" th:unless="${#lists.isEmpty(page.children)}" th:each="child : ${page.children}">
 								<div class="col-md-12 article-title">
 									<h3 th:text="${child.title}"></h3>
-									<div class="thumbnail pull-right" th:if="${child.cover ne null}" >
-										<img th:src="@{__${WEBSITE_PATH}__/media/__${child.cover.id}__(w=180,h=130,m=1)}" class="wr-post-cover" />
+									<div class="clearfix">
+										<div class="thumbnail pull-right" th:if="${child.cover ne null}" style="margin-left: 15px;">
+											<img th:src="@{__${WEBSITE_PATH}__/media/__${child.cover.id}__(w=200,h=130,m=1)}" />
+										</div>
+										<div th:text="${_utils.ellipsis(child.body, 300)}"></div>
+										<a th:if="${page.parent ne null}" th:href="@{__${WEBSITE_PATH}__/__${breadcrumb.get(page.parent)}__/__${page.code}__/__${child.code}__}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
+										<a th:unless="${page.parent ne null}" th:href="@{__${WEBSITE_PATH}__/__${page.code}__/__${child.code}__}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
 									</div>
-									<div class="article-prev" th:text="${_utils.ellipsis(child.body, 300)}"></div>
-									<a th:if="${page.parent ne null}" th:href="@{__${WEBSITE_PATH}__/__${breadcrumb.get(page.parent)}__/__${page.code}__/__${child.code}__}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
-									<a th:unless="${page.parent ne null}" th:href="@{__${WEBSITE_PATH}__/__${page.code}__/__${child.code}__}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
 								</div>
 							</div>
 						</div>
