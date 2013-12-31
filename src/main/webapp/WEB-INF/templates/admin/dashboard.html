@@ -10,38 +10,38 @@
 	<div th:replace="layout::sidebar"></div>
 	<div id="main">
 		<ol class="breadcrumb">
-			<li class="active">Dashboard</li>
+			<li class="active" th:text="#{Dashboard}">Dashboard</li>
 		</ol>
 		<div class="page-header clearfix">
-			<h1>Dashboard</h1>
+			<h1 th:text="#{Dashboard}">Dashboard</h1>
 		</div>
 		<div class="row wr-dashboard">
 			<div class="col-sm-2">
-				<h2>Content</h2>
+				<h2 th:text="#{Content}">Content</h2>
 				<table class="table">
 					<tr>
 						<th th:text="${articleCount}">11</th>
-						<td>Posts</td>
+						<td th:text="#{Posts}">Posts</td>
 					</tr>
 					<tr>
 						<th th:text="${pageCount}">11</th>
-						<td>Pages</td>
+						<td th:text="#{Pages}">Pages</td>
 					</tr>
 					<tr>
 						<th th:text="${categoryCount}">11</th>
-						<td>Categories</td>
+						<td th:text="#{Categories}">Categories</td>
 					</tr>
 				</table>
 			</div>
 			<div class="col-sm-5">
-				<h2>New Posts</h2>
+				<h2 th:text="#{NewPosts}">New Posts</h2>
 				<dl th:each="article : ${recentPublishedArticles}" class="list-inline">
 					<dt><a th:href="@{__${ADMIN_PATH}__/articles/describe(id=${article.id})}" th:text="${article.title}">Title</a></dt>
 					<dd th:text="${article.date.toString('yyyy/MM/dd (E)')}">yyyy/MM/dd</dd>
 				</dl>
 			</div>
 			<div class="col-sm-5">
-				<h2>Drafts</h2>
+				<h2 th:text="#{Drafts}">Drafts</h2>
 				<dl th:each="article : ${recentDraftArticles}" class="list-inline">
 					<dt><a th:href="@{__${ADMIN_PATH}__/articles/describe(id=${article.id})}" th:text="${article.title}?:'(No Titled)'">Title</a></dt>
 					<dd th:text="${article.updatedAt.toString('yyyy/MM/dd (E) HH:mm') + ' Last Modified'}">yyyy/MM/dd HH:mm Last Modified</dd>

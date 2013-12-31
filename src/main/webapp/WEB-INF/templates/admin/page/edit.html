@@ -9,21 +9,13 @@
 		<div>
 			<div th:replace="layout::sidebar"></div>
 			<div id="main">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="pull-left">
-							<ol class="breadcrumb">
-								<li><a th:href="@{__${ADMIN_PATH}__/}">Dashboard</a></li>
-								<li><a th:href="@{__${ADMIN_PATH}__/pages/index}">Pages</a></li>
-								<li><a th:href="@{__${ADMIN_PATH}__/pages/describe(id=${form.id})}" th:text="${form.title}"></a></li>
-								<li class="active">Edit Page</li>
-							</ol>
-						</div>
-						<div class="pull-right">
-						</div>
-					</div>
-				</div>
-				<form th:include="page/create::form(title=ページ編集,id=${form.id})" th:action="@{__${ADMIN_PATH}__/pages/edit(id=${form.id})}" th:object="${form}" action="#" method="post">
+				<ol class="breadcrumb">
+					<li><a th:href="@{__${ADMIN_PATH}__/}" th:text="#{Dashboard}">Dashboard</a></li>
+					<li><a th:href="@{__${ADMIN_PATH}__/pages/index}" th:text="#{Pages}">Pages</a></li>
+					<li><a th:href="@{__${ADMIN_PATH}__/pages/describe(id=${form.id})}" th:text="${form.title}"></a></li>
+					<li class="active">Edit Page</li>
+				</ol>
+				<form th:include="page/create::form(title=#{EditPage},id=${form.id})" th:action="@{__${ADMIN_PATH}__/pages/edit(id=${form.id})}" th:object="${form}" action="#" method="post">
 				</form>
 			</div>
 		</div>

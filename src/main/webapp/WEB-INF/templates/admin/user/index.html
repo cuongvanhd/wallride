@@ -10,13 +10,13 @@
 			<div th:replace="layout::sidebar"></div>
 			<div id="main">
 				<ol class="breadcrumb">
-					<li><a th:href="@{__${ADMIN_PATH}__/}">ダッシュボード</a></li>
-					<li class="active">ユーザ一覧</li>
+					<li><a th:href="@{__${ADMIN_PATH}__/}" th:text="#{Dashboard}">ダッシュボード</a></li>
+					<li class="active" th:text="#{AllUsers}">ユーザ一覧</li>
 				</ol>
 				<div class="page-header clearfix">
 					<ul class="list-inline">
 						<li><h1 th:text="#{Users}">Users</h1></li>
-						<li><a th:href="@{__${ADMIN_PATH}__/users/invitations/index}" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> ユーザーを招待</a></li>
+						<li><a th:href="@{__${ADMIN_PATH}__/users/invitations/index}" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{InviteNew}">ユーザーを招待</span></a></li>
 					</ul>
 				</div>
 				<section class="search-condition">
@@ -26,13 +26,13 @@
 							<input type="hidden" />
 							<div class="form-group pull-left">
 								<ul class="list-inline" style="line-height: 30px;">
-									<li><a>すべて</a> <span class="total" >(0)</span></li>
+									<li><a th:text="#{All}">すべて</a> <span class="total" >(0)</span></li>
 								</ul>
 							</div>
 							<div class="form-group pull-right" style="width: 300px;">
 								<div class="input-group simple-search pull-right">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-									<input type="text" name="keyword" th:value="*{keyword}" class="form-control" placeholder="キーワード検索" />
+									<input type="text" name="keyword" th:value="*{keyword}" class="form-control" th:attr="placeholder=#{Keywords}" />
 								</div>
 							</div>
 						</form>
@@ -51,9 +51,9 @@
 									<div class="pull-left pagination-summary"><span th:text="${paginator.start}"></span> - <span th:text="${paginator.end}"></span> / <span th:text="${paginator.total}"></span></div>
 									<div class="pull-right">
 										<ul class="pagination paginateon-sm">
-											<li th:classappend="${paginator.hasPrevious() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/users/index(page=${paginator.previousNumber},token=${token})}">前</a></li>
+											<li th:classappend="${paginator.hasPrevious() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/users/index(page=${paginator.previousNumber},token=${token})}" th:text="#{Prev}">前</a></li>
 											<li th:each="no : ${paginator.numbers}" th:classappend="${paginator.number eq no ? 'active' : ''}"><a th:href="@{__${ADMIN_PATH}__/users/index(page=${no},token=${token})}" th:text="${no}"></a></li>
-											<li th:classappend="${paginator.hasNext() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/users/index(page=${paginator.nextNumber},token=${token})}">次</a></li>
+											<li th:classappend="${paginator.hasNext() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/users/index(page=${paginator.nextNumber},token=${token})}" th:text="#{Next}">次</a></li>
 										</ul>
 									</div>
 								</div>
@@ -62,10 +62,10 @@
 								<thead>
 									<tr>
 										<th class="wr-tr-checkbox"><input type="checkbox" /></th>
-										<th>名前</th>
-										<th>ログインID</th>
-										<th>メールアドレス</th>
-										<th class="text-right">投稿記事数</th>
+										<th th:text="#{Name}">名前</th>
+										<th th:text="#{LoginId}">ログインID</th>
+										<th th:text="#{Email}">メールアドレス</th>
+										<th th:text="#{Posts}" class="text-right">投稿記事数</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -87,12 +87,12 @@
 											<h4 class="modal-title">Delete Articles</h4>
 										</div>
 										<div class="modal-body">
-											<p>本当に削除しますか？</p>
-											<label class="checkbox inline"><input type="checkbox" name="confirmed" value="true" /> Confirm</label>
+											<p th:text="#{MakeSureDelete}">本当に削除しますか？</p>
+											<label class="checkbox inline"><input type="checkbox" name="confirmed" value="true" /> <span th:text="#{Confirm}">Confirm</span></label>
 										</div>
 										<div class="modal-footer">
-											<button class="btn btn-default" data-dismiss="modal">キャンセル</button>
-											<button class="btn btn-primary" th:attr="data-action=@{__${ADMIN_PATH}__/users/bulk-delete}" disabled="true">削除</button>
+											<button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">キャンセル</button>
+											<button class="btn btn-primary" th:attr="data-action=@{__${ADMIN_PATH}__/users/bulk-delete}" disabled="true" th:text="#{Delete}">削除</button>
 										</div>
 									</div>
 								</div>
