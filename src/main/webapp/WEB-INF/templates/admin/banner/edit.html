@@ -10,11 +10,11 @@
 	<div th:replace="layout::sidebar"></div>
 	<div id="main">
 		<ol class="breadcrumb">
-			<li><a th:href="@{__${ADMIN_PATH}__/}">ダッシュボード</a></li>
-			<li><a th:href="@{__${ADMIN_PATH}__/banners/index}">バナー一覧</a></li>
-			<li class="active">バナー編集</li>
+			<li><a th:href="@{__${ADMIN_PATH}__/}" th:text="#{Dashboard}">ダッシュボード</a></li>
+			<li><a th:href="@{__${ADMIN_PATH}__/banners/index}" th:text="#{AllBanners}">バナー一覧</a></li>
+			<li class="active" th:text="#{EditBanner}">バナー編集</li>
 		</ol>
-		<form th:include="banner/create::form(title=バナー編集,banner=${banner})" th:action="@{__${ADMIN_PATH}__/banners/edit}" th:object="${form}" action="#" method="post">
+		<form th:include="banner/create::form(title=#{EditBanner},banner=${banner})" th:action="@{__${ADMIN_PATH}__/banners/edit}" th:object="${form}" action="#" method="post">
 		</form>
 	</div>
 </div>

@@ -16,47 +16,46 @@
 			<div th:replace="layout::sidebar"></div>
 			<div id="main">
 				<ol class="breadcrumb">
-					<li class="active">ダッシュボード</li>
-					<li><a th:href="@{__${ADMIN_PATH}__/user/}">ユーザー一覧</a></li>
-					<li><a th:href="@{__${ADMIN_PATH}__/user/}" ></a></li>
-					<li><a href="">ユーザー編集</a></li>
+					<li class="active" th:text="#{Dashboard}">ダッシュボード</li>
+					<li><a th:href="@{__${ADMIN_PATH}__/user/}" th:text="#{AllUsers}">ユーザー一覧</a></li>
+					<li class="active" th:text="#{EditUser}">ユーザー編集</a></li>
 				</ol>
 				<div class="row">
 					<form class="form-horizontal" method="post">
 						<div class="col-sm-9">
 							<div class="page-header clearfix">
-								<h1>ユーザー編集</h1>
+								<h1 th:text="#{EditUser}">ユーザー編集</h1>
 							</div>
 							<fieldset>
 								<div class="form-group">
-									<label class="col-sm-2 control-label">名前</label>
+									<label class="col-sm-2 control-label" th:text="#{Name}">名前</label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" placeholder="名" />
+										<input type="text" class="form-control" th:attr="placeholder=#{FirstName}"　placeholder="名" />
 									</div>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" placeholder="姓" />
+										<input type="text" class="form-control" th:attr="placeholder=#{LastName}"　placeholder="姓" />
 									</div>
 								</div>
 							</fieldset>
 							<fieldset>
 								<div class="form-group">
-									<label class="col-sm-2 control-label">メールアドレス</label>
+									<label class="col-sm-2 control-label" th:text="#{Email}">メールアドレス</label>
 									<div class="col-sm-10">
-										<input type="text" name="path" class="form-control" placeholder="メールアドレス" />
+										<input type="text" name="path" class="form-control" th:attr="placeholder=#{Email}" placeholder="メールアドレス" />
 									</div>
 								</div>
 							</fieldset>
 							<fieldset>
 								<div class="form-group">
-									<label class="col-sm-2 control-label">パスワード</label>
+									<label class="col-sm-2 control-label" th:text="#{Password}">パスワード</label>
 									<div class="col-sm-10">
-										<input type="password" name="path" class="form-control" placeholder="パスワード" />
+										<input type="password" name="path" class="form-control" th:attr="placeholder#{Password}" placeholder="パスワード" />
 									</div>
 								</div>
 							</fieldset>
 							<fieldset>
 								<div class="form-group">
-									<label class="col-sm-2 control-label">言語</label>
+									<label class="col-sm-2 control-label" th:text="#{Languages}">言語</label>
 									<div class="col-sm-10">
 										<select class="form-control">
 											<option value="日本語">日本語</option>
@@ -72,7 +71,7 @@
 							<fieldset style="margin-top: 0; margin-bottom: 1em;">
 								<div class="btn-toolbar pull-right" role="toolbar">
 									<div class="btn-group">
-										<button name="_step.save" class="btn btn-primary ok">保存</button>
+										<button name="_step.save" class="btn btn-primary ok" th:text="#{Save}">保存</button>
 									</div>
 								</div>
 							</fieldset>

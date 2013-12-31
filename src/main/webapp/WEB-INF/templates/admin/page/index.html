@@ -10,28 +10,28 @@
 			<div th:replace="layout::sidebar"></div>
 			<div id="main">
 				<ol class="breadcrumb">
-					<li><a th:href="@{__${ADMIN_PATH}__/}">Dashboard</a></li>
-					<li class="active">Pages</li>
+					<li><a th:href="@{__${ADMIN_PATH}__/}" th:text="#{Dashboard}">Dashboard</a></li>
+					<li class="active" th:text="#{Pages}">Pages</li>
 				</ol>
 				<div class="page-header clearfix">
 					<div class="pull-left">
 						<ul class="list-inline">
 							<li><h1 th:text="#{Pages}">Pages</h1></li>
-							<li><a th:href="@{__${ADMIN_PATH}__/pages/create}" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> Add New</a></li>
+							<li><a th:href="@{__${ADMIN_PATH}__/pages/create}" class="btn btn-primary btn-sm" style="margin-top: -3px;"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewPage}">Add New</span></a></li>
 						</ul>
 					</div>
 					<div class="pull-right">
 						<div class="btn-toolbar">
 							<div class="btn-group">
-								<a title="一覧表示" class="btn btn-default active" style="padding:7px 12px;"><span class="glyphicon glyphicon-list"></span></a>
-								<a title="ツリー表示" class="btn btn-default btn-sm" th:href="@{__${ADMIN_PATH}__/pages/tree}"><i class="flaticon-category"></i> </a>
+								<a th:attr="title=#{ListPage}" class="btn btn-default active" style="padding:7px 12px;"><span class="glyphicon glyphicon-list"></span></a>
+								<a th:attr="title=#{TreePage}" title="ツリー表示" class="btn btn-default btn-sm" th:href="@{__${ADMIN_PATH}__/pages/tree}"><i class="flaticon-category"></i> </a>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="alert alert-success" th:if="${deletedPages ne null}">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					Pages Deleted.
+					<span th:text="#{DeletedPages}">Pages Deleted.</span>
 				</div>
 				<section class="search-condition">
 					<div class="search-condition-quick clearfix">
@@ -40,16 +40,16 @@
 							<input type="hidden" th:field="*{status}" />
 							<div class="form-group pull-left">
 								<ul class="list-inline" style="line-height: 30px;">
-									<li th:disabled="${form.status ne null}"><a th:href="@{__${ADMIN_PATH}__/pages/index}">All</a> <span class="total" th:text="${'(' + countAll + ')'}">(0)</span> | </li>
-									<li th:disabled="${#strings.toString(form.status) eq 'PUBLISHED'}"><a th:href="@{__${ADMIN_PATH}__/pages/index?search(status=PUBLISHED)}">Published</a> <span class="total" th:text="${'(' + countPublished + ')'}">(0)</span> | </li>
-									<li th:disabled="${#strings.toString(form.status) eq 'SCHEDULED'}"><a th:href="@{__${ADMIN_PATH}__/pages/index?search(status=SCHEDULED)}">Scheduled</a> <span class="total" th:text="${'(' + countScheduled + ')'}">(0)</span> | </li>
-									<li th:disabled="${#strings.toString(form.status) eq 'DRAFT'}"><a th:href="@{__${ADMIN_PATH}__/pages/index?search(status=DRAFT)}">Draft</a> <span class="total" th:text="${'(' + countDraft + ')'}">(0)</span></li>
+									<li th:disabled="${form.status ne null}"><a th:href="@{__${ADMIN_PATH}__/pages/index}" th:text="#{All}">All</a> <span class="total" th:text="${'(' + countAll + ')'}">(0)</span> | </li>
+									<li th:disabled="${#strings.toString(form.status) eq 'PUBLISHED'}"><a th:href="@{__${ADMIN_PATH}__/pages/index?search(status=PUBLISHED)}" th:text="#{Post.Status.PUBLISHED}">Published</a> <span class="total" th:text="${'(' + countPublished + ')'}">(0)</span> | </li>
+									<li th:disabled="${#strings.toString(form.status) eq 'SCHEDULED'}"><a th:href="@{__${ADMIN_PATH}__/pages/index?search(status=SCHEDULED)}" th:text="#{Post.Status.SCHEDULED}">Scheduled</a> <span class="total" th:text="${'(' + countScheduled + ')'}">(0)</span> | </li>
+									<li th:disabled="${#strings.toString(form.status) eq 'DRAFT'}"><a th:href="@{__${ADMIN_PATH}__/pages/index?search(status=DRAFT)}" th:text="#{Post.Status.DRAFT}">Draft</a> <span class="total" th:text="${'(' + countDraft + ')'}">(0)</span></li>
 								</ul>
 							</div>
 							<div class="form-group pull-right" style="width: 300px;">
 								<div class="input-group simple-search pull-right">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-									<input type="text" name="keyword" th:value="*{keyword}" class="form-control" placeholder="Keywords" />
+									<input type="text" name="keyword" th:value="*{keyword}" class="form-control" th:attr="placeholder=#{Keywords}" />
 								</div>
 							</div>
 						</form>
@@ -68,9 +68,9 @@
 								<div class="pull-left pagination-summary"><span th:text="${paginator.start}"></span> - <span th:text="${paginator.end}"></span> / <span th:text="${paginator.total}"></span></div>
 								<div class="pull-right">
 									<ul class="pagination paginateon-sm">
-										<li th:classappend="${paginator.hasPrevious() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/pages/index(page=${paginator.previousNumber},token=${token})}">Prev</a></li>
+										<li th:classappend="${paginator.hasPrevious() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/pages/index(page=${paginator.previousNumber},token=${token})}" th:text="#{Prev}">Prev</a></li>
 										<li th:each="no : ${paginator.numbers}" th:classappend="${paginator.number eq no ? 'active' : ''}"><a th:href="@{__${ADMIN_PATH}__/pages/index(page=${no},token=${token})}" th:text="${no}"></a></li>
-										<li th:classappend="${paginator.hasNext() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/pages/index(page=${paginator.nextNumber},token=${token})}">Next</a></li>
+										<li th:classappend="${paginator.hasNext() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/pages/index(page=${paginator.nextNumber},token=${token})}" th:text="#{Next}">Next</a></li>
 									</ul>
 								</div>
 							</div>
@@ -79,10 +79,10 @@
 							<thead>
 								<tr>
 									<th class="wr-tr-checkbox" style="width:40px"><input type="checkbox" /></th>
-									<th>Status</th>
-									<th>Title</th>
-									<th>Author</th>
-									<th>Date</th>
+									<th th:text="#{Status}">Status</th>
+									<th th:text="#{Title}">Title</th>
+									<th th:text="#{Author}">Author</th>
+									<th th:text="#{Date}">Date</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -93,7 +93,7 @@
 									<td th:text="${page.title?:'(No Titled)'}" style="font-weight: bold;">事務所移転のお知らせ</td>
 									<td><a href="user.html">佐々木</a></td>
 									<td th:text="${page.date ne null ? page.date.toString('yyyy/MM/dd') : ''}">2013/10/24(金)</td>
-									<td><a th:attr="href=@{__${ADMIN_PATH}__/pages/edit(id=${page.id},token=${token})}"><span class="glyphicon glyphicon-pencil"></span> Edit</a></td>
+									<td><a th:attr="href=@{__${ADMIN_PATH}__/pages/edit(id=${page.id},token=${token})}"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></a></td>
 								</tr>
 							</tbody>
 						</table>

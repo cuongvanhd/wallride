@@ -10,16 +10,16 @@
 			<div th:replace="layout::sidebar"></div>
 			<div id="main">
 				<ol class="breadcrumb">
-					<li><a th:href="@{__${ADMIN_PATH}__/}">Dashboard</a></li>
-					<li><a th:href="@{__${ADMIN_PATH}__/articles/index}">Articles</a></li>
-					<li class="active">Add new article</li>
+					<li><a th:href="@{__${ADMIN_PATH}__/}" th:text="#{Dashboard}">Dashboard</a></li>
+					<li><a th:href="@{__${ADMIN_PATH}__/articles/index}" th:text="#{Articles}">Articles</a></li>
+					<li class="active" th:text="#{AddNewArticle}">Add new article</li>
 				</ol>
 				<form th:fragment="form(title,article)" th:action="@{__${ADMIN_PATH}__/articles/create}" th:object="${form}" action="#" method="post">
 					<input type="hidden" name="id" th:if="${article} ne null" th:value="${article.id}"  />
 					<div class="row">
 						<div class="col-sm-9 wr-post-main">
 							<div class="page-header">
-								<h1 th:text="${title}?:'Add New Article'">Add New Article</h1>
+								<h1 th:text="${title}?:#{AddNewArticle}">Add New Article</h1>
 							</div>
 							<div class="alert alert-success" th:if="${savedArticle ne null}">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -32,7 +32,7 @@
 							<fieldset>
 								<div class="form-group">
 									<div id="post-cover-dropzone" class="wr-post-cover-dropzone col-sm-12" style="">
-										<p class="placeholder help-block">Cover Image</p>
+										<p class="placeholder help-block" th:text="#{CoverImage}">Cover Image</p>
 										<div class="dragover hide"><span class="help-block">Drop files here</span></div>
 										<div class="wrap-hover">
 											<div class="message hide">
@@ -114,19 +114,19 @@
 							</fieldset>
 							<fieldset>
 								<div class="form-group" th:classappend="${#fields.hasErrors('title')}? has-error">
-									<input type="text" th:field="*{title}" class="form-control" placeholder="Enter title here" />
+									<input type="text" th:field="*{title}" class="form-control" th:attr="placeholder=#{EnterTitle}" placeholder="Enter title here" />
 									<span class="help-block" th:each="err : ${#fields.errors('title')}" th:text="${err}" />
 								</div>
 							</fieldset>
 							<fieldset>
 								<div class="form-group" th:classappend="${#fields.hasErrors('code')}? has-error">
-									<span th:text="${WEBSITE_LINK + '/'}"></span> <input type="text" th:field="*{code}" name="path" class="form-control input-sm wr-code" placeholder="URLパス" />
+									<span th:text="${WEBSITE_LINK + '/'}"></span> <input type="text" th:field="*{code}" name="path" class="form-control input-sm wr-code" th:attr="placeholder=#{URLPath}" placeholder="URLパス" />
 									<span class="help-block" th:each="err : ${#fields.errors('code')}" th:text="${err}" />
 								</div>
 							</fieldset>
 							<fieldset>
 								<div class="form-group" th:classappend="${#fields.hasErrors('body')}? has-error">
-									<textarea th:field="*{body}" class="form-control" placeholder="Enter body here"></textarea>
+									<textarea th:field="*{body}" class="form-control" th:attr="placeholder=#{EnterBody}" placeholder="Enter body here"></textarea>
 									<span class="help-block" th:each="err : ${#fields.errors('body')}" th:text="${err}" />
 									<script th:inline="javascript">
 										$(function() {
@@ -143,21 +143,21 @@
 							</fieldset>
 						</div>
 						<div class="col-sm-3 wr-tool-panel">
-							<div class="wr-tool-action clearfix">
+							<div class="tools clearfix">
 								<div class="pull-left">
 									<div class="btn-group">
-										<button name="draft" class="btn btn-default">Save Draft</button>
+										<button name="draft" class="btn btn-default" th:text="#{SaveDraft}">Save Draft</button>
 									</div>
 								</div>
 								<div class="pull-right">
 									<div class="btn-group">
-										<button name="publish" class="btn btn-primary">Publish</button>
+										<button name="publish" class="btn btn-primary" th:text="#{Publish}">Publish</button>
 									</div>
 								</div>
 							</div>
 							<div class="clearfix wr-tool-check">
 								<div class="pull-left">
-									<a id="page-preview" href="#"><span class="glyphicon glyphicon-eye-open"></span> Preview</a>
+									<a id="page-preview" href="#"><span class="glyphicon glyphicon-eye-open"></span> <span th:text="#{Preview}">Preview</span></a>
 								</div>
 								<div class="pull-right">
 									<div class="status" th:if="${article} ne null">
@@ -182,7 +182,7 @@
 								});
 							</script>
 							<fieldset>
-								<legend>Date</legend>
+								<legend th:text="#{Date}">Date</legend>
 								<div class="form-group row" th:classappend="${#fields.hasErrors('date')}? has-error">
 									<div class="col-sm-12">
 										<input type="text" name="date" th:value="*{date ne null ? date.toString('yyyy/MM/dd') : ''}" class="form-control" placeholder="yyyy/MM/dd"/>
@@ -191,7 +191,7 @@
 								</div>
 							</fieldset>
 							<fieldset id="category-fieldset">
-								<legend>Categories</legend>
+								<legend th:text="#{Categories}">Categories</legend>
 								<section>
 									<ul th:unless="${#lists.isEmpty(categoryTree.rootNodes)}" th:include="article/create::category-index(${categoryTree.rootNodes})" id="category-index" class="list-unstyled"></ul>
 									<ul th:fragment="category-index(nodes)">
@@ -200,7 +200,7 @@
 											<ul th:unless="${#lists.isEmpty(node.children)}" th:include="article/create::category-index(${node.children})" class="list-unstyled"></ul>
 										</li>
 									</ul>
-									<a th:href="@{__${ADMIN_PATH}__/categories/index?part=category-create-dialog}" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> Add New Category</a>
+									<a th:href="@{__${ADMIN_PATH}__/categories/index?part=category-create-dialog}" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCategory}">Add New Category</span></a>
 									<div id="category-create-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 								</section>
 							</fieldset>

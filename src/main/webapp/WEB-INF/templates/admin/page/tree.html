@@ -10,36 +10,36 @@
 			<div th:replace="layout::sidebar"></div>
 			<div id="main">
 				<ol class="breadcrumb">
-					<li><a th:href="@{__${ADMIN_PATH}__/}">Dashboard</a></li>
-					<li class="active">Pages</li>
+					<li><a th:href="@{__${ADMIN_PATH}__/}" th:text="#{Dashboard}">Dashboard</a></li>
+					<li class="active" th:text="#{Pages}">Pages</li>
 				</ol>
 				<div class="page-header clearfix">
 					<div class="pull-left">
-						<h1>PageTree</h1>
+						<h1 th:text="#{PageTree}">PageTree</h1>
 					</div>
 					<div class="pull-right">
 						<div class="btn-toolbar">
 							<div class="btn-group">
-								<a title="一覧表示" class="btn btn-default"  th:href="@{__${ADMIN_PATH}__/pages/index}" style="padding:7px 12px;"><span class="glyphicon glyphicon-list"></span></a>
-								<a title="ツリー表示" class="btn btn-default active"><i class="flaticon-category"></i> </a>
+								<a th:attr="title=#{ListPage}" class="btn btn-default"  th:href="@{__${ADMIN_PATH}__/pages/index}" style="padding:7px 12px;"><span class="glyphicon glyphicon-list"></span></a>
+								<a th:attr="title=#{TreePage}" title="ツリー表示" class="btn btn-default active"><i class="flaticon-category"></i> </a>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="alert alert-success" th:if="${savedPage ne null}">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					Page saved.
+					<span th:text="#{SavedPage}">Page saved.</span>
 				</div>
 				<div class="alert alert-success" th:if="${deletedPage ne null}">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					Page deleted.
+					<span th:text="#{DeletedPage}">Page deleted.</span>
 				</div>
 				<div class="clearfix">
 					<div class="pull-left">
-						<a th:href="@{__${ADMIN_PATH}__/pages/tree?part=page-create-dialog}" data-toggle="modal" data-target="#page-create-modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add New</a>
+						<a th:href="@{__${ADMIN_PATH}__/pages/tree?part=page-create-dialog}" data-toggle="modal" data-target="#page-create-modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewPage}">Add New</span></a>
 					</div>
 					<div class="pull-right">
-						<button id="update-page-sort" type="submit" class="btn btn-primary" data-loading-text="saving..." disabled="true" th:if="!${pageTree.empty}">Save Order</button>
+						<button id="update-page-sort" type="submit" class="btn btn-primary" data-loading-text="saving..." disabled="true" th:if="!${pageTree.empty}" th:text="#{SaveOrder}">Save Order</button>
 						<script th:inline="javascript">
 							$(function() {
 								$('#update-page-sort').click(function(e) {
@@ -73,8 +73,8 @@
 								<span class="wr-tree-option" th:text="${'/' + node.page.code}">/cate1</span>
 							</div>
 							<div class="wr-tree-options pull-right">
-								<button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/pages/edit(id=${node.page.id})}"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
-								<button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/pages/tree(part=page-create-dialog,parentId=${node.page.id})}" data-toggle="modal" data-target="#page-create-modal"><span class="glyphicon glyphicon-plus"></span> Add</button>
+								<button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/pages/edit(id=${node.page.id})}"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Edit}">Edit</span></button>
+								<button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/pages/tree(part=page-create-dialog,parentId=${node.page.id})}" data-toggle="modal" data-target="#page-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{Add}">Add</span></button>
 								<button class="btn btn-link wr-tree-option" th:href="@{__${ADMIN_PATH}__/pages/tree(part=page-delete-dialog,id=${node.page.id})}" data-toggle="modal" data-target="#page-delete-modal"><span class="glyphicon glyphicon-remove"></span></button>
 							</div>
 							<script>
@@ -95,26 +95,26 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title">Add New Page</h4>
+									<h4 class="modal-title" th:text="#{AddNewPage}">Add New Page</h4>
 								</div>
 								<div class="modal-body">
 									<div class="form-group">
 										<select name="parentId" class="form-control">
-											<option value="">Select Parent Page</option>
+											<option value="" th:text="#{SelectParentPage}">Select Parent Page</option>
 											<option th:each="page : ${pageTree.pages}" th:value="${page.id}" th:text="${page.title}" th:selected="${page.id eq parentId}"></option>
 										</select>
 									</div>
 									<div class="form-group">
-										<input type="text" name="title" class="form-control" placeholder="Page Name" />
+										<input type="text" name="title" class="form-control" th:attr="placeholder=#{Title}" />
 									</div>
 									<div class="form-group">
 										<span th:text="${WEBSITE_LINK + '/page/'}">http://wallride.org/page/</span>
-										<input type="text" name="code" class="form-control input-sm wr-code" placeholder="URLパス" />
+										<input type="text" name="code" class="form-control input-sm wr-code" th:attr="placeholder=#{URLPath}" />
 									</div>
 								</div>
 								<div class="modal-footer">
-									<button class="btn btn-default" data-dismiss="modal">Cancel</button>
-									<button class="btn btn-primary" id="save-page">Save</button>
+									<button class="btn btn-default" data-dismiss="modal" th:text="#{Cancel}">Cancel</button>
+									<button class="btn btn-primary" id="save-page" th:text="#{Save}">Save</button>
 								</div>
 							</div>
 						</form>
@@ -162,14 +162,14 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title">Delete Page</h4>
+									<h4 class="modal-title" th:text="#{DeletePage}">Delete Page</h4>
 								</div>
 								<div class="modal-body">
-									<p>Are you sure you want to delete?</p>
+									<p th:text="#{MakeSureDelete}">Are you sure you want to delete?</p>
 								</div>
 								<div class="modal-footer">
 									<button class="btn btn-default" data-dismiss="modal">Cancel</button>
-									<button id="delete-page" class="btn btn-primary" th:attr="data-id=${targetId}">Delete</button>
+									<button id="delete-page" class="btn btn-primary" th:attr="data-id=${targetId}" th:text="#{Delete}">Delete</button>
 								</div>
 							</div>
 						</form>
