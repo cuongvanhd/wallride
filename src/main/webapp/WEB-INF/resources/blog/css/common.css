@@ -2177,6 +2177,17 @@ div.box-youtube iframe {
 	height: 100% ;
 }
 
+/* Search Result */
+
+.search-result ul li {
+	border-top: 1px solid #e8e8e8;
+	padding: 20px 0;
+}
+.search-result ul li:first-child {
+	border-top: none;
+	padding-top: 10px;
+}
+
 /* Footer */
 
 footer {
@@ -2188,29 +2199,21 @@ footer {
 	color: #444;
 	border-bottom: 5px solid #82ae46;
 }
-
 footer .container {
 	background-image: url('../img/maru.png');
 	background-repeat: no-repeat;
 	background-position: right bottom;
 }
-
-footer .widgets {
-}
-
 footer .widgets h4 {
 	background: url('../img/line.png') repeat-x bottom;
 	padding-bottom: 5px;
 }
-
 footer .widgets ul li a {
 	line-height: 1.5em;
 }
-
 footer a {
 	color: #777;
 }
-
 footer a:hover {
 	color: #666;
 }
@@ -2218,39 +2221,32 @@ footer a:hover {
 footer .color {
 	color: #444;
 }
-
 footer h6 {
 	color: #444;
 }
-
 footer .notes {
 	width: 100%;
 	padding: 10px;
 	margin-bottom: 0;
 	display: inline-block;
 }
-
 footer .notes img {
 	margin: 5px ;
 }
-
 footer .notes p {
 	margin: 3px;
 	line-height: 1.4em;
 	font-size: 11px;
 }
-
 footer .copy {
 	/*background: url('../img/dots.png') repeat-x top;*/
 	padding: 5px 0 10px 0;
 }
-
 footer .list-inline > li {
 	padding-left: 0;
 	padding-right: 10px;
 	padding-bottom: 5px;
 }
-
 footer .social-links {
 	padding: 0;
 	color: #595959;
@@ -2259,12 +2255,9 @@ footer .social-links {
 	background-color: rgba(130, 174, 70, 0.8);
 	background: transparent;
 }
-
 footer .social-links a {
 	font-size: 12px;
 }
-
-
 footer .social-links a,
 footer .social-links a:visited {
 	font-size: 12px;
@@ -2274,11 +2267,9 @@ footer .social-links a:visited {
 	text-decoration: none;
 	display: inline-block;
 }
-
 footer .social-links a:hover {
 	color: #82ae46;
 }
-
 footer .social-links i{
 	position: relative;
 	display: inline-block;
