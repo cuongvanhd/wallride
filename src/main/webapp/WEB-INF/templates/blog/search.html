@@ -47,7 +47,7 @@
 							<li th:each="post : ${posts}">
 								<a href="" th:text="${post.title}">Post Title</a>
 								<p><small th:text="${_utils.ellipsis(post.body, 200)}">Post Body</small></p>
-								<span><a href="">http://sakejapan.com/xxx</a></span>
+								<span><a th:href="@{__${WEBSITE_PATH}__/__${#posts.path(post)}__}" th:text="@{__${WEBSITE_LINK}__/__${#posts.path(post)}__}">http://sakejapan.com/xxx</a></span>
 							</li>
 						</ul>
 						<div class="pagination-group clearfix" th:if="${paginator}">
