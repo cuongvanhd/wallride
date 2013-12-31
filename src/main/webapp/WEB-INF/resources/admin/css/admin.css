@@ -556,6 +556,16 @@ legend {
 .redactor_editor h6 {
 	font-family: Meiryo UI, Arial, Helvetica, Verdana, Tahoma, sans-serif !important;
 }
+.redactor_editor p,
+.redactor_editor div {
+	border: 1px dashed #ddd;
+}
+.redactor_editor p {
+	margin: 1em 0;
+}
+.redactor_editor *:first-child {
+	margin-top: 0;
+}
 .has-error .redactor_box {
 	border-color: #b94a48;
 }
