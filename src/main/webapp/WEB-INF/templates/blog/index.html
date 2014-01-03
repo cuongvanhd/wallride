@@ -80,7 +80,7 @@
 									</span>
 								</h3>
 								<ul>
-									<li th:each="article : ${NEW_ARTICLES}"><a th:href="@{__${WEBSITE_PATH}__/__${article.date.toString('yyyy/MM/dd')}__/__${article.code}__}"><span th:text="${article.date.toString('M月d日')} + '   ' + ${article.title}"></span></a></li>
+									<li th:each="article : ${NEW_ARTICLES}"><a th:href="@{${#posts.path(article)}}"><span th:text="${article.date.toString('M月d日')} + '   ' + ${article.title}"></span></a></li>
 								</ul>
 							</div>
 						</div>
@@ -93,7 +93,7 @@
 										<section class="sake-learn">
 											<h4><img class="title title-sake-learn" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
 											<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'sake-learn'}">
-												<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+												<li th:each="child : ${node.page.children}"><a th:href="@{${#posts.path(child)}}" th:text="${child.title}">About</a></li>
 											</ul>
 											<img th:src="@{/resources/img/space.gif}" class="image"/>
 										</section>

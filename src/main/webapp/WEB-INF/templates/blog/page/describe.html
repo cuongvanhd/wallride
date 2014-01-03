@@ -4,20 +4,18 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<meta name="keywords" th:content="${WEBSITE_SEO_KEYWORDS} ? ${WEBSITE_SEO_KEYWORDS} : ${WEBSITE_TITLE}" />
-		<meta name="description" th:content="${WEBSITE_SEO_DESCRIPTION} ? ${WEBSITE_SEO_DESCRIPTION} : ${WEBSITE_TITLE}" />
-		<meta name="author" content="" />
-		<meta property="og:site_name" th:content="${WEBSITE_TITLE}"/>
-		<meta property="og:title" th:content="${page.title}"/>
-		<meta property="og:url" th:content="@{__${WEBSITE_LINK}__}" />
-		<!--//TODO-->
-		<!--<meta property="og:image" th:if="${page.cover}" th:content="@{__${WEBSITE_LINK}__/media/__${page.cover.id}__}" />-->
-		<meta property="og:type" content="article"/>
-		<title th:text="${page.title + ' | Sake JAPAN'}"></title>
+		<meta name="keywords" th:content="${#posts.metaKeywords(page)}" />
+		<meta name="description" th:content="${#posts.metaDescription(page)}" />
+		<meta name="author" th:content="${#posts.metaAuthor(page)}" />
+		<meta property="og:site_name" th:content="${#posts.ogSiteName(page)}"/>
+		<meta property="og:title" th:content="${#posts.ogTitle(page)}"/>
+		<meta property="og:url" th:content="${#posts.ogUrl(page)}" />
+		<meta property="og:image" th:if="${#posts.ogImage(page)}" th:content="${#posts.ogImage(page)}" />
+		<meta property="og:type" th:content="${#posts.ogType(page)}"/>
+		<title th:text="${#posts.title(page)}"></title>
 		<link th:replace="layout::head-link" />
 		<script th:replace="layout::head-script"></script>
 	</head>
-
 	<body>
 		<!-- header -->
 		<header th:replace="layout::header"></header><!-- /header -->
@@ -34,7 +32,6 @@
 			</div>
 		</div><!-- /.top -->
 		<div class="obi-nami-bottom"></div>
-
 		<div class="content" th:classappend="${page.parent ne null} ? ${'page-' + PAGE_TREE.getRootNodeByCode(page.code).page.code} : ${'page-' + page.code}">
 			<div class="container">
 				<div>
@@ -48,7 +45,7 @@
 							<hr/>
 							<div class="row">
 								<div class="col-md-12">
-									<div th:utext="${_utils.replaceMediaUrlForResized(page.body)}"></div>
+									<div th:utext="${#posts.body(page)}"></div>
 								</div>
 							</div>
 							<div class="row" style="margin-bottom: 15px;" th:unless="${#lists.isEmpty(page.children)}" th:each="child : ${page.children}">
@@ -56,11 +53,10 @@
 									<h3 th:text="${child.title}"></h3>
 									<div class="clearfix">
 										<div class="thumbnail pull-right" th:if="${child.cover ne null}" style="margin-left: 15px;">
-											<img th:src="@{__${WEBSITE_PATH}__/media/__${child.cover.id}__(w=200,h=130,m=1)}" />
+											<img th:src="@{${#medias.link(child.cover)}(w=200,h=130,m=1)}" />
 										</div>
-										<div th:text="${_utils.ellipsis(child.body, 300)}"></div>
-										<a th:if="${page.parent ne null}" th:href="@{__${WEBSITE_PATH}__/__${breadcrumb.get(page.parent)}__/__${page.code}__/__${child.code}__}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
-										<a th:unless="${page.parent ne null}" th:href="@{__${WEBSITE_PATH}__/__${page.code}__/__${child.code}__}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
+										<div th:text="${#posts.summary(child, 300)}"></div>
+										<a th:href="@{${#posts.path(child)}}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
 									</div>
 								</div>
 							</div>

@@ -41,8 +41,8 @@ public class DefaultModelAttributeInterceptor extends HandlerInterceptorAdapter 
 	@Inject
 	private PageTreeService pageTreeService;
 
-	@Inject
-	private TemplateUtils templateUtils;
+//	@Inject
+//	private TemplateUtils templateUtils;
 
 	@Inject
 	private Environment environment;
@@ -70,8 +70,8 @@ public class DefaultModelAttributeInterceptor extends HandlerInterceptorAdapter 
 
 		String currentLanguage = LocaleContextHolder.getLocale().getLanguage();
 
-		mv.addObject("_utils", templateUtils); //TODO
-		mv.addObject("_mediaUrl", environment.getRequiredProperty("media.url")); //TODO
+//		mv.addObject("_utils", templateUtils);
+//		mv.addObject("_mediaUrl", environment.getRequiredProperty("media.url"));
 
 //		@SuppressWarnings("unchecked")
 //		Map<String, Object> pathVariables = (Map<String, Object>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
