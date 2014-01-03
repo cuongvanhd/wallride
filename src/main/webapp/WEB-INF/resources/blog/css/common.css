@@ -22,23 +22,23 @@ h1,h2,h3,h4,h5,h6 {
 
 h1,h2 {
 	font-weight: 300 !important;
+	line-height: 45px;
 }
 
 h3,h4,h5,h6 {
 	font-weight: 400 !important;
 	color: #666;
 }
-
 h2 {
 	font-size: 18px;
 	line-height: 1.5em;
 }
-
 h3 {
 	font-size: 16px;
 	line-height: 1.5em;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
-
 h4 {
 	font-size: 20px;
 	/*line-height: 20px;*/
@@ -63,8 +63,7 @@ p {
 }
 
 a {
-	color: #394922;
-	border-bottom: dotted 1px #82ae46;
+	color: #82ae46;
 }
 
 a:hover,
@@ -72,8 +71,6 @@ a:active,
 a:focus {
 	color: #82ae46;
 	outline: 0;
-	text-decoration: none;
-	border-bottom: solid 1px #82ae46;
 }
 
 hr {
@@ -131,7 +128,6 @@ pre {
 	color: #82ae46;
 	font-style: bold;
 	text-decoration: none;
-	border-bottom: 1px dotted #82ae46;
 	margin: 10px 0 10px 0;
 }
 
@@ -139,7 +135,6 @@ pre {
 .link:visited,
 .link:active {
 	text-decoration: none;
-	border-bottom: 1px solid #82ae46;
 }
 
 .grey {
@@ -1737,14 +1732,6 @@ ul.hover-block li img {
 	min-height: 400px;
 }
 
-.content a {
-	border-bottom: dotted 1px #82ae46;
-}
-
-.content a:hover {
-	border-bottom: solid 1px #82ae46;
-}
-
 .aricle-news {
 	margin-top: 0;
 }
@@ -1804,11 +1791,23 @@ ul.hover-block li img {
 	border-bottom: transparent;
 }
 
-.content .news ul,
-.content .sake-learn ul,
-.content .sake-enjoy ul,
-.content .shochu-learn ul,
-.content .shochu-enjoy ul {
+body.index .content .sake h3 {
+	background: url('../img/bg-sake-title.png') repeat;
+}
+body.index .content .shochu h3 {
+	background: url('../img/bg-shochu-title.png') repeat;
+}
+body.index .content .news a,
+body.index .content .sake a,
+body.index .content .shochu a {
+	color: #394922;
+}
+
+body.index .content .news ul,
+body.index .content .sake-learn ul,
+body.index .content .sake-enjoy ul,
+body.index .content .shochu-learn ul,
+body.index .content .shochu-enjoy ul {
 	margin-left: 0px;
 	margin-bottom: 5px;
 	padding-left: 15px;
@@ -2091,19 +2090,20 @@ ul.hover-block li img {
 	height: 5px;
 	width: 100%;
 }
-
 .obi-washi-bottom {
 	background: url('../img/obi-washi-bottom.png') repeat-x bottom;
-	height: 4px;
+	height: 5px;
 	width: 100%;
 }
-
 .obi-washi {
 	background: url('../img/obi-washi-top.png') repeat-x top, url('../img/obi-washi-bottom.png') repeat-x bottom;
-	height: 9px;
+	height: 10px;
 	width: 100%;
 }
-
+body.index .obi-washi {
+	background: url('../img/obi-washi-top.png') repeat-x bottom;
+	height: 5px;
+}
 .obi-nami-bottom {
 	background: url('../img/bg-header-bottom.png') repeat-x bottom;
 	height: 12px;

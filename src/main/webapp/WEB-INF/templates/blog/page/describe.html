@@ -37,7 +37,7 @@
 				<div>
 					<div class="row">
 						<div class="col-md-9 post-content">
-							<h1 class="title-category"><img class="title-icon" th:src="@{/resources/img/space.gif}"/><span th:text="${page.title}"></span>
+							<h1 class="title-category"><img class="title-icon" th:src="@{/resources/img/space.gif}"/><span th:text="${page.title}" th:remove="tag"></span>
 								<small th:if="${page.parent ne null}">
 									<span th:text="${'-' + page.parent.title + '-'}"></span>
 								</small>
@@ -45,6 +45,7 @@
 							<hr/>
 							<div class="row">
 								<div class="col-md-12">
+									<img th:if="${page.cover ne null}" th:src="@{${#medias.link(page.cover)}(w=1200,h=500,m=1)}" class="post-cover" />
 									<div th:utext="${#posts.body(page)}"></div>
 								</div>
 							</div>

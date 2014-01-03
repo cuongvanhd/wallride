@@ -24,11 +24,9 @@
 			}
 		</style>
 	</head>
-
-	<body>
+	<body class="index">
 		<!-- header -->
 		<header th:replace="layout::header"></header><!-- /header -->
-
 		<!-- .slider -->
 		<div class="slider">
 			<!-- .full-slider start -->
@@ -85,7 +83,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12" role="sake">
+							<div class="col-md-12 sake">
 								<h3><img class="title title-sake" th:src="@{/resources/img/space.gif}" alt="日本酒"/></h3>
 								<div class="row">
 									<div class="col-md-6">
@@ -110,11 +108,11 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12" role="shochu">
+							<div class="col-md-12 shochu">
 								<h3><img class="title title-shochu" th:src="@{/resources/img/space.gif}" alt="焼酎"/></h3>
 								<div class="row">
 									<div class="col-md-6">
-										<section class="shochu-learn page-shochu-learn">
+										<section class="shochu-learn">
 											<h4><img class="title title-shochu-learn" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
 											<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'shochu-learn'}">
 												<li th:each="child : ${node.children}"><a th:href="@{${#posts.path(child.page)}}" th:text="${child.page.title}">Page Title</a></li>
@@ -123,7 +121,7 @@
 										</section>
 									</div>
 									<div class="col-md-6">
-										<section class="shochu-enjoy page-shochu-enjoy">
+										<section class="shochu-enjoy">
 											<h4><img class="title title-shochu-enjoy" th:src="@{/resources/img/space.gif}" alt="楽しむ"/></h4>
 											<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'shochu-enjoy'}">
 												<li th:each="child : ${node.children}"><a th:href="@{${#posts.path(child.page)}}" th:text="${child.page.title}">Page Title</a></li>
