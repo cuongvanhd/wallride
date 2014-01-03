@@ -48,6 +48,7 @@
 									<div th:utext="${#posts.body(page)}"></div>
 								</div>
 							</div>
+							<!--/*/ <th:block th:if="${PAGE_TREE.getNodeById(page.id) ne null}"> /*/-->
 							<div class="row" style="margin-bottom: 15px;" th:unless="${#lists.isEmpty(PAGE_TREE.getNodeById(page.id).children)}" th:each="child : ${PAGE_TREE.getNodeById(page.id).children}">
 								<div class="col-md-12 article-title">
 									<h3 th:text="${child.page.title}"></h3>
@@ -60,10 +61,12 @@
 									</div>
 								</div>
 							</div>
+							<!--/*/ </th:block> /*/-->
 						</div>
 						<div class="col-md-3">
 							<!-- sidebar -->
 							<div class="sidebar">
+								<!--/*/ <th:block th:if="${PAGE_TREE.getRootNodeByCode(page.code) ne null}"> /*/-->
 								<!-- .sidemenu -->
 								<div class="sidemenu">
 									<ul id="nav-category" class="nav">
@@ -76,6 +79,7 @@
 									</ul>
 								</div>
 								<!-- /.sidemenu -->
+								<!--/*/ </th:block> /*/-->
 								<div th:replace="layout::side-movie"></div>
 								<div th:replace="layout::side-banner"></div>
 							</div><!-- /sidebar -->

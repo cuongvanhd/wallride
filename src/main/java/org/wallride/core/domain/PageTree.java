@@ -86,8 +86,10 @@ public class PageTree implements Serializable {
 
 	public Node getRootNodeByCode(String code) {
 		Node node = getNodeByCode(code);
-		while (node.getParent() != null) {
-			node = node.getParent();
+		if (node != null) {
+			while (node.getParent() != null) {
+				node = node.getParent();
+			}
 		}
 		return node;
 	}

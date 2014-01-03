@@ -84,7 +84,6 @@
 								</ul>
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-md-12" role="sake">
 								<h3><img class="title title-sake" th:src="@{/resources/img/space.gif}" alt="日本酒"/></h3>
@@ -93,7 +92,7 @@
 										<section class="sake-learn">
 											<h4><img class="title title-sake-learn" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
 											<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'sake-learn'}">
-												<li th:each="child : ${node.page.children}"><a th:href="@{${#posts.path(child)}}" th:text="${child.title}">About</a></li>
+												<li th:each="child : ${node.children}"><a th:href="@{${#posts.path(child.page)}}" th:text="${child.page.title}">Page Title</a></li>
 											</ul>
 											<img th:src="@{/resources/img/space.gif}" class="image"/>
 										</section>
@@ -102,7 +101,7 @@
 										<section class="sake-enjoy">
 											<h4><img class="title title-sake-enjoy" th:src="@{/resources/img/space.gif}" alt="楽しむ"/></h4>
 											<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'sake-enjoy'}">
-												<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+												<li th:each="child : ${node.children}"><a th:href="@{${#posts.path(child.page)}}" th:text="${child.page.title}">Page Title</a></li>
 											</ul>
 											<img th:src="@{/resources/img/space.gif}" class="image"/>
 										</section>
@@ -118,7 +117,7 @@
 										<section class="shochu-learn page-shochu-learn">
 											<h4><img class="title title-shochu-learn" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
 											<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'shochu-learn'}">
-												<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+												<li th:each="child : ${node.children}"><a th:href="@{${#posts.path(child.page)}}" th:text="${child.page.title}">Page Title</a></li>
 											</ul>
 											<img th:src="@{/resources/img/space.gif}" class="image"/>
 										</section>
@@ -127,7 +126,7 @@
 										<section class="shochu-enjoy page-shochu-enjoy">
 											<h4><img class="title title-shochu-enjoy" th:src="@{/resources/img/space.gif}" alt="楽しむ"/></h4>
 											<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'shochu-enjoy'}">
-												<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+												<li th:each="child : ${node.children}"><a th:href="@{${#posts.path(child.page)}}" th:text="${child.page.title}">Page Title</a></li>
 											</ul>
 											<img th:src="@{/resources/img/space.gif}" class="image"/>
 										</section>
