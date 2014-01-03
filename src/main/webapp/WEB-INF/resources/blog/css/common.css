@@ -2160,6 +2160,13 @@ body.index .obi-washi {
 .link-movie {
 	margin-bottom: 15px;
 }
+.link-movie a {
+	display: block;
+	color: #394922;
+}
+.link-movie a:hover * {
+	text-decoration: underline;
+}
 .link-movie dl {
 	margin-top: 0;
 }
