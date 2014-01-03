@@ -78,11 +78,11 @@
 									<th:block th:each="node : ${PAGE_TREE.rootNodes}" th:switch="${node.page.code}">
 										<th:block th:case="sake-learn">
 											<li role="presentation" class="dropdown-header sake" th:text="#{Sake}">日本酒</li>
-											<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+											<li th:each="child : ${node.children}"><a th:href="@{${#posts.path(child.page)}}" th:text="${child.page.title}">Page Title</a></li>
 										</th:block>
 										<th:block th:case="shochu-learn">
 											<li role="presentation" class="dropdown-header shochu" th:text="#{Shochu}">焼酎</li>
-											<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
+											<li th:each="child : ${node.children}"><a th:href="@{${#posts.path(child.page)}}" th:text="${child.page.title}">Page Title</a></li>
 										</th:block>
 									</th:block>
 								</ul>
