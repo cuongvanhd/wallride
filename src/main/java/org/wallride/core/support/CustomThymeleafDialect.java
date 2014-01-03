@@ -16,10 +16,14 @@ public class CustomThymeleafDialect extends AbstractDialect implements IExpressi
 	@Inject
 	private PostUtils postUtils;
 
+	@Inject
+	private MediaUtils mediaUtils;
+
 	@Override
 	public Map<String, Object> getAdditionalExpressionObjects(IProcessingContext processingContext) {
 		Map<String, Object> objects = new HashMap<>();
 		objects.put("posts", postUtils);
+		objects.put("medias", mediaUtils);
 		return Collections.unmodifiableMap(objects);
 	}
 
