@@ -66,16 +66,16 @@
 							<div class="sidebar">
 								<!-- .sidemenu -->
 								<div class="sidemenu">
-									<th:block th:if="${page.children ne null}">
-									<ul th:replace="page/describe::page(${page.parent ne null} ? ${PAGE_TREE.getRootNodeByCode(page.code).children} : ${PAGE_TREE.getNodeByCode(page.code).children})"></ul>
-									<ul th:fragment="page(nodes)" id="nav-category" class="nav" th:unless="${#lists.isEmpty(nodes)}">
-										<li th:each="node : ${nodes}" th:class="${not #lists.isEmpty(node.children) and not #lists.isEmpty(node.page)}? (${page.parent ne null} ? (${page.parent.code eq node.page.code}? 'panel-title open' : 'panel-title') : 'panel-title')" th:classappend="${page.title eq node.page.title}? 'active'">
-											<a th:href="${#lists.isEmpty(node.children)}? @{__${WEBSITE_PATH}____${PAGE_TREE.getPath(node.page.code)}__/__${node.page.code}__} : '#'" th:text="${node.page.title}">日本酒とは</a>
-											<ul th:unless="${#lists.isEmpty(node.children)}" th:include="page/describe::page(${node.children})"></ul>
+									<ul id="nav-category" class="nav">
+										<li th:each="node : ${PAGE_TREE.getRootNodeByCode(page.code).children}" th:classappend="${node.contains(page) ? 'open' : ''}" class="panel-title">
+											<a th:text="${node.page.title}">Page Title</a>
+											<ul>
+												<li th:each="childNode : ${node.children}" th:classappend="${childNode.contains(page)} ? 'active' : ''"><a th:href="${#posts.path(childNode.page)}" th:text="${childNode.page.title}">Page Title</a></li>
+											</ul>
 										</li>
 									</ul>
-									</th:block>
-								</div><!-- /.sidemenu -->
+								</div>
+								<!-- /.sidemenu -->
 								<div th:replace="layout::side-movie"></div>
 								<div th:replace="layout::side-banner"></div>
 							</div><!-- /sidebar -->
