@@ -40,7 +40,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
 			MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_36, fields, analyzer);
 			parser.setDefaultOperator(Operator.AND);
 			try {
-				query = parser.parse(term.getKeyword());
+				query = parser.parse(term.getKeyword() + " language:" + term.getLanguage());
 			}
 			catch (ParseException e1) {
 				try {
