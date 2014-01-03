@@ -39,7 +39,9 @@
 								'<div class="col-md-6">' +
 									'<div class="movie-box well washi">' +
 										'<h3 class="movie-title">' +
-											'<img class="title-movie" th:src="@{/resources/img/space.gif}" alt="酒TVおすすめ動画"/>' +
+											/*[+
+											'<img class="title-movie" src="' + [[@{/resources/img/space.gif}]] + '" alt="酒TVおすすめ動画"/>' +
+											+]*/
 										'</h3>' +
 										'<div class="box-youtube" style="padding-top: 56.25%;">' +
 											'<iframe class="movie" src="http://www.youtube.com/embed/' + item.id + '?feature=player_detailpage" frameborder="0" allowfullscreen="allowfullscreen"></iframe>' +
@@ -121,7 +123,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<h1 class="title-info"><img th:class="title-tv" th:src="@{/resources/img/space.gif}" class="title-saketv"/></h1>
+						<h1 class="title-info"><img th:src="@{/resources/img/space.gif}" class="title-tv"/></h1>
 						<div class="article-title">
 							<div id="recommend" class="row"></div>
 						</div>

@@ -45,20 +45,18 @@
 						</form>
 						<ul class="list-unstyled">
 							<li th:each="post : ${posts}">
-								<a href="" th:text="${post.title}">Post Title</a>
-								<p><small th:text="${_utils.ellipsis(post.body, 200)}">Post Body</small></p>
-								<span><a th:href="@{__${WEBSITE_PATH}__/__${#posts.path(post)}__}" th:text="@{__${WEBSITE_LINK}__/__${#posts.path(post)}__}">http://sakejapan.com/xxx</a></span>
+								<a th:href="@{${#posts.link(post)}}" th:text="${post.title}">Post Title</a>
+								<p><small th:text="${#posts.summary(post, 200)}">Post Body</small></p>
+								<span><a th:href="@{${#posts.path(post)}}" th:text="@{${#posts.link(post)}}">http://sakejapan.com/xxx</a></span>
 							</li>
 						</ul>
 						<div class="pagination-group clearfix" th:if="${paginator}">
 							<div class="pull-left pagination-summary"><span th:text="${paginator.start}"></span> - <span th:text="${paginator.end}"></span> / <span th:text="${paginator.total}"></span></div>
-							<div class="">
-								<ul class="pagination paginateon-sm">
-									<li th:classappend="${paginator.hasPrevious() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/articles/index(page=${paginator.previousNumber},token=${token})}">Prev</a></li>
-									<li th:each="no : ${paginator.numbers}" th:classappend="${paginator.number eq no ? 'active' : ''}"><a th:href="@{__${ADMIN_PATH}__/articles/index(page=${no},token=${token})}" th:text="${no}"></a></li>
-									<li th:classappend="${paginator.hasNext() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/articles/index(page=${paginator.nextNumber},token=${token})}">Next</a></li>
-								</ul>
-							</div>
+							<ul class="pagination paginateon-sm">
+								<li th:classappend="${paginator.hasPrevious() ? '' : 'disabled'}"><a th:href="${paginator.hasPrevious()} ? @{__${WEBSITE_PATH}__/search(page=${paginator.previousNumber},token=${token})} : '#'">&laquo;</a></li>
+								<li th:each="no : ${paginator.numbers}" th:classappend="${paginator.number eq no ? 'active' : ''}"><a th:href="@{__${WEBSITE_PATH}__/search(page=${no},token=${token})}" th:text="${no}"></a></li>
+								<li th:classappend="${paginator.hasNext() ? '' : 'disabled'}"><a th:href="${paginator.hasNext()} ? @{__${WEBSITE_PATH}__/search(page=${paginator.nextNumber},token=${token})} : '#'">&raquo;</a></li>
+							</ul>
 						</div>
 					</div>
 					<div class="col-md-3">

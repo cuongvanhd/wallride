@@ -47,6 +47,7 @@ public class PageTree implements Serializable {
 		while (i.hasNext()) {
 			Page page = i.next();
 			Node node = new Node(page);
+			node.parent = parent;
 			nodeIdMap.put(page.getId(), node);
 			nodeCodeMap.put(page.getCode(), node);
 			if (parent.getPage().equals(page.getParent())) {
@@ -64,18 +65,6 @@ public class PageTree implements Serializable {
 
 	public List<Node> getRootNodes() {
 		return rootNodes;
-	}
-
-	public String getPath(String code) {
-		List<Page> parents = getParentPagesByCode(code);
-		StringBuilder path = new StringBuilder();
-		for (Page p : parents) {
-			if (path != null) {
-				path.append("/");
-			}
-			path.append(p.getCode());
-		}
-		return path.toString();
 	}
 
 	public Map<Page, String> getPaths(String code) {
@@ -96,15 +85,13 @@ public class PageTree implements Serializable {
 	}
 
 	public Node getRootNodeByCode(String code) {
-		List<Page> parents = getParentPagesByCode(code);
-		Page parent = parents.get(0);
-		System.out.println(parent);
-		for(Node n : getRootNodes()) {
-			if (n.getPage().equals(parent)) {
-				return n;
+		Node node = getNodeByCode(code);
+		if (node != null) {
+			while (node.getParent() != null) {
+				node = node.getParent();
 			}
 		}
-		return null;
+		return node;
 	}
 
 	private List<Page> getParentPagesByCode(String code) {
@@ -157,6 +144,8 @@ public class PageTree implements Serializable {
 
 		private Page page;
 
+		private Node parent;
+
 		private List<Node> children = new ArrayList<>();
 
 		private Node(Page page) {
@@ -167,8 +156,24 @@ public class PageTree implements Serializable {
 			return page;
 		}
 
+		public Node getParent() {
+			return parent;
+		}
+
 		public List<Node> getChildren() {
 			return children;
+		}
+
+		public boolean contains(Page page) {
+			if (getPage().equals(page)) {
+				return true;
+			}
+			for (Node node : getChildren()) {
+				if (node.contains(page)) {
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

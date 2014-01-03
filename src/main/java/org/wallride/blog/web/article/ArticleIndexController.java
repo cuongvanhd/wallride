@@ -40,31 +40,6 @@ public class ArticleIndexController {
 	@Inject
 	private SettingService settingService;
 
-/*	@RequestMapping("/{language}/")
-	public String index(
-			@PathVariable String language,
-			@RequestParam(required=false) Integer page,
-			@RequestParam(required=false) String token,
-			HttpSession session,
-			Model model) {
-		DomainObjectSearchCondition<PostSearchForm> condition = DomainObjectSearchCondition.resolve(session, PostSearchForm.class, token);
-		if (condition == null) {
-			PostSearchForm form = new PostSearchForm() {};
-			form.setLanguage(language);
-			Paginator<Long> paginator = articleService.readArticles(form);
-			condition = new DomainObjectSearchCondition<PostSearchForm>(session, form, paginator);
-		}
-		if (page != null && condition.getPaginator().hasElement()) {
-			condition.getPaginator().setNumber(page);
-		}
-
-
-		List<Article> articles = articleService.readArticles(condition.getPaginator());
-		model.addAttribute("articles", articles);
-		model.addAttribute("paginator", condition.getPaginator());
-		return "/article/index";
-	}*/
-
 	@RequestMapping("/{language}/{year:[0-9]{4}}")
 	public String year(
 			@PathVariable String language,
@@ -89,6 +64,7 @@ public class ArticleIndexController {
 		List<Article> articles = articleService.readArticles(condition.getPaginator());
 		model.addAttribute("articles", articles);
 		model.addAttribute("paginator", condition.getPaginator());
+		model.addAttribute("token", condition.getToken());
 		return "/article/index";
 	}
 
@@ -118,6 +94,7 @@ public class ArticleIndexController {
 		List<Article> articles = articleService.readArticles(condition.getPaginator());
 		model.addAttribute("articles", articles);
 		model.addAttribute("paginator", condition.getPaginator());
+		model.addAttribute("token", condition.getToken());
 		return "/article/index";
 	}
 
@@ -147,6 +124,7 @@ public class ArticleIndexController {
 		List<Article> articles = articleService.readArticles(condition.getPaginator());
 		model.addAttribute("articles", articles);
 		model.addAttribute("paginator", condition.getPaginator());
+		model.addAttribute("token", condition.getToken());
 		return "/article/index";
 	}
 
@@ -191,6 +169,7 @@ public class ArticleIndexController {
 		model.addAttribute("category", category);
 		model.addAttribute("articles", articles);
 		model.addAttribute("paginator", condition.getPaginator());
+		model.addAttribute("token", condition.getToken());
 		return "/article/index";
 	}
 

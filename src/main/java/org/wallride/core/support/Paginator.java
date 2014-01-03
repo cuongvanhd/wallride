@@ -11,8 +11,6 @@ import java.util.List;
  */
 public class Paginator<E> implements Serializable {
 	
-	private static final long serialVersionUID = -9211053486050832101L;
-
 	public static final int DEFAULT_PER_PAGE = 50;
 
 	public static final int DEFAULT_DELTA = 10;
