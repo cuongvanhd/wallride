@@ -37,7 +37,7 @@
 				<div>
 					<div class="row">
 						<div class="col-md-9 post-content">
-							<h1 class="title-category"><img class="title-icon" th:src="@{/resources/img/space.gif}"/><span th:text="${page.title}"></span>
+							<h1 class="title-category"><img class="title-icon" th:src="@{/resources/img/space.gif}"/><span th:text="${page.title}" th:remove="tag"></span>
 								<small th:if="${page.parent ne null}">
 									<span th:text="${'-' + page.parent.title + '-'}"></span>
 								</small>
@@ -45,37 +45,42 @@
 							<hr/>
 							<div class="row">
 								<div class="col-md-12">
+									<img th:if="${page.cover ne null}" th:src="@{${#medias.link(page.cover)}(w=1200,h=500,m=1)}" class="post-cover" />
 									<div th:utext="${#posts.body(page)}"></div>
 								</div>
 							</div>
-							<div class="row" style="margin-bottom: 15px;" th:unless="${#lists.isEmpty(page.children)}" th:each="child : ${page.children}">
+							<!--/*/ <th:block th:if="${PAGE_TREE.getNodeById(page.id) ne null}"> /*/-->
+							<div class="row" style="margin-bottom: 15px;" th:unless="${#lists.isEmpty(PAGE_TREE.getNodeById(page.id).children)}" th:each="child : ${PAGE_TREE.getNodeById(page.id).children}">
 								<div class="col-md-12 article-title">
-									<h3 th:text="${child.title}"></h3>
+									<h3 th:text="${child.page.title}"></h3>
 									<div class="clearfix">
-										<div class="thumbnail pull-right" th:if="${child.cover ne null}" style="margin-left: 15px;">
-											<img th:src="@{${#medias.link(child.cover)}(w=200,h=130,m=1)}" />
+										<div class="thumbnail pull-right" th:if="${child.page.cover ne null}" style="margin-left: 15px;">
+											<img th:src="@{${#medias.link(child.page.cover)}(w=200,h=130,m=1)}" />
 										</div>
-										<div th:text="${#posts.summary(child, 300)}"></div>
-										<a th:href="@{${#posts.path(child)}}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
+										<div th:text="${#posts.summary(child.page, 300)}"></div>
+										<a th:href="@{${#posts.path(child.page)}}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
 									</div>
 								</div>
 							</div>
+							<!--/*/ </th:block> /*/-->
 						</div>
 						<div class="col-md-3">
 							<!-- sidebar -->
 							<div class="sidebar">
+								<!--/*/ <th:block th:if="${PAGE_TREE.getRootNodeByCode(page.code) ne null}"> /*/-->
 								<!-- .sidemenu -->
 								<div class="sidemenu">
-									<th:block th:if="${page.children ne null}">
-									<ul th:replace="page/describe::page(${page.parent ne null} ? ${PAGE_TREE.getRootNodeByCode(page.code).children} : ${PAGE_TREE.getNodeByCode(page.code).children})"></ul>
-									<ul th:fragment="page(nodes)" id="nav-category" class="nav" th:unless="${#lists.isEmpty(nodes)}">
-										<li th:each="node : ${nodes}" th:class="${not #lists.isEmpty(node.children) and not #lists.isEmpty(node.page)}? (${page.parent ne null} ? (${page.parent.code eq node.page.code}? 'panel-title open' : 'panel-title') : 'panel-title')" th:classappend="${page.title eq node.page.title}? 'active'">
-											<a th:href="${#lists.isEmpty(node.children)}? @{__${WEBSITE_PATH}____${PAGE_TREE.getPath(node.page.code)}__/__${node.page.code}__} : '#'" th:text="${node.page.title}">日本酒とは</a>
-											<ul th:unless="${#lists.isEmpty(node.children)}" th:include="page/describe::page(${node.children})"></ul>
+									<ul id="nav-category" class="nav">
+										<li th:each="node : ${PAGE_TREE.getRootNodeByCode(page.code).children}" th:classappend="${node.contains(page) ? 'open' : ''}" class="panel-title">
+											<a th:text="${node.page.title}">Page Title</a>
+											<ul>
+												<li th:each="childNode : ${node.children}" th:classappend="${childNode.contains(page)} ? 'active' : ''"><a th:href="${#posts.path(childNode.page)}" th:text="${childNode.page.title}">Page Title</a></li>
+											</ul>
 										</li>
 									</ul>
-									</th:block>
-								</div><!-- /.sidemenu -->
+								</div>
+								<!-- /.sidemenu -->
+								<!--/*/ </th:block> /*/-->
 								<div th:replace="layout::side-movie"></div>
 								<div th:replace="layout::side-banner"></div>
 							</div><!-- /sidebar -->

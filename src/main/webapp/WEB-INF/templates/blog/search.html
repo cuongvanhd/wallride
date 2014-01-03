@@ -52,13 +52,11 @@
 						</ul>
 						<div class="pagination-group clearfix" th:if="${paginator}">
 							<div class="pull-left pagination-summary"><span th:text="${paginator.start}"></span> - <span th:text="${paginator.end}"></span> / <span th:text="${paginator.total}"></span></div>
-							<div class="">
-								<ul class="pagination paginateon-sm">
-									<li th:classappend="${paginator.hasPrevious() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/articles/index(page=${paginator.previousNumber},token=${token})}">Prev</a></li>
-									<li th:each="no : ${paginator.numbers}" th:classappend="${paginator.number eq no ? 'active' : ''}"><a th:href="@{__${ADMIN_PATH}__/articles/index(page=${no},token=${token})}" th:text="${no}"></a></li>
-									<li th:classappend="${paginator.hasNext() ? '' : 'disabled'}"><a th:href="@{__${ADMIN_PATH}__/articles/index(page=${paginator.nextNumber},token=${token})}">Next</a></li>
-								</ul>
-							</div>
+							<ul class="pagination paginateon-sm">
+								<li th:classappend="${paginator.hasPrevious() ? '' : 'disabled'}"><a th:href="${paginator.hasPrevious()} ? @{__${WEBSITE_PATH}__/search(page=${paginator.previousNumber},token=${token})} : '#'">&laquo;</a></li>
+								<li th:each="no : ${paginator.numbers}" th:classappend="${paginator.number eq no ? 'active' : ''}"><a th:href="@{__${WEBSITE_PATH}__/search(page=${no},token=${token})}" th:text="${no}"></a></li>
+								<li th:classappend="${paginator.hasNext() ? '' : 'disabled'}"><a th:href="${paginator.hasNext()} ? @{__${WEBSITE_PATH}__/search(page=${paginator.nextNumber},token=${token})} : '#'">&raquo;</a></li>
+							</ul>
 						</div>
 					</div>
 					<div class="col-md-3">

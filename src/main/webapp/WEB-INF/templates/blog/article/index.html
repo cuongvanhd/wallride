@@ -25,7 +25,7 @@
 		<div class="container">
 			<ol class="breadcrumb">
 				<li><a th:href="@{/}">TOP</a></li>
-				<li class="active" th:text="#{__${code}__}">記事一覧</li>
+				<li class="active" th:text="${category.name}">Category Name</li>
 			</ol>
 		</div>
 	</div><!-- /.top -->
@@ -40,6 +40,14 @@
 							<time th:text="${article.date.toString('yyyy/MM/dd')}"></time>
 							<h4><a th:href="@{__${WEBSITE_PATH}__/__${article.date.toString('yyyy/MM/dd')}__/__${article.code}__}"><span th:text="${article.title}"></span></a></h4>
 						</article>
+						<div class="pagination-group clearfix" th:if="${paginator}">
+							<div class="pull-left pagination-summary"><span th:text="${paginator.start}"></span> - <span th:text="${paginator.end}"></span> / <span th:text="${paginator.total}"></span></div>
+							<ul class="pagination paginateon-sm">
+								<li th:classappend="${paginator.hasPrevious() ? '' : 'disabled'}"><a th:href="${paginator.hasPrevious()} ? @{__${WEBSITE_PATH}__/category/__${category.code}__(page=${paginator.previousNumber},token=${token})} : '#'">&laquo;</a></li>
+								<li th:each="no : ${paginator.numbers}" th:classappend="${paginator.number eq no ? 'active' : ''}"><a th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${no},token=${token})}" th:text="${no}"></a></li>
+								<li th:classappend="${paginator.hasNext() ? '' : 'disabled'}"><a th:href="${paginator.hasNext()} ? @{__${WEBSITE_PATH}__/category/__${category.code}__(page=${paginator.nextNumber},token=${token})} : '#'">&raquo;</a></li>
+							</ul>
+						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="sidebar">
