@@ -1,0 +1,15 @@
+*** nginx.conf  2013-09-12 12:07:30.501832653 +0000
+--- nginx.conf.diff     2013-09-13 01:53:03.347671819 +0000
+***************
+*** 94,99 ****
+--- 94,103 ----
+      listen 443;
+      server_name _;
+  
++     ssl on;
++     ssl_certificate     /etc/nginx/ssl/ssl-cert.pem;
++     ssl_certificate_key /etc/nginx/ssl/ssl-key.pem;
++ 
+      root       /usr/share/nginx/html;
+      #access_log /var/log/httpd/elasticbeanstalk-access_log main;
+      #error_log  /var/log/httpd/elasticbeanstalk-error_log;
