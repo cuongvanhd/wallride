@@ -53,9 +53,7 @@ public class PageDescribeController {
 		Matcher m = pattern.matcher(path);
 		if (m.matches()) {
 //			return articleDescribeController.describe("ja", 2013, 12, 24, "kijikiji", model, redirectAttributes);
-			String v = articleDescribeController.describe(language, Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), m.group(4), model, redirectAttributes);
-			System.out.println(v);
-			return v;
+			return articleDescribeController.describe(language, Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), m.group(4), model, redirectAttributes);
 		}
 
 		Page page = pageService.readPage(lastCode, language);

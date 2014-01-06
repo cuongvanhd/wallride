@@ -79,9 +79,7 @@ public class MediaService {
 						}
 					}
 				};
-				System.out.println("1#############");
 				new Thread(runnable).start();
-				System.out.println("2#############");
 				return new FileSystemResource(temp);
 			}
 			return resized;

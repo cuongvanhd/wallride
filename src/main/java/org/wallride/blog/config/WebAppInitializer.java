@@ -27,8 +27,8 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 //		System.setProperty("jgroups.s3.access_key", environment.getRequiredProperty("amazon.s3.accesskey"));
 //		System.setProperty("jgroups.s3.secret_access_key", environment.getRequiredProperty("amazon.s3.secretkey"));
 
-		final String s3AccessKey = System.getProperty("s3.accessKey");
-		final String s3SecretKey = System.getProperty("s3.secretKey");
+		final String s3AccessKey = System.getProperty("AWS_ACCESS_KEY_ID");
+		final String s3SecretKey = System.getProperty("AWS_SECRET_KEY");
 		BasicAWSCredentials basicAWSCredentials = null;
 
 		if (s3AccessKey != null && s3SecretKey != null) {

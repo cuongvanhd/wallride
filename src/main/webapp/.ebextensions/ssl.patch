@@ -1,0 +1,15 @@
+*** nginx.conf	Sat Jan  4 18:12:45 2014
+--- nginx-ssl.conf	Sun Jan  5 07:43:00 2014
+***************
+*** 92,97 ****
+--- 92,101 ----
+      listen 443;
+      server_name _;
+  
++     ssl on;
++     ssl_certificate     /etc/nginx/ssl/ssl-cert.pem;
++     ssl_certificate_key /etc/nginx/ssl/ssl-key.pem;
++ 
+      root       /usr/share/nginx/html;
+      #access_log /var/log/httpd/elasticbeanstalk-access_log main;
+      #error_log  /var/log/httpd/elasticbeanstalk-error_log;

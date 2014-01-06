@@ -1,3 +1,5 @@
+package org.wallride.core.config;
+
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.dialect.MySQL5InnoDBDialect;
@@ -12,8 +14,6 @@ public class Hbm2ddl {
 	
 	public static void main(String[] args) throws IOException {
 		System.getProperties().load(DataConfig.class.getResourceAsStream("/environment-develop.properties"));
-
-		System.out.println(DomainObject.class.getPackage());
 
 		Configuration configuration = new Configuration()
 				.setProperty(Environment.DIALECT, MySQL5InnoDBDialect.class.getCanonicalName())
