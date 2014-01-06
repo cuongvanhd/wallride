@@ -85,54 +85,6 @@ public class BannerService {
 
 		return bannerRepository.save(banner);
 	}
-//TODO
-/*
-	@CacheEvict(value="banners", allEntries=true)
-	public Banner deleteBanner(BannerDeleteForm form, BindingResult result) throws BindException {
-		Banner banner = bannerRepository.findByIdForUpdate(form.getId(), form.getLanguage());
-		bannerRepository.delete(banner);
-		return banner;
-	}
-	
-	public Paginator<Long> readBanners(BannerSearchForm form, int perPage) {
-		if (form.isEmpty()) {
-			return readAllBanners();
-		}
-		BannerFullTextSearchTerm term = form.toFullTextSearchTerm();
-		term.setLanguage(LocaleContextHolder.getLocale().getLanguage());
-		List<Long> ids = bannerRepository.findByFullTextSearchTerm(form.toFullTextSearchTerm());
-		return new Paginator<Long>(ids, perPage);
-	}
-	
-	private Paginator<Long> readAllBanners() {
-		List<Long> results = bannerRepository.findId();
-		if (results.isEmpty()) {
-			return Paginator.getEmptyPaginator();
-		}
-		else {
-			return new Paginator<Long>(results);
-		}
-	}
-	
-	public List<Banner> readBanners(Paginator<Long> paginator) {
-		if (paginator == null || !paginator.hasElement()) return new ArrayList<Banner>();
-		return readBanners(paginator.getElements());
-	}
-	
-	public List<Banner> readBanners(Collection<Long> ids) {
-		Set<Banner> results = new LinkedHashSet<Banner>(bannerRepository.findByIdIn(ids));
-		List<Banner> banners = new ArrayList<>();
-		for (long id : ids) {
-			for (Banner banner : results) {
-				if (id == banner.getId()) {
-					banners.add(banner);
-					break;
-				}
-			}
-		}
-		return banners;
-	}
-*/
 
 	@CacheEvict(value="banners", allEntries=true)
 	public Banner deleteBanner(long id, String language) {
@@ -156,17 +108,14 @@ public class BannerService {
 		}
 	}
 
-//	@Cacheable(value="banners", key="'list.'+#type")
 	public List<Banner> readBannersByType(Banner.Type type, String language) {
 		return bannerRepository.findByType(type, language);
 	}
 
-//	@Cacheable(value="banners", key="'id.'+#id")
 	public Banner readBannerById(long id, String language) {
 		return bannerRepository.findById(id, language);
 	}
 
-//	@Cacheable(value="banners", key="'count.'+#type")
 	public long countBannersByType(Banner.Type type, String language) {
 		return bannerRepository.countByType(type, language);
 	}

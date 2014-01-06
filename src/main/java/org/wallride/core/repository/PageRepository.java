@@ -46,7 +46,10 @@ public interface PageRepository extends JpaRepository<Page, Long>, PageRepositor
 	
 	@Query(DEFAULT_SELECT_QUERY + "where page.code = :code and page.language = :language ")
 	Page findByCode(@Param("code") String code, @Param("language") String language);
-	
+
+	@Query(DEFAULT_SELECT_QUERY + "where page.code = :code and page.language = :language and page.status = :status ")
+	Page findByCode(@Param("code") String code, @Param("language") String language, @Param("status") Post.Status status);
+
 	@Query("select count(page.id) from Page page where page.language = :language ")
 	long count(@Param("language") String language);
 

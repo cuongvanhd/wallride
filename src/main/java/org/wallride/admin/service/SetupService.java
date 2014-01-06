@@ -27,7 +27,7 @@ public class SetupService {
 	@Inject
 	private UserRepository userRepository;
 
-	@CacheEvict(value="settings", allEntries=true)
+	@CacheEvict(value={"settings", "users"}, allEntries=true)
 	public User setup(SetupForm form, BindingResult result) {
 		settingRepository.saveAndFlush(new Setting(Setting.Key.DEFAULT_LANGUAGE, form.getDefaultLanguage()));
 

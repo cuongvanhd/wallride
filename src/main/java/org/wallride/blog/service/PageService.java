@@ -1,8 +1,10 @@
 package org.wallride.blog.service;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.wallride.core.domain.Page;
+import org.wallride.core.domain.Post;
 import org.wallride.core.repository.PageRepository;
 
 import javax.inject.Inject;
@@ -14,34 +16,8 @@ public class PageService {
 	@Inject
 	private PageRepository pageRepository;
 
-//	public Paginator<Long> readPages(PageSearchForm form, int perPage) {
-//		PageFullTextSearchTerm term = form.toFullTextSearchTerm();
-//		term.setStatus(Post.Status.PUBLISHED);
-//		term.setLanguage(LocaleContextHolder.getLocale().getLanguage());
-//		List<Long> ids = pageRepository.findByFullTextSearchTerm(term);
-//		return new Paginator<Long>(ids, perPage);
-//	}
-//
-//	public List<Page> readPages(Paginator<Long> paginator) {
-//		if (paginator == null || !paginator.hasElement()) return new ArrayList<Page>();
-//		return readPages(paginator.getElements());
-//	}
-//
-//	public List<Page> readPages(Collection<Long> ids) {
-//		Set<Page> results = new LinkedHashSet<Page>(pageRepository.findByIdIn(ids));
-//		List<Page> pages = new ArrayList<>();
-//		for (long id : ids) {
-//			for (Page page : results) {
-//				if (id == page.getId()) {
-//					pages.add(page);
-//					break;
-//				}
-//			}
-//		}
-//		return pages;
-//	}
-
+	@Cacheable(value="pages", key="'code.'+#code+'.'+#language+'.PUBLISHED'")
 	public Page readPage(String code, String language) {
-		return pageRepository.findByCode(code, language);
+		return pageRepository.findByCode(code, language, Post.Status.PUBLISHED);
 	}
 }

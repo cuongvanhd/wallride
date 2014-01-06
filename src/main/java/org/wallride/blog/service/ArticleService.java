@@ -20,7 +20,7 @@ public class ArticleService {
 	@Inject
 	private ArticleRepository articleRepository;
 
-	@Cacheable("articles")
+	@Cacheable(value="articles", key="'id.'+#form+'.PUBLISHED'")
 	public Paginator<Long> readArticles(ArticleSearchForm form) {
 		ArticleFullTextSearchTerm term = form.toFullTextSearchTerm();
 		term.setStatus(Post.Status.PUBLISHED);
@@ -28,31 +28,13 @@ public class ArticleService {
 		return new Paginator<Long>(ids, 20);
 	}
 
-//	public Paginator<Long> readArticles(int year, String language) {
-//		ArticleFullTextSearchTerm term = new ArticleFullTextSearchTerm();
-//		term.setStatus(Post.Status.PUBLISHED);
-//		term.setDateFrom(new LocalDateTime(year, 1, 1, 0, 0, 0));
-//		term.setDateTo(new LocalDateTime(year, 12, 31, 0, 0, 0));
-//		term.setLanguage(language);
-//		List<Long> ids = articleRepository.findByFullTextSearchTerm(term);
-//		return new Paginator<Long>(ids, 20);
-//	}
-//
-//	public Paginator<Long> readArticles(int year, int month, String language) {
-//		return null;
-//	}
-//
-//	public Paginator<Long> readArticles(int year, int month, int day, String language) {
-//		return null;
-//	}
-
-	@Cacheable("articles")
+	@Cacheable(value="articles", key="'list.'+#paginator+'.PUBLISHED'")
 	public List<Article> readArticles(Paginator<Long> paginator) {
 		if (paginator == null || !paginator.hasElement()) return new ArrayList<Article>();
 		return readArticles(paginator.getElements());
 	}
 
-	public List<Article> readArticles(Collection<Long> ids) {
+	private List<Article> readArticles(Collection<Long> ids) {
 		Set<Article> results = new LinkedHashSet<Article>(articleRepository.findByIdIn(ids));
 		List<Article> articles = new ArrayList<>();
 		for (long id : ids) {
@@ -66,7 +48,8 @@ public class ArticleService {
 		return articles;
 	}
 
+	@Cacheable(value="articles", key="'code.'+#code+'.'+#language+'.PUBLISHED'")
 	public Article readArticle(String code, String language) {
-		return articleRepository.findByCode(code, language);
+		return articleRepository.findByCode(code, language, Post.Status.PUBLISHED);
 	}
 }

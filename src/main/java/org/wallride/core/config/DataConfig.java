@@ -149,7 +149,9 @@ public class DataConfig implements BatchConfigurer {
 		
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", MySQL5InnoDBDialect.class.getCanonicalName());
-		
+		properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql", Boolean.class));
+		properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql", Boolean.class));
+
 		// Hibernate Search
 		properties.put("hibernate.search.lucene_version", environment.getRequiredProperty("hibernate.search.lucene_version"));
 		properties.put("hibernate.search.analyzer", environment.getRequiredProperty("hibernate.search.analyzer"));

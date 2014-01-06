@@ -39,7 +39,7 @@ public class DefaultModelAttributeService {
 		return readArticleCategoryTree(language, false);
 	}
 
-	@Cacheable(value="articles", key="'category.tree.'+#language+'.has-article'")
+	@Cacheable(value="articles", key="'category.tree.'+#language+'.'+#hasArticle")
 	public ArticleCategoryTree readArticleCategoryTree(String language, boolean hasArticle) {
 		List<Category> categories = null;
 		if (!hasArticle) {
@@ -63,6 +63,7 @@ public class DefaultModelAttributeService {
 		return new PageTree(pages);
 	}
 
+	@Cacheable(value="banners", key="'list.'+#language+'.'+#type")
 	public List<Banner> readBanners(Banner.Type type, String language) {
 		return bannerRepository.findByType(type, language);
 	}

@@ -14,17 +14,15 @@ import java.util.List;
 @Transactional(rollbackFor=Exception.class)
 public class CategoryTreeService {
 
-	public static final String CATEGORY_CACHE_KEY = "categories";
-
 	@Inject
 	private CategoryRepository categoryRepository;
 
-	@Cacheable(value=CATEGORY_CACHE_KEY, key="#language")
+	@Cacheable(value="articles", key="'category.tree.'+#language")
 	public CategoryTree readCategoryTree(String language) {
 		return readCategoryTree(language, false);
 	}
 
-	@Cacheable(value=CATEGORY_CACHE_KEY, key="#language")
+	@Cacheable(value="articles", key="'category.tree.'+#language+'.'+#hasArticle")
 	public CategoryTree readCategoryTree(String language, boolean hasArticle) {
 		List<Category> categories = null;
 		if (!hasArticle) {
