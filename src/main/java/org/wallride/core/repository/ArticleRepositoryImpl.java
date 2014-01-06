@@ -78,6 +78,9 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 		for (long categoryId : term.getCategoryIds()) {
 			junction.must(qb.keyword().onField("categories.id").matching(categoryId).createQuery());
 		}
+		for (String categoryCode : term.getCategoryCodes()) {
+			junction.must(qb.keyword().onField("categories.code").matching(categoryCode).createQuery());
+		}
 
 		Query searchQuery = junction.createQuery();
 		

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sakejapan</groupId>
 	<artifactId>sakejapan</artifactId>
-	<version>1.0.0.SNAPSHOT-201401071253</version>
+	<version>1.0.0.SNAPSHOT-201401072123</version>
 	<packaging>war</packaging>
 	
 	<properties>
