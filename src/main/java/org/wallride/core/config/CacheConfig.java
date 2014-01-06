@@ -22,13 +22,9 @@ import org.springframework.jndi.JndiTemplate;
 
 import javax.inject.Inject;
 import javax.naming.NamingException;
-import javax.net.ssl.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.security.Security;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.Properties;
 
 @Configuration
@@ -42,28 +38,6 @@ public class CacheConfig {
 
 	@Bean
 	public CacheManager cacheManager() throws Exception {
-		TrustManager[] tm = { new X509TrustManager() {
-			public X509Certificate[] getAcceptedIssuers() {
-				return null;
-			}
-
-			@Override
-			public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-			}
-
-			@Override
-			public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-			}
-		}};
-		SSLContext sslcontext = SSLContext.getInstance("SSL");
-		sslcontext.init(null, tm, null);
-		HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-			@Override
-			public boolean verify(String hostname, SSLSession session) {
-				return true;
-			}
-		});
-
 		// JGroups settings
 		String ipaddress = null;
 		try {

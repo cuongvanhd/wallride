@@ -55,7 +55,6 @@
 							<form th:action="@{__${WEBSITE_PATH}__/search}" class="form-inline" role="form">
 								<div class="form-group">
 									<input type="text" name="keyword" class="form-control" th:placeholder="#{SearchThisSite}" />
-									<span th:text="${_request}"></span>
 								</div>
 								<button type="submit" name="search" class="btn btn-default" th:text="#{Search}">検索</button>
 							</form>
@@ -75,30 +74,18 @@
 						<ul class="nav navbar-nav">
 							<li class="dropdown"><a href="#" class="nav-1 dropdown-toggle"  data-toggle="dropdown" alt="知る・学ぶ"></a>
 								<ul class="dropdown-menu">
-									<th:block th:each="node : ${PAGE_TREE.rootNodes}" th:switch="${node.page.code}">
-										<th:block th:case="sake-learn">
-											<li role="presentation" class="dropdown-header sake" th:text="#{Sake}">日本酒</li>
-											<li th:each="child : ${node.children}"><a th:href="@{${#posts.path(child.page)}}" th:text="${child.page.title}">Page Title</a></li>
-										</th:block>
-										<th:block th:case="shochu-learn">
-											<li role="presentation" class="dropdown-header shochu" th:text="#{Shochu}">焼酎</li>
-											<li th:each="child : ${node.children}"><a th:href="@{${#posts.path(child.page)}}" th:text="${child.page.title}">Page Title</a></li>
-										</th:block>
-									</th:block>
+									<li role="presentation" class="dropdown-header sake" th:text="#{Sake}">日本酒</li>
+									<li th:each="child : ${PAGE_TREE.getNodeByCode('sake-learn').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">Page Title</a></li>
+									<li role="presentation" class="dropdown-header shochu" th:text="#{Shochu}">焼酎</li>
+									<li th:each="child : ${PAGE_TREE.getNodeByCode('shochu-learn').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">Page Title</a></li>
 								</ul>
 							</li>
 							<li class="dropdown"><a href="#" class="nav-2 dropdown-toggle" data-toggle="dropdown" alt="楽しむ"></a>
 								<ul class="dropdown-menu">
-									<th:block th:each="node : ${PAGE_TREE.rootNodes}" th:switch="${node.page.code}">
-										<th:block th:case="sake-enjoy">
-											<li role="presentation" class="dropdown-header sake" th:text="#{Sake}">日本酒</li>
-											<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
-										</th:block>
-										<th:block th:case="shochu-enjoy">
-											<li role="presentation" class="dropdown-header shochu" th:text="#{Shochu}">焼酎</li>
-											<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
-										</th:block>
-									</th:block>
+									<li role="presentation" class="dropdown-header sake" th:text="#{Sake}">日本酒</li>
+									<li th:each="child : ${PAGE_TREE.getNodeByCode('sake-enjoy').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">About</a></li>
+									<li role="presentation" class="dropdown-header shochu" th:text="#{Shochu}">焼酎</li>
+									<li th:each="child : ${PAGE_TREE.getNodeByCode('shochu-enjoy').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">About</a></li>
 								</ul>
 							</li>
 							<li><a th:href="@{__${WEBSITE_PATH}__/category/news}" class="nav-3" alt="ニュース・イベント"></a></li>
@@ -145,7 +132,7 @@
 												request.execute(function(response) {
 													var item = response.items[0];
 													var html = $(
-														'<iframe class="movie" src="http://www.youtube.com/embed/' + item.id + '?feature=player_detailpage" frameborder="0" allowfullscreen="true"></iframe>'
+														'<iframe class="movie" src="https://www.youtube.com/embed/' + item.id + '?feature=player_detailpage" frameborder="0" allowfullscreen="true"></iframe>'
 													);
 													$('#side-movie .movie-embed').append(html);
 												});

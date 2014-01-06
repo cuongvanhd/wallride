@@ -45,9 +45,16 @@
 						</form>
 						<ul class="list-unstyled">
 							<li th:each="post : ${posts}">
-								<a th:href="@{${#posts.link(post)}}" th:text="${post.title}">Post Title</a>
-								<p><small th:text="${#posts.summary(post, 200)}">Post Body</small></p>
-								<span><a th:href="@{${#posts.path(post)}}" th:text="@{${#posts.link(post)}}">http://sakejapan.com/xxx</a></span>
+								<th:block th:if="${post instanceof T(org.wallride.core.domain.Article)}">
+									<a th:href="@{${#posts.link(post)}}" th:text="${post.title}">Post Title</a>
+									<p><small th:text="${#posts.summary(post, 200)}">Post Body</small></p>
+									<span><a th:href="@{${#posts.path(post)}}" th:text="@{${#posts.link(post)}}">http://sakejapan.com/xxx</a></span>
+								</th:block>
+								<th:block th:if="${post instanceof T(org.wallride.core.domain.Page)}">
+									<a th:href="@{${#posts.link(post, PAGE_TREE)}}" th:text="${post.title}">Post Title</a>
+									<p><small th:text="${#posts.summary(post, 200)}">Post Body</small></p>
+									<span><a th:href="@{${#posts.path(post, PAGE_TREE)}}" th:text="@{${#posts.link(post, PAGE_TREE)}}">http://sakejapan.com/xxx</a></span>
+								</th:block>
 							</li>
 						</ul>
 						<div class="pagination-group clearfix" th:if="${paginator}">

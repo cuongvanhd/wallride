@@ -142,7 +142,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         resolver.setCharacterEncoding("UTF-8");
 		// NB, selecting HTML5 as the template mode.
 		resolver.setTemplateMode("HTML5");
-		resolver.setCacheable(false);
+		resolver.setCacheable(environment.getRequiredProperty("admin.template.cache", Boolean.class));
 		resolver.setOrder(2);
 		return resolver;
 	}
@@ -154,7 +154,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".html");
 		resolver.setCharacterEncoding("UTF-8");
 		resolver.setTemplateMode("HTML5");
-		resolver.setCacheable(false);
+		resolver.setCacheable(environment.getRequiredProperty("blog.template.cache", Boolean.class));
 		resolver.setOrder(2);
 		return resolver;
 	}

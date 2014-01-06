@@ -3,6 +3,7 @@ package org.wallride.blog.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;
@@ -13,6 +14,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.util.StringUtils;
 import org.springframework.validation.DefaultMessageCodesResolver;
 import org.springframework.validation.MessageCodesResolver;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -28,7 +30,9 @@ import org.thymeleaf.spring3.SpringTemplateEngine;
 import org.thymeleaf.spring3.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.wallride.admin.web.AuthorizedUserMethodArgumentResolver;
+import org.wallride.core.domain.PageTree;
 import org.wallride.core.domain.Setting;
+import org.wallride.core.service.PageTreeService;
 import org.wallride.core.service.SettingService;
 import org.wallride.core.support.CustomThymeleafDialect;
 import org.wallride.core.web.DefaultModelAttributeInterceptor;
@@ -40,10 +44,7 @@ import java.text.DateFormat;
 import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 @Configuration
 //@EnableWebMvc
@@ -163,7 +164,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 		resolver.setCharacterEncoding("UTF-8");
 		// NB, selecting HTML5 as the template mode.
 		resolver.setTemplateMode("HTML5");
-		resolver.setCacheable(false);
+		resolver.setCacheable(environment.getRequiredProperty("blog.template.cache", Boolean.class));
 		return resolver;
 	}
 
@@ -206,4 +207,27 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	public LocaleResolver localeResolver() {
 		return new PathVariableLocaleResolver();
 	}
+
+//	//TODO
+//	@Bean
+//	@Scope(WebApplicationContext.SCOPE_REQUEST)
+//	public String[] languages() {
+//		return settingService.readSettingAsStringArray(Setting.Key.LANGUAGES, ",");
+//	}
+//
+//	//TODO
+//	@Inject
+//	private PageTreeService pageTreeService;
+//
+//	//TODO
+//	@Bean
+//	@Scope(WebApplicationContext.SCOPE_REQUEST)
+//	public Map<String, PageTree> pageTreeMap () {
+//		Map<String, PageTree> map = new LinkedHashMap<>();
+//		String[] languages = languages();
+//		for (String language : languages) {
+//			map.put(language, pageTreeService.rea)
+//		}
+//		return pageTreeService.
+//	}
 }
