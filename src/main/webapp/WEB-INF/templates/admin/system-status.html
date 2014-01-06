@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" th:replace="layout::head(${WEBSITE_TITLE})" />
+	<title>WallRide</title>
+</head>
+<body>
+<header th:replace="layout::header"></header>
+<div>
+	<div th:replace="layout::sidebar"></div>
+	<div id="main">
+		<ol class="breadcrumb">
+			<li class="active">システム情報</li>
+		</ol>
+		<div class="page-header clearfix">
+			<h1>システム情報</h1>
+		</div>
+		<div class="alert alert-success" th:if="${indexed}">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			検索インデックスの再構築を開始しました。
+		</div>
+		<div>
+			<table class="table">
+				<colgroup>
+					<col class="col-sm-3" />
+					<col />
+				</colgroup>
+				<tr>
+					<th>Spring Active Profiles</th>
+					<td th:text="${#strings.arrayJoin(environment.activeProfiles,'&nbsp;|&nbsp;')}"></td>
+				</tr>
+				<tr>
+					<th>Spring Default Profiles</th>
+					<td th:text="${#strings.arrayJoin(environment.defaultProfiles,'&nbsp;|&nbsp;')}"></td>
+				</tr>
+			</table>
+			<table class="table">
+				<colgroup>
+					<col class="col-sm-3" />
+					<col />
+				</colgroup>
+				<tr>
+					<th>mail.smtp.host</th>
+					<td th:text="${environment.getProperty('mail.smtp.host')}"></td>
+				</tr>
+				<tr>
+					<th>mail.smtp.from</th>
+					<td th:text="${environment.getProperty('mail.smtp.from')}"></td>
+				</tr>
+				<tr>
+					<th>mail.from</th>
+					<td th:text="${environment.getProperty('mail.from')}"></td>
+				</tr>
+				<tr>
+					<th>mail.contact.to</th>
+					<td th:text="${environment.getProperty('mail.contact.to')}"></td>
+				</tr>
+				<tr>
+					<th>mail.template.path</th>
+					<td th:text="${environment.getProperty('mail.template.path')}"></td>
+				</tr>
+			</table>
+			<table class="table">
+				<colgroup>
+					<col class="col-sm-3" />
+					<col />
+				</colgroup>
+				<tr th:each="prop : ${sysprops}">
+					<th th:text="${prop.key}">Key</th>
+					<td th:text="${prop.value}">Value</td>
+				</tr>
+			</table>
+		</div>
+		<hr />
+		<div>
+			<h2>検索インデックス更新</h2>
+			<form th:action="@{__${ADMIN_PATH}__/system-status}" method="post">
+				<button name="indexing" class="btn btn-danger">再構築</button>
+			</form>
+		</div>
+	</div>
+</div>
+<footer>
+</footer>
+</body>
+</html>

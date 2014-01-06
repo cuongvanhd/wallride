@@ -46,8 +46,8 @@ public class CacheConfig {
 			throw new RuntimeException(e);
 		}
 
-		System.setProperty("jgroups.s3.access_key", environment.getRequiredProperty("jgroups.s3.access_key"));
-		System.setProperty("jgroups.s3.secret_access_key", environment.getRequiredProperty("jgroups.s3.secret_access_key"));
+		System.setProperty("jgroups.s3.access_key", System.getProperty("AWS_ACCESS_KEY_ID"));
+		System.setProperty("jgroups.s3.secret_access_key", System.getProperty("AWS_SECRET_KEY"));
 		System.setProperty("jgroups.s3.bucket",  environment.getRequiredProperty("jgroups.s3.bucket"));
 		System.setProperty("jgroups.bind_addr", ipaddress);
 
