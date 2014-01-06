@@ -207,27 +207,4 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	public LocaleResolver localeResolver() {
 		return new PathVariableLocaleResolver();
 	}
-
-//	//TODO
-//	@Bean
-//	@Scope(WebApplicationContext.SCOPE_REQUEST)
-//	public String[] languages() {
-//		return settingService.readSettingAsStringArray(Setting.Key.LANGUAGES, ",");
-//	}
-//
-//	//TODO
-//	@Inject
-//	private PageTreeService pageTreeService;
-//
-//	//TODO
-//	@Bean
-//	@Scope(WebApplicationContext.SCOPE_REQUEST)
-//	public Map<String, PageTree> pageTreeMap () {
-//		Map<String, PageTree> map = new LinkedHashMap<>();
-//		String[] languages = languages();
-//		for (String language : languages) {
-//			map.put(language, pageTreeService.rea)
-//		}
-//		return pageTreeService.
-//	}
 }
