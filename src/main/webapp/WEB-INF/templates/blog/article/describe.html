@@ -24,7 +24,7 @@
 			<div class="container">
 				<ol class="breadcrumb">
 					<li><a th:href="@{/}">TOP</a></li>
-					<li><a th:href="@{__${WEBSITE_PATH}__/category/__${article.categories[0].code}__}" th:text="${article.categories[0].name}"></a></li>
+					<li th:if="${!#lists.isEmpty(article.categories)}"><a th:href="@{__${WEBSITE_PATH}__/category/__${article.categories[0].code}__}" th:text="${article.categories[0].name}"></a></li>
 					<li class="active" th:text="${article.title}">日本酒の本質</li>
 				</ol>
 			</div>
@@ -35,7 +35,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9">
-						<article class="post-content" th:classappend="${'article-' + article.categories[0].code}">
+						<article class="post-content" th:classappend="${!#lists.isEmpty(article.categories) ? 'article-' + article.categories[0].code : ''}">
 							<h3><img class="title title-news" th:src="@{/resources/img/space.gif}" alt="最新ニュース"/></h3>
 							<h2 class="article-title"><span th:text="${article.title}"></span>&nbsp;</h2>
 							<p class="date" th:text="${article.date.toString('yyyy/MM/dd')}"></p>
