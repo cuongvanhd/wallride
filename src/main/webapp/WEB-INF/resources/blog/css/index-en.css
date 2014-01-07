@@ -32,6 +32,10 @@
 .title-shochu-learn{ background-position: 0 -975px; width: 249px; height: 21px; }
 .title-sitemap{ background-position: 0 -1046px; width: 163px; height: 20px; }
 
+.movie-title {
+	text-align: center;
+}
+
 .link-list {
 	background: url('../img/link-list-en.png') no-repeat center center;
 	width: 85px;
