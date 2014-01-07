@@ -874,6 +874,9 @@ header .form-search .btn {
 }
 
 .sidebar .nav > li > a {
+	display: inline-block;
+	width: 100%;
+	cursor: pointer;
 	/*font-size: 15px;*/
 	font-size: 13px;
 	line-height: 22px;
@@ -1594,11 +1597,11 @@ i.linkedin {
 	background: #ffffff;
 }
 
-.banner-slider .flexslider li a img {
+.banner-slider .flexslider li img {
 	opacity: .7;
 }
 
-.banner-slider .flexslider li a img:hover {
+.banner-slider .flexslider li img:hover {
 	opacity: 1;
 }
 
@@ -2338,7 +2341,7 @@ footer .social-links i{
 }
 
 .post-cover {
-	width: 100%;
+	max-width: 100%;
 }
 
 /* Responsive */
@@ -2530,8 +2533,12 @@ footer .social-links i{
 		margin: 0 0 0 10px;
 	}
 
-	.flex-caption{
+	.flex-caption {
 		margin: 40px 0px 40px 0px;
+	}
+
+	.flex-control-nav {
+		display: none;
 	}
 
 	.formy{
