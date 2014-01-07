@@ -113,8 +113,8 @@
 		<div class="top">
 			<div class="container">
 				<ol class="breadcrumb">
-					<li><a href="#">TOP</a></li>
-					<li class="active">酒TV</li>
+					<li><a th:href="@{__${WEBSITE_PATH}__}">TOP</a></li>
+					<li class="active" th:text="#{SakeTV}">酒TV</li>
 				</ol>
 			</div>
 		</div><!-- /.top -->
@@ -131,10 +131,10 @@
 						<div class="row">
 							<div id="channel1" class="col-md-4">
 								<h4>
-									FBOチャンネル
+									<span th:text="#{Channel1}">FBOチャンネル</span>
 									<span class="pull-right">
 										<a href="http://www.youtube.com/channel/UCwh1NeEwdfZ99PHFrz0hcXg" target="_blank">
-											<img class="link-list" th:src="@{/resources/img/space.gif}" alt="一覧へ"/>
+											<img class="link-list" th:src="@{/resources/img/space.gif}" th:alt="#{Lists}"/>
 										</a>
 									</span>
 								</h4>
@@ -142,10 +142,10 @@
 							</div>
 							<div id="channel2" class="col-md-4">
 								<h4>
-									Googleチャンネル
+									<span th:text="#{Channel2}">Googleチャンネル</span>
 									<span class="pull-right">
 										<a href="http://www.youtube.com/channel/UCTnRxVUPssiL7H29ON07t_Q" target="_blank">
-											<img class="link-list" th:src="@{/resources/img/space.gif}" alt="一覧へ"/>
+											<img class="link-list" th:src="@{/resources/img/space.gif}" th:alt="#{Lists}"/>
 										</a>
 									</span>
 								</h4>
@@ -153,10 +153,10 @@
 							</div>
 							<div id="channel3" class="col-md-4">
 								<h4>
-									Microsoftチャンネル
+									<span th:text="#{Channel3}">Microsoftチャンネル</span>
 									<span class="pull-right">
 										<a href="http://www.youtube.com/channel/UCASliASL93lb8fdnpFiE3eQ" target="_blank">
-											<img class="link-list" th:src="@{/resources/img/space.gif}" alt="一覧へ"/>
+											<img class="link-list" th:src="@{/resources/img/space.gif}" th:alt="#{Lists}"/>
 										</a>
 									</span>
 								</h4>

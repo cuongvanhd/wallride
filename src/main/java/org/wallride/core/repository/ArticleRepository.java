@@ -1,5 +1,7 @@
 package org.wallride.core.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
@@ -46,9 +48,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
 	@Query(DEFAULT_SELECT_QUERY + "where category.code = :code ")
 	SortedSet<Article> findByCategoryCode(@Param("code") String code);
 
-	@Query(DEFAULT_SELECT_QUERY + "where article.language = :language and category.code = :code and article.status = :status ")
-	SortedSet<Article> findByCategoryCode(@Param("language") String language, @Param("code") String code, @Param("status") Post.Status status);
-
+//	@Query(DEFAULT_SELECT_QUERY + "where article.language = :language and category.code = :code and article.status = :status ")
+//	Page<Article> findByCategoryCode(@Param("language") String language, @Param("code") String code, @Param("status") Post.Status status, Pageable pageable);
 
 	@Query("select count(article.id) from Article article where article.language = :language ")
 	long count(@Param("language") String language);

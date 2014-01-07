@@ -25,41 +25,41 @@
 			<div class="container">
 				<ol class="breadcrumb">
 					<li><a href="#">TOP</a></li>
-					<li class="active">サイトマップ</li>
+					<li class="active" th:text="#{SiteMap}">サイトマップ</li>
 				</ol>
 			</div>
 		</div><!-- /.top -->
 		<div class="obi-nami-bottom"></div>
 		<div class="content">
 			<div class="container">
-				<h1 class="title-info"><img th:src="@{/resources/img/space.gif}" class="title-sitemap" alt="サイトマップ" /></h1>
+				<h1 class="title-info"><img th:src="@{/resources/img/space.gif}" class="title-sitemap" th:alt="#{SiteMap}" /></h1>
 				<div class="row">
 					<div class="col-md-8">
-						<h2>日本酒</h2>
+						<h2 th:text="#{Sake}"></h2>
 						<div class="row">
 							<div class="col-md-6">
-								<h3>知る・学ぶ</h3>
+								<h3 th:text="#{Knowledge}"></h3>
 								<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'sake-learn'}" class="list-unstyled">
 									<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
 								</ul>
 							</div>
 							<div class="col-md-6">
-								<h3>楽しむ</h3>
+								<h3 th:text="#{Enjoy}"></h3>
 								<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'sake-enjoy'}" class="list-unstyled">
 									<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
 								</ul>
 							</div>
 						</div>
-						<h2>焼酎</h2>
+						<h2 th:text="#{Shochu}"></h2>
 						<div class="row">
 							<div class="col-md-6">
-								<h3>知る・学ぶ</h3>
+								<h3 th:text="#{Knowledge}"></h3>
 								<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'shochu-learn'}" class="list-unstyled">
 									<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
 								</ul>
 							</div>
 							<div class="col-md-6">
-								<h3>楽しむ</h3>
+								<h3 th:text="#{Enjoy}">楽しむ</h3>
 								<ul th:each="node : ${PAGE_TREE.rootNodes}" th:if="${node.page.code eq 'shochu-enjoy'}" class="list-unstyled">
 									<li th:each="child : ${node.page.children}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__/__${child.code}__}" th:text="${child.title}">About</a></li>
 								</ul>
@@ -67,26 +67,26 @@
 						</div>
 					</div>
 					<div class="col-md-4">
-						<h2>トピックス</h2>
+						<h2 th:text="#{Topics}">トピックス</h2>
 						<div class="row">
 							<div class="col-md-12">
 								<ul class="list-unstyled">
-									<li><a th:href="@{__${WEBSITE_PATH}__/category/news}">ニュース・イベント</a></li>
-									<li><a th:href="@{__${WEBSITE_PATH}__/tv}">酒TV</a></li>
-									<li><a th:href="@{__${WEBSITE_PATH}__/category/pressrelease}">プレスリリース</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/category/news}" th:text="#{NewsAndEvents}">ニュース・イベント</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/tv}" th:text="#{SakeTV}">酒TV</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/category/pressrelease}" th:text="#{PressRelease}">プレスリリース</a></li>
 								</ul>
 							</div>
 						</div>
-						<h2>概要</h2>
+						<h2 th:text="#{About}">概要</h2>
 						<div class="row">
 							<div class="col-md-12">
 								<ul class="list-unstyled">
-									<li><a th:href="@{__${WEBSITE_PATH}__/media}">メディア掲載</a></li>
-									<li><a th:href="@{http://www.fbo.or.jp/?page_id=136}" target="_blank">よくある質問</a></li>
-									<li><a th:href="@{http://www.fbo.or.jp/?page_id=50}" target="_blank">お問合わせ</a></li>
-									<li><a th:href="@{__${WEBSITE_PATH}__/company}">運営会社</a></li>
-									<li><a th:href="@{__${WEBSITE_PATH}__/policy}">プライバシーポリシー</a></li>
-									<li><a th:href="@{__${WEBSITE_PATH}__/environment}">動作環境について</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/media}" th:text="#{Media}">メディア掲載</a></li>
+									<li><a th:href="@{http://www.fbo.or.jp/?page_id=136}" target="_blank" th:text="#{QAndA}">よくある質問</a></li>
+									<li><a th:href="@{http://www.fbo.or.jp/?page_id=50}" target="_blank" th:text="#{Contact}">お問合わせ</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/company}" th:text="#{Company}">運営会社</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/policy}" th:text="#{PrivacyPolicy}">プライバシーポリシー</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/environment}" th:text="#{Environment}">動作環境について</a></li>
 								</ul>
 							</div>
 						</div>

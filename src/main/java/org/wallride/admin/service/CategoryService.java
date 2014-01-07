@@ -22,15 +22,13 @@ import java.util.Map;
 @Transactional(rollbackFor=Exception.class)
 public class CategoryService {
 
-	public static final String CATEGORY_CACHE_KEY = "categories";
-
 	@Inject
 	private CategoryRepository categoryRepository;
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	@CacheEvict(value=CATEGORY_CACHE_KEY, key="#form.language")
+	@CacheEvict(value="articles", allEntries=true)
 	public Category createCategory(CategoryCreateForm form, Errors errors, AuthorizedUser authorizedUser) {
 		Category category = new Category();
 
@@ -64,7 +62,7 @@ public class CategoryService {
 //		categoryRepository.incrementSortBySortGreaterThanEqual(sort, form.getLanguage());
 
 		category.setParent(parent);
-		category.setCode(form.getCode());
+		category.setCode(form.getCode() != null ? form.getCode() : form.getName());
 		category.setName(form.getName());
 		category.setDescription(form.getDescription());
 		category.setLft(rgt);
@@ -73,17 +71,10 @@ public class CategoryService {
 //		category.setSort(sort);
 		category.setLanguage(form.getLanguage());
 
-		category = categoryRepository.save(category);
-
-		if (category.getCode() == null) {
-			category.setCode(Long.toString(category.getId()));
-			category = categoryRepository.save(category);
-		}
-
-		return category;
+		return categoryRepository.save(category);
 	}
 
-	@CacheEvict(value=CATEGORY_CACHE_KEY, key="#form.language")
+	@CacheEvict(value="articles", allEntries=true)
 	public Category updateCategory(CategoryEditForm form, Errors errors, AuthorizedUser authorizedUser) {
 		Category category = categoryRepository.findByIdForUpdate(form.getId(), form.getLanguage());
 
@@ -119,7 +110,7 @@ public class CategoryService {
 //		}
 
 		category.setParent(parent);
-		category.setCode(form.getCode());
+		category.setCode(form.getCode() != null ? form.getCode() : form.getName());
 		category.setName(form.getName());
 		category.setDescription(form.getDescription());
 		category.setLft(rgt);
@@ -128,17 +119,10 @@ public class CategoryService {
 //		category.setSort(sort);
 		category.setLanguage(form.getLanguage());
 
-		category = categoryRepository.save(category);
-
-		if (category.getCode() == null) {
-			category.setCode(Long.toString(category.getId()));
-			category = categoryRepository.save(category);
-		}
-
-		return category;
+		return categoryRepository.save(category);
 	}
 
-	@CacheEvict(value=CATEGORY_CACHE_KEY, allEntries=true)
+	@CacheEvict(value="articles", allEntries=true)
 	public void updateCategoryHierarchy(List<Map<String, Object>> data, String language) {
 		for (int i = 0; i < data.size(); i++) {
 			Map<String, Object> map = data.get(i);
@@ -160,7 +144,7 @@ public class CategoryService {
 		}
 	}
 
-	@CacheEvict(value=CATEGORY_CACHE_KEY, allEntries=true)
+	@CacheEvict(value="articles", allEntries=true)
 	public Category deleteCategory(long id, String language) {
 		Category category = categoryRepository.findByIdForUpdate(id, language);
 		Category parent = category.getParent();
@@ -180,7 +164,6 @@ public class CategoryService {
 		return category;
 	}
 
-	@Cacheable(value=CATEGORY_CACHE_KEY, key="#language")
 	public CategoryTree readCategoryTree(String language) {
 		List<Category> categories = categoryRepository.findByLanguage(language);
 		return new CategoryTree(categories);

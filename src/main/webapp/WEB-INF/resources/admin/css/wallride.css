@@ -5,6 +5,7 @@
 	position: relative;
 	min-height: 100px;
 	border: 1px solid #ccc;
+	margin-bottom: 15px;
 	padding: 0;
 }
 .wr-post-cover-dropzone .placeholder {
@@ -171,4 +172,16 @@
 }
 .wr-dashboard table tr th, .wr-dashboard table tr td {
 	border-top: transparent;
+}
+
+.wr-post-status-PUBLISHED {
+	color: #016B66;
+}
+
+.wr-post-status-DRAFT {
+	color: #cd5c5c;
+}
+
+.wr-post-status-SCHEDULED {
+	color: #ffc31e;
 }

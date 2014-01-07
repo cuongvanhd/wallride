@@ -1,5 +1,6 @@
 package org.wallride.admin.service;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -28,6 +29,7 @@ public class MediaService {
 	@Inject
 	private Environment environment;
 
+	@CacheEvict(value="medias", allEntries=true)
 	public Media createMedia(MultipartFile file) {
 		Media media = new Media();
 		media.setMimeType(file.getContentType());
@@ -45,14 +47,6 @@ public class MediaService {
 
 		return media;
 	}
-
-//	public Media[] createMedia(MultipartFile[] files) {
-//		Media[] medias = new Media[files.length];
-//		for (int i = 0; i < files.length; i++) {
-//			medias[i] = createMedia(files[i]);
-//		}
-//		return medias;
-//	}
 
 	public List<Media> readAllMedias() {
 		return mediaRepository.findAll(new Sort(new Sort.Order(Sort.Direction.DESC, "createdAt")));

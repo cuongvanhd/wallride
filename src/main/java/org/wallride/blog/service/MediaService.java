@@ -40,17 +40,15 @@ public class MediaService {
 
 	private static Logger logger = LoggerFactory.getLogger(MediaService.class);
 
-	@Cacheable("medias")
+	@Cacheable(value="medias", key="'key'+#key")
 	public Media readMedia(String key) {
 		return mediaRepository.findById(key);
 	}
 
-//	@Cacheable("resources")
 	public Resource readResource(Media media) throws IOException, EncoderException {
 		return readResource(media, 0, 0, null);
 	}
 
-//	@Cacheable("resources")
 	public Resource readResource(final Media media, final int width, final int height, final Media.ResizeMode mode) throws IOException, EncoderException {
 		final Resource prefix = resourceLoader.getResource(environment.getRequiredProperty("media.path"));
 		final Resource resource = prefix.createRelative(media.getId());
@@ -88,17 +86,6 @@ public class MediaService {
 			return resource;
 		}
 	}
-
-//	public byte[] resizeImage(Media media, int widtgh, int height, Media.ResizeMode mode) {
-//		try {
-//			Resource prefix = resourceLoader.getResource(mediaPath);
-//			Resource resource = prefix.createRelative(media.getId());
-//			return resizeImage(resource, widtgh, height, mode);
-//		}
-//		catch (Exception e) {
-//			throw new RuntimeException(e);
-//		}
-//	}
 
 	private void resizeImage(Resource resource, File file, int width, int height, Media.ResizeMode mode) throws IOException {
 		long startTime = System.currentTimeMillis();

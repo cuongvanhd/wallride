@@ -115,7 +115,7 @@ public class DefaultModelAttributeInterceptor extends HandlerInterceptorAdapter 
 		mv.addObject("SUB_BANNERS", defaultModelAttributeService.readBanners(Banner.Type.SUB, currentLanguage));
 		mv.addObject("ASIDE_BANNERS", defaultModelAttributeService.readBanners(Banner.Type.ASIDE, currentLanguage));
 
-		mv.addObject("NEW_ARTICLES", defaultModelAttributeService.readArticlesByCategoryCode(currentLanguage, "news", Post.Status.PUBLISHED));
+		mv.addObject("NEW_ARTICLES", defaultModelAttributeService.readArticlesByCategoryCode(currentLanguage, "news", Post.Status.PUBLISHED, 5));
 
 	}
 
