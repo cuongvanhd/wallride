@@ -161,9 +161,9 @@
 									<li th:each="banner : ${ASIDE_BANNERS}">
 										<div class="banner">
 											<a th:if="${banner.link ne null}" href="#" th:target="${banner.linkTargetBlank ? '_blank' : '_self'}" th:href="${banner.link}">
-												<img th:src="@{__${WEBSITE_PATH}__/media/__${banner.image.id}__(w=1200,h=375,m=1)}" th:alt="${banner.title}" class="wr-post-cover" />
+												<img th:src="@{__${WEBSITE_PATH}__/media/__${banner.image.id}__(w=225)}" th:alt="${banner.title}" class="wr-post-cover" />
 											</a>
-											<img th:if="${banner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${banner.image.id}__(w=1200,h=375,m=1)}" th:alt="${banner.title}" class="wr-post-cover" />
+											<img th:if="${banner.link eq null}" th:src="@{__${WEBSITE_PATH}__/media/__${banner.image.id}__(w=225)}" th:alt="${banner.title}" class="wr-post-cover" />
 										</div>
 									</li>
 								</ul>
