@@ -54,9 +54,9 @@
 								<div class="col-md-12 article-title">
 									<h3 th:text="${child.page.title}"></h3>
 									<div class="clearfix">
-										<div class="thumbnail pull-right" th:if="${child.page.cover ne null}" style="margin-left: 15px;">
+										<!--<div class="thumbnail pull-right" th:if="${child.page.cover ne null}" style="margin-left: 15px;">
 											<img th:src="@{${#medias.link(child.page.cover)}(w=200,h=130,m=1)}" />
-										</div>
+										</div> -->
 										<div th:text="${#posts.summary(child.page, 300)}"></div>
 										<a th:href="@{${#posts.path(child.page, PAGE_TREE)}}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
 									</div>

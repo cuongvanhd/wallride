@@ -27,20 +27,40 @@
 							</div>
 							<div class="alert alert-danger" th:if="${#fields.hasErrors('all')}">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-								Error.
+								<span th:text="#{Error}">Error</span>
 							</div>
 							<fieldset>
 								<div class="form-group">
 									<div id="post-cover-dropzone" class="wr-post-cover-dropzone col-sm-12" style="">
 										<p class="placeholder help-block" th:text="#{CoverImage}">Cover Image</p>
-										<div class="dragover hide"><span class="help-block">Drop files here</span></div>
+										<div class="dragover hide"><span class="help-block" th:text="#{DragDrop}">Drop files here</span></div>
+										<div class="wrap-hover">
+											<div class="message hide">
+												<span class="help-block" th:text="#{DragDrop}">Drop files to replace image</span>
+											</div>
+											<div class="remove hide"><a href=""><span class="glyphicon glyphicon-remove"></span></a></div>
+										</div>
 										<div class="progress hide"><div class="progress-bar progress-bar-success"></div></div>
 										<input type="hidden" th:field="*{coverId}" />
-										<img th:if="${form.coverId ne null}" th:src="@{${#medias.link(form.coverId)}(w=1200,h=500,m=1)}" class="wr-post-cover" />
+										<img th:if="${form.coverId ne null}" th:src="@{${#medias.link(form.coverId)}(w=1200,h=500,m=0)}" class="wr-post-cover" />
 									</div>
 								</div>
 								<script th:inline="javascript">
 								$(function() {
+									$('#post-cover-dropzone').mouseenter(function() {
+										if($('#post-cover-dropzone input[name="coverId"]').val() != '') {
+											$('#post-cover-dropzone .message').text($('.dragover .help-block').text()).removeClass('hide');
+											$('#post-cover-dropzone .remove').removeClass('hide');
+											$('#post-cover-dropzone .wrap-hover').addClass('has');
+										} else {
+											$('#post-cover-dropzone .message').text($('.dragover .help-block').text()).removeClass('hide');
+											$('#post-cover-dropzone .remove').addClass('hide');
+											$('#post-cover-dropzone .wrap-hover').removeClass('has');
+										}
+									}).mouseleave(function() {
+										$('#post-cover-dropzone .wrap-hover').addClass('hide');
+									});
+
 									$('#post-cover-dropzone').fileupload({
 										url: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
 										paramName: 'file',
