@@ -25,7 +25,7 @@ public class PageCreateForm extends DomainObjectCreateForm {
 	private Long authorId;
 	
 //	@NotNull
-	@DateTimeFormat(pattern="yyyy/MM/dd")
+	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm")
 	private LocalDateTime date;
 	
 	private Long parentId;
@@ -74,7 +74,11 @@ public class PageCreateForm extends DomainObjectCreateForm {
 	public void setAuthorId(Long authorId) {
 		this.authorId = authorId;
 	}
-	
+
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+
 	public LocalDateTime getDate() {
 		return date;
 	}

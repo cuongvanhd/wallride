@@ -185,11 +185,24 @@
 								<legend th:text="#{Date}">Date</legend>
 								<div class="form-group row" th:classappend="${#fields.hasErrors('date')}? has-error">
 									<div class="col-sm-12">
-										<input type="text" name="date" th:value="*{date ne null ? date.toString('yyyy/MM/dd') : ''}" class="form-control" placeholder="yyyy/MM/dd"/>
+										<div class="input-group date" data-type="datetimepicker">
+											<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+											<input type="text" name="date" th:value="*{date ne null ? date.toString('yyyy/MM/dd HH:mm') : ''}" data-format="yyyy/MM/dd hh:mm" class="form-control" placeholder="YYYY/MM/DD HH:MM" />
+										</div>
 									</div>
 									<span class="help-block" th:each="err : ${#fields.errors('date')}" th:text="${err}" />
 								</div>
 							</fieldset>
+							<script th:inline="javascript">
+								/*<![CDATA[*/
+								$(function() {
+									var datetimepicker = $('#main [data-type="datetimepicker"]').datetimepicker({
+										pickSeconds: false,
+										language: /*[[${#locale.language}]]*/
+									});
+								});
+								/*]]>*/
+							</script>
 							<fieldset id="category-fieldset">
 								<legend th:text="#{Categories}">Categories</legend>
 								<section>
