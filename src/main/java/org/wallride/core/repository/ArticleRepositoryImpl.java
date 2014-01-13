@@ -13,6 +13,7 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.BooleanJunction;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.wallride.core.domain.Article;
 
@@ -75,8 +76,12 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 			junction.must(qb.range().onField("date").below(term.getDateTo()).createQuery());
 		}
 
-		for (long categoryId : term.getCategoryIds()) {
-			junction.must(qb.keyword().onField("categories.id").matching(categoryId).createQuery());
+		if (!CollectionUtils.isEmpty(term.getCategoryIds())) {
+			BooleanJunction<BooleanJunction> subjunction = qb.bool();
+			for (long categoryId : term.getCategoryIds()) {
+				subjunction.should(qb.keyword().onField("categories.id").matching(categoryId).createQuery());
+			}
+			junction.must(subjunction.createQuery());
 		}
 		for (String categoryCode : term.getCategoryCodes()) {
 			junction.must(qb.keyword().onField("categories.code").matching(categoryCode).createQuery());
