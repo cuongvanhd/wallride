@@ -23,7 +23,9 @@ import org.wallride.core.service.SettingService;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -102,8 +104,12 @@ public class DefaultModelAttributeInterceptor extends HandlerInterceptorAdapter 
 		mv.addObject("SUB_BANNERS", defaultModelAttributeService.readBanners(Banner.Type.SUB, currentLanguage));
 		mv.addObject("ASIDE_BANNERS", defaultModelAttributeService.readBanners(Banner.Type.ASIDE, currentLanguage));
 
-		mv.addObject("NEW_ARTICLES", defaultModelAttributeService.readArticlesByCategoryCode(currentLanguage, "news", Post.Status.PUBLISHED, 5));
+		List<String> newUpdates = new ArrayList<>();
+		newUpdates.add("news");
+		newUpdates.add("events");
+		newUpdates.add("pressrelease");
 
+		mv.addObject("NEW_ARTICLES", defaultModelAttributeService.readArticlesByCategoryCode(currentLanguage, newUpdates, Post.Status.PUBLISHED, 5));
 	}
 
 	private String buildBlogLink() {

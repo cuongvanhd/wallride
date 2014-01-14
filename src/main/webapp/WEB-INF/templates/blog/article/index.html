@@ -36,6 +36,7 @@
 				<div class="row">
 					<div class="col-md-9" th:classappend="${code}">
 						<h3 class="title-info"><img th:class="${'title-' + code}" th:src="@{/resources/img/space.gif}" alt="最新ニュース"/></h3>
+
 						<article th:each="article : ${articles}">
 							<time th:text="${article.date.toString('yyyy/MM/dd')}"></time>
 							<h4><a th:href="@{__${WEBSITE_PATH}__/__${article.date.toString('yyyy/MM/dd')}__/__${article.code}__}"><span th:text="${article.title}"></span></a></h4>
@@ -51,6 +52,14 @@
 					</div>
 					<div class="col-md-3">
 						<div class="sidebar">
+							<div class="well center">
+								<ul class="nav">
+									<li class="panel-title open" th:text="#{Archive}">アーカイブ</li>
+									<li th:each="article : ${articleCountsByYear}">
+										<a th:href="@{__${WEBSITE_PATH}__/category/__${code}__(year=${article.get('year')})}" th:text="${#locale.language ne 'ja'} ? ${article.get('year') + ' (' + article.get('count') + ')'} : ${article.get('year') + '年 (' + article.get('count') + ')'}"></a>
+									</li>
+								</ul>
+							</div>
 							<div th:replace="layout::side-movie"></div>
 							<div th:replace="layout::side-banner"></div>
 						</div><!-- /.sidebar -->

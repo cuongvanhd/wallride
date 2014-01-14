@@ -28,7 +28,7 @@
 						<fieldset>
 							<div class="form-group" th:classappend="${#fields.hasErrors('imageId')}? has-error">
 								<div id="post-cover-dropzone" class="wr-post-cover-dropzone col-sm-12" style="">
-									<p class="placeholder help-block" th:text="#{BannerImage}">バナー画像</p>
+									<p class="placeholder help-block" th:text="#{BannerImage} + #{BannerSizeDescription}">バナー画像</p>
 									<div class="dragover hide"><span class="help-block" th:text="#{DragDrop}">ファイルをドラッグ＆ドロップしてください</span></div>
 									<div class="wrap-hover">
 										<div class="message hide">
@@ -55,8 +55,8 @@
 											$('#post-cover-dropzone .wrap-hover').removeClass('has');
 										}
 									}).mouseleave(function() {
-												$('#post-cover-dropzone .wrap-hover').addClass('hide');
-											});
+										$('#post-cover-dropzone .wrap-hover').addClass('hide');
+									});
 
 									$('#post-cover-dropzone').fileupload({
 										url: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',

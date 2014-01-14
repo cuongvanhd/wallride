@@ -88,7 +88,12 @@
 									<li th:each="child : ${PAGE_TREE.getNodeByCode('shochu-enjoy').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">About</a></li>
 								</ul>
 							</li>
-							<li><a th:href="@{__${WEBSITE_PATH}__/category/news}" class="nav-3" alt="ニュース・イベント"></a></li>
+							<li class="dropdown"><a href="#" class="nav-3 dropdown-toggle" data-toggle="dropdown" alt="ニュース・イベント"></a>
+								<ul class="dropdown-menu">
+									<li><a th:href="@{__${WEBSITE_PATH}__/category/news}" th:text="#{News}">日本酒</a></li>
+									<li><a th:href="@{__${WEBSITE_PATH}__/category/events}" th:text="#{Events}">日本酒</a></li>
+								</ul>
+							</li>
 							<li><a th:href="@{__${WEBSITE_PATH}__/tv}" class="nav-4" alt="酒TV"></a></li>
 							<li><a th:href="@{__${WEBSITE_PATH}__/category/pressrelease}" class="nav-5" alt="プレスリリース"></a></li>
 							<li><a th:href="@{__${WEBSITE_PATH}__/media}" class="nav-6" alt="メディア掲載"></a></li>

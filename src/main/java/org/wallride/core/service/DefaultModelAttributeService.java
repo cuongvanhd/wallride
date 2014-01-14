@@ -1,7 +1,6 @@
 package org.wallride.core.service;
 
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -30,11 +29,13 @@ public class DefaultModelAttributeService {
 	@Inject
 	private BannerRepository bannerRepository;
 
-	@Cacheable(value="articles", key="'list.category-code.'+#language+'.'+#code+'.'+#status+'.'+#size")
-	public SortedSet<Article> readArticlesByCategoryCode(String language, String code, Post.Status status, int size) {
+	@Cacheable(value="articles", key="'list.category-code.'+#language+'.'+#codes+'.'+#status+'.'+#size")
+	public SortedSet<Article> readArticlesByCategoryCode(String language, List<String> codes, Post.Status status, int size) {
 		ArticleFullTextSearchTerm term = new ArticleFullTextSearchTerm();
 		term.setLanguage(language);
-		term.getCategoryCodes().add(code);
+		for (String code : codes) {
+			term.getCategoryCodes().add(code);
+		}
 		term.setStatus(status);
 		List<Long> ids = articleRepository.findByFullTextSearchTerm(term);
 		if (CollectionUtils.isEmpty(ids)) {

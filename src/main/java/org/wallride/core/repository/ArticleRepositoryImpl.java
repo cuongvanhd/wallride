@@ -83,8 +83,12 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 			}
 			junction.must(subjunction.createQuery());
 		}
-		for (String categoryCode : term.getCategoryCodes()) {
-			junction.must(qb.keyword().onField("categories.code").matching(categoryCode).createQuery());
+		if (!CollectionUtils.isEmpty(term.getCategoryCodes())) {
+			BooleanJunction<BooleanJunction> subjunction = qb.bool();
+			for (String categoryCode : term.getCategoryCodes()) {
+				subjunction.should(qb.keyword().onField("categories.code").matching(categoryCode).createQuery());
+			}
+			junction.must(subjunction.createQuery());
 		}
 
 		Query searchQuery = junction.createQuery();
