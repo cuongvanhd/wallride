@@ -160,7 +160,7 @@ public class ArticleIndexController {
 			form.getCategoryIds().add(category.getId());
 			if (year != null) {
 				LocalDateTime dateFrom = new LocalDateTime(year, 1, 1, 0, 0);
-				LocalDateTime dateTo = new LocalDateTime(year, 12, 31, 0, 0);
+				LocalDateTime dateTo = new LocalDateTime(year, 12, 31, 23, 59);
 				form.setDateFrom(dateFrom);
 				form.setDateTo(dateTo);
 			}
