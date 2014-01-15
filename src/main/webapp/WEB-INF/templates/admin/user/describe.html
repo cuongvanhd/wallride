@@ -50,11 +50,23 @@
 							</tr>
 						</table>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-3 wr-user-image">
 						<div class="thumbnail">
-							<img th:src="${user.getGravatarUrl(170)}" src="http://placehold.it/170/eeeeee/ffffff" />
+							<p class="hide help-block" th:text="#{AddThumbnail}">画像を追加</p>
+							<a target="_blank" href="http://ja.gravatar.com/emails/">
+								<img th:src="${user.getGravatarUrl(170)}" src="http://placehold.it/170/eeeeee/ffffff" />
+							</a>
 						</div>
 					</div>
+					<script>
+						$(function() {
+							$('.wr-user-image .thumbnail').mouseenter(function() {
+								$('p.help-block', $(this)).removeClass('hide');
+							}).mouseleave(function() {
+								$('p.help-block', $(this)).addClass('hide');
+							});
+						});
+					</script>
 				</div>
 			</div>
 		</div>

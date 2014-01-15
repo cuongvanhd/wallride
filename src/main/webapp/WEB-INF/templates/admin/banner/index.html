@@ -70,7 +70,7 @@
 						<div class="banner row">
 							<div class="wr-tree-options col-sm-5" style="overflow: hidden; max-height:100px; padding-left: 0">
 								<div class="wr-tree-option img">
-									<img th:if="${b.image ne null}" th:src="@{${#medias.link(b.image)}(w=700,h=300,m=1)}" class="wr-post-cover" />
+									<img th:if="${b.image ne null}" th:src="@{${#medias.link(b.image)}(w=700,h=176,m=1)}" class="wr-post-cover" />
 								</div>
 							</div>
 							<div class="wr-tree-options col-sm-5">
@@ -78,7 +78,7 @@
 									<dt th:text="#{Title}">タイトル</dt>
 									<dd th:text="${b.title}?:'-'">Title</dd>
 									<dt th:text="#{LinkTo}">リンク先</dt>
-									<dd><a th:href="${b.link}" target="_blank" th:text="${b.link}">/code</a></dd>
+									<dd><a style="padding-left:0" th:href="${b.link}" target="_blank" th:text="${b.link}">/code</a></dd>
 								</dl>
 							</div>
 							<div class="wr-tree-options col-sm-2 pull-right text-right" style="padding-right: 0;">
