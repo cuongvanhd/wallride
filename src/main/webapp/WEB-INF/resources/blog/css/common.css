@@ -443,11 +443,20 @@ header .form-search .btn {
 .nav-7,
 .nav-8 {
 	line-height: 50px;
-	margin: 0 10px;
+	margin: 0;
 }
 
 .nav-1 {
 	margin: 0 10px 0 0;
+}
+
+.navbar-nav>li {
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+.navbar-nav>li:first-child {
+	margin-left: 0;
 }
 
 .dropdown-menu {
@@ -2422,7 +2431,7 @@ footer .social-links i{
 	}
 
 	.border{
-		margin:10px 0px 5px 0px;
+		margin: 10px 0px 5px 0px;
 	}
 
 	header .lang {
@@ -2477,6 +2486,7 @@ footer .social-links i{
 		clear: both;
 		float: left;
 		border: none;
+		margin-left: 10px;
 	}
 
 	.navbar .nav > li > a,
@@ -2493,12 +2503,8 @@ footer .social-links i{
 		background: url('../img/line.png') repeat-x 0 35px;
 	}
 
-	.nav-1 {
-		margin: 0 10px;
-	}
-
 	.navbar ul ul{
-		margin-left:20px;
+		margin-left: 20px;
 	}
 
 	.dropdown-menu{
@@ -2569,9 +2575,6 @@ footer .social-links i{
 }
 
 @media (min-width: 768px){
-	.navbar-nav>li {
-		margin-right: 0px;
-	}
 
 	.container{
 		padding-left: 0;
