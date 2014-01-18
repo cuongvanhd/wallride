@@ -155,7 +155,6 @@ public class DataConfig implements BatchConfigurer {
 		// Hibernate Search
 		properties.put("hibernate.search.lucene_version", environment.getRequiredProperty("hibernate.search.lucene_version"));
 		properties.put("hibernate.search.analyzer", environment.getRequiredProperty("hibernate.search.analyzer"));
-
 		properties.put("hibernate.search.infinispan.cachemanager_jndiname", environment.getRequiredProperty("hibernate.search.infinispan.cachemanager_jndiname"));
 		properties.put("hibernate.search.infinispan.configuration_resourcename", environment.getRequiredProperty("hibernate.search.infinispan.configuration_resourcename"));
 		properties.put("hibernate.search.default.directory_provider", environment.getRequiredProperty("hibernate.search.default.directory_provider"));

@@ -52,4 +52,9 @@ public class ArticleService {
 	public Article readArticle(String code, String language) {
 		return articleRepository.findByCode(code, language, Post.Status.PUBLISHED);
 	}
+
+	@Cacheable(value="articles", key="'counts.'+#code+'.'+#language+'.PUBLISHED'")
+	public List<Map<String, Long>> readArticleCountsByYear(String code, String language) {
+		return articleRepository.readArticleCountsByYear(code, Post.Status.PUBLISHED, language);
+	}
 }

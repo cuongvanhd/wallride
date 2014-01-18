@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ArticleIndexController {
@@ -133,6 +134,7 @@ public class ArticleIndexController {
 			@PathVariable String language,
 			@RequestParam(required=false) Integer page,
 			@RequestParam(required=false) String token,
+			@RequestParam(required=false) Integer year,
 			HttpServletRequest request,
 			HttpSession session,
 			Model model) {
@@ -156,6 +158,12 @@ public class ArticleIndexController {
 			ArticleSearchForm form = new ArticleSearchForm() {};
 			form.setLanguage(language);
 			form.getCategoryIds().add(category.getId());
+			if (year != null) {
+				LocalDateTime dateFrom = new LocalDateTime(year, 1, 1, 0, 0);
+				LocalDateTime dateTo = new LocalDateTime(year, 12, 31, 23, 59);
+				form.setDateFrom(dateFrom);
+				form.setDateTo(dateTo);
+			}
 			Paginator<Long> paginator = articleService.readArticles(form);
 			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
 		}
@@ -165,9 +173,12 @@ public class ArticleIndexController {
 
 		List<Article> articles = articleService.readArticles(condition.getPaginator());
 
+		List<Map<String, Long>> articleCountsByYear =  articleService.readArticleCountsByYear(lastCode, language);
+
 		model.addAttribute("code", lastCode);
 		model.addAttribute("category", category);
 		model.addAttribute("articles", articles);
+		model.addAttribute("articleCountsByYear", articleCountsByYear);
 		model.addAttribute("paginator", condition.getPaginator());
 		model.addAttribute("token", condition.getToken());
 		return "/article/index";

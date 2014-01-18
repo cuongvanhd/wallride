@@ -14,7 +14,7 @@ public class ScheduleConfig {
 	@Inject
 	private PostService postService;
 
-	@Scheduled(cron="0 0 * * * *")
+	@Scheduled(cron="0 * * * * *")
 	public void publishPost() {
 		postService.publishScheduledPosts();
 	}

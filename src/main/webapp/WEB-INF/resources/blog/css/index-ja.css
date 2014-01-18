@@ -5,6 +5,7 @@
 /* title */
 
 .title-news,
+.title-events,
 .title-movie,
 .title-sake,
 .title-shochu,
@@ -27,7 +28,7 @@
 .title-media{ background-position: 0 -70px; width: 170px; height: 20px; }
 .title-movie{ background-position: 0 -140px; width: 167px; height: 32px; }
 .title-news{ background-position: 0 -222px; width: 161px; height: 20px; }
-.title-newsevents{ background-position: 0 -292px; width: 241px; height: 20px; }
+.title-events{ background-position: 0 -292px; width: 161px; height: 20px; }
 .title-pressrelease{ background-position: 0 -362px; width: 205px; height: 20px; }
 .title-sake-enjoy{ background-position: 0 -432px; width: 136px; height: 21px; }
 .title-sake-learn{ background-position: 0 -503px; width: 227px; height: 21px; }

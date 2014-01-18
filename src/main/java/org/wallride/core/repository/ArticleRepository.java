@@ -1,7 +1,5 @@
 package org.wallride.core.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +12,7 @@ import org.wallride.core.domain.Post;
 import javax.persistence.LockModeType;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 
 @Repository
@@ -56,4 +55,11 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
 
 	@Query("select count(article.id) from Article article where article.status = :status and article.language = :language ")
 	long countByStatus(@Param("status") Post.Status status, @Param("language") String language);
+
+	@Query("select new map(date_format(article.date, '%Y') as year, count(article.id) as count) from Article article " +
+			"left join article.categories category " +
+			"where article.status = :status and category.code = :code and article.language = :language " +
+			"group by date_format(article.date, '%Y') " +
+			"order by date_format(article.date, '%Y') desc")
+	List<Map<String, Long>> readArticleCountsByYear(@Param("code") String code, @Param("status") Post.Status status, @Param("language") String language);
 }

@@ -37,10 +37,10 @@
 							<span th:text="#{SavedPage}">Page saved.</span>
 						</div>
 						<div class="page-header clearfix">
-							<img th:if="${page.cover ne null}" th:src="@{${#medias.link(page.cover)}(w=1200,h=500,m=1)}" class="wr-post-cover" />
+							<img th:if="${page.cover ne null}" th:src="@{${#medias.link(page.cover)}(w=1200,m=0)}" class="wr-post-cover" />
 							<h1 th:text="${page.title}">Page Title</h1>
 						</div>
-						<pre th:utext="${page.body}">Page Body</pre>
+						<p th:utext="${#posts.body(page)}">Page Body</p>
 						<hr/>
 						<span class="glyphicon glyphicon-user"></span> Created By <a th:href="@{__${ADMIN_PATH}__/users/describe(id=${page.author.id})}" th:text="${page.author}">Author</a>
 					</div>
@@ -74,7 +74,7 @@
 						</div>
 						<dl>
 							<dt th:text="#{Date}">公開日</dt>
-							<dd th:if="${page.date ne null}" th:text="${page.date.toString('yyyy/MM/dd')}"></dd>
+							<dd th:if="${page.date ne null}" th:text="${page.date.toString('yyyy/MM/dd HH:mm')}"></dd>
 						</dl>
 						<dl>
 							<dt th:text="#{ParentPage}">親ページ</dt>

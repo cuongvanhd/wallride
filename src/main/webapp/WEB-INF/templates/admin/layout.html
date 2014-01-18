@@ -9,6 +9,7 @@
 	<link rel="stylesheet" th:href="@{/_admin/resources/lib/select2-3.4.2/select2.css}" href="../../resources/admin/lib/select2-3.4.2/select2.css"/>
 	<link rel="stylesheet" th:href="@{/_admin/resources/lib/redactor/redactor.css}" href="#"/>
 	<link rel="stylesheet" th:href="@{/_admin/resources/lib/jquery-file-upload-9.0.2/css/jquery.fileupload.css}" />
+	<link rel="stylesheet" th:href="@{/_admin/resources/lib/bootstrap-datetimepicker-0.0.11/css/bootstrap-datetimepicker.min.css}" />
 	<link rel="stylesheet" th:href="@{/_admin/resources/css/admin.css}" />
 	<link rel="stylesheet" th:href="@{/_admin/resources/css/wallride.css}" />
 	<link rel="stylesheet" th:href="@{/_admin/resources/font/flaticon.css}" />
@@ -25,6 +26,8 @@
 	<script th:src="@{/_admin/resources/lib/jquery-file-upload-9.0.2/js/jquery.fileupload.js}" src="#"></script>
 	<script th:src="@{/_admin/resources/lib/jquery.mjs.nestedSortable.js}"></script>
 	<script th:src="@{/_admin/resources/lib/jquery.shiftcheckbox.js}"></script>
+	<script th:src="@{/_admin/resources/lib/bootstrap-datetimepicker-0.0.11/js/bootstrap-datetimepicker.js}"></script>
+	<script th:src="@{/_admin/resources/lib/bootstrap-datetimepicker-0.0.11/js/bootstrap-datetimepicker.ja.js}"></script>
 	<script th:src="@{/_admin/resources/js/common.js}"></script>
 </head>
 <body>
@@ -74,7 +77,10 @@
 
 		<ul class="nav nav-stacked">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Articles}">Articles</span></a>
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<span class="glyphicon glyphicon-pencil"></span> <span th:text="#{Articles}">Articles</span><br/>
+					<span class="small" th:text="#{ArticleSummary}"></span>
+				</a>
 				<ul class="nav dropdown-menu">
 					<li><a th:href="@{__${ADMIN_PATH}__/articles/create}" href="article-create.html"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewArticle}">Add New Article</span></a></li>
 					<li><a th:href="@{__${ADMIN_PATH}__/articles/index}" href="articles.html"><span class="glyphicon glyphicon-list"></span> <span th:text="#{Articles}">Articles</span></a></li>
@@ -82,7 +88,10 @@
 				</ul>
 			</li>
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-book"></span> <span th:text="#{Pages}">Pages</span></a>
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<span class="glyphicon glyphicon-book"></span> <span th:text="#{Pages}">Pages</span><br/>
+					<span class="small" th:text="#{PageSummary}"></span>
+				</a>
 				<ul class="nav dropdown-menu">
 					<li><a th:href="@{__${ADMIN_PATH}__/pages/create}"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewPage}">Add New Page</span></a></li>
 					<li><a th:href="@{__${ADMIN_PATH}__/pages/index}"><span class="glyphicon glyphicon-list"></span> <span th:text="#{Pages}">Pages</span></a></li>

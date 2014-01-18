@@ -25,7 +25,8 @@
 						channelId: 'UCtctsgjiKW4qH67M1TRFyQg', // takashi hashiguchi
 						part: 'snippet',
 						type: 'video',
-						order: 'date'
+						order: 'date',
+						maxResults: 1
 					});
 					recommendRequest.execute(function(response) {
 						var request = gapi.client.youtube.videos.list({
@@ -44,7 +45,7 @@
 											+]*/
 										'</h3>' +
 										'<div class="box-youtube" style="padding-top: 56.25%;">' +
-											'<iframe class="movie" src="http://www.youtube.com/embed/' + item.id + '?feature=player_detailpage" frameborder="0" allowfullscreen="allowfullscreen"></iframe>' +
+											'<iframe class="movie" src="https://www.youtube.com/embed/' + item.id + '?feature=player_detailpage" frameborder="0" allowfullscreen="allowfullscreen"></iframe>' +
 										'</div>' +
 									'</div>' +
 								'</div>' +
@@ -59,27 +60,33 @@
 
 					var channelRequests = {
 						'channel1': gapi.client.youtube.search.list({
+							channelId: 'UCtctsgjiKW4qH67M1TRFyQg', // takashi hashiguchi
+							part: 'snippet',
+							type: 'video',
+							order: 'date',
+							maxResults: 6
+						}),
+						'channel2': gapi.client.youtube.search.list({
 							channelId: 'UCwh1NeEwdfZ99PHFrz0hcXg', // NPOFBO
 							part: 'snippet',
 							type: 'video',
-							order: 'date'
+							order: 'date',
+							maxResults: 5
 						}),
-						'channel2': gapi.client.youtube.search.list({
+						'channel3': gapi.client.youtube.search.list({
 							channelId: 'UCTnRxVUPssiL7H29ON07t_Q', // Google Japan
 							part: 'snippet',
 							type: 'video',
-							order: 'date'
-						}),
-						'channel3': gapi.client.youtube.search.list({
-							channelId: 'UCASliASL93lb8fdnpFiE3eQ', // Microsoft Japan
-							part: 'snippet',
-							type: 'video',
-							order: 'date'
+							order: 'date',
+							maxResults: 5
 						})
 					};
 					$.each(channelRequests, function(key, value) {
 						value.execute(function(response) {
 							$.each(response.items, function(i, item) {
+								if (key == 'channel1' && i == 0) {
+									return;
+								}
 								var html = $(
 									'<div class="link-movie clearfix">' +
 										'<a href="http://www.youtube.com/watch?v=' + item.id.videoId + '" target="_blank">' +
@@ -131,9 +138,9 @@
 						<div class="row">
 							<div id="channel1" class="col-md-4">
 								<h4>
-									<span th:text="#{Channel1}">FBOチャンネル</span>
+									<span th:text="#{Channel1}">SakeJAPANチャンネル</span>
 									<span class="pull-right">
-										<a href="http://www.youtube.com/channel/UCwh1NeEwdfZ99PHFrz0hcXg" target="_blank">
+										<a href="http://www.youtube.com/channel/UCtctsgjiKW4qH67M1TRFyQg" target="_blank">
 											<img class="link-list" th:src="@{/resources/img/space.gif}" th:alt="#{Lists}"/>
 										</a>
 									</span>
@@ -142,9 +149,9 @@
 							</div>
 							<div id="channel2" class="col-md-4">
 								<h4>
-									<span th:text="#{Channel2}">Googleチャンネル</span>
+									<span th:text="#{Channel2}">FBOチャンネル</span>
 									<span class="pull-right">
-										<a href="http://www.youtube.com/channel/UCTnRxVUPssiL7H29ON07t_Q" target="_blank">
+										<a href="http://www.youtube.com/channel/UCwh1NeEwdfZ99PHFrz0hcXg" target="_blank">
 											<img class="link-list" th:src="@{/resources/img/space.gif}" th:alt="#{Lists}"/>
 										</a>
 									</span>
@@ -153,9 +160,9 @@
 							</div>
 							<div id="channel3" class="col-md-4">
 								<h4>
-									<span th:text="#{Channel3}">Microsoftチャンネル</span>
+									<span th:text="#{Channel3}">Googleチャンネル</span>
 									<span class="pull-right">
-										<a href="http://www.youtube.com/channel/UCASliASL93lb8fdnpFiE3eQ" target="_blank">
+										<a href="http://www.youtube.com/channel/UCTnRxVUPssiL7H29ON07t_Q" target="_blank">
 											<img class="link-list" th:src="@{/resources/img/space.gif}" th:alt="#{Lists}"/>
 										</a>
 									</span>

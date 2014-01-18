@@ -43,7 +43,7 @@
 	vertical-align: middle;
 }
 .wr-post-cover-dropzone:hover .wrap-hover {
-	cursor: pointer;
+	/*cursor: pointer;*/
 	display: inline-block!important;
 	color: #ccc;
 }
@@ -185,3 +185,4 @@
 .wr-post-status-SCHEDULED {
 	color: #ffc31e;
 }
+

@@ -9,7 +9,7 @@
 		<meta name="author" th:content="${#posts.metaAuthor(page)}" />
 		<meta property="og:site_name" th:content="${#posts.ogSiteName(page)}"/>
 		<meta property="og:title" th:content="${#posts.ogTitle(page)}"/>
-		<meta property="og:url" th:content="${#posts.ogUrl(page)}" />
+		<meta property="og:url" th:content="${#posts.ogUrl(page, PAGE_TREE)}" />
 		<meta property="og:image" th:if="${#posts.ogImage(page)}" th:content="${#posts.ogImage(page)}" />
 		<meta property="og:type" th:content="${#posts.ogType(page)}"/>
 		<title th:text="${#posts.title(page)}"></title>
@@ -54,11 +54,11 @@
 								<div class="col-md-12 article-title">
 									<h3 th:text="${child.page.title}"></h3>
 									<div class="clearfix">
-										<div class="thumbnail pull-right" th:if="${child.page.cover ne null}" style="margin-left: 15px;">
+										<!--<div class="thumbnail pull-right" th:if="${child.page.cover ne null}" style="margin-left: 15px;">
 											<img th:src="@{${#medias.link(child.page.cover)}(w=200,h=130,m=1)}" />
-										</div>
+										</div> -->
 										<div th:text="${#posts.summary(child.page, 300)}"></div>
-										<a th:href="@{${#posts.path(child.page)}}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
+										<a th:href="@{${#posts.path(child.page, PAGE_TREE)}}"><span class="link"><img class="link-detail" th:src="@{/resources/img/space.gif}" alt="詳細ページへ"/></span></a>
 									</div>
 								</div>
 							</div>
@@ -74,7 +74,7 @@
 										<li th:each="node : ${PAGE_TREE.getRootNodeByCode(page.code).children}" th:classappend="${node.contains(page) ? 'open' : ''}" class="panel-title">
 											<a th:text="${node.page.title}">Page Title</a>
 											<ul>
-												<li th:each="childNode : ${node.children}" th:classappend="${childNode.contains(page)} ? 'active' : ''"><a th:href="${#posts.path(childNode.page)}" th:text="${childNode.page.title}">Page Title</a></li>
+												<li th:each="childNode : ${node.children}" th:classappend="${childNode.contains(page)} ? 'active' : ''"><a th:href="${#posts.path(childNode.page, PAGE_TREE)}" th:text="${childNode.page.title}">Page Title</a></li>
 											</ul>
 										</li>
 									</ul>

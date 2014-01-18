@@ -6,11 +6,14 @@ import org.wallride.core.domain.Media;
 
 import javax.inject.Inject;
 
-@Component
+//@Component
 public class MediaUtils {
 
-	@Inject
 	private Environment environment;
+
+	public MediaUtils(Environment environment) {
+		this.environment = environment;
+	}
 
 	public String link(Media media) {
 		return link(media.getId());
