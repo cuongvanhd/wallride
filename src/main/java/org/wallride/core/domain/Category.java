@@ -1,7 +1,9 @@
 package org.wallride.core.domain;
 
 import org.hibernate.annotations.*;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.CascadeType;
 import javax.persistence.*;
@@ -15,6 +17,8 @@ import java.util.TreeSet;
 @Table(name="category", uniqueConstraints=@UniqueConstraint(columnNames={"code", "language"}))
 @DynamicInsert
 @DynamicUpdate
+@Analyzer(definition="synonyms")
+@Indexed
 @SuppressWarnings("serial")
 public class Category extends DomainObject<Long> implements Comparable<Category> {
 

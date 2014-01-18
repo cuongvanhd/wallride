@@ -93,7 +93,9 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 
 		Query searchQuery = junction.createQuery();
 		
-		Sort sort = new Sort(new SortField("date", SortField.STRING, true));
+		Sort sort = new Sort(
+				new SortField("date", SortField.STRING, true),
+				new SortField("id", SortField.LONG, true));
 		
 		javax.persistence.Query persistenceQuery = fullTextEntityManager
 				.createFullTextQuery(searchQuery, Article.class)

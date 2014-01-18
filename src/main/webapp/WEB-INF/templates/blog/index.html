@@ -79,7 +79,7 @@
 									</span>
 								</h3>
 								<ul>
-									<li th:each="article : ${NEW_ARTICLES}"><a th:href="@{${#posts.path(article)}}"><span th:text="${article.date.toString('M月d日')} + '   ' + ${article.title}"></span></a></li>
+									<li th:each="article : ${NEW_ARTICLES}"><a th:href="@{${#posts.path(article)}}"><span th:text="${article.date.toString('yyyy/MM/dd')} + '   ' + ${article.title}"></span></a></li>
 								</ul>
 							</div>
 						</div>

@@ -29,7 +29,7 @@ public class DefaultModelAttributeService {
 	@Inject
 	private BannerRepository bannerRepository;
 
-	@Cacheable(value="articles", key="'list.category-code.'+#language+'.'+#codes+'.'+#status+'.'+#size")
+//	@Cacheable(value="articles", key="'list.category-code.'+#language+'.'+#codes+'.'+#status+'.'+#size")
 	public SortedSet<Article> readArticlesByCategoryCode(String language, List<String> codes, Post.Status status, int size) {
 		ArticleFullTextSearchTerm term = new ArticleFullTextSearchTerm();
 		term.setLanguage(language);
