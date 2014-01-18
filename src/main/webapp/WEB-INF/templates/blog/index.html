@@ -91,7 +91,9 @@
 										<section class="sake-learn">
 											<h4><img class="title title-sake-learn" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
 											<ul>
+												<!--/*/ <th:block th:if="${PAGE_TREE.getNodeByCode('sake-learn')} != null"> /*/-->
 												<li th:each="child : ${PAGE_TREE.getNodeByCode('sake-learn').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">Page Title</a></li>
+												<!--/*/ </th:block> /*/-->
 											</ul>
 											<img th:src="@{/resources/img/space.gif}" class="image"/>
 										</section>
@@ -100,7 +102,9 @@
 										<section class="sake-enjoy">
 											<h4><img class="title title-sake-enjoy" th:src="@{/resources/img/space.gif}" alt="楽しむ"/></h4>
 											<ul>
+												<!--/*/ <th:block th:if="${PAGE_TREE.getNodeByCode('sake-enjoy')} != null"> /*/-->
 												<li th:each="child : ${PAGE_TREE.getNodeByCode('sake-enjoy').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">Page Title</a></li>
+												<!--/*/ </th:block> /*/-->
 											</ul>
 											<img th:src="@{/resources/img/space.gif}" class="image"/>
 										</section>
@@ -116,7 +120,9 @@
 										<section class="shochu-learn">
 											<h4><img class="title title-shochu-learn" th:src="@{/resources/img/space.gif}" alt="知る・学ぶ"/></h4>
 											<ul>
+												<!--/*/ <th:block th:if="${PAGE_TREE.getNodeByCode('shochu-learn')} != null"> /*/-->
 												<li th:each="child : ${PAGE_TREE.getNodeByCode('shochu-learn').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">Page Title</a></li>
+												<!--/*/ </th:block> /*/-->
 											</ul>
 											<img th:src="@{/resources/img/space.gif}" class="image"/>
 										</section>
@@ -125,7 +131,9 @@
 										<section class="shochu-enjoy">
 											<h4><img class="title title-shochu-enjoy" th:src="@{/resources/img/space.gif}" alt="楽しむ"/></h4>
 											<ul>
+												<!--/*/ <th:block th:if="${PAGE_TREE.getNodeByCode('shochu-enjoy')} != null"> /*/-->
 												<li th:each="child : ${PAGE_TREE.getNodeByCode('shochu-enjoy').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">Page Title</a></li>
+												<!--/*/ </th:block> /*/-->
 											</ul>
 											<img th:src="@{/resources/img/space.gif}" class="image"/>
 										</section>

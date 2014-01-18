@@ -75,17 +75,25 @@
 							<li class="dropdown"><a href="#" class="nav-1 dropdown-toggle"  data-toggle="dropdown" alt="知る・学ぶ"></a>
 								<ul class="dropdown-menu">
 									<li role="presentation" class="dropdown-header sake" th:text="#{Sake}">日本酒</li>
+									<!--/*/ <th:block th:if="${PAGE_TREE.getNodeByCode('sake-learn')} != null"> /*/-->
 									<li th:each="child : ${PAGE_TREE.getNodeByCode('sake-learn').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">Page Title</a></li>
+									<!--/*/ </th:block> /*/-->
 									<li role="presentation" class="dropdown-header shochu" th:text="#{Shochu}">焼酎</li>
+									<!--/*/ <th:block th:if="${PAGE_TREE.getNodeByCode('shochu-learn')} != null"> /*/-->
 									<li th:each="child : ${PAGE_TREE.getNodeByCode('shochu-learn').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">Page Title</a></li>
+									<!--/*/ </th:block> /*/-->
 								</ul>
 							</li>
 							<li class="dropdown"><a href="#" class="nav-2 dropdown-toggle" data-toggle="dropdown" alt="楽しむ"></a>
 								<ul class="dropdown-menu">
 									<li role="presentation" class="dropdown-header sake" th:text="#{Sake}">日本酒</li>
+									<!--/*/ <th:block th:if="${PAGE_TREE.getNodeByCode('sake-enjoy')} != null"> /*/-->
 									<li th:each="child : ${PAGE_TREE.getNodeByCode('sake-enjoy').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">About</a></li>
+									<!--/*/ </th:block> /*/-->
 									<li role="presentation" class="dropdown-header shochu" th:text="#{Shochu}">焼酎</li>
+									<!--/*/ <th:block th:if="${PAGE_TREE.getNodeByCode('shochu-enjoy')} != null"> /*/-->
 									<li th:each="child : ${PAGE_TREE.getNodeByCode('shochu-enjoy').children}"><a th:href="@{${#posts.path(child.page, PAGE_TREE)}}" th:text="${child.page.title}">About</a></li>
+									<!--/*/ </th:block> /*/-->
 								</ul>
 							</li>
 							<li class="dropdown"><a href="#" class="nav-3 dropdown-toggle" data-toggle="dropdown" alt="ニュース・イベント"></a>
