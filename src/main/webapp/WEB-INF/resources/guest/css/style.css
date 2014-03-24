@@ -1,0 +1,239 @@
+@charset "utf-8";
+
+/* ----------------------------------------------------
+* Reset
+* -------------------------------------------------- */
+
+/* for new HTML5 elements */
+section, article, aside, hgroup, header, footer, nav, figure, figcaption, summary { display: block; }
+body { font-family: Meiryo, "メイリオ", "ＭＳ Ｐゴシック", Verdana, Geneva, Arial, Helvetica; font-size: 78%; color: #000; line-height: 1.6; padding:0; margin:0; }
+h1,h2,h3,h4,h5,h6 { font-size: 100%; padding: 0; margin: 0; }
+ul,li,dl,dt,dd,ol { list-style: none; padding: 0; margin: 0; }
+table,th,td,input,textarea { border-collapse: collapse; font-size: 100%; }
+form { padding: 0; margin: 0; }
+input,select,img { vertical-align: middle; }
+a img { border: 0; }
+a { color: #0978be; text-decoration: underline; }
+a:hover { text-decoration: none; }
+
+
+/* ----------------------------------------------------
+* Common
+* -------------------------------------------------- */
+
+#container { width: 950px; margin: 0 auto; }
+#header { padding: 15px 0; }
+	#header #logo { float: left; width: 167px; }
+		#header #logo a { display: block; overflow: hidden; text-indent: -9999px; background: url(../images/logo.png) no-repeat; height: 56px; }
+	#header div.search { float: right; width: 450px; background: #f7f7f7; border: 1px #efefef solid; padding: 2px 10px 5px; }
+		#header div.search h2 { background: url(../images/icon-subt.png) no-repeat left center; padding: 3px 0 3px 23px; }
+	#header #gnav { clear: both; }
+		#header #gnav ul { padding: 10px 0 0; }
+		#header #gnav ul li { float: left; width: 105px; }
+		#header #gnav ul li.japan { width: 110px; }
+		#header #gnav ul li a { display: block; overflow: hidden; text-indent: -9999px; background: url(../images/menu.png) no-repeat; height: 44px; }
+		#header #gnav ul li.japan a { background-position: 0 0; }
+		#header #gnav ul li.japan a:hover,
+		#header #gnav ul li.japan a.active { background-position: 0 -44px; }
+		#header #gnav ul li.england a { background-position: -110px 0; }
+		#header #gnav ul li.england a:hover,
+		#header #gnav ul li.england a.active { background-position: -110px -44px; }
+		#header #gnav ul li.spain a { background-position: -215px 0; }
+		#header #gnav ul li.spain a:hover,
+		#header #gnav ul li.spain a.active { background-position: -215px -44px; }
+		#header #gnav ul li.italy a { background-position: -320px 0; }
+		#header #gnav ul li.italy a:hover,
+		#header #gnav ul li.italy a.active { background-position: -320px -44px; }
+		#header #gnav ul li.germany a { background-position: -425px 0; }
+		#header #gnav ul li.germany a:hover,
+		#header #gnav ul li.germany a.active { background-position: -425px -44px; }
+		#header #gnav ul li.france a { background-position: -530px 0; }
+		#header #gnav ul li.france a:hover,
+		#header #gnav ul li.france a.active { background-position: -530px -44px; }
+		#header #gnav ul li.portugal a { background-position: -635px 0; }
+		#header #gnav ul li.portugal a:hover,
+		#header #gnav ul li.portugal a.active { background-position: -635px -44px; }
+		#header #gnav ul li.netherlands a { background-position: -740px 0; }
+		#header #gnav ul li.netherlands a:hover,
+		#header #gnav ul li.netherlands a.active { background-position: -740px -44px; }
+		#header #gnav ul li.others a { background-position: -845px 0; }
+		#header #gnav ul li.others a:hover,
+		#header #gnav ul li.others a.active { background-position: -845px -44px; }
+#content div.crumb { border-bottom: 1px #ccc dotted; padding: 0 0 5px; margin-bottom: 20px; }
+	#content div.crumb span { margin: 0 5px; }
+#content div.main { float: left; width: 680px; }
+/*-- Google設置用 仮スペース --*/
+	#content div.main p.test { text-align: center; background: #f7f7f7; padding: 30px 0; }
+#content div.side { float: right; width: 240px; }
+	#content div.side h2 { background: url(../images/icon-subt.png) no-repeat left center; padding: 3px 0 3px 23px; margin-bottom: 5px; }
+	#content div.side .aside { margin-bottom: 20px; }
+	#content div.side div.book { background: #fff; border: 1px #dfdfdf solid; padding: 3px 3px 0; margin-bottom: 5px; }
+		#content div.side div.book img { float: left; margin: 0 10px 5px 0; }
+		#content div.side div.book p { margin: 0 0 5px; }
+			#content div.side div.book p a { font-weight: bold; }
+	#content div.side a.banner { display: block; color: #333; font-weight: bold; text-decoration: none; background: #fff; border: 1px #dfdfdf solid; padding: 3px; margin-bottom: 5px; }
+	#content div.side a.banner:hover { background: #f7f7f7; border: 1px #6dd367 solid; }
+		#content div.side a.banner img { margin-right: 10px; }
+	
+	/*-- Google設置用 仮スペース --*/
+	#content div.side .aside p.test { text-align: center; background: #f7f7f7; padding: 100px 0; }
+	
+#footer { background: url(../images/bg-footer.png) repeat-x; margin: 40px 0 0; }
+	#footer div.main { width: 950px; margin: 0 auto 5px; }
+		#footer div.main ul { float: left; width: 750px; }
+			#footer div.main ul li { float: left; background: url(../images/icon-footer.png) no-repeat left center; padding: 6px 0 4px 12px; margin-right: 20px; }
+				#footer div.main ul li a { color: #fff; font-size: 90%; font-weight: bold; text-decoration: none; }
+		#footer div.main a#pagetop { display: block; float: right; overflow: hidden; text-indent: -9999px; background: url(../images/btn-pagetop.png) no-repeat; width: 138px; height: 20px; margin: 6px 0; }
+	#footer div.sub { width: 950px; margin: 10px auto 0; }
+		#footer div.sub dl { float: left; }
+		#footer div.sub dl.sitemap { border-left: 1px #dfdfdf solid; border-right: 1px #dfdfdf solid; width: 426px; padding: 0 20px; }
+		*html #footer div.sub dl.sitemap { width: 200px; }
+		#footer div.sub dl.privacy { border-right: 1px #dfdfdf solid; width: 210px; padding: 0 20px; }
+		#footer div.sub dl.related { border-right: 1px #dfdfdf solid; width: 190px; padding: 0 20px; }
+			#footer div.sub dl dt { font-size: 110%; font-weight: bold; padding: 3px 0 3px 22px; margin-bottom: 5px; }
+			#footer div.sub dl.sitemap dt { background: url(../images/icon-footert01.png) no-repeat left center; }
+			#footer div.sub dl.privacy dt { background: url(../images/icon-footert02.png) no-repeat left center; }
+			#footer div.sub dl.related dt { background: url(../images/icon-footert03.png) no-repeat left center; }
+				#footer div.sub dl dd ul { float: left; margin-left: 10px; }
+				#footer div.sub dl.sitemap dd ul { margin-right: 20px; }
+					#footer div.sub dl dd ul li { background: url(../images/icon-subfooter.png) no-repeat left 6px; padding-left: 10px; margin-bottom: 5px; }
+						#footer div.sub dl dd ul li ul { margin-left: 0; margin-top: 5px; }
+						#footer div.sub dl dd ul li a { display: block; }
+	#footer p.copyright { text-align: center; border-top: 1px #ccc dotted; padding: 10px 0; margin: 10px 0 0; }
+
+
+
+/* ----------------------------------------------------
+* Pages
+* -------------------------------------------------- */
+
+/*-- Top Page --*/
+body.home div#visual { background: #ebebeb; padding: 3px; margin-bottom: 20px; }
+	body.home div#visual div.pic { float: left; width: 757px; }
+	body.home div#visual div.list { float: right; width: 186px; }
+		body.home div#visual div.list a.prev,
+		body.home div#visual div.list a.next,
+			body.home div#visual div.list a.prev span,
+			body.home div#visual div.list a.next span { display: block; overflow: hidden; text-indent: -9999px; height: 11px; }
+		body.home div#visual div.list a.prev,
+		body.home div#visual div.list a.next { background: url(../images/bg-btn_visual.png); }
+			body.home div#visual div.list a.prev span { background: url(../images/icon-prev.png) no-repeat center center; height: 11px; }
+			body.home div#visual div.list a.next span { background: url(../images/icon-next.png) no-repeat center center; height: 11px; }
+		body.home div#visual div.list ul { margin: 3px 0 4px; }
+			body.home div#visual div.list ul li { margin: 0 3px; }
+			body.home div#visual div.list ul li.center { border: 2px #00cdd5 solid; margin: 2px 0; }
+body.home h2.ttl { background: url(../images/bg-title.png); padding: 7px 10px; margin-bottom: 10px; }
+	body.home h2.ttl span { display: block; font-size: 150%; font-weight: bold; background: url(../images/icon-title.png) no-repeat left center; padding: 3px 0 3px 35px; }
+body.home table { width: 100%; }
+	body.home table td { text-align: center; vertical-align: middle; border-left: 1px #dfdfdf solid; border-right: 1px #dfdfdf solid; border-top: 2px #fff solid; width: 25%; }
+	body.home table td div.box { position: relative; }
+		body.home table td span.new { position: absolute; top: 0; left: 0; background: url(../images/icon-new.png) no-repeat; width: 39px; height: 28px; }
+		body.home table td div.image { text-align: center; width: 169px; height: 140px; }
+			body.home table td div.image a { display: block; display: table-cell; vertical-align: middle; width: 169px; height: 140px; zoom: 1; }
+			body.home table td div.image span.vg { visibility: hidden; height: 140px; vertical-align: middle; zoom: 1; }
+		body.home table td p { background: #f7f7f7; border-top: 1px #dfdfdf solid; border-bottom: 1px #dfdfdf solid; padding: 5px 0; margin: 0 1px; }
+			body.home table td p span { display: block; font-size: 80%; }
+
+/*-- League Page --*/
+body.league h1 { color: #fff; font-size: 200%; font-weight: bold; text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); height: 70px; padding: 25px 0 0 250px; margin-bottom: 10px; }
+body.league h1.england { background: url(../images/england/ttl-league.jpg) no-repeat; }
+body.league h2.ttl { background: url(../images/bg-title.png); padding: 7px 10px; margin-bottom: 10px; }
+	body.league h2.ttl span { display: block; font-size: 150%; font-weight: bold; background: url(../images/icon-title.png) no-repeat left center; padding: 3px 0 3px 35px; }
+body.league h3 { font-size: 105%; border-left: 5px #74b999 solid; padding: 6px 0 6px 10px; margin: 0 0 10px 3px; }
+body.league div#visual { background: #ebebeb; padding: 2px; margin-bottom: 20px; }
+	body.league div#visual div.detail { float: left; background: linear-gradient(#4a4a4a, #5e5e5e); background: -moz-linear-gradient(top, #4a4a4a, #5e5e5e); background: -webkit-gradient(linear, left top, left bottom, from(#4a4a4a), to(#5e5e5e)); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff4a4a4a, endColorstr=#ff5e5e5e); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff4a4a4a, endColorstr=#ff5e5e5e)"; width: 728px; height: 386px; }
+		body.league div#visual div.detail div.comment { float: left; background: url(../images/bg-map_comment.png) no-repeat; width: 230px; height: 312px; padding: 15px 35px 15px 15px; margin: 25px 0 25px 25px; }
+			body.league div#visual div.detail div.comment h4 { height: 42px; margin-bottom: 10px; }
+			body.league div#visual div.detail div.comment div.txt { overflow: auto; height: 260px; }
+			
+		/*-- リーガ・エスパニョーラMAP --*/
+		body.league div#visual div.detail div.inner_spain { float: right; background: url(../images/spain/bg-map.png) no-repeat right bottom; width: 380px; height: 346px; margin: 30px 20px 20px 20px; }
+			body.league div#visual div.detail div.inner_spain div.map { position: relative; background: url(../images/spain/map.png) no-repeat; width: 356px; height: 303px; }
+				body.league div#visual div.detail div.inner_spain span.arsenal img { position: absolute; top: 90px; left: 150px; }
+				body.league div#visual div.detail div.inner_spain span.birmingham img { position: absolute; top: 30px; left: 250px; }
+		
+		/*-- プレミアリーグMAP --*/
+		body.league div#visual div.detail div.inner_england { float: right; background: url(../images/england/bg-map.png) no-repeat 20px 150px ; width: 380px; height: 346px; margin: 30px 20px 20px 20px; }
+			body.league div#visual div.detail div.inner_england div.map { position: relative; background: url(../images/england/map.png) no-repeat; width: 260px; height: 330px; margin-left: 80px; }
+				body.league div#visual div.detail div.inner_england span.arsenal img { position: absolute; top: 230px; left: 200px; }
+				body.league div#visual div.detail div.inner_england span.astonvilla img { position: absolute; top: 75px; left: 80px; }
+				body.league div#visual div.detail div.inner_england span.birmingham img { position: absolute; top: 180px; left: 120px; }
+				body.league div#visual div.detail div.inner_england span.blackburn img { position: absolute; top: 45px; left: 100px; }
+				body.league div#visual div.detail div.inner_england span.blackpool img { position: absolute; top: 45px; left: 80px; }
+				body.league div#visual div.detail div.inner_england span.bolton img { position: absolute; top: 60px; left: 100px; }
+				
+				body.league div#visual div.detail div.inner_england span.chelsea img { position: absolute; top: 230px; left: 200px; }
+				body.league div#visual div.detail div.inner_england span.fullham img { position: absolute; top: 230px; left: 200px; }
+				body.league div#visual div.detail div.inner_england span.liverpool img { position: absolute; top: 75px; left: 80px; }
+				
+	body.league div#visual ul { float: right; overflow: auto; background: #fff; width: 215px; height: 386px; }
+		body.league div#visual ul li { border-bottom: 1px #e5e5e5 solid; padding: 0 1px; }
+			body.league div#visual ul li a { display: block; color: #333; text-decoration: none; padding: 5px 0 5px 5px; }
+			body.league div#visual ul li a:hover,
+			body.league div#visual ul li a.active { background: #e0f0bd; }
+				body.league div#visual ul li a img { vertical-align: middle; margin-right: 5px; }
+body.league table { width: 100%; border-collapse: separate; }
+	body.league table td { text-align: center; vertical-align: top; background: #f7f7f7; border-left: 0; border-right: 1px #dfdfdf solid; border-top: 2px #fff solid; border-bottom: 1px #dfdfdf solid; width: 25%; }
+	body.league table td:first-child { border-left: 1px #dfdfdf solid; }
+	body.league table td div.box { position: relative; }
+		body.league table td span.new { position: absolute; top: 0; left: 0; background: url(../images/icon-new.png) no-repeat; width: 39px; height: 28px; }
+		body.league table td div.image { text-align: center; background: #fff; width: 169px; height: 140px; }
+			body.league table td div.image a { display: block; display: table-cell; vertical-align: middle; width: 169px; height: 140px; zoom: 1; }
+			body.league table td div.image span.vg { visibility: hidden; height: 140px; vertical-align: middle; zoom: 1; }
+		body.league table td p { border: 1px #fff solid; border-top: 1px #dfdfdf solid; border-bottom: 0; padding: 5px 0; margin: 0; }
+			body.league table td p span { display: block; font-size: 80%; }
+
+/*-- Club Page --*/
+body.club h1 { background: url(../images/bg-title.png); padding: 7px 10px; margin-bottom: 20px; }
+body.club div.main h2 { text-indent: -9999px; border-bottom: 2px #696969 solid; height: 27px; margin-bottom: 10px; }
+	body.club h1 img { float: left; width: 50px; }
+	body.club h1 strong { float: right; font-size: 160%; width: 590px; }
+	body.club h1 span { float: right; color: #6d6d6d; font-weight: normal; width: 590px; }
+body.club div.about { margin-bottom: 20px; }
+	body.club div.about div.pic { float: left; width: 180px; }
+		body.club div.about div.pic p { text-align: center; background: #f2f2f2; margin: 4px 0; }
+	body.club div.about div.profile { float: right; width: 480px; }
+		body.club div.about div.profile h2 { background: url(../images/ttl-profile_club.png) no-repeat; }
+		body.club div.about div.profile table { width: 100%; }
+			body.club div.about div.profile table th,
+			body.club div.about div.profile table td { text-align: left; border-bottom: 1px #dfdfdf solid; padding: 5px; }
+			body.club div.about div.profile table th { width: 100px; }
+body.club div.first { margin-bottom: 20px; }
+	body.club div.first h2 { background: url(../images/ttl-club_first.png) no-repeat; }
+	body.club div.first table {  }
+		body.club div.first table thead th { color: #fff; font-weight: bold; text-align: left; background: #a1a1a1; border: 1px #dfdfdf solid; padding: 5px 0 5px 20px;  }
+			body.club div.first table thead th.num { width: 60px; }
+			body.club div.first table thead th.name { width: 200px; }
+			body.club div.first table thead th.country { width: 100px; }
+			body.club div.first table thead th.birth { width: 100px; }
+			body.club div.first table thead th.size { width: 100px; }
+		body.club div.first table th,
+		body.club div.first table td { border: 1px #dfdfdf solid; padding: 5px 10px; }
+
+
+body.club div.side ul.list_league { border-top: 1px #dfdfdf solid; }
+	body.club div.side ul.list_league li { border-bottom: 1px #dfdfdf solid; padding: 5px; }
+		body.club div.side ul.list_league li img { float: left; }
+		body.club div.side ul.list_league li p { float: right; width: 160px; margin: 0; }
+			body.club div.side ul.list_league li p span { display: block; color: #797979; }
+
+
+
+
+
+
+/* ----------------------------------------------------
+* Clearfix
+* -------------------------------------------------- */
+
+/*IE7以外のモダンブラウザ向け*/
+.cf:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+
+/*IE7およびMacIE5向け*/
+.cf { display: inline-block;}
+
+/*IE6以前向け*/
+/*Hides from IE-mac\*/
+* html .cf { height:1%;}
+.cf { display:block;}
+/*End hide from IE-mac*/

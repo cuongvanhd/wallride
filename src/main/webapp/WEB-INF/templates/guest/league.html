@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<meta name="description" content="コリサカは、世界のサッカー選手名鑑サイトです。" />
+	<meta name="keywords" content="コリサカ,サッカー,イングランド,スペイン,イタリア,ドイツ,選手名鑑" />
+	<link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16" />
+	<link rel="stylesheet" type="text/css" th:href="@{/resources/css/common.css}" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" href="css/style.css" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+	<script type="text/javascript" th:src="@{/resources/js/script.js}" src="js/script.js"></script>
+	<!--[if IE]><script type="text/javascript" th:src="@{/resources/js/ie.js}" src="js/ie.js"></script><![endif]-->
+	<title>プレミアリーグ｜コリサカ</title>
+</head>
+<body class="league">
+
+<!-- 各サイト共通バー -->
+<div id="common" th:replace="layout::header-nav"></div>
+
+<!-- コリサカ ここから -->
+<div id="container">
+	<header id="header" th:replace="layout::header"></header>
+	<div id="content" class="cf">
+		<div class="crumb"><a href="#">ホーム</a><span>&gt;</span>11/12 プレミアリーグ</div>
+		<h1 class="england">11/12 プレミアリーグ</h1>
+		<div id="visual" class="cf">
+			<div class="detail cf">
+				<div class="comment">
+					<h4><a href="club.html"><img th:src="@{/resources/images/england/sbl-birmingham.png}" src="images/england/sbl-birmingham.png" alt="バーミンガム" width="40" height="40" />バーミンガム</a></h4>
+					<div class="txt">
+						<p>FCバルセロナは1899年に創設されたカンプ・ノウをホームスタジアムとし、リーガ・エスパニョーラのプリメーラ・ディビシオンに所属するサッカークラブである。愛称は「バルサ（Barca）」、またはクラブカラーから「ブラウ・グラーナ（BlauGrana　えんじと青）」と呼ばれる。</p>
+						<p>数々のタイトルを獲得した世界でも屈指のビッグクラブ、名門クラブであり、リーガ・エスパニョーラの創立以来一度もプリメーラ・ディビシオンから降格したことがない。これは他にレアル・マドリードとアスレティック・ビルバオのみである。</p>
+					</div>
+				</div>
+				<div class="inner_england">
+					<div class="map"><span class="birmingham"><img th:src="@{/resources/images/icon-ball.png}" src="images/icon-ball.png" alt="" /></span></div>
+				</div>
+			</div>
+			<ul>
+				<li><a href="#" rel="arsenal"><img th:src="@{/resources/images/england/sbl-arsenal.png}" src="images/england/sbl-arsenal.png" alt="アーセナル" width="20" height="20" />アーセナル</a></li>
+				<li><a href="#" rel="astonvilla"><img th:src="@{/resources/images/england/sbl-astonvilla.png}" src="images/england/sbl-astonvilla.png" alt="アストンビラ" width="20" height="20" />アストンビラ</a></li>
+				<li><a href="#" rel="birmingham" class="active"><img th:src="@{/resources/images/england/sbl-birmingham.png}" src="images/england/sbl-birmingham.png" alt="バーミンガム" width="20" height="20" />バーミンガム</a></li>
+				<li><a href="#" rel="blackburn"><img th:src="@{/resources/images/england/sbl-blackburn.png}" src="images/england/sbl-blackburn.png" alt="ブラックバーン" width="20" height="20" />ブラックバーン</a></li>
+				<li><a href="#" rel="blackpool"><img th:src="@{/resources/images/england/sbl-blackpool.png}" src="images/england/sbl-blackpool.png" alt="ブラックプール" width="20" height="20" />ブラックプール</a></li>
+				<li><a href="#" rel="bolton"><img th:src="@{/resources/images/england/sbl-bolton.png}" src="images/england/sbl-bolton.png" alt="ボルトン" width="20" height="20" />ボルトン</a></li>
+				<li><a href="#" rel="birmingham"><img th:src="@{/resources/images/england/sbl-boston.png}" src="images/england/sbl-boston.png" alt="ボストン・ユナイテッド" width="20" height="20" />ボストン・ユナイテッド</a></li>
+				<li><a href="#" rel="birmingham"><img th:src="@{/resources/images/england/sbl-burnley.png}" src="images/england/sbl-burnley.png" alt="バーンリー" width="20" height="20" />バーンリー</a></li>
+				<li><a href="#" rel="birmingham"><img th:src="@{/resources/images/england/sbl-cardiff.png}" src="images/england/sbl-cardiff.png" alt="カーディフ・シティ" width="20" height="20" />カーディフ・シティ</a></li>
+				<li><a href="#" rel="chelsea"><img th:src="@{/resources/images/england/sbl-chelsea.png}" src="images/england/sbl-chelsea.png" alt="チェルシー" width="20" height="20" />チェルシー</a></li>
+				<li><a href="#" rel="birmingham"><img th:src="@{/resources/images/england/sbl-everton.png}" src="images/england/sbl-everton.png" alt="エバートン" width="20" height="20" />エバートン</a></li>
+				<li><a href="#" rel="fullham"><img th:src="@{/resources/images/england/sbl-fullham.png}" src="images/england/sbl-fullham.png" alt="フルハム" width="20" height="20" />フルハム</a></li>
+				<li><a href="#" rel="birmingham"><img th:src="@{/resources/images/england/sbl-hullcity.png}" src="images/england/sbl-hullcity.png" alt="ハル・シティ" width="20" height="20" />ハル・シティ</a></li>
+				<li><a href="#" rel="liverpool"><img th:src="@{/resources/images/england/sbl-liverpool.png}" src="images/england/sbl-liverpool.png" alt="リバプール" width="20" height="20" />リバプール</a></li>
+				<li><a href="#" rel="birmingham"><img th:src="@{/resources/images/england/sbl-manchester_city.png}" src="images/england/sbl-manchester_city.png" alt="マンチェスター・シティ" width="20" height="20" />マンチェスター・シティ</a></li>
+				<li><a href="#" rel="birmingham"><img th:src="@{/resources/images/england/sbl-manchester_utd.png}" src="images/england/sbl-manchester_utd.png" alt="マンチェスター・ユナイテッド" width="20" height="20" />マンチェスター・ユナイテッド</a></li>
+				<li><a href="#" rel="birmingham"><img th:src="@{/resources/images/england/sbl-newcastle.png}" src="images/england/sbl-newcastle.png" alt="ニューキャッスル・ユナイテッド" width="20" height="20" />ニューキャッスル・ユナイテッド</a></li>
+				<li><a href="#" rel="birmingham"><img th:src="@{/resources/images/england/sbl-sheffield.png}" src="images/england/sbl-sheffield.png" alt="シェフィールド" width="20" height="20" />シェフィールド</a></li>
+				<li><a href="#" rel="birmingham"><img th:src="@{/resources/images/england/sbl-southampton.png}" src="images/england/sbl-southampton.png" alt="サウサンプトン" width="20" height="20" />サウサンプトン</a></li>
+				<li><a href="#" rel="birmingham"><img th:src="@{/resources/images/england/sbl-stokecity.png}" src="images/england/sbl-stokecity.png" alt="ストーク・シティ" width="20" height="20" />ストーク・シティ</a></li>
+			</ul>
+		</div>
+		<div class="main">
+			<h2 class="ttl"><span><img th:src="@{/resources/images/ttl-team_list.png}" src="images/ttl-team_list.png" alt="リーグチーム一覧" /></span></h2>
+			<section class="section">
+				<h3>レギュレーション</h3>
+				<p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト<br/>テキストテキストテキストテキストテキストテキストテキストテキスト。</p>
+			</section>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-arsenal.png}" src="images/england/sbl-arsenal.png" alt="アーセナル" /><span class="vg"></span></a></div>
+							<p><a href="club.html">アーセナル</a><span>2012/04/12 更新</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-astonvilla.png}" src="images/england/sbl-astonvilla.png" alt="アストンビラ" /><span class="vg"></span></a></div>
+							<p><a href="club.html">アストンビラ</a><span>2012/04/12 更新</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-birmingham.png}" src="images/england/sbl-birmingham.png" alt="バーミンガム" /><span class="vg"></span></a></div>
+							<p><a href="club.html">バーミンガム</a><span>2012/04/12 更新</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-blackburn.png}" src="images/england/sbl-blackburn.png" alt="ブラックバーン" /><span class="vg"></span></a></div>
+							<p><a href="club.html">ブラックバーン</a><span>2012/04/12 更新</span></p>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="box">
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-blackpool.png}" src="images/england/sbl-blackpool.png" alt="ブラックプール" /><span class="vg"></span></a></div>
+							<p><a href="club.html">ブラックプール</a></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-bolton.png}" src="images/england/sbl-bolton.png" alt="ボルトン" /><span class="vg"></span></a></div>
+							<p><a href="club.html">ボルトン</a></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-boston.png}" src="images/england/sbl-boston.png" alt="ボストン・ユナイテッド" /><span class="vg"></span></a></div>
+							<p><a href="club.html">ボストン・ユナイテッド</a><span>2012/04/12 更新</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-burnley.png}" src="images/england/sbl-burnley.png" alt="バーンリー" /><span class="vg"></span></a></div>
+							<p><a href="club.html">バーンリー</a></p>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-cardiff.png}" src="images/england/sbl-cardiff.png" alt="カーディフ・シティ" /><span class="vg"></span></a></div>
+							<p><a href="club.html">カーディフ・シティ</a><span>2012/04/12 更新</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-chelsea.png}" src="images/england/sbl-chelsea.png" alt="チェルシー" /><span class="vg"></span></a></div>
+							<p><a href="club.html">チェルシー</a></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-everton.png}" src="images/england/sbl-everton.png" alt="エバートン" /><span class="vg"></span></a></div>
+							<p><a href="club.html">エバートン</a></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-fullham.png}" src="images/england/sbl-fullham.png" alt="フルハム" /><span class="vg"></span></a></div>
+							<p><a href="club.html">フルハム</a><span>2012/04/12 更新</span></p>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-hullcity.png}" src="images/england/sbl-hullcity.png" alt="ハル・シティ" /><span class="vg"></span></a></div>
+							<p><a href="club.html">ハル・シティ</a><span>2012/04/12 更新</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-liverpool.png}" src="images/england/sbl-liverpool.png" alt="リバプール" /><span class="vg"></span></a></div>
+							<p><a href="club.html">リバプール</a></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-manchester_city.png}" src="images/england/sbl-manchester_city.png" alt="マンチェスター・シティ" /><span class="vg"></span></a></div>
+							<p><a href="club.html">マンチェスター・シティ</a></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-manchester_utd.png}" src="images/england/sbl-manchester_utd.png" alt="マンチェスター・ユナイテッド" /><span class="vg"></span></a></div>
+							<p><a href="club.html">マンチェスター・ユナイテッド</a><span>2012/04/12 更新</span></p>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="box">
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-newcastle.png}" src="images/england/sbl-newcastle.png" alt="ブラックプール" /><span class="vg"></span></a></div>
+							<p><a href="club.html">ニューキャッスル・ユナイテッド</a></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-sheffield.png}" src="images/england/sbl-sheffield.png" alt="ボルトン" /><span class="vg"></span></a></div>
+							<p><a href="club.html">シェフィールド</a></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-southampton.png}" src="images/england/sbl-southampton.png" alt="サウサンプトン" /><span class="vg"></span></a></div>
+							<p><a href="club.html">サウサンプトン</a><span>2012/04/12 更新</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a href="club.html"><img th:src="@{/resources/images/england/sbl-stokecity.png}" src="images/england/sbl-stokecity.png" alt="ストーク・シティ" /><span class="vg"></span></a></div>
+							<p><a href="club.html">ストーク・シティ</a></p>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="side">
+			<aside class="aside">
+				<p class="test">Google Adsense 表示スペース</p>
+			</aside>
+			<aside class="aside">
+				<h2>関連書籍</h2>
+				<div class="book cf">
+					<a href="#"><img th:src="@{/resources/images/shop/banner-book01.png}" src="images/shop/banner-book01.png" alt="" /></a>
+					<p><a href="#">欧州クラブサッカー解体新書1995～2005</a></p>
+					<p>詳細なスタッツやフォーメーション図から欧州クラブサッカーの10年史を読み解く。</p>
+				</div>
+				<div class="book cf">
+					<a href="#"><img th:src="@{/resources/images/shop/banner-book02.png}" src="images/shop/banner-book02.png" alt="" /></a>
+					<p><a href="#">世界73カ国代表サッカー解体新書1978～2005</a></p>
+					<p>世界73カ国の「代表チーム」を分析した超精密サッカーデータブック。</p>
+				</div>
+			</aside>
+		</div>
+	</div>
+</div>
+<footer id="footer" th:replace="layout::footer"></footer>
+</body>
+</html>

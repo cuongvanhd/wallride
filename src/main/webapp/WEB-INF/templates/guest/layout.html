@@ -1,69 +1,218 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:fragment="head(title)" th:remove="tag">
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+<head>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
-	<title th:text="${title}"></title>
-	<link rel="shortcut icon" th:href="@{/resource/favicon.png}" />
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
-	<link rel="stylesheet" th:href="@{/resources/css/sticky-footer-navbar.css}" href="#" />
-	<link rel="stylesheet" th:href="@{/resources/css/common.css}" href="#" />
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-	<![endif]-->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-	<script th:src="@{/resources/lib/jquery.lazyload.min.js}" src="#"></script>
+	<meta name="description" content="コリサカは、世界のサッカー選手名鑑サイトです。" />
+	<meta name="keywords" content="コリサカ,サッカー,イングランド,スペイン,イタリア,ドイツ,選手名鑑" />
+	<link rel="icon" th:href="@{/resource/images/favicon.png}" type="image/png" sizes="16x16" />
+	<link rel="stylesheet" type="text/css" th:href="@{/resources/css/common.css}" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" href="css/style.css" />
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+	<script type="text/javascript" th:src="@{/resources/js/script.js}" src="js/script.js"></script>
+	<!--[if IE]><script type="text/javascript" th:src="@{/resources/js/ie.js}" src="js/ie.js"></script><![endif]-->
+	<title>サッカー選手名鑑 コリサカ</title>
 </head>
-<body>
-<!-- Wrap all page content here -->
-<div id="wrap">
-	<!-- Fixed navbar -->
-	<div th:fragment="nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a th:text="${WEBSITE_TITLE}" th:href="@{__${WEBSITE_PATH}__/}" class="navbar-brand" href="#">Blog Title</a>
-			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a th:href="@{__${WEBSITE_PATH}__/}">Home</a></li>
-					<li th:each="node : ${PAGE_TREE.rootNodes}"><a th:href="@{__${WEBSITE_PATH}__/__${node.page.code}__}" th:text="${node.page.title}">About</a></li>
+<body class="home">
+
+<!-- 各サイト共通バー -->
+<div id="common" th:fragment="header-nav">
+	<div class="inner">
+		<ul class="menu">
+			<li><a href="#"><img th:src="@{/resources/images/common/koly.png}" src="images/common/koly.png" alt="Koly" /></a></li>
+			<li><a href="#"><img th:src="@{/resources/images/common/lovefootball.png}" src="images/common/lovefootball.png" alt="LOVE FOOTBALL" /></a></li>
+		</ul>
+		<!--
+		<ul class="user">
+			<li class="member"><a href="#">会員情報</a></li>
+			<li class="logout"><a href="#">ログアウト</a></li>
+		</ul>
+		-->
+	</div>
+</div>
+
+<!-- コリサカ ここから -->
+<div id="container">
+	<header id="header" th:fragment="header">
+		<div id="logo"><a href="index.html">サッカー選手名鑑 コリサカ</a></div>
+		<div class="search">
+			<h2>キーワード検索</h2>
+			<input type="text" name="" size="40" value="選手名やチーム名から検索" />
+			<select name="">
+				<option>日本</option>
+				<option>イングランド</option>
+				<option>スペイン</option>
+				<option>イタリア</option>
+				<option>ドイツ</option>
+				<option>フランス</option>
+				<option>ポルトガル</option>
+				<option>オランダ</option>
+				<option>その他</option>
+			</select>
+			<a href="#"><img th:src="@{/resources/images/btn-search.png}" src="images/btn-search.png" alt="検索する" /></a>
+		</div>
+		<nav id="gnav">
+			<ul class="cf">
+				<li class="japan"><a href="league.html">日本</a></li>
+				<li class="england"><a href="league.html">イングランド</a></li>
+				<li class="spain"><a href="league.html">スペイン</a></li>
+				<li class="italy"><a href="league.html">イタリア</a></li>
+				<li class="germany"><a href="league.html">ドイツ</a></li>
+				<li class="france"><a href="league.html">フランス</a></li>
+				<li class="portugal"><a href="league.html">ポルトガル</a></li>
+				<li class="netherlands"><a href="league.html">オランダ</a></li>
+				<li class="others"><a href="league.html">その他</a></li>
+			</ul>
+		</nav>
+	</header>
+	<div id="content" class="cf">
+		<div id="visual" class="cf">
+			<div class="pic"><a href="#"><img th:src="@{/resources/images/visual/pic01.jpg}" src="images/visual/pic01.jpg" alt="" /></a></div>
+			<div class="list">
+				<a href="#" class="prev"><span>前へ</span></a>
+				<ul>
+					<li><a href="#"><img th:src="@{/resources/images/visual/btn01.png}" src="images/visual/btn01.png" alt="" /></a></li>
+					<li class="center"><a href="#"><img th:src="@{/resources/images/visual/btn02.png}" src="images/visual/btn02.png" alt="" /></a></li>
+					<li><a href="#"><img th:src="@{/resources/images/visual/btn03.png}" src="images/visual/btn03.png" alt="" /></a></li>
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Language <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li th:each="key : ${LANGUAGE_LINKS.keySet()}"><a th:href="${LANGUAGE_LINKS.get(key)}" th:text="${key}" href="#" >日本語</a></li>
+				<a href="#" class="next"><span>次へ</span></a>
+			</div>
+		</div>
+		<div class="main">
+			<h2 class="ttl"><span><img th:src="@{/resources/images/ttl-league_list.png}" src="images/ttl-league_list.png" alt="各国リーグ一覧" /></span></h2>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="league.html"><img th:src="@{/resources/images/england/sbl-league.png}" src="images/england/sbl-league.png" alt="プレミアリーグ" /><span class="vg"></span></a></div>
+							<p><a href="league.html">プレミアリーグ</a><span>（イングランド）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="league.html"><img th:src="@{/resources/images/spain/sbl-league.png}" src="images/spain/sbl-league.png" alt="リーガ・エスパニョーラ" /><span class="vg"></span></a></div>
+							<p><a href="league.html">リーガ・エスパニョーラ</a><span>（スペイン）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="league.html"><img th:src="@{/resources/images/italy/sbl-league.png}" src="images/italy/sbl-league.png" alt="セリエA" /><span class="vg"></span></a></div>
+							<p><a href="league.html">セリエA</a><span>（イタリア）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="league.html"><img th:src="@{/resources/images/germany/sbl-league.png}" src="images/germany/sbl-league.png" alt="ブンデスリーガ" /><span class="vg"></span></a></div>
+							<p><a href="league.html">ブンデスリーガ</a><span>（ドイツ）</span></p>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="box">
+							<div class="image"><a href="league.html"><img th:src="@{/resources/images/england/sbl-league.png}" src="images/england/sbl-league.png" alt="プレミアリーグ" /><span class="vg"></span></a></div>
+							<p><a href="league.html">プレミアリーグ</a><span>（イングランド）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a href="league.html"><img th:src="@{/resources/images/spain/sbl-league.png}" src="images/spain/sbl-league.png" alt="リーガ・エスパニョーラ" /><span class="vg"></span></a></div>
+							<p><a href="league.html">リーガ・エスパニョーラ</a><span>（スペイン）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<span class="new"></span>
+							<div class="image"><a href="league.html"><img th:src="@{/resources/images/italy/sbl-league.png}" src="images/italy/sbl-league.png" alt="セリエA" /><span class="vg"></span></a></div>
+							<p><a href="league.html">セリエA</a><span>（イタリア）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a href="league.html"><img th:src="@{/resources/images/germany/sbl-league.png}" src="images/germany/sbl-league.png" alt="ブンデスリーガ" /><span class="vg"></span></a></div>
+							<p><a href="league.html">ブンデスリーガ</a><span>（ドイツ）</span></p>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="side">
+			<aside class="aside">
+				<h2>関連書籍</h2>
+				<div class="book cf">
+					<a href="#"><img th:src="@{/resources/images/shop/banner-book01.png}" src="images/shop/banner-book01.png" alt="" /></a>
+					<p><a href="#">欧州クラブサッカー解体新書1995～2005</a></p>
+					<p>詳細なスタッツやフォーメーション図から欧州クラブサッカーの10年史を読み解く。</p>
+				</div>
+				<div class="book cf">
+					<a href="#"><img th:src="@{/resources/images/shop/banner-book02.png}" src="images/shop/banner-book02.png" alt="" /></a>
+					<p><a href="#">世界73カ国代表サッカー解体新書1978～2005</a></p>
+					<p>世界73カ国の「代表チーム」を分析した超精密サッカーデータブック。</p>
+				</div>
+			</aside>
+		</div>
+	</div>
+</div>
+<footer id="footer" th:fragment="footer">
+	<div class="main cf">
+		<ul class="cf">
+			<li><a href="index.html">ホーム</a></li>
+			<li><a href="league.html">リーガ・エスパニョーラ</a></li>
+			<li><a href="league.html">プレミアリーグ</a></li>
+			<li><a href="league.html">セリエA</a></li>
+			<li><a href="league.html">ブンデスリーガ</a></li>
+		</ul>
+		<a href="#common" id="pagetop">PAGE TOP</a>
+	</div>
+	<div class="sub cf">
+		<dl class="sitemap">
+			<dt>サイトマップ</dt>
+			<dd class="cf">
+				<ul>
+					<li class="cf"><a href="index.html">ホーム</a>
+						<ul>
+							<li><a href="league.html">プレミアリーグ</a></li>
+							<li><a href="league.html">リーガ・エスパニョーラ</a></li>
+							<li><a href="league.html">セリエA</a></li>
 						</ul>
 					</li>
 				</ul>
-			</div><!--/.nav-collapse -->
-		</div>
+				<ul>
+					<li><a href="league.html">ブンデスリーガ</a></li>
+					<li><a href="league.html">リーグ・アン</a></li>
+					<li><a href="league.html">エールディビジ</a></li>
+					<li><a href="league.html">スーペルリーガ</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl class="privacy">
+			<dt>利用規約・お問い合わせ</dt>
+			<dd>
+				<ul>
+					<li><a href="#">お問い合わせ</a></li>
+					<li><a href="#">ご利用規約</a></li>
+					<li><a href="#">セキュリティについて</a></li>
+					<li><a href="#">プライバシーポリシー</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl class="related">
+			<dt>関連サイト</dt>
+			<dd>
+				<ul>
+					<li><a href="#" target="_blank">LOVEFOOTBALL</a></li>
+					<li><a href="#" target="_blank">Qoly部</a></li>
+					<li><a href="#" target="_blank">順位表</a></li>
+					<li><a href="#" target="_blank">サッカーTV</a></li>
+				</ul>
+			</dd>
+		</dl>
 	</div>
-
-	<!-- Begin page content -->
-	<div class="container">
-		<div class="page-header">
-			<h1>Sticky footer with fixed navbar</h1>
-		</div>
-		<p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added within <code>#wrap</code> with <code>padding-top: 60px;</code> on the <code>.container</code>.</p>
-		<p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
-	</div>
-</div>
-<div th:fragment="footer" id="footer">
-	<div class="container">
-		<p class="text-muted credit">&copy; WallRide</p>
-	</div>
-</div>
+	<p class="copyright">Copyright (C)コリサカ All Rights Reserved.</p>
+</footer>
 </body>
 </html>
