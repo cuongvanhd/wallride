@@ -1,25 +1,33 @@
 package org.wallride.core.domain;
 
-
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 /*
- * 選手
+ * クラブ対戦成績
  */
 @Entity
-@Table(name="tm05_player")
-public class Player implements Serializable {
+@Table(name="td13_leageclub")
+//@PrimaryKeyJoinColumn
+@Analyzer(definition="synonyms")
+@Indexed
+public class ClubRecord implements Serializable {
 
 	@Id
-	@Column(name="tm05_id")
+	@Column(name="td13_id")
 	private int id;
 
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
-	@JoinColumn(name="tm05_nationality1")
-	private Country country;
+	@JoinColumn(name="td13_leageid")
+	private League league;
+
+	@ManyToOne(fetch=FetchType.LAZY, optional=true)
+	@JoinColumn(name="td13_clubid")
+	private Club club;
 
 	public int getId() {
 		return id;
@@ -29,12 +37,20 @@ public class Player implements Serializable {
 		this.id = id;
 	}
 
-	public Country getCountry() {
-		return country;
+	public League getLeague() {
+		return league;
 	}
 
-	public void setCountry(Country country) {
-		this.country = country;
+	public void setLeague(League league) {
+		this.league = league;
+	}
+
+	public Club getClub() {
+		return club;
+	}
+
+	public void setClub(Club club) {
+		this.club = club;
 	}
 
 	@Override

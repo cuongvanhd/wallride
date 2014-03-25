@@ -23,7 +23,7 @@
 	<header id="header" th:replace="layout::header"></header>
 	<div id="content" class="cf">
 		<div class="crumb"><a href="#">ホーム</a><span>&gt;</span>11/12 プレミアリーグ</div>
-		<h1 class="england">11/12 プレミアリーグ</h1>
+		<h1 class="england" th:class="${league.fifaAbbr}" th:text="${league.name}">11/12 プレミアリーグ</h1>
 		<div id="visual" class="cf">
 			<div class="detail cf">
 				<div class="comment">
