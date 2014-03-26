@@ -22,36 +22,40 @@
 <div id="container">
 	<header id="header" th:replace="layout::header"></header>
 	<div id="content" class="cf">
-		<div class="crumb"><a href="#">ホーム</a><span>&gt;</span><a href="league.html">11/12 プレミアリーグ</a><span>&gt;</span>マンチェスター・シティ</div>
+		<div class="crumb"><a href="#">ホーム</a><span>&gt;</span><a th:href="@{__${WEBSITE_PATH}__/league/__${league.id}__}" th:text="${league.name}">11/12 プレミアリーグ</a><span>&gt;</span><span th:text="${club.nameJa}">マンチェスター・シティ</span></div>
 		<div class="main">
-			<h1 class="cf"><img th:src="@{/resources/images/england/sbl-manchester_city.png}" src="images/england/sbl-manchester_city.png" alt="" width="50" height="50" /><strong>マンチェスター・シティ</strong><br/><span>Manchester City</span></h1>
+			<h1 class="cf"><img th:src="@{/resources/images/ENG/sbl-__${club.nameAbbr}__.png}" src="images/ENG/sbl-manchester_city.png" alt="" width="50" height="50" /><strong><span th:text="${club.nameJa}">マンチェスター・シティ</span></strong><br/><span><span th:text="${club.name}">Manchester City</span></span></h1>
 			<div class="about cf">
 				<div class="pic">
-					<img th:src="@{/resources/images/england/pic-manchester_city.jpg}" src="images/england/pic-manchester_city.jpg" alt="" />
+					<img th:src="@{/resources/images/ENG/pic-__${club.nameAbbr}__.jpg}" src="images/ENG/pic-manchester_city.jpg" alt="" />
 					<p>スタジアム風景</p>
 				</div>
 				<div class="profile">
 					<h2>チームプロフィール</h2>
 					<table border="0" cellpadding="0" cellspacing="0">
 						<tr>
-							<th>設立</th>
-							<td>1880年</td>
+							<th>設立年月日</th>
+							<td th:text="${club.establishment} + '年'">1880年</td>
 						</tr>
 						<tr>
 							<th>愛称</th>
-							<td>シティズンズ/Citizens</td>
+							<td th:text="${club.petname}">シティズンズ/Citizens</td>
 						</tr>
 						<tr>
 							<th>スタジアム</th>
-							<td>シティ・オブ・マンチェスター・スタジアム/City of Manchester Stadium</td>
+							<td th:text="${club.changeMemo}">シティ・オブ・マンチェスター・スタジアム/City of Manchester Stadium</td>
 						</tr>
 						<tr>
-							<th>会長</th>
-							<td>シャイフ マンスール・アル・ナーヤン</td>
+							<th>基本フォーメーション</th>
+							<td>データなし</td>
 						</tr>
 						<tr>
 							<th>Webサイト</th>
-							<td><a href="http://www.mcfc.co.uk" target="_blank">http://www.mcfc.co.uk</a></td>
+							<td><a href="http://www.mcfc.co.uk" th:href="${club.url}" target="_blank">http://www.mcfc.co.uk</a></td>
+						</tr>
+						<tr>
+							<th>備考</th>
+							<td th:text="${club.etc}"></td>
 						</tr>
 					</table>
 					<p class="test">Google Adsense 設置スペース</p>
@@ -157,10 +161,10 @@
 			<aside class="aside">
 				<h2>その他リーグ一覧</h2>
 				<ul class="list_league">
-					<li class="cf"><img th:src="@{/resources/images/england/sbl-league_mini.png}" src="images/england/sbl-league_mini.png" alt="" /><p><a href="league.html">プレミアリーグ</a><span>（イングランド）</span></p></li>
-					<li class="cf"><img th:src="@{/resources/images/spain/sbl-league_mini.png}" src="images/spain/sbl-league_mini.png" alt="" /><p><a href="league.html">リーガ・エスパニョーラ</a><span>（スペイン）</span></p></li>
-					<li class="cf"><img th:src="@{/resources/images/italy/sbl-league_mini.png}" src="images/italy/sbl-league_mini.png" alt="" /><p><a href="league.html">セリエA</a><span>（イタリア）</span></p></li>
-					<li class="cf"><img th:src="@{/resources/images/germany/sbl-league_mini.png}" src="images/germany/sbl-league_mini.png" alt="" /><p><a href="league.html">ブンデスリーガ</a><span>（ドイツ）</span></p></li>
+					<li class="cf"><img th:src="@{/resources/images/ENG/sbl-league_mini.png}" src="images/ENG/sbl-league_mini.png" alt="" /><p><a href="league.html">プレミアリーグ</a><span>（イングランド）</span></p></li>
+					<li class="cf"><img th:src="@{/resources/images/ESP/sbl-league_mini.png}" src="images/ESP/sbl-league_mini.png" alt="" /><p><a href="league.html">リーガ・エスパニョーラ</a><span>（スペイン）</span></p></li>
+					<li class="cf"><img th:src="@{/resources/images/ITA/sbl-league_mini.png}" src="images/ITA/sbl-league_mini.png" alt="" /><p><a href="league.html">セリエA</a><span>（イタリア）</span></p></li>
+					<li class="cf"><img th:src="@{/resources/images/GER/sbl-league_mini.png}" src="images/GER/sbl-league_mini.png" alt="" /><p><a href="league.html">ブンデスリーガ</a><span>（ドイツ）</span></p></li>
 				</ul>
 			</aside>
 			<aside class="aside">

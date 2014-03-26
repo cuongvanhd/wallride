@@ -27,6 +27,9 @@ public class Club implements Serializable {
 	@Column(name = "tm02_years")
 	private int years;
 
+	@Column(name = "tm02_real3tr")
+	private String nameAbbr;
+
 	@Column(name = "tm02_alias")
 	@Field
 	private String alias;
@@ -95,6 +98,14 @@ public class Club implements Serializable {
 
 	public void setYears(int years) {
 		this.years = years;
+	}
+
+	public String getNameAbbr() {
+		return nameAbbr;
+	}
+
+	public void setNameAbbr(String nameAbbr) {
+		this.nameAbbr = nameAbbr;
 	}
 
 	public String getAlias() {

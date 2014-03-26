@@ -29,6 +29,6 @@ public interface ClubRepository extends JpaRepository<Club, Integer>{
 	@Query(DEFAULT_SELECT_QUERY + "where club.id in (:ids) ")
 	List<Club> findByIdIn(@Param("ids") Collection<Integer> ids);
 
-	@Query(DEFAULT_SELECT_QUERY + "where records.league.id = :leagueId and club.aliasJa is not null ")
+	@Query(DEFAULT_SELECT_QUERY + "where records.league.id = :leagueId and club.aliasJa is not null order by club.aliasJa ")
 	List<Club> findByLeagueId(@Param("leagueId") Integer leagueId);
 }

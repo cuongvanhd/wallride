@@ -77,7 +77,7 @@ public class League implements Serializable {
 	private List<LeagueDetail> details;
 
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
-	@JoinColumn(name="td07_countryid")
+	@JoinColumn(name="tm07_countryid")
 	private Country country;
 
 	public int getId() {

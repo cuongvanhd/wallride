@@ -12,3 +12,4 @@
 			#common ul.user li.member a { background: url(../images/common/icon-info.png) no-repeat left center; }
 			#common ul.user li.logout a { background: url(../images/common/icon-logout.png) no-repeat left center; }
 
+.main ul.list-inline > li { display: inline-block; }
