@@ -8,6 +8,7 @@ import org.wallride.core.domain.Club;
 import org.wallride.core.domain.League;
 import org.wallride.core.service.ClubService;
 import org.wallride.core.service.LeagueService;
+import org.wallride.core.service.PlayerService;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,9 @@ public class ClubDescribeController {
 	@Inject
 	private ClubService clubService;
 
+	@Inject
+	private PlayerService playerService;
+
 	@RequestMapping
 	public String describe(
 			@PathVariable Integer leagueId,
@@ -30,8 +34,10 @@ public class ClubDescribeController {
 			Model model) {
 		League league =leagueService.readLeagueById(leagueId);
 		Club club =clubService.readClubById(clubId);
+//		List<Player> players = playerService.readPlayersByLeagueIdAndClubId(leagueId, clubId);
 		model.addAttribute("league", league);
 		model.addAttribute("club", club);
+//		model.addAttribute("players", players);
 		return "/club";
 	}
 }

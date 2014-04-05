@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<meta name="description" content="コリサカは、世界のサッカー選手名鑑サイトです。" />
+	<meta name="keywords" content="コリサカ,サッカー,イングランド,スペイン,イタリア,ドイツ,選手名鑑" />
+	<link rel="icon" th:href="@{/resource/images/favicon.png}" type="image/png" sizes="16x16" />
+	<link rel="stylesheet" type="text/css" th:href="@{/resources/css/common.css}" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" href="css/style.css" />
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+	<script type="text/javascript" th:src="@{/resources/js/script.js}" src="js/script.js"></script>
+	<!--[if IE]><script type="text/javascript" th:src="@{/resources/js/ie.js}" src="js/ie.js"></script><![endif]-->
+	<title>サッカー選手名鑑 コリサカ</title>
+</head>
+<body class="player">
+
+<!-- 各サイト共通バー -->
+<div id="common" th:replace="layout::header-nav"></div>
+
+<!-- コリサカ ここから -->
+<div id="container">
+	<header id="header" th:replace="layout::header"></header>
+
+	<div id="content" class="cf">
+		<div class="crumb"><a href="#" th:href="@{__${WEBSITE_PATH}__/}">ホーム</a><span>&gt;</span><a href="league.html" th:href="@{__${WEBSITE_PATH}__/league/__${league.id}__}" th:text="${league.name}">11/12 プレミアリーグ</a><span>&gt;</span>
+			<a th:href="@{__${WEBSITE_PATH}__/club/__${league.id}__/__${club.id}__}" href="club.html" th:text="${club.name}">マンチェスター・シティ</a><span>&gt;</span><span th:text="${player.nameJa}">セルヒオ・アグエロ</span></div>
+		<div class="main">
+			<h1 class="cf"><img th:src="@{/resources/images/country/Argentina.png}" src="images/country/Argentina.png" alt="" /><strong th:text="${player.nameJa}">セルヒオ・アグエロ</strong><br/><span th:text="${player.name}">Sergio Leonel Aguero del Castillo</span></h1>
+			<div class="about cf">
+				<div class="pic"><img th:src="@{/resources/images/player/aguero.jpg}" src="images/player/aguero.jpg" alt="" /></div>
+				<div class="profile">
+					<h2>プロフィール</h2>
+					<div class="cf">
+						<table border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<th>フルネーム</th>
+								<td th:text="${player.nameJa}">セルヒオ・レオネル・アグエロ・デル・カスティージョ</td>
+							</tr>
+							<tr>
+								<th>現地語表記</th>
+								<td th:text="${player.name}">Sergio Leonel Aguero del Castillo</td>
+							</tr>
+							<tr>
+								<th>出身地</th>
+								<td th:text="${player.home}">キルメス</td>
+							</tr>
+							<tr>
+								<th>国籍</th>
+								<td th:text="${player.country.name}">アルゼンチン / スペイン</td>
+							</tr>
+							<tr>
+								<th>生年月日 (年齢)</th>
+								<td th:text="${player.birthday}">1988年6月2日（23歳）</td>
+							</tr>
+							<tr>
+								<th>身長 / 体重</th>
+								<td><span th:text="${player.height} + 'cm'">175cm</span> / <span th:text="${player.weight} + 'kg'">70kg</span></td>
+							</tr>
+						</table>
+						<div class="illustrated">
+							<div class="position">
+								<div class="inner">
+									<div class="rwg great">&nbsp;</div>
+									<div class="fw great">&nbsp;</div>
+									<div class="lwg good">&nbsp;</div>
+									<div class="omf great">&nbsp;</div>
+									<div class="cmf soso">&nbsp;</div>
+									<div class="dmf">&nbsp;</div>
+									<div class="rmf">&nbsp;</div>
+									<div class="lmf">&nbsp;</div>
+									<div class="rsb">&nbsp;</div>
+									<div class="df">&nbsp;</div>
+									<div class="lsb">&nbsp;</div>
+									<div class="gk">&nbsp;</div>
+								</div>
+							</div>
+							<div class="foot_handed">
+								<div class="left">
+									<strong>利き足</strong><span th:text="${player.workingFoot}">Left</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p class="test">Google Adsense 設置スペース</p>
+			<div class="comment">
+				<h2>コメント</h2>
+				<div>
+					<p th:text="${player.comment}"></p>
+				</div>
+				<p class="edit">（編集部　<a href="#">奥崎</a>・<a href="#">戸田</a>）</p>
+			</div>
+			<div class="history">
+				<h2>所属履歴</h2>
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<th class="season">シーズン</th>
+						<th class="country">国名 ディビジョン</th>
+						<th class="club">チーム名</th>
+						<th class="games">出場</th>
+						<th class="score">得点</th>
+						<th class="notes">備考</th>
+					</tr>
+					<tr th:each="history : ${histories}">
+						<td class="season">2008-09</td>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /><span th:text="${history.league.division}">A</span></td>
+						<td class="club"><a href="#" th:href="@{__${WEBSITE_PATH}__/club/__${league.id}__/__${club.id}__}"><span th:text="${history.club.aliasJa}">CAインデペンディエンテ</span></a></td>
+						<td class="games" >14(10)</td>
+						<td class="score">16</td>
+						<td class="notes"></td>
+					</tr>
+					<tr>
+						<td class="season">2009-09(11/15)</td>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" />A</td>
+						<td class="club"><a href="#">アトレティコ・マドリード</a></td>
+						<td class="games">20(8)</td>
+						<td class="score">12</td>
+						<td class="notes"></td>
+					</tr>
+					<tr>
+						<td class="season">2009(11/15)-10</td>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" />A</td>
+						<td class="club"><a href="#">アトレティコ・マドリード</a></td>
+						<td class="games">30(4)</td>
+						<td class="score">20</td>
+						<td class="notes"></td>
+					</tr>
+					<tr>
+						<td class="season">2011-12</td>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" />A</td>
+						<td class="club"><a href="#">マンチェスター・シティ</a></td>
+						<td class="games">35(10)</td>
+						<td class="score">24</td>
+						<td class="notes"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="movie">
+				<h2>動画</h2>
+				<div>
+					<p>YouTube埋め込み動画</p>
+				</div>
+			</div>
+			<div class="goods">
+				<h2>商品</h2>
+				<ul class="cf">
+					<li><a href="#"><img th:src="@{/resources/images/shop/player_book.jpg}" src="images/shop/player_book.jpg" alt="" /><p>ワールド イレブン シリーズ5 メッシ/アイマール~アルゼンチンの至宝~ [DVD]</p></a></li>
+					<li><a href="#"><img th:src="@{/resources/images/shop/player_book.jpg}" src="images/shop/player_book.jpg" alt="" /><p>ワールド イレブン シリーズ5 メッシ/アイマール~アルゼンチンの至宝~ [DVD]</p></a></li>
+					<li><a href="#"><img th:src="@{/resources/images/shop/player_book.jpg}" src="images/shop/player_book.jpg" alt="" /><p>ワールド イレブン シリーズ5 メッシ/アイマール~アルゼンチンの至宝~ [DVD]</p></a></li>
+					<li><a href="#"><img th:src="@{/resources/images/shop/player_book.jpg}" src="images/shop/player_book.jpg" alt="" /><p>ワールド イレブン シリーズ5 メッシ/アイマール~アルゼンチンの至宝~ [DVD]</p></a></li>
+					<li><a href="#"><img th:src="@{/resources/images/shop/player_book.jpg}" src="images/shop/player_book.jpg" alt="" /><p>ワールド イレブン シリーズ5 メッシ/アイマール~アルゼンチンの至宝~ [DVD]</p></a></li>
+				</ul>
+			</div>
+			<div class="news">
+				<h2>関連ニュース</h2>
+				<ul>
+					<li class="cf"><span>2012/04/20</span><p><a href="#">進化を続けるバルセロナ（第2節 バルサ vs ビジャレアル） (QOLY)</a></p></li>
+					<li class="cf"><span>2012/04/14</span><p><a href="#">着飾らない男と着飾った男達と着飾った女 (QOLY)</a></p></li>
+					<li class="cf"><span>2012/04/05</span><p><a href="#">選手達のバカンス ～2011年夏～ 8/23版 (QOLY)</a></p></li>
+				</ul>
+			</div>
+			<div class="review">
+				<h2>ユーザーレビュー</h2>
+				<dl>
+					<dt><strong>たかし</strong><span>（2012/04/15 18:00）</span></dt>
+					<dd><p>このアルゼンチン人ストライカーのサッカーのキャリアは、1995年にニューウェルズ・オールド・ボーイズ（アルゼンチン）で始まった。メッシはここで2000年までプレーしている。13歳のとき、彼は運試しに太平洋を渡ってバルセロナを訪れ、U-14のチームに入ったのだった。</p></dd>
+					<dt><strong>たかし</strong><span>（2012/04/15 18:00）</span></dt>
+					<dd><p>このアルゼンチン人ストライカーのサッカーのキャリアは、1995年にニューウェルズ・オールド・ボーイズ（アルゼンチン）で始まった。メッシはここで2000年までプレーしている。13歳のとき、彼は運試しに太平洋を渡ってバルセロナを訪れ、U-14のチームに入ったのだった。</p></dd>
+				</dl>
+			</div>
+		</div>
+		<div class="side">
+			<aside class="aside">
+				<h2>11-12 マンチェスター・シティ</h2>
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<th colspan="3" class="coach">監督</th>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">&nbsp;</td>
+						<td class="name"><a href="player.html">ロベルト・マンチーニ</a></td>
+					</tr>
+					<tr>
+						<th colspan="3" class="gk">GK</th>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">12</td>
+						<td class="name"><a href="player.html">ステュアート・テイラー</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">25</td>
+						<td class="name"><a href="player.html">ジョー・ハート</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">30</td>
+						<td class="name"><a href="player.html">コステル・パンティリモン</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">37</td>
+						<td class="name"><a href="player.html">グンナー・ニールセン</a></td>
+					</tr>
+					<tr>
+						<th colspan="3" class="df">DF</th>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">2</td>
+						<td class="name"><a href="player.html">ミカ・リチャーズ</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">4</td>
+						<td class="name"><a href="player.html">ヴァンサン・コンパニ</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">5</td>
+						<td class="name"><a href="player.html">パブロ・サバレタ</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">6</td>
+						<td class="name"><a href="player.html">ジョレオン・レスコット</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">13</td>
+						<td class="name"><a href="player.html">アレクサンダル・コラロヴ</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">15</td>
+						<td class="name"><a href="player.html">ステファン・サヴィッチ</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">22</td>
+						<td class="name"><a href="player.html">ガエル・クリシー</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">28</td>
+						<td class="name"><a href="player.html">	コロ・トゥーレ</a></td>
+					</tr>
+					<tr>
+						<th colspan="3" class="mf">MF</th>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">7</td>
+						<td class="name"><a href="player.html">ジェイムズ・ミルナー</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">8</td>
+						<td class="name"><a href="player.html">ダビド・ピサーロ</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/Argentina.png}" src="images/country/Argentina.png" alt="" width="20" /></td>
+						<td class="num">18</td>
+						<td class="name"><a href="player.html">ギャレス・バリー</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/Argentina.png}" src="images/country/Argentina.png" alt="" width="20" /></td>
+						<td class="num">19</td>
+						<td class="name"><a href="player.html">サミル・ナスリ</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/Argentina.png}" src="images/country/Argentina.png" alt="" width="20" /></td>
+						<td class="num">20</td>
+						<td class="name"><a href="player.html">オーウェン・ハーグリーヴス</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/Argentina.png}" src="images/country/Argentina.png" alt="" width="20" /></td>
+						<td class="num">21</td>
+						<td class="name"><a href="player.html">ダビド・シルバ</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/Argentina.png}" src="images/country/Argentina.png" alt="" width="20" /></td>
+						<td class="num">34</td>
+						<td class="name"><a href="player.html">	ナイジェル・デ・ヨング</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/Argentina.png}" src="images/country/Argentina.png" alt="" width="20" /></td>
+						<td class="num">42</td>
+						<td class="name"><a href="player.html">ヤヤ・トゥーレ</a></td>
+					</tr>
+					<tr>
+						<th colspan="3" class="fw">FW</th>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">10</td>
+						<td class="name"><a href="player.html">エディン・ジェコ</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" /></td>
+						<td class="num">11</td>
+						<td class="name"><a href="player.html">アダム・ジョンソン</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/Argentina.png}" src="images/country/Argentina.png" alt="" width="20" /></td>
+						<td class="num">16</td>
+						<td class="name"><strong>セルヒオ・アグエロ</strong></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/Argentina.png}" src="images/country/Argentina.png" alt="" width="20" /></td>
+						<td class="num">32</td>
+						<td class="name"><a href="player.html">カルロス・テベス</a></td>
+					</tr>
+					<tr>
+						<td class="country"><img th:src="@{/resources/images/country/Argentina.png}" src="images/country/Argentina.png" alt="" width="20" /></td>
+						<td class="num">45</td>
+						<td class="name"><a href="player.html">マリオ・バロテッリ</a></td>
+					</tr>
+				</table>
+			</aside>
+			<aside class="aside">
+				<p class="test">Google Adsense 表示スペース</p>
+			</aside>
+		</div>
+	</div>
+</div>
+<footer id="footer" th:replace="layout::footer"></footer>
+</body>
+</html>
