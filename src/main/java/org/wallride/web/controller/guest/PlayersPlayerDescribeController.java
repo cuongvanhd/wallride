@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("{language}/player/{leagueId}/{clubId}/{playerId}")
-public class PlayerDescribeController {
+@RequestMapping("{language}/players/player/{leagueId}/{clubId}/{playerId}")
+public class PlayersPlayerDescribeController {
 
 	@Inject
 	private LeagueService leagueService;
@@ -50,7 +50,7 @@ public class PlayerDescribeController {
 		model.addAttribute("club", club);
 		model.addAttribute("player", player);
 		model.addAttribute("histories", histories);
-		return "/player";
+		return "/players/player";
 	}
 
 }

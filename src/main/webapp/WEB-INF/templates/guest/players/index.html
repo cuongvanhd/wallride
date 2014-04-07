@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<meta name="description" content="コリサカは、世界のサッカー選手名鑑サイトです。" />
+<meta name="keywords" content="コリサカ,サッカー,イングランド,スペイン,イタリア,ドイツ,選手名鑑" />
+<link rel="icon" th:href="@{/resource/images/favicon.png}" type="image/png" sizes="16x16" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/css/common.css}" href="css/common.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" href="css/style.css" />
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/script.js}" src="js/script.js"></script>
+<!--[if IE]><script type="text/javascript" th:src="@{/resources/js/ie.js}" src="js/ie.js"></script><![endif]-->
+<title>サッカー選手名鑑 コリサカ</title>
+</head>
+<body class="home">
+
+<!-- 各サイト共通バー -->
+<div id="common" th:replace="players/layout::header-nav"></div>
+
+<!-- コリサカ ここから -->
+<div id="container">
+	<header id="header" th:replace="players/layout::header"></header>
+
+	<div id="content" class="cf">
+<!--		<div id="visual" class="cf">
+			<div class="pic"><a href="#"><img th:src="@{/resources/images/visual/pic01.jpg}" src="images/visual/pic01.jpg" alt="" /></a></div>
+			<div class="list">
+				<a href="#" class="prev"><span>前へ</span></a>
+				<ul>
+					<li><a href="#"><img th:src="@{/resources/images/visual/btn01.png}" src="images/visual/btn01.png" alt="" /></a></li>
+					<li class="center"><a href="#"><img th:src="@{/resources/images/visual/btn02.png}" src="images/visual/btn02.png" alt="" /></a></li>
+					<li><a href="#"><img th:src="@{/resources/images/visual/btn03.png}" src="images/visual/btn03.png" alt="" /></a></li>
+				</ul>
+				<a href="#" class="next"><span>次へ</span></a>
+			</div>
+		</div>-->
+		<div class="main">
+			<h2 class="ttl"><span><img th:src="@{/resources/images/ttl-league_list.png}" src="images/ttl-league_list.png" alt="各国リーグ一覧" /></span></h2>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td>
+						<div class="box">
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2308}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="セリエA"/><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/players/league/2308}">セリエA</a><span>（イタリア）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2309}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="セリエB" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/players/league/2309}">セリエB</a><span>（イタリア）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2317}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="FAプレミアリーグ" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/players/league/2317}">FAプレミアリーグ</a><span>（イングランド）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2316}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="リーグ・チャンピオンシップ" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/players/league/2316}">リーグ・チャンピオンシップ</a><span>（イングランド）</span></p>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="box">
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2361}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="リーガ・エスパニョーラ" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/players/league/2361}">リーガ・エスパニョーラ</a><span>（スペイン）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2362}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="セグンダ・ディヴィジョン" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/players/league/2362}">セグンダ・ディヴィジョン</a><span>（スペイン）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2304}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="ブンデスリーガ" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/players/league/2304}">ブンデスリーガ</a><span>（ドイツ）</span></p>
+						</div>
+					</td>
+					<td>
+						<div class="box">
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2367}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="ブンデスリーガ2部" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/players/league/2367}">ブンデスリーガ2部</a><span>（ドイツ）</span></p>
+						</div>
+					</td>
+				</tr>
+                <tr>
+                    <td>
+                        <div class="box">
+                            <div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2305}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="エールディビジ" /><span class="vg"></span></a></div>
+                            <p><a th:href="@{__${WEBSITE_PATH}__/players/league/2305}">エールディビジ</a><span>（オランダ）</span></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="box">
+                            <div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2340}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="リーグ・アン" /><span class="vg"></span></a></div>
+                            <p><a th:href="@{__${WEBSITE_PATH}__/players/league/2340}">リーグ・アン</a><span>（フランス）</span></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="box">
+                            <div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2341}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="リーグ・ドゥ" /><span class="vg"></span></a></div>
+                            <p><a th:href="@{__${WEBSITE_PATH}__/players/league/2341}">リーグ・ドゥ</a><span>（フランス）</span></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="box">
+                            <div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/league/2365}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="リーガ・ゾン・サグレス" /><span class="vg"></span></a></div>
+                            <p><a th:href="@{__${WEBSITE_PATH}__/players/league/2365}">リーガ・ゾン・サグレス</a><span>（ポルトガル）</span></p>
+                        </div>
+                    </td>
+                </tr>
+			</table>
+		</div>
+		<div class="side">
+			<aside class="aside">
+				<h2>関連書籍</h2>
+				<div class="book cf">
+					<a href="#"><img th:src="@{/resources/images/shop/banner-book01.png}" src="images/shop/banner-book01.png" alt="" /></a>
+					<p><a href="#">欧州クラブサッカー解体新書1995～2005</a></p>
+					<p>詳細なスタッツやフォーメーション図から欧州クラブサッカーの10年史を読み解く。</p>
+				</div>
+				<div class="book cf">
+					<a href="#"><img th:src="@{/resources/images/shop/banner-book02.png}" src="images/shop/banner-book02.png" alt="" /></a>
+					<p><a href="#">世界73カ国代表サッカー解体新書1978～2005</a></p>
+					<p>世界73カ国の「代表チーム」を分析した超精密サッカーデータブック。</p>
+				</div>
+			</aside>
+		</div>
+	</div>
+</div>
+<footer id="footer" th:replace="players/layout::footer"></footer>
+</body>
+</html>

@@ -16,13 +16,13 @@
 <body class="club">
 
 <!-- 各サイト共通バー -->
-<div id="common" th:replace="layout::header-nav"></div>
+<div id="common" th:replace="players/layout::header-nav"></div>
 
 <!-- コリサカ ここから -->
 <div id="container">
-	<header id="header" th:replace="layout::header"></header>
+	<header id="header" th:replace="players/layout::header"></header>
 	<div id="content" class="cf">
-		<div class="crumb"><a href="#">ホーム</a><span>&gt;</span><a th:href="@{__${WEBSITE_PATH}__/league/__${league.id}__}" th:text="${league.name}">11/12 プレミアリーグ</a><span>&gt;</span><span th:text="${club.nameJa}">マンチェスター・シティ</span></div>
+		<div class="crumb"><a href="#">ホーム</a><span>&gt;</span><a th:href="@{__${WEBSITE_PATH}__/players/league/__${league.id}__}" th:text="${league.name}">11/12 プレミアリーグ</a><span>&gt;</span><span th:text="${club.nameJa}">マンチェスター・シティ</span></div>
 		<div class="main">
 			<h1 class="cf"><img th:src="@{/resources/images/ENG/sbl-__${club.nameAbbr}__.png}" src="images/ENG/sbl-manchester_city.png" alt="" width="50" height="50" /><strong><span th:text="${club.nameJa}">マンチェスター・シティ</span></strong><br/><span><span th:text="${club.name}">Manchester City</span></span></h1>
 			<div class="about cf">
@@ -173,6 +173,6 @@
 		</div>
 	</div>
 </div>
-<footer id="footer" th:replace="layout::footer"></footer>
+<footer id="footer" th:replace="players/layout::footer"></footer>
 </body>
 </html>

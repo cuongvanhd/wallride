@@ -16,11 +16,11 @@
 <body class="league">
 
 <!-- 各サイト共通バー -->
-<div id="common" th:replace="layout::header-nav"></div>
+<div id="common" th:replace="players/layout::header-nav"></div>
 
 <!-- コリサカ ここから -->
 <div id="container">
-	<header id="header" th:replace="layout::header"></header>
+	<header id="header" th:replace="players/layout::header"></header>
 	<div id="content" class="cf">
 		<div class="crumb"><a href="#">ホーム</a><span>&gt;</span><span th:text="${league.name}">11/12 プレミアリーグ</span></div>
 		<h1 class="ENG" th:class="${league.country.fifaAbbr}" th:text="${league.name}">11/12 プレミアリーグ</h1>
@@ -70,8 +70,8 @@
 				<li th:each="club : ${clubs}" th:class="${clubStat.count % 4 == 1} ? divider">
 					<div class="box">
 						<span class="new"></span>
-						<div class="image"><a th:href="@{__${WEBSITE_PATH}__/club/__${league.id}__/__${club.id}__}"><img th:src="@{/resources/images/__${league.country.fifaAbbr}__/sbl-__${club.nameAbbr}__.png}" src="images/ENG/sbl-arsenal.png" th:alt="${club.aliasJa}" /><span class="vg"></span></a></div>
-						<p><a th:href="@{__${WEBSITE_PATH}__/club/__${league.id}__/__${club.id}__}" th:text="${club.aliasJa}"></a><span>2012/04/12 更新</span></p>
+						<div class="image"><a th:href="@{__${WEBSITE_PATH}__/players/club/__${league.id}__/__${club.id}__}"><img th:src="@{/resources/images/__${league.country.fifaAbbr}__/sbl-__${club.nameAbbr}__.png}" src="images/ENG/sbl-arsenal.png" th:alt="${club.aliasJa}" /><span class="vg"></span></a></div>
+						<p><a th:href="@{__${WEBSITE_PATH}__/players/club/__${league.id}__/__${club.id}__}" th:text="${club.aliasJa}"></a><span>2012/04/12 更新</span></p>
 					</div>
 				</li>
 			</ul>
@@ -230,6 +230,6 @@
 		</div>
 	</div>
 </div>
-<footer id="footer" th:replace="layout::footer"></footer>
+<footer id="footer" th:replace="players/layout::footer"></footer>
 </body>
 </html>

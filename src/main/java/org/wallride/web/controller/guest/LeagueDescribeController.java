@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("{language}/league/{leagueId}")
+@RequestMapping("{language}/players/league/{leagueId}")
 public class LeagueDescribeController {
 
 	@Inject
@@ -35,6 +35,6 @@ public class LeagueDescribeController {
 
 		model.addAttribute("league", league);
 		model.addAttribute("clubs", clubs);
-		return "/league";
+		return "/players/league";
 	}
 }
