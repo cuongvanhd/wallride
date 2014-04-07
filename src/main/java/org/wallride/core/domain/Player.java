@@ -14,6 +14,8 @@ import java.util.List;
 @Table(name="tm05_player")
 public class Player implements Serializable {
 
+	public enum WorkingFoot { LEFT, RIGHT, BOTH }
+
 	@Id
 	@Column(name="tm05_id")
 	private int id;
@@ -50,7 +52,7 @@ public class Player implements Serializable {
 	private String home;
 
 	@Column(name="tm05_workingfoot")
-	private int workingFoot;
+	private WorkingFoot workingFoot;
 
 	@Lob
 	@Column(name="tm05_comment")
@@ -143,11 +145,11 @@ public class Player implements Serializable {
 		this.home = home;
 	}
 
-	public int getWorkingFoot() {
+	public WorkingFoot getWorkingFoot() {
 		return workingFoot;
 	}
 
-	public void setWorkingFoot(int workingFoot) {
+	public void setWorkingFoot(WorkingFoot workingFoot) {
 		this.workingFoot = workingFoot;
 	}
 
