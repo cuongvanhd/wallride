@@ -23,7 +23,7 @@
 	<header id="header" th:replace="layout::header"></header>
 
 	<div id="content" class="cf">
-		<div id="visual" class="cf">
+<!--		<div id="visual" class="cf">
 			<div class="pic"><a href="#"><img th:src="@{/resources/images/visual/pic01.jpg}" src="images/visual/pic01.jpg" alt="" /></a></div>
 			<div class="list">
 				<a href="#" class="prev"><span>前へ</span></a>
@@ -34,67 +34,88 @@
 				</ul>
 				<a href="#" class="next"><span>次へ</span></a>
 			</div>
-		</div>
+		</div>-->
 		<div class="main">
 			<h2 class="ttl"><span><img th:src="@{/resources/images/ttl-league_list.png}" src="images/ttl-league_list.png" alt="各国リーグ一覧" /></span></h2>
 			<table border="0" cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
 						<div class="box">
-							<span class="new"></span>
-							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/1093}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="プレミアリーグ"/><span class="vg"></span></a></div>
-							<p><a th:href="@{__${WEBSITE_PATH}__/league/1093}">プレミアリーグ</a><span>（イングランド）</span></p>
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2308}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="セリエA"/><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/league/2308}">セリエA</a><span>（イタリア）</span></p>
 						</div>
 					</td>
 					<td>
 						<div class="box">
-							<span class="new"></span>
-							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/1065}"><img th:src="@{/resources/images/ESP/sbl-league.png}" src="images/ESP/sbl-league.png" alt="リーガ・エスパニョーラ" /><span class="vg"></span></a></div>
-							<p><a th:href="@{__${WEBSITE_PATH}__/league/1065}">リーガ・エスパニョーラ</a><span>（スペイン）</span></p>
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2309}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="セリエB" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/league/2309}">セリエB</a><span>（イタリア）</span></p>
 						</div>
 					</td>
 					<td>
 						<div class="box">
-							<span class="new"></span>
-							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/1086}"><img th:src="@{/resources/images/ITA/sbl-league.png}" src="images/ITA/sbl-league.png" alt="セリエA" /><span class="vg"></span></a></div>
-							<p><a th:href="@{__${WEBSITE_PATH}__/league/1086}">セリエA</a><span>（イタリア）</span></p>
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2317}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="FAプレミアリーグ" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/league/2317}">FAプレミアリーグ</a><span>（イングランド）</span></p>
 						</div>
 					</td>
 					<td>
 						<div class="box">
-							<span class="new"></span>
-							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/1055}"><img th:src="@{/resources/images/GER/sbl-league.png}" src="images/GER/sbl-league.png" alt="ブンデスリーガ" /><span class="vg"></span></a></div>
-							<p><a th:href="@{__${WEBSITE_PATH}__/league/1055}">ブンデスリーガ</a><span>（ドイツ）</span></p>
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2316}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="リーグ・チャンピオンシップ" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/league/2316}">リーグ・チャンピオンシップ</a><span>（イングランド）</span></p>
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<div class="box">
-							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/1093}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="プレミアリーグ" /><span class="vg"></span></a></div>
-							<p><a th:href="@{__${WEBSITE_PATH}__/league/1093}">プレミアリーグ</a><span>（イングランド）</span></p>
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2361}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="リーガ・エスパニョーラ" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/league/2361}">リーガ・エスパニョーラ</a><span>（スペイン）</span></p>
 						</div>
 					</td>
 					<td>
 						<div class="box">
-							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/1065}"><img th:src="@{/resources/images/ESP/sbl-league.png}" src="images/ESP/sbl-league.png" alt="リーガ・エスパニョーラ" /><span class="vg"></span></a></div>
-							<p><a th:href="@{__${WEBSITE_PATH}__/league/1065}">リーガ・エスパニョーラ</a><span>（スペイン）</span></p>
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2362}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="セグンダ・ディヴィジョン" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/league/2362}">セグンダ・ディヴィジョン</a><span>（スペイン）</span></p>
 						</div>
 					</td>
 					<td>
 						<div class="box">
-							<span class="new"></span>
-							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/1086}"><img th:src="@{/resources/images/ITA/sbl-league.png}" src="images/ITA/sbl-league.png" alt="セリエA" /><span class="vg"></span></a></div>
-							<p><a th:href="@{__${WEBSITE_PATH}__/league/1086}">セリエA</a><span>（イタリア）</span></p>
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2304}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="ブンデスリーガ" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/league/2304}">ブンデスリーガ</a><span>（ドイツ）</span></p>
 						</div>
 					</td>
 					<td>
 						<div class="box">
-							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/1055}"><img th:src="@{/resources/images/GER/sbl-league.png}" src="images/GER/sbl-league.png" alt="ブンデスリーガ" /><span class="vg"></span></a></div>
-							<p><a th:href="@{__${WEBSITE_PATH}__/league/1055}">ブンデスリーガ</a><span>（ドイツ）</span></p>
+							<div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2367}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="ブンデスリーガ2部" /><span class="vg"></span></a></div>
+							<p><a th:href="@{__${WEBSITE_PATH}__/league/2367}">ブンデスリーガ2部</a><span>（ドイツ）</span></p>
 						</div>
 					</td>
 				</tr>
+                <tr>
+                    <td>
+                        <div class="box">
+                            <div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2305}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="エールディビジ" /><span class="vg"></span></a></div>
+                            <p><a th:href="@{__${WEBSITE_PATH}__/league/2305}">エールディビジ</a><span>（オランダ）</span></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="box">
+                            <div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2340}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="リーグ・アン" /><span class="vg"></span></a></div>
+                            <p><a th:href="@{__${WEBSITE_PATH}__/league/2340}">リーグ・アン</a><span>（フランス）</span></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="box">
+                            <div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2341}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="リーグ・ドゥ" /><span class="vg"></span></a></div>
+                            <p><a th:href="@{__${WEBSITE_PATH}__/league/2341}">リーグ・ドゥ</a><span>（フランス）</span></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="box">
+                            <div class="image"><a th:href="@{__${WEBSITE_PATH}__/league/2365}"><img th:src="@{/resources/images/ENG/sbl-league.png}" src="images/ENG/sbl-league.png" alt="リーガ・ゾン・サグレス" /><span class="vg"></span></a></div>
+                            <p><a th:href="@{__${WEBSITE_PATH}__/league/2365}">リーガ・ゾン・サグレス</a><span>（ポルトガル）</span></p>
+                        </div>
+                    </td>
+                </tr>
 			</table>
 		</div>
 		<div class="side">
