@@ -34,7 +34,7 @@
 <!-- コリサカ ここから -->
 <div id="container">
 	<header id="header" th:fragment="header">
-		<div id="logo"><a href="index.html">サッカー選手名鑑 コリサカ</a></div>
+		<div id="logo"><a th:href="@{__${WEBSITE_PATH}__/players/}" href="index.html">サッカー選手名鑑 コリサカ</a></div>
 		<div class="search">
 			<h2>キーワード検索</h2>
 			<input type="text" name="" size="40" value="選手名やチーム名から検索" />
@@ -161,10 +161,10 @@
 	<div class="main cf">
 		<ul class="cf">
 			<li><a href="#">ホーム</a></li>
-			<li><a href="#">リーガ・エスパニョーラ</a></li>
-			<li><a href="#">プレミアリーグ</a></li>
-			<li><a href="#">セリエA</a></li>
-			<li><a href="#">ブンデスリーガ</a></li>
+			<li><a th:href="@{__${WEBSITE_PATH}__/players/league/2361}" href="#">リーガ・エスパニョーラ</a></li>
+			<li><a th:href="@{__${WEBSITE_PATH}__/players/league/2317}" href="#">プレミアリーグ</a></li>
+			<li><a th:href="@{__${WEBSITE_PATH}__/players/league/2308}" href="#">セリエA</a></li>
+			<li><a th:href="@{__${WEBSITE_PATH}__/players/league/2304}" href="#">ブンデスリーガ</a></li>
 		</ul>
 		<a href="#common" id="pagetop">PAGE TOP</a>
 	</div>
@@ -173,18 +173,18 @@
 			<dt>サイトマップ</dt>
 			<dd class="cf">
 				<ul>
-					<li class="cf"><a href="index.html">ホーム</a>
+					<li class="cf"><a th:href="@{__${WEBSITE_PATH}__/}" href="index.html">ホーム</a>
 						<ul>
-							<li><a href="#">プレミアリーグ</a></li>
-							<li><a href="#">リーガ・エスパニョーラ</a></li>
-							<li><a href="#">セリエA</a></li>
+							<li><a th:href="@{__${WEBSITE_PATH}__/players/league/2317}" href="#">プレミアリーグ</a></li>
+							<li><a th:href="@{__${WEBSITE_PATH}__/players/league/2361}" href="#">リーガ・エスパニョーラ</a></li>
+							<li><a th:href="@{__${WEBSITE_PATH}__/players/league/2308}" href="#">セリエA</a></li>
 						</ul>
 					</li>
 				</ul>
 				<ul>
-					<li><a href="#">ブンデスリーガ</a></li>
-					<li><a href="#">リーグ・アン</a></li>
-					<li><a href="#">エールディビジ</a></li>
+					<li><a th:href="@{__${WEBSITE_PATH}__/players/league/2304}" href="#">ブンデスリーガ</a></li>
+					<li><a th:href="@{__${WEBSITE_PATH}__/players/league/2340}" href="#">リーグ・アン</a></li>
+					<li><a th:href="@{__${WEBSITE_PATH}__/players/league/2305}" href="#">エールディビジ</a></li>
 					<li><a href="#">スーペルリーガ</a></li>
 				</ul>
 			</dd>

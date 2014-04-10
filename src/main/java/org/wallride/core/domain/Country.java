@@ -1,5 +1,6 @@
 package org.wallride.core.domain;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import javax.persistence.*;
@@ -28,6 +29,9 @@ public class Country implements Serializable {
 
 	@Column(name="tm06_realname")
 	private String realName;
+
+	@Column(name="tm06_englishname")
+	private String nameEn;
 
 	@OneToMany(mappedBy = "country", fetch=FetchType.LAZY, cascade= CascadeType.ALL)
 	List<League> leagues;
@@ -75,6 +79,14 @@ public class Country implements Serializable {
 		this.realName = realName;
 	}
 
+	public String getNameEn() {
+		return nameEn;
+	}
+
+	public void setNameEn(String nameEn) {
+		this.nameEn = nameEn;
+	}
+
 	public List<League> getLeagues() {
 		return leagues;
 	}
@@ -89,6 +101,11 @@ public class Country implements Serializable {
 
 	public void setPlayers(List<Player> players) {
 		this.players = players;
+	}
+
+	public String getEnglishName() {
+		String englishName = StringUtils.capitalize(getNameEn());
+		return englishName;
 	}
 
 	@Override

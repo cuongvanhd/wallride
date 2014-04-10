@@ -24,7 +24,7 @@
 	<div id="content" class="cf">
 		<div class="crumb"><a href="#">ホーム</a><span>&gt;</span><a th:href="@{__${WEBSITE_PATH}__/players/league/__${league.id}__}" th:text="${league.name}">11/12 プレミアリーグ</a><span>&gt;</span><span th:text="${club.nameJa}">マンチェスター・シティ</span></div>
 		<div class="main">
-			<h1 class="cf"><img th:src="@{/resources/images/ENG/sbl-__${club.nameAbbr}__.png}" src="images/ENG/sbl-manchester_city.png" alt="" width="50" height="50" /><strong><span th:text="${club.nameJa}">マンチェスター・シティ</span></strong><br/><span><span th:text="${club.name}">Manchester City</span></span></h1>
+			<h1 class="cf"><img th:src="@{/resources/images/__${league.country.fifaAbbr}__/sbl-__${club.nameAbbr}__.png}" src="images/ENG/sbl-manchester_city.png" alt="" width="50" height="50" /><strong><span th:text="${club.nameJa}">マンチェスター・シティ</span></strong><br/><span><span th:text="${club.name}">Manchester City</span></span></h1>
 			<div class="about cf">
 				<div class="pic">
 					<img th:src="@{/resources/images/ENG/pic-__${club.nameAbbr}__.jpg}" src="images/ENG/pic-manchester_city.jpg" alt="" />
