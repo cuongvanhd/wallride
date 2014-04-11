@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /*
- * クラブチーム
+ * クラブチーム　(要同期:soccer)
  */
 @Entity
 @Table(name="tm02_club")

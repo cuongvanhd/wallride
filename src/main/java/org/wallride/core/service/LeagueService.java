@@ -53,4 +53,8 @@ public class LeagueService {
 	public League readLeagueById(int id) {
 		return leagueRepository.findById(id);
 	}
+
+//	public boolean isPlayoffParticipate(int id) {
+//		return leagueRepository.findPlayOffById()
+//	}
 }

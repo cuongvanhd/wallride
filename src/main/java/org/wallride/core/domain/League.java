@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /*
- * リーグ
+ * リーグ　(要同期:soccer)
  */
 @Entity
 @Table(name="tm07_leage")

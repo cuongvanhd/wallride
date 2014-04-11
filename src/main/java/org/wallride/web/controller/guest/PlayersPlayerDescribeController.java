@@ -4,17 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.wallride.core.domain.Club;
-import org.wallride.core.domain.League;
-import org.wallride.core.domain.Movement;
-import org.wallride.core.domain.Player;
-import org.wallride.core.service.ClubService;
-import org.wallride.core.service.LeagueService;
-import org.wallride.core.service.MovementService;
-import org.wallride.core.service.PlayerService;
+import org.wallride.core.domain.*;
+import org.wallride.core.service.*;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -28,7 +21,13 @@ public class PlayersPlayerDescribeController {
 	private ClubService clubService;
 
 	@Inject
-	PlayerService playerService;
+	private PlayerService playerService;
+
+	@Inject
+	private PlayerNewsService playerNewsService;
+
+	@Inject
+	private PlayerItemService playerItemService;
 
 	@Inject
 	MovementService movementService;
@@ -39,13 +38,17 @@ public class PlayersPlayerDescribeController {
 			@PathVariable Integer leagueId,
 			@PathVariable Integer clubId,
 			@PathVariable Integer playerId,
-			HttpSession session,
 			Model model) {
 		League league =leagueService.readLeagueById(leagueId);
+		//TODO boolean playoffParticipate = leagueService.isPlayoffParticipate(leagueId);
 		Club club =clubService.readClubById(clubId);
 		Player player = playerService.readPlayerById(playerId);
 		List<Movement> histories = movementService.readMovementsByPlayerId(playerId);
+		List<PlayerNews> newses = playerNewsService.readNewses();
+		//TODO List<AmazonItemResult> items = playerItemService.readItems();
 
+		//model.addAttribute("items", items);
+		model.addAttribute("newses", newses);
 		model.addAttribute("league", league);
 		model.addAttribute("club", club);
 		model.addAttribute("player", player);

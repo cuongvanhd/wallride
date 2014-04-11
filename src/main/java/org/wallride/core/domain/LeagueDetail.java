@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /*
- * リーグ
+ * リーグ　(要同期:soccer)
  */
 @Entity
 @Table(name="tm14_leage_sub")

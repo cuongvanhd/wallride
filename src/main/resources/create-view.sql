@@ -53,4 +53,9 @@ create view movement as SELECT m.*,
     END, '%Y-%m-%d') AS seson2
   FROM td11_movement as m
   LEFT JOIN tm07_leage as l
-  ON m.td11_leageid = l.tm07_id
+  ON m.td11_leageid = l.tm07_id;
+
+create view player_news as
+select item.id, item.published, item.permalink, item.title, feeds.title as source
+   from antenna_items as item inner join antenna_feeds as feeds on item.feed_id = feeds.id
+   order by item.published desc limit 10

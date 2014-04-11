@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /*
- * 移籍データ
+ * 移籍データView (要同期:soccer)
  */
 @Entity
 @Table(name="movement")
@@ -49,6 +49,34 @@ public class Movement implements Serializable {
 	@Column(name="s2")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateAsString")
 	private LocalDate leftAt;
+
+	@Column(name="td11_participation1")
+	private Integer participation;
+
+	@Column(name="td11_participation2")
+	private Integer starter;
+
+	@Column(name="td11_participation3")
+	private Integer substitute;
+
+	@Column(name="td11_score")
+	private Integer score;
+
+	@Column(name="td11_participation1_2")
+	private Integer playoffParticipation;
+
+	@Column(name="td11_participation2_2")
+	private Integer playoffStarter;
+
+	@Column(name="td11_participation3_2")
+	private Integer playoffSubstitute;
+
+	@Column(name="td11_score2")
+	private Integer playoffScore;
+
+	@Lob
+	@Column(name="td11_bikou")
+	private String remarks;
 
 	public int getId() {
 		return id;
@@ -120,5 +148,77 @@ public class Movement implements Serializable {
 
 	public void setLeftAt(LocalDate leftAt) {
 		this.leftAt = leftAt;
+	}
+
+	public Integer getParticipation() {
+		return participation;
+	}
+
+	public void setParticipation(Integer participation) {
+		this.participation = participation;
+	}
+
+	public Integer getStarter() {
+		return starter;
+	}
+
+	public void setStarter(Integer starter) {
+		this.starter = starter;
+	}
+
+	public Integer getSubstitute() {
+		return substitute;
+	}
+
+	public void setSubstitute(Integer substitute) {
+		this.substitute = substitute;
+	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+
+	public Integer getPlayoffParticipation() {
+		return playoffParticipation;
+	}
+
+	public void setPlayoffParticipation(Integer playoffParticipation) {
+		this.playoffParticipation = playoffParticipation;
+	}
+
+	public Integer getPlayoffStarter() {
+		return playoffStarter;
+	}
+
+	public void setPlayoffStarter(Integer playoffStarter) {
+		this.playoffStarter = playoffStarter;
+	}
+
+	public Integer getPlayoffSubstitute() {
+		return playoffSubstitute;
+	}
+
+	public void setPlayoffSubstitute(Integer playoffSubstitute) {
+		this.playoffSubstitute = playoffSubstitute;
+	}
+
+	public Integer getPlayoffScore() {
+		return playoffScore;
+	}
+
+	public void setPlayoffScore(Integer playoffScore) {
+		this.playoffScore = playoffScore;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 }

@@ -2,19 +2,22 @@ package org.wallride.core.domain;
 
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 /*
- * 選手
+ * 選手 (要同期:soccer)
  */
 @Entity
 @Table(name="tm05_player")
 public class Player implements Serializable {
 
 	public enum WorkingFoot { LEFT, RIGHT, BOTH }
+
+	public enum PositionLevel { GREAT, GOOD, SOSO, BAD }
 
 	@Id
 	@Column(name="tm05_id")
@@ -25,42 +28,58 @@ public class Player implements Serializable {
 	private Country country;
 
 	@Column(name="tm05_position_division")
+	@Field
 	private String positionDivision;
 
 	/** 正式名(母語1) */
 	@Column(name="tm05_fullname")
+	@Field
 	private String name;
 
 	/** 正式名(日本語) */
 	@Column(name="tm05_fullname_jp")
+	@Field
 	private String nameJa;
 
 	/** 登録名 */
 	@Column(name="tm05_name")
+	@Field
 	private String nameAbbr;
 
 	@Column(name="tm05_tall")
+	@Field
 	private float height;
 
 	@Column(name="tm05_wait")
+	@Field
 	private float weight;
 
 	@Column(name="tm05_birthday")
+	@Field
 	private String birthday;
 
 	@Column(name="tm05_home")
+	@Field
 	private String home;
 
 	@Column(name="tm05_workingfoot")
 	private WorkingFoot workingFoot;
 
+//	@Column(name="")
+//	private PositionLevel
+
 	@Lob
 	@Column(name="tm05_comment")
+	@Field
 	private String comment;
 
 	@Lob
 	@Column(name="tm05_movie")
+	@Field
 	private String movie;
+
+	@Column(name="tm05_seekword")
+	private String keyword;
 
 	@OneToMany(mappedBy="player", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<Movement> movements;
@@ -167,6 +186,14 @@ public class Player implements Serializable {
 
 	public void setMovie(String movie) {
 		this.movie = movie;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	public List<Movement> getMovements() {

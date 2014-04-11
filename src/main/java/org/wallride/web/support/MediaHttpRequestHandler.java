@@ -1,6 +1,7 @@
 package org.wallride.web.support;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
 import org.im4java.core.IMOperation;
@@ -12,11 +13,13 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 import org.springframework.web.servlet.support.WebContentGenerator;
 import org.wallride.core.domain.Media;
 import org.wallride.core.domain.Setting;
@@ -24,6 +27,7 @@ import org.wallride.core.repository.MediaRepository;
 import org.wallride.core.support.AmazonS3ResourceUtils;
 import org.wallride.core.support.Settings;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,6 +37,9 @@ import java.io.IOException;
 import java.util.Map;
 
 public class MediaHttpRequestHandler extends WebContentGenerator implements HttpRequestHandler, InitializingBean {
+
+	private static final boolean jafPresent =
+			ClassUtils.isPresent("javax.activation.FileTypeMap", ResourceHttpRequestHandler.class.getClassLoader());
 
 	private MediaRepository mediaRepository;
 
@@ -71,7 +78,12 @@ public class MediaHttpRequestHandler extends WebContentGenerator implements Http
 		int height = ServletRequestUtils.getIntParameter(request, "h", 0);
 		int mode = ServletRequestUtils.getIntParameter(request, "m", 0);
 
-		Resource resource = readResource(media, width, height, Media.ResizeMode.values()[mode]);
+		Resource resource = null;
+		if (media == null) {
+			resource = readResource(key, width, height, Media.ResizeMode.values()[mode], request);
+		} else {
+			resource = readResource(media, width, height, Media.ResizeMode.values()[mode]);
+		}
 
 		if (resource == null) {
 			logger.debug("No matching resource found - returning 404");
@@ -88,14 +100,60 @@ public class MediaHttpRequestHandler extends WebContentGenerator implements Http
 			throw new IOException("Resource content too long (beyond Integer.MAX_VALUE): " + resource);
 		}
 		response.setContentLength((int) length);
-		response.setContentType(media.getMimeType());
 
+		if (media == null) {
+			ServletContext context = request.getServletContext();
+			String mimeType = context.getMimeType(resource.getFilename());
+			response.setContentType(mimeType);
+		} else {
+			response.setContentType(media.getMimeType());
+		}
 		FileCopyUtils.copy(resource.getInputStream(), response.getOutputStream());
 	}
 
 //	public Resource readResource(Media media) throws IOException, EncoderException {
 //		return readResource(media, 0, 0, null);
 //	}
+
+	private Resource readResource(String path, final int width, final int height, final Media.ResizeMode mode, HttpServletRequest request) throws IOException {
+		final Resource prefix = resourceLoader.getResource(settings.readSettingAsString(Setting.Key.MEDIA_PATH));
+		path = StringUtils.replaceChars(path, "_", "/");
+		final Resource resource = prefix.createRelative(path);
+		if (!resource.exists()) {
+			return null;
+		}
+		boolean doResize = (width > 0 || height > 0);
+		ServletContext context = request.getServletContext();
+		final String mimeType = context.getMimeType(resource.getFilename());
+		if (doResize && "image".equals(MediaType.parseMediaType(mimeType).getType())) {
+			final Resource resized = prefix.createRelative(String.format("%s.resized/%dx%d-%d", path, width, height, mode.ordinal()));
+			if (!resized.exists() || resource.lastModified() > resized.lastModified()) {
+//			if (!resized.exists()) {
+				final File temp = File.createTempFile("resized-", MediaType.parseMediaType(mimeType).getSubtype());
+				temp.deleteOnExit();
+				resizeImage(resource, temp, width, height, mode);
+				Runnable runnable = new Runnable() {
+					@Override
+					public void run() {
+						try {
+							File copied = File.createTempFile("resized-", MediaType.parseMediaType(mimeType).getSubtype());
+							FileUtils.copyFile(temp, copied);
+							AmazonS3ResourceUtils.writeFile(temp, resized);
+							copied.delete();
+						} catch (Exception e) {
+							logger.warn("Image resize failed", e);
+						}
+					}
+				};
+				new Thread(runnable).start();
+				return new FileSystemResource(temp);
+			}
+			return resized;
+		}
+		else {
+			return resource;
+		}
+	}
 
 	private Resource readResource(final Media media, final int width, final int height, final Media.ResizeMode mode) throws IOException {
 		final Resource prefix = resourceLoader.getResource(settings.readSettingAsString(Setting.Key.MEDIA_PATH));

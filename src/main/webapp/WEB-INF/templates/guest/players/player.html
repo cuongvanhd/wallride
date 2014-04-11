@@ -76,7 +76,7 @@
 								</div>
 							</div>
 							<div class="foot_handed">
-								<div class="left">
+								<div th:class="${player.workingFoot}" class="left">
 									<strong>利き足</strong><span th:text="${player.workingFoot}">Left</span>
 								</div>
 							</div>
@@ -84,7 +84,19 @@
 					</div>
 				</div>
 			</div>
-			<p class="test">Google Adsense 設置スペース</p>
+			<div><!-- Google Adsense ここから -->
+				<div class="g_ad" style="margin-top:25px; text-align:center;">
+					<script type="text/javascript"><!--
+					google_ad_client = "pub-7820011971058919";
+					/* 468x60, 作成済み 10/06/09 */
+					google_ad_slot = "1560619644";
+					google_ad_width = 468;
+					google_ad_height = 60;
+					//
+					// --></script>
+					<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+				</div>
+				<!-- Google Adsense ここまで --></div>
 			<div class="comment">
 				<h2>コメント</h2>
 				<div>
@@ -107,15 +119,19 @@
 						<td class="season">2008-09</td>
 						<td class="country"><img th:src="@{/resources/images/country/__${league.country.fifaAbbr}__.png}" src="images/country/England.png" alt="" width="20" /><span th:text="${history.league.division}">A</span></td>
 						<td class="club"><a href="#" th:href="@{__${WEBSITE_PATH}__/players/club/__${league.id}__/__${club.id}__}"><span th:text="${history.club.aliasJa}">CAインデペンディエンテ</span></a></td>
-						<td class="games" >14(10)</td>
-						<td class="score">16</td>
-						<td class="notes"></td>
+						<td class="games">
+							出場数：<span th:text="${history.participation}">20</span> <span th:if="${history.playoffParticipation} != null" th:text="'('+${history.playoffParticipation}+')'">(8)</span><br/>
+							先発：<span th:text="${history.starter}">20</span> <span th:if="${history.playoffStarter} != null" th:text="'('+${history.playoffStarter}+')'">(8)</span><br/>
+							途中出場：<span th:text="${history.substitute}">20</span> <span th:if="${history.playoffSubstitute} != null" th:text="'('+${history.playoffSubstitute}+')'">(8)</span>
+						</td>
+						<td class="score"><span th:text="${history.score}">20</span> <span th:if="${history.playoffScore} != null" th:text="'('+${history.playoffScore}+')'">(8)</span></td>
+						<td class="notes" th:text="${history.remarks}"></td>
 					</tr>
 					<tr>
 						<td class="season">2009-09(11/15)</td>
 						<td class="country"><img th:src="@{/resources/images/country/England.png}" src="images/country/England.png" alt="" width="20" />A</td>
 						<td class="club"><a href="#">アトレティコ・マドリード</a></td>
-						<td class="games">20(8)</td>
+
 						<td class="score">12</td>
 						<td class="notes"></td>
 					</tr>
@@ -156,9 +172,9 @@
 			<div class="news">
 				<h2>関連ニュース</h2>
 				<ul>
-					<li class="cf"><span>2012/04/20</span><p><a href="#">進化を続けるバルセロナ（第2節 バルサ vs ビジャレアル） (QOLY)</a></p></li>
-					<li class="cf"><span>2012/04/14</span><p><a href="#">着飾らない男と着飾った男達と着飾った女 (QOLY)</a></p></li>
-					<li class="cf"><span>2012/04/05</span><p><a href="#">選手達のバカンス ～2011年夏～ 8/23版 (QOLY)</a></p></li>
+					<li class="cf" th:each="news : ${newses}"><span th:text="${news.publishedAt.toString('yyyy/MM/dd HH:mm')}">2012/04/20</span><p><a th:href="${news.permalink}" th:text="${news.title}" target="_blank">進化を続けるバルセロナ（第2節 バルサ vs ビジャレアル） (QOLY)</a></p></li>
+					<li th:remove="all" class="cf"><span>2012/04/14</span><p><a href="#">着飾らない男と着飾った男達と着飾った女 (QOLY)</a></p></li>
+					<li th:remove="all" class="cf"><span>2012/04/05</span><p><a href="#">選手達のバカンス ～2011年夏～ 8/23版 (QOLY)</a></p></li>
 				</ul>
 			</div>
 			<div class="review">
