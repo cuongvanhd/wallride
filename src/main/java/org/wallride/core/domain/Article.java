@@ -9,6 +9,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -40,6 +41,9 @@ public class Article extends Post implements Comparable<Article> {
 	@IndexedEmbedded
 	private SortedSet<Tag> tags = new TreeSet<>();
 
+	@OneToMany(mappedBy="article", cascade=CascadeType.ALL)
+	private List<ArticleLink> links;
+
 	public SortedSet<Category> getCategories() {
 		return categories;
 	}
@@ -55,7 +59,15 @@ public class Article extends Post implements Comparable<Article> {
 	public void setTags(SortedSet<Tag> tags) {
 		this.tags = tags;
 	}
-	
+
+	public List<ArticleLink> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<ArticleLink> links) {
+		this.links = links;
+	}
+
 	public int compareTo(Article article) {
 		if (getDate() != null && article.getDate() == null) return 1;
 		if (getDate() == null && article.getDate() != null) return -1;

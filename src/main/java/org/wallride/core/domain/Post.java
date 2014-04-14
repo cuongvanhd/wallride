@@ -6,6 +6,7 @@ import org.hibernate.annotations.IndexColumn;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.FieldBridge;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -62,6 +63,23 @@ public class Post extends DomainObject<Long> {
 	@JoinTable(name="post_media", joinColumns=@JoinColumn(name="post_id", referencedColumnName="id"), inverseJoinColumns=@JoinColumn(name="media_id", referencedColumnName="id"))
 	@IndexColumn(name="`index`")
 	private List<Media> medias;
+
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name="title", column=@Column(name="seo_title", length=1000)),
+			@AttributeOverride(name="description", column=@Column(name="seo_description")),
+			@AttributeOverride(name="keywords", column=@Column(name="seo_keywords")),
+			@AttributeOverride(name="ogTitle", column=@Column(name="og_title")),
+			@AttributeOverride(name="ogImage", column=@Column(name="og_image")),
+			@AttributeOverride(name="ogUrl", column=@Column(name="og_url")),
+			@AttributeOverride(name="ogSiteName", column=@Column(name="og_sitename")),
+			@AttributeOverride(name="ogDescription", column=@Column(name="og_description")),
+			@AttributeOverride(name="ogAppId", column=@Column(name="og_app_id")),
+			@AttributeOverride(name="ogType", column=@Column(name="og_type")),
+			@AttributeOverride(name="ogLocale", column=@Column(name="og_locale")),
+	})
+	@IndexedEmbedded
+	private Seo seo = new Seo();
 
 	@Override
 	public Long getId() {
@@ -142,6 +160,14 @@ public class Post extends DomainObject<Long> {
 
 	public void setMedias(List<Media> medias) {
 		this.medias = medias;
+	}
+
+	public Seo getSeo() {
+		return seo;
+	}
+
+	public void setSeo(Seo seo) {
+		this.seo = seo;
 	}
 
 	@Override
