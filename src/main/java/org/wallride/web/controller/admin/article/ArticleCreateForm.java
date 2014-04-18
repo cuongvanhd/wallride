@@ -1,12 +1,15 @@
 package org.wallride.web.controller.admin.article;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.util.CollectionUtils;
 import org.wallride.core.service.ArticleCreateRequest;
 import org.wallride.web.support.DomainObjectCreateForm;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("serial")
@@ -21,8 +24,8 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 	@NotNull(groups=GroupPublish.class)
 	private String title;
 
-	@NotNull(groups=GroupPublish.class)
-	private String body;
+	@NotEmpty(groups=GroupPublish.class)
+	private String[] bodies;
 
 	private Long authorId;
 
@@ -61,12 +64,30 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 		this.title = title;
 	}
 
-	public String getBody() {
-		return body;
+//	public String getBody() {
+//		return body;
+//	}
+//
+//	public void setBody(String body) {
+//		this.body = body;
+//	}
+
+
+//	public List<String> getBodies() {
+//		return bodies;
+//	}
+//
+//	public void setBodies(List<String> bodies) {
+//		this.bodies = bodies;
+//	}
+
+
+	public String[] getBodies() {
+		return bodies;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
+	public void setBodies(String[] bodies) {
+		this.bodies = bodies;
 	}
 
 	public Long getAuthorId() {
@@ -110,12 +131,13 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 	}
 
 	public ArticleCreateRequest buildArticleCreateRequest() {
+		List<String> bodyList = (List<String>)CollectionUtils.arrayToList(bodies);
 		ArticleCreateRequest.Builder builder = new ArticleCreateRequest.Builder();
 		return builder
 				.code(code)
 				.coverId(coverId)
 				.title(title)
-				.body(body)
+				.bodies(bodyList)
 				.authorId(authorId)
 				.date(date)
 				.categoryIds(categoryIds)

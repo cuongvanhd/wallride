@@ -111,13 +111,13 @@ create table player_news (
 
 create table post (
   id bigint not null auto_increment,
-  date datetime,
+  created_at datetime not null,
+  created_by varchar(100),
+  updated_at datetime not null,
+  updated_by varchar(100),
   code varchar(200),
-  title varchar(200),
-  body longtext,
+  date datetime,
   language varchar(3) not null,
-  status varchar(50) not null,
-  seo_title varchar(1000),
   seo_description longtext,
   seo_keywords longtext,
   og_app_id varchar(255),
@@ -128,13 +128,19 @@ create table post (
   og_title longtext,
   og_type varchar(255),
   og_url longtext,
+  seo_title varchar(1000),
+  status varchar(50) not null,
+  title varchar(200),
   author_id bigint,
   cover_id varchar(50),
-  created_at datetime not null,
-  created_by varchar(100),
-  updated_at datetime not null,
-  updated_by varchar(100),
   primary key (id)
+) ENGINE=InnoDB;
+
+create table post_body (
+  post_id bigint not null,
+  body longtext,
+  `index` integer not null,
+  primary key (post_id, `index`)
 ) ENGINE=InnoDB;
 
 create table post_media (
@@ -377,6 +383,12 @@ add index FK_lew3sxka65cx9ichkheda3m4p (cover_id),
 add constraint FK_lew3sxka65cx9ichkheda3m4p
 foreign key (cover_id)
 references media (id);
+
+alter table post_body
+add index FK_9ue60rhn4peu5f9cj6npb40cr (post_id),
+add constraint FK_9ue60rhn4peu5f9cj6npb40cr
+foreign key (post_id)
+references post (id);
 
 alter table post_media
 add index FK_cbh3kwx9ocobb3y3jn93nth0o (media_id),

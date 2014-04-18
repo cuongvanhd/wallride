@@ -3,7 +3,9 @@ package org.wallride.core.service;
 import org.joda.time.LocalDateTime;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ArticleUpdateRequest implements Serializable {
@@ -12,7 +14,7 @@ public class ArticleUpdateRequest implements Serializable {
 	private String code;
 	private String coverId;
 	private String title;
-	private String body;
+	private List<String> bodies = new ArrayList<>();
 	private Long authorId;
 	private LocalDateTime date;
 	private Set<Long> categoryIds = new HashSet<>();
@@ -35,8 +37,8 @@ public class ArticleUpdateRequest implements Serializable {
 		return title;
 	}
 
-	public String getBody() {
-		return body;
+	public List<String> getBodies() {
+		return bodies;
 	}
 
 	public Long getAuthorId() {
@@ -65,7 +67,7 @@ public class ArticleUpdateRequest implements Serializable {
 		private String code;
 		private String coverId;
 		private String title;
-		private String body;
+		private List<String> bodies;
 		private Long authorId;
 		private LocalDateTime date;
 		private Set<Long> categoryIds = new HashSet<>();
@@ -95,8 +97,8 @@ public class ArticleUpdateRequest implements Serializable {
 			return this;
 		}
 
-		public Builder body(String body) {
-			this.body = body;
+		public Builder bodies(List<String> bodies) {
+			this.bodies = bodies;
 			return this;
 		}
 
@@ -131,7 +133,7 @@ public class ArticleUpdateRequest implements Serializable {
 			request.code = code;
 			request.coverId = coverId;
 			request.title = title;
-			request.body = body;
+			request.bodies = bodies;
 			request.authorId = authorId;
 			request.date = date;
 			request.categoryIds = categoryIds;

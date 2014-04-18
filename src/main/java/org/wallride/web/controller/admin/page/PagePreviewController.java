@@ -57,7 +57,7 @@ public class PagePreviewController {
 		Page page = new Page();
 		page.setCover(form.getCoverId() != null ? mediaService.readMedia(form.getCoverId()) : null);
 		page.setTitle(form.getTitle());
-		page.setBody(form.getBody());
+		//TODO page.setBody(form.getBody());
 		page.setDate(form.getDate() != null ? form.getDate() : new LocalDateTime());
 		page.setAuthor(authorizedUser);
 

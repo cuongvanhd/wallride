@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindException;
@@ -29,8 +30,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 @Transactional(rollbackFor=Exception.class)
@@ -85,7 +84,23 @@ public class ArticleService {
 		article.setCover(cover);
 		article.setTitle(request.getTitle());
 		article.setCode(code);
-		article.setBody(request.getBody());
+
+		List<PostBody> bodies = new ArrayList<>();
+		if (CollectionUtils.isEmpty(request.getBodies())) {
+			errors.rejectValue("bodies", "NotNull");
+		}
+
+		if (errors.hasErrors()) {
+			throw new BindException(errors);
+		}
+
+		article.getBodies().clear();
+		for (String requestBody : request.getBodies()) {
+			PostBody body = new PostBody();
+			body.setBody(requestBody);
+			bodies.add(body);
+		}
+		article.setBodies(bodies);
 
 		User author = entityManager.getReference(User.class, authorizedUser.getId());
 //		if (request.getAuthorId() != null) {
@@ -110,18 +125,21 @@ public class ArticleService {
 		for (long categoryId : request.getCategoryIds()) {
 			article.getCategories().add(entityManager.getReference(Category.class, categoryId));
 		}
-
-		List<Media> medias = new ArrayList<>();
-		if (StringUtils.hasText(request.getBody())) {
-			String mediaUrlPrefix = settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX);
-			Pattern mediaUrlPattern = Pattern.compile(String.format("%s([0-9a-zA-Z\\-]+)", mediaUrlPrefix));
-			Matcher mediaUrlMatcher = mediaUrlPattern.matcher(request.getBody());
-			while (mediaUrlMatcher.find()) {
-				Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
-				medias.add(media);
-			}
-		}
-		article.setMedias(medias);
+//TODO
+//		List<Media> medias = new ArrayList<>();
+//
+//		if (CollectionUtils.isEmpty(request.getBodies())) {
+//			String mediaUrlPrefix = settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX);
+//			Pattern mediaUrlPattern = Pattern.compile(String.format("%s([0-9a-zA-Z\\-]+)", mediaUrlPrefix));
+//			for(String body : request.getBodies()) {
+//				Matcher mediaUrlMatcher = mediaUrlPattern.matcher(body);
+//				while (mediaUrlMatcher.find()) {
+//					Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
+//					medias.add(media);
+//				}
+//			}
+//		}
+//		article.setMedias(medias);
 
 		article.setCreatedAt(now);
 		article.setCreatedBy(authorizedUser.toString());
@@ -132,18 +150,18 @@ public class ArticleService {
 	}
 
 	@CacheEvict(value="articles", allEntries=true)
-	public Article updateArticle(ArticleUpdateRequest form, BindingResult errors, Post.Status status, AuthorizedUser authorizedUser) throws BindException {
+	public Article updateArticle(ArticleUpdateRequest request, BindingResult errors, Post.Status status, AuthorizedUser authorizedUser) throws BindException {
 		LocalDateTime now = new LocalDateTime();
-		Article article = articleRepository.findByIdForUpdate(form.getId(), form.getLanguage());
+		Article article = articleRepository.findByIdForUpdate(request.getId(), request.getLanguage());
 
-		String code = (form.getCode() != null) ? form.getCode() : form.getTitle();
+		String code = (request.getCode() != null) ? request.getCode() : request.getTitle();
 		if (!StringUtils.hasText(code)) {
 			if (Post.Status.PUBLISHED.equals(status)) {
 				errors.rejectValue("code", "NotNull");
 			}
 		}
 		else {
-			Article duplicate = articleRepository.findByCode(form.getCode(), form.getLanguage());
+			Article duplicate = articleRepository.findByCode(request.getCode(), request.getLanguage());
 			if (duplicate != null && !duplicate.equals(article)) {
 				errors.rejectValue("code", "NotDuplicate");
 			}
@@ -154,13 +172,32 @@ public class ArticleService {
 		}
 
 		Media cover = null;
-		if (form.getCoverId() != null) {
-			cover = entityManager.getReference(Media.class, form.getCoverId());
+		if (request.getCoverId() != null) {
+			cover = entityManager.getReference(Media.class, request.getCoverId());
 		}
 		article.setCover(cover);
-		article.setTitle(form.getTitle());
+		article.setTitle(request.getTitle());
 		article.setCode(code);
-		article.setBody(form.getBody());
+		List<PostBody> bodies = new ArrayList<>();
+		if (CollectionUtils.isEmpty(request.getBodies())) {
+			for (String body : request.getBodies()) {
+				if (!StringUtils.hasText(body)) {
+					errors.rejectValue("bodies", "NotNull");
+				}
+			}
+		}
+
+		if (errors.hasErrors()) {
+			throw new BindException(errors);
+		}
+
+		article.getBodies().clear();
+		for (String requestBody : request.getBodies()) {
+			PostBody body = new PostBody();
+			body.setBody(requestBody);
+			bodies.add(body);
+		}
+		article.setBodies(bodies);
 
 //		User author = null;
 //		if (request.getAuthorId() != null) {
@@ -168,7 +205,7 @@ public class ArticleService {
 //		}
 //		article.setAuthor(author);
 
-		LocalDateTime date = form.getDate();
+		LocalDateTime date = request.getDate();
 		if (Post.Status.PUBLISHED.equals(status)) {
 			if (date == null) {
 				date = now.withTime(0, 0, 0, 0);
@@ -179,24 +216,24 @@ public class ArticleService {
 		}
 		article.setDate(date);
 		article.setStatus(status);
-		article.setLanguage(form.getLanguage());
+		article.setLanguage(request.getLanguage());
 
 		article.getCategories().clear();
-		for (long categoryId : form.getCategoryIds()) {
+		for (long categoryId : request.getCategoryIds()) {
 			article.getCategories().add(entityManager.getReference(Category.class, categoryId));
 		}
-
-		List<Media> medias = new ArrayList<>();
-		if (StringUtils.hasText(form.getBody())) {
-			String mediaUrlPrefix = settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX);
-			Pattern mediaUrlPattern = Pattern.compile(String.format("%s([0-9a-zA-Z\\-]+)", mediaUrlPrefix));
-			Matcher mediaUrlMatcher = mediaUrlPattern.matcher(form.getBody());
-			while (mediaUrlMatcher.find()) {
-				Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
-				medias.add(media);
-			}
-		}
-		article.setMedias(medias);
+//TODO 画像保存
+//		List<Media> medias = new ArrayList<>();
+//		if (StringUtils.hasText(form.getBody())) {
+//			String mediaUrlPrefix = settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX);
+//			Pattern mediaUrlPattern = Pattern.compile(String.format("%s([0-9a-zA-Z\\-]+)", mediaUrlPrefix));
+//			Matcher mediaUrlMatcher = mediaUrlPattern.matcher(form.getBody());
+//			while (mediaUrlMatcher.find()) {
+//				Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
+//				medias.add(media);
+//			}
+//		}
+//		article.setMedias(medias);
 
 		article.setUpdatedAt(now);
 		article.setUpdatedBy(authorizedUser.toString());
