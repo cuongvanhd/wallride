@@ -105,32 +105,69 @@
 							<fieldset>
 								<div class="form-group" th:classappend="${#fields.hasErrors('title')}? has-error">
 									<input type="text" th:field="*{title}" class="form-control" th:attr="placeholder=#{EnterTitle}" placeholder="Enter title here" />
-									<span class="help-block" th:each="err : ${#fields.errors('title')}" th:text="${err}" />
+									<span th:if="${#fields.hasErrors('title')}" class="help-block" th:text="${#fields.errors('title')}" />
 								</div>
 							</fieldset>
 							<fieldset>
 								<div class="form-group" th:classappend="${#fields.hasErrors('code')}? has-error">
 									<span th:text="${WEBSITE_LINK + '/'}"></span> <input type="text" th:field="*{code}" name="path" class="form-control input-sm wr-code" th:attr="placeholder=#{URLPath}" placeholder="URLパス" />
-									<span class="help-block" th:each="err : ${#fields.errors('code')}" th:text="${err}" />
+									<span th:if="${#fields.hasErrors('code')}" class="help-block" th:text="${#fields.errors('code')}" />
 								</div>
 							</fieldset>
-							<fieldset>
-								<div class="form-group" th:classappend="${#fields.hasErrors('body')}? has-error">
-									<textarea th:field="*{body}" class="form-control" th:attr="placeholder=#{EnterBody}" placeholder="Enter body here"></textarea>
-									<span class="help-block" th:each="err : ${#fields.errors('body')}" th:text="${err}" />
-									<script th:inline="javascript">
-										$(function() {
-											$('#main :input[name="body"]').redactor({
+							<div class="post-bodies">
+								<fieldset th:each="body, stat : *{bodies}" class="post-body">
+									<div class="form-group" th:classappend="${#fields.hasErrors('bodies')}? has-error">
+										<textarea name="bodies" class="form-control" th:attr="placeholder=#{EnterBody}" placeholder="Enter body here"><span th:text="${body}"></span></textarea>
+										<span class="help-block" th:each="err : ${#fields.errors('bodies')}" th:text="${err}" />
+										<!--<script th:inline="javascript">
+											$(function() {
+												$('#main :input[name="bodies"]').redactor({
+													minHeight: 300,
+													convertImageLinks: true,
+													convertVideoLinks: true,
+													imageUpload: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
+													imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#'
+												});
+											});
+										</script>-->
+									</div>
+								</fieldset>
+								<fieldset th:object="*{bodies}" class="post-body" th:if="#arrays.isEmpty(bodies)">
+									<div class="form-group">
+										<textarea name="bodies" class="form-control" th:attr="placeholder=#{EnterBody}" placeholder="Enter body here"></textarea>
+										<span class="help-block" />
+									</div>
+								</fieldset>
+								<a href="#" class="add-page"><span class="glyphicon glyphicon-plus"></span> ページを追加</a>
+							</div>
+							<script th:inline="javascript">
+								/*<![CDATA[*/
+								$(document).ready(function() {
+									$('#main :input[name="bodies"]').redactor({
+										minHeight: 300,
+										convertImageLinks: true,
+										convertVideoLinks: true,
+										imageUpload: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
+										imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#'
+									});
+									$('#article-create-form .add-page').on('click', function(e) {
+										e.preventDefault();
+										var target = $(this).prev('.post-body');
+										if ($(target).find(':input[name="bodies"]').val() != '') {
+											var nextBody = $('<fieldset class="post-body">'+'<div class="form-group">'+'<textarea name="bodies" class="form-control">'+'<'+'/textarea>'+'<'+'/div>'+'<'+'/fieldset>');
+											$(nextBody).insertAfter($(target)).hide().fadeIn(400);
+											$('#main :input[name="bodies"]').redactor({
 												minHeight: 300,
 												convertImageLinks: true,
 												convertVideoLinks: true,
 												imageUpload: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
 												imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#'
 											});
-										});
-									</script>
-								</div>
-							</fieldset>
+										}
+									});
+								});
+								/*]]>*/
+							</script>
 						</div>
 						<div class="col-sm-3 wr-tool-panel">
 							<div class="tools clearfix">

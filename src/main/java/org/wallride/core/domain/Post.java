@@ -10,6 +10,7 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -42,9 +43,9 @@ public class Post extends DomainObject<Long> {
 	@ManyToOne
 	private Media cover;
 
-	@Lob
-	@Field
-	private String body;
+//	@Lob
+//	@Field
+//	private String body;
 
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	@Field
@@ -58,6 +59,12 @@ public class Post extends DomainObject<Long> {
 	@Column(length=50, nullable=false)
 	@Field
 	private Status status;
+
+	@ElementCollection(fetch=FetchType.LAZY)
+	@JoinTable(name="post_body", joinColumns=@JoinColumn(name="post_id"))
+	@OrderColumn(name="`index`")
+	@IndexedEmbedded
+	private List<PostBody> bodies = new ArrayList<>();
 
 	@ManyToMany
 	@JoinTable(name="post_media", joinColumns=@JoinColumn(name="post_id", referencedColumnName="id"), inverseJoinColumns=@JoinColumn(name="media_id", referencedColumnName="id"))
@@ -122,12 +129,21 @@ public class Post extends DomainObject<Long> {
 		this.cover = cover;
 	}
 
-	public String getBody() {
-		return body;
+//	public String getBody() {
+//		return body;
+//	}
+//
+//	public void setBody(String body) {
+//		this.body = body;
+//	}
+
+
+	public List<PostBody> getBodies() {
+		return bodies;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
+	public void setBodies(List<PostBody> bodies) {
+		this.bodies = bodies;
 	}
 
 	public LocalDateTime getDate() {

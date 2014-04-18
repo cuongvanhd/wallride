@@ -1,15 +1,20 @@
 package org.wallride.web.controller.admin.article;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.util.CollectionUtils;
 import org.wallride.core.domain.Article;
 import org.wallride.core.domain.Category;
+import org.wallride.core.domain.PostBody;
 import org.wallride.core.service.ArticleUpdateRequest;
 import org.wallride.web.support.DomainObjectEditForm;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("serial")
@@ -27,8 +32,8 @@ public class ArticleEditForm extends DomainObjectEditForm {
 	@NotNull(groups=GroupPublish.class)
 	private String title;
 
-	@NotNull(groups=GroupPublish.class)
-	private String body;
+	@NotEmpty(groups=GroupPublish.class)
+	private String[] bodies;
 
 	private Long authorId;
 
@@ -74,12 +79,12 @@ public class ArticleEditForm extends DomainObjectEditForm {
 		this.title = title;
 	}
 
-	public String getBody() {
-		return body;
+	public String[] getBodies() {
+		return bodies;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
+	public void setBodies(String[] bodies) {
+		this.bodies = bodies;
 	}
 
 	public Long getAuthorId() {
@@ -123,13 +128,14 @@ public class ArticleEditForm extends DomainObjectEditForm {
 	}
 
 	public ArticleUpdateRequest buildArticleUpdateRequest() {
+		List<String> bodyList = (List<String>) CollectionUtils.arrayToList(bodies);
 		ArticleUpdateRequest.Builder builder = new ArticleUpdateRequest.Builder();
 		return builder
 				.id(id)
 				.code(code)
 				.coverId(coverId)
 				.title(title)
-				.body(body)
+				.bodies(bodyList)
 				.authorId(authorId)
 				.date(date)
 				.categoryIds(categoryIds)
@@ -142,6 +148,13 @@ public class ArticleEditForm extends DomainObjectEditForm {
 		ArticleEditForm form = new ArticleEditForm();
 		BeanUtils.copyProperties(article, form);
 		form.setCoverId(article.getCover() != null ? article.getCover().getId() : null);
+		List<PostBody> postBodies = article.getBodies();
+		List<String> bodies = new ArrayList<>();
+		for (PostBody body : postBodies) {
+			bodies.add(body.getBody());
+		}
+		String[] bodyArray = bodies.toArray(new String[bodies.size()]);
+		form.setBodies(bodyArray);
 		for (Category category : article.getCategories()) {
 			form.getCategoryIds().add(category.getId());
 		}

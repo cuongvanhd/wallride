@@ -109,7 +109,7 @@ public class PageService {
 		}
 		page.setCover(cover);
 		page.setTitle(request.getTitle());
-		page.setBody(request.getBody());
+		//TODO page.setBody(request.getBody());
 
 		User author = entityManager.getReference(User.class, authorizedUser.getId());
 //		User author = null;
@@ -205,7 +205,7 @@ public class PageService {
 		}
 		page.setCover(cover);
 		page.setTitle(request.getTitle());
-		page.setBody(request.getBody());
+		//TODO page.setBody(request.getBody());
 
 //		User author = null;
 //		if (request.getAuthorId() != null) {
