@@ -78,8 +78,8 @@ public class PlayerNews implements Serializable {
 	@Override
 	public boolean equals(Object other) {
 		if (this == other) return true;
-		if (other == null || !(other instanceof DomainObject)) return false;
-		DomainObject that = (DomainObject) other;
+		if (other == null || !(other instanceof PlayerNews)) return false;
+		PlayerNews that = (PlayerNews) other;
 		return (getId() == that.getId());
 	}
 

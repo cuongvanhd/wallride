@@ -207,8 +207,8 @@ public class Player implements Serializable {
 	@Override
 	public boolean equals(Object other) {
 		if (this == other) return true;
-		if (other == null || !(other instanceof DomainObject)) return false;
-		DomainObject that = (DomainObject) other;
+		if (other == null || !(other instanceof Player)) return false;
+		Player that = (Player) other;
 		return (getId() == that.getId());
 	}
 
