@@ -41,7 +41,10 @@
 							<h1 th:text="${article.title}?:'(No Titled)'">(No Titled)</h1>
 						</div>
 						<div class="clearfix">
-							<p th:utext="${#posts.body(article)}"></p>
+							<article class="wr-article-page" th:each="postBody, bodyStat : ${article.bodies}">
+							<p th:utext="${#posts.body(postBody)}"></p>
+							<hr th:if="${!bodyStat.last}" />
+							</article>
 						</div>
 						<hr/>
 						<p><span class="glyphicon glyphicon-user"></span> Created By <a th:href="@{__${ADMIN_PATH}__/users/describe(id=${article.author.id})}" th:text="${article.author}">Author</a></p>
