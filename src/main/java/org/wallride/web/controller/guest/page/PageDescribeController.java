@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.wallride.core.domain.Page;
 import org.wallride.core.service.PageService;
 import org.wallride.web.controller.guest.LeagueDescribeController;
-import org.wallride.web.support.HttpNotFoundException;
 import org.wallride.web.controller.guest.article.ArticleIndexController;
+import org.wallride.web.support.HttpNotFoundException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -21,7 +21,7 @@ public class PageDescribeController {
 	private PageService pageService;
 
 	@Inject
-	private ArticleIndexController articleIndexController;
+private ArticleIndexController articleIndexController;
 
 	@Inject
 	private LeagueDescribeController leagueDescribeController;

@@ -22,7 +22,6 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
-import org.springframework.jndi.JndiTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -31,12 +30,12 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.util.UriUtils;
 import org.wallride.core.domain.DomainObject;
 
 import javax.inject.Inject;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.net.URI;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 @Configuration
@@ -75,25 +74,25 @@ public class DataConfig implements BatchConfigurer {
 		jobLauncher.afterPropertiesSet();
 		return jobLauncher;
 	}
-	
+
 	@Override
-	public PlatformTransactionManager getTransactionManager() {
+	public PlatformTransactionManager getTransactionManager() throws UnsupportedEncodingException {
 		JpaTransactionManager bean = new JpaTransactionManager();
 		bean.setEntityManagerFactory(entityManagerFactory().getObject());
 		return bean;
 	}
 
 	// additional data-related beans
-	
+
 	@Bean
-	public DataSource dataSource() {
+	public DataSource dataSource() throws UnsupportedEncodingException {
 		String jdbcConnectionString = environment.getRequiredProperty("jdbc.connection.string");
 		UriComponents jdbcUriComponents = UriComponentsBuilder.fromUriString(jdbcConnectionString.substring("jdbc:".length())).build();
 
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driver"));
-		dataSource.setUsername(jdbcUriComponents.getQueryParams().getFirst("user"));
-		dataSource.setPassword(jdbcUriComponents.getQueryParams().getFirst("password"));
+		dataSource.setUsername(UriUtils.decode(jdbcUriComponents.getQueryParams().getFirst("user"), "UTF-8"));
+		dataSource.setPassword(UriUtils.decode(jdbcUriComponents.getQueryParams().getFirst("password"), "UTF-8"));
 		dataSource.setUrl(jdbcConnectionString.substring(0, jdbcConnectionString.indexOf("?")));
 
 		dataSource.setMaxActive(environment.getRequiredProperty("datasource.maxActive", Integer.class));
@@ -103,20 +102,12 @@ public class DataConfig implements BatchConfigurer {
 		dataSource.setValidationQuery(environment.getRequiredProperty("datasource.validationQuery"));
 		dataSource.setMinEvictableIdleTimeMillis(environment.getRequiredProperty("datasource.minEvictableIdleTimeMillis", Long.class));
 		dataSource.setNumTestsPerEvictionRun(environment.getRequiredProperty("datasource.numTestsPerEvictionRun", Integer.class));
-		
-		try {
-			JndiTemplate jndiTemplate = new JndiTemplate();
-			jndiTemplate.bind("dataSource", dataSource);
-		}
-		catch (NamingException e) {
-			logger.error("JNDI error.", e);
-		}
 
 		return dataSource;
 	}
 
 	@Bean
-	public DataSourceInitializer dataSourceInitializer() {
+	public DataSourceInitializer dataSourceInitializer() throws UnsupportedEncodingException {
 		final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
 		populator.addScript(createTableScript);
 		populator.setContinueOnError(true);
@@ -128,18 +119,18 @@ public class DataConfig implements BatchConfigurer {
 	}
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws UnsupportedEncodingException {
 		LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
 		entityManager.setDataSource(dataSource());
 		entityManager.setPackagesToScan(DomainObject.class.getPackage().getName());
-		
+
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setDatabase(Database.MYSQL);
 		entityManager.setJpaVendorAdapter(vendorAdapter);
-		
+
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", MySQL5InnoDBDialect.class.getCanonicalName());
-		
+
 		// Hibernate Search
 		properties.put("hibernate.search.lucene_version", environment.getRequiredProperty("hibernate.search.lucene_version"));
 		properties.put("hibernate.search.analyzer", environment.getRequiredProperty("hibernate.search.analyzer"));
@@ -150,10 +141,10 @@ public class DataConfig implements BatchConfigurer {
 		properties.put("hibernate.search.default.indexBase", environment.getRequiredProperty("hibernate.search.default.indexBase"));
 		properties.put("hibernate.search.default.exclusive_index_use", environment.getRequiredProperty("hibernate.search.default.exclusive_index_use"));
 		entityManager.setJpaProperties(properties);
-		
+
 		return entityManager;
 	}
-	
+
 	@Bean
 	public JobExplorer jobExplorer() throws Exception {
 		JobExplorerFactoryBean factory = new JobExplorerFactoryBean();
