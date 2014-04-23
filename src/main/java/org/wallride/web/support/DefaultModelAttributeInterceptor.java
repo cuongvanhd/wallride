@@ -58,6 +58,9 @@ public class DefaultModelAttributeInterceptor extends HandlerInterceptorAdapter 
 		if (mv.getView() instanceof RedirectView) return;
 		if (mv.getViewName().startsWith("redirect:")) return;
 
+		UrlPathHelper pathHelper = new UrlPathHelper();
+		mv.addObject("_PATH", pathHelper.getPathWithinApplication(request));
+
 		String[] languages = settings.readSettingAsStringArray(Setting.Key.LANGUAGES, ",");
 		String currentLanguage = LocaleContextHolder.getLocale().getLanguage();
 

@@ -1,11 +1,18 @@
 package org.wallride.core.support;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.thymeleaf.context.IProcessingContext;
 import org.wallride.core.domain.*;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //@Component
 public class PostUtils {
@@ -136,27 +143,25 @@ public class PostUtils {
 				settings.readSettingAsString(Setting.Key.WEBSITE_TITLE, processingContext.getContext().getLocale().getLanguage()));
 	}
 
-	public String body(Post post) {
-		//TODO
-//		if (!StringUtils.hasText(post.getBody())) {
-//			return null;
-//		}
-//		Document document = Jsoup.parse(post.getBody());
-//		Elements elements = document.select("img");
-//		for (Element element : elements) {
-//			String src = element.attr("src");
-//			if (src.startsWith(settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX))) {
-//				String style = element.attr("style");
-//				Pattern pattern = Pattern.compile("width: ([0-9]+)px;");
-//				Matcher matcher = pattern.matcher(element.attr("style"));
-//				if (matcher.find()) {
-//					String replaced = src + "?w=" + matcher.group(1);
-//					element.attr("src", replaced);
-//				}
-//			}
-//		}
-//		return document.body().html();
-		return null;
+	public String body(PostBody body) {
+		if (!StringUtils.hasText(body.getBody())) {
+			return null;
+		}
+		Document document = Jsoup.parse(body.getBody());
+		Elements elements = document.select("img");
+		for (Element element : elements) {
+			String src = element.attr("src");
+			if (src.startsWith(settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX))) {
+				String style = element.attr("style");
+				Pattern pattern = Pattern.compile("width: ([0-9]+)px;");
+				Matcher matcher = pattern.matcher(element.attr("style"));
+				if (matcher.find()) {
+					String replaced = src + "?w=" + matcher.group(1);
+					element.attr("src", replaced);
+				}
+			}
+		}
+		return document.body().html();
 	}
 
 	public String summary(Post post, int length) {

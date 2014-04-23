@@ -30,6 +30,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Transactional(rollbackFor=Exception.class)
@@ -125,21 +127,22 @@ public class ArticleService {
 		for (long categoryId : request.getCategoryIds()) {
 			article.getCategories().add(entityManager.getReference(Category.class, categoryId));
 		}
-//TODO
-//		List<Media> medias = new ArrayList<>();
-//
-//		if (CollectionUtils.isEmpty(request.getBodies())) {
-//			String mediaUrlPrefix = settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX);
-//			Pattern mediaUrlPattern = Pattern.compile(String.format("%s([0-9a-zA-Z\\-]+)", mediaUrlPrefix));
-//			for(String body : request.getBodies()) {
-//				Matcher mediaUrlMatcher = mediaUrlPattern.matcher(body);
-//				while (mediaUrlMatcher.find()) {
-//					Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
-//					medias.add(media);
-//				}
-//			}
-//		}
-//		article.setMedias(medias);
+
+		List<Media> medias = null;
+
+		if (CollectionUtils.isEmpty(request.getBodies())) {
+			medias = new ArrayList<>();
+			String mediaUrlPrefix = settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX);
+			Pattern mediaUrlPattern = Pattern.compile(String.format("%s([0-9a-zA-Z\\-]+)", mediaUrlPrefix));
+			for(String body : request.getBodies()) {
+				Matcher mediaUrlMatcher = mediaUrlPattern.matcher(body);
+				while (mediaUrlMatcher.find()) {
+					Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
+					medias.add(media);
+				}
+			}
+		}
+		article.setMedias(medias);
 
 		article.setCreatedAt(now);
 		article.setCreatedBy(authorizedUser.toString());
@@ -222,18 +225,22 @@ public class ArticleService {
 		for (long categoryId : request.getCategoryIds()) {
 			article.getCategories().add(entityManager.getReference(Category.class, categoryId));
 		}
-//TODO 画像保存
-//		List<Media> medias = new ArrayList<>();
-//		if (StringUtils.hasText(form.getBody())) {
-//			String mediaUrlPrefix = settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX);
-//			Pattern mediaUrlPattern = Pattern.compile(String.format("%s([0-9a-zA-Z\\-]+)", mediaUrlPrefix));
-//			Matcher mediaUrlMatcher = mediaUrlPattern.matcher(form.getBody());
-//			while (mediaUrlMatcher.find()) {
-//				Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
-//				medias.add(media);
-//			}
-//		}
-//		article.setMedias(medias);
+
+		List<Media> medias = null;
+
+		if (CollectionUtils.isEmpty(request.getBodies())) {
+			medias = new ArrayList<>();
+			String mediaUrlPrefix = settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX);
+			Pattern mediaUrlPattern = Pattern.compile(String.format("%s([0-9a-zA-Z\\-]+)", mediaUrlPrefix));
+			for(String body : request.getBodies()) {
+				Matcher mediaUrlMatcher = mediaUrlPattern.matcher(body);
+				while (mediaUrlMatcher.find()) {
+					Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
+					medias.add(media);
+				}
+			}
+		}
+		article.setMedias(medias);
 
 		article.setUpdatedAt(now);
 		article.setUpdatedBy(authorizedUser.toString());

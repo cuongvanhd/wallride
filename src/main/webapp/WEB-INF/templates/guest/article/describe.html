@@ -12,7 +12,12 @@
 				<div class="page-header">
 					<h1 th:text="${article.title}"></h1>
 				</div>
-				<p th:utext="${#posts.body(article)}"></p>
+				<div class="clearfix">
+					<article class="wr-article-page" th:each="postBody, bodyStat : ${article.bodies}">
+						<p th:if="${bodyStat.count} == (${page != null}? ${page} : 1)" th:utext="${#posts.body(postBody)}"></p>
+					</article>
+					<a th:each="postBody, bodyStat : ${article.bodies}"  th:href="@{__${WEBSITE_LINK}____${_PATH}__} + '?page=' + ${bodyStat.count}" th:text="${bodyStat.count}"></a>
+				</div>
 				<time></time>
 			</article>
 		</div>
