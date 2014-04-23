@@ -119,17 +119,6 @@
 							<div class="form-group" th:classappend="${#fields.hasErrors('bodies')}? has-error">
 								<textarea name="bodies" class="form-control" th:attr="placeholder=#{EnterBody}" placeholder="Enter body here"><span th:text="${body}"></span></textarea>
 								<span class="help-block" th:each="err : ${#fields.errors('bodies')}" th:text="${err}" />
-								<!--<script th:inline="javascript">
-									$(function() {
-										$('#main :input[name="bodies"]').redactor({
-											minHeight: 300,
-											convertImageLinks: true,
-											convertVideoLinks: true,
-											imageUpload: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
-											imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#'
-										});
-									});
-								</script>-->
 							</div>
 						</fieldset>
 						<a href="#" class="add-page"><span class="glyphicon glyphicon-plus"></span> ページ追加</a> &nbsp;&nbsp;&nbsp;
