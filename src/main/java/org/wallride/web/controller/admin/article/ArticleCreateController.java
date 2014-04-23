@@ -38,7 +38,10 @@ public class ArticleCreateController {
 
 	@ModelAttribute("form")
 	public ArticleCreateForm articleCreateForm() {
-		return new ArticleCreateForm();
+		ArticleCreateForm form = new ArticleCreateForm();
+		String[] bodies = new String[1];
+		form.setBodies(bodies);
+		return form;
 	}
 
 	@ModelAttribute("categoryTree")

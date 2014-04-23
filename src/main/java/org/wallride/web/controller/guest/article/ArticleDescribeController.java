@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wallride.core.domain.Article;
 import org.wallride.core.service.ArticleService;
@@ -26,6 +27,7 @@ public class ArticleDescribeController {
 			@PathVariable int month,
 			@PathVariable int day,
 			@PathVariable String code,
+			@RequestParam(value="page", required=false) Integer index,
 			Model model,
 			RedirectAttributes redirectAttributes) {
 		Article article = articleService.readArticleByCode(code, language);
@@ -44,6 +46,7 @@ public class ArticleDescribeController {
 		}
 
 		model.addAttribute("article", article);
+		model.addAttribute("page", index);
 		return "/article/describe";
 	}
 }
