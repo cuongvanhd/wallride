@@ -21,7 +21,7 @@ import java.util.List;
 public class Post extends DomainObject<Long> {
 
 	public enum Status {
-		DRAFT, SCHEDULED, PUBLISHED
+		DRAFT, SCHEDULED, PUBLISHED, UNPUBLISHED
 	}
 
 	@Id

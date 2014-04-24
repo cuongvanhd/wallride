@@ -53,7 +53,6 @@ public class ArticleIndexController {
 			condition.getPaginator().setNumber(page);
 		}
 
-
 		List<Article> articles = articleService.readArticles(condition.getPaginator());
 		model.addAttribute("articles", articles);
 		model.addAttribute("paginator", condition.getPaginator());
