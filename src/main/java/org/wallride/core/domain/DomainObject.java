@@ -35,6 +35,7 @@ public abstract class DomainObject<ID extends Serializable> implements Serializa
 	@Column(name="created_at", nullable=false)
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	@FieldBridge(impl=LocalDateTimeBridge.class)
+	@Field(analyze=Analyze.NO)
 	private LocalDateTime createdAt = new LocalDateTime();
 	
 	@Column(name="created_by", length=100)
@@ -43,6 +44,7 @@ public abstract class DomainObject<ID extends Serializable> implements Serializa
 	@Column(name="updated_at", nullable=false)
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	@FieldBridge(impl=LocalDateTimeBridge.class)
+	@Field(analyze=Analyze.NO)
 	private LocalDateTime updatedAt = new LocalDateTime();
 	
 	@Column(name="updated_by", length=100)

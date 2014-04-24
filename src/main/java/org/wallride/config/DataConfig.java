@@ -94,6 +94,7 @@ public class DataConfig implements BatchConfigurer {
 		dataSource.setUsername(UriUtils.decode(jdbcUriComponents.getQueryParams().getFirst("user"), "UTF-8"));
 		dataSource.setPassword(UriUtils.decode(jdbcUriComponents.getQueryParams().getFirst("password"), "UTF-8"));
 		dataSource.setUrl(jdbcConnectionString.substring(0, jdbcConnectionString.indexOf("?")));
+		dataSource.setConnectionProperties("zeroDateTimeBehavior=convertToNull;");
 
 		dataSource.setMaxActive(environment.getRequiredProperty("datasource.maxActive", Integer.class));
 		dataSource.setMaxIdle(environment.getRequiredProperty("datasource.maxIdle", Integer.class));
