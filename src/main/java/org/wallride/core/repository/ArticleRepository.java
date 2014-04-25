@@ -20,6 +20,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
 	static final String DEFAULT_SELECT_QUERY = 
 			"from Article article " +
 			"left join fetch article.bodies bodies " +
+			"left join fetch article.seo seo " +
 			"left join fetch article.cover cover " +
 			"left join fetch article.author author " +
 			"left join fetch article.categories category ";

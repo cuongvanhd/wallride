@@ -44,6 +44,10 @@ public class ArticleEditForm extends DomainObjectEditForm {
 
 	private Set<Long> tagIds = new HashSet<>();
 
+	private String metaKeywords;
+
+	private String metaDescription;
+
 	@NotNull
 	private String language;
 
@@ -119,6 +123,22 @@ public class ArticleEditForm extends DomainObjectEditForm {
 		this.tagIds = tagIds;
 	}
 
+	public String getMetaKeywords() {
+		return metaKeywords;
+	}
+
+	public void setMetaKeywords(String metaKeywords) {
+		this.metaKeywords = metaKeywords;
+	}
+
+	public String getMetaDescription() {
+		return metaDescription;
+	}
+
+	public void setMetaDescription(String metaDescription) {
+		this.metaDescription = metaDescription;
+	}
+
 	public String getLanguage() {
 		return language;
 	}
@@ -140,6 +160,8 @@ public class ArticleEditForm extends DomainObjectEditForm {
 				.date(date)
 				.categoryIds(categoryIds)
 				.tagIds(tagIds)
+				.metaKeywords(metaKeywords)
+				.metaDescription(metaDescription)
 				.language(language)
 				.build();
 	}
@@ -147,6 +169,8 @@ public class ArticleEditForm extends DomainObjectEditForm {
 	public static ArticleEditForm fromDomainObject(Article article) {
 		ArticleEditForm form = new ArticleEditForm();
 		BeanUtils.copyProperties(article, form);
+		form.setMetaKeywords(article.getSeo().getKeywords());
+		form.setMetaDescription(article.getSeo().getDescription());
 		form.setCoverId(article.getCover() != null ? article.getCover().getId() : null);
 		List<PostBody> postBodies = article.getBodies();
 		List<String> bodies = new ArrayList<>();

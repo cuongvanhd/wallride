@@ -245,6 +245,17 @@
 							<a th:href="@{__${ADMIN_PATH}__/categories/index?part=category-create-dialog}" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCategory}">Add New Category</span></a>
 						</section>
 					</fieldset>
+					<fieldset id="seo-fieldset">
+						<legend>META</legend>
+						<div class="form-group" th:classappend="${#fields.hasErrors('metaKeywords')}? has-error">
+							<textarea th:field="*{metaKeywords}" class="form-control" placeholder="Keywords"></textarea>
+							<span th:if="${#fields.hasErrors('metaKeywords')}" class="help-block" th:text="${#fields.errors('metaKeywords')}" />
+						</div>
+						<div class="form-group" th:classappend="${#fields.hasErrors('metaDescription')}? has-error">
+							<textarea th:field="*{metaDescription}" class="form-control" placeholder="Description" style="min-height: 100px"></textarea>
+							<span th:if="${#fields.hasErrors('metaDescription')}" class="help-block" th:text="${#fields.errors('metaDescription')}" />
+						</div>
+					</fieldset>
 				</div>
 			</div>
 		</form>

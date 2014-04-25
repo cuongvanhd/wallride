@@ -37,6 +37,10 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 
 	private Set<Long> tagIds = new HashSet<>();
 
+	private String metaKeywords;
+
+	private String metaDescription;
+
 	@NotNull
 	private String language;
 
@@ -64,30 +68,28 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 		this.title = title;
 	}
 
-//	public String getBody() {
-//		return body;
-//	}
-//
-//	public void setBody(String body) {
-//		this.body = body;
-//	}
-
-
-//	public List<String> getBodies() {
-//		return bodies;
-//	}
-//
-//	public void setBodies(List<String> bodies) {
-//		this.bodies = bodies;
-//	}
-
-
 	public String[] getBodies() {
 		return bodies;
 	}
 
 	public void setBodies(String[] bodies) {
 		this.bodies = bodies;
+	}
+
+	public String getMetaKeywords() {
+		return metaKeywords;
+	}
+
+	public void setMetaKeywords(String metaKeywords) {
+		this.metaKeywords = metaKeywords;
+	}
+
+	public String getMetaDescription() {
+		return metaDescription;
+	}
+
+	public void setMetaDescription(String metaDescription) {
+		this.metaDescription = metaDescription;
 	}
 
 	public Long getAuthorId() {
@@ -141,6 +143,8 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 				.authorId(authorId)
 				.date(date)
 				.categoryIds(categoryIds)
+				.metaKeywords(metaKeywords)
+				.metaDescription(metaDescription)
 				.tagIds(tagIds)
 				.language(language)
 				.build();

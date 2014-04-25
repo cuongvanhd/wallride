@@ -115,6 +115,9 @@
 .wr-tool-panel dl {
 	margin: 1.5em 0;
 }
+.wr-tool-panel dl dl {
+	margin: 0;
+}
 .wr-tool-panel dl dt {
 	font-weight: normal;
 	font-size: 14.5px;
@@ -124,7 +127,15 @@
 }
 .wr-tool-panel dl dd {
 	font-size:14px;
+	margin-bottom: 10px;
 }
+.wr-tool-panel dl dd dl dt {
+	border-bottom: transparent;
+	line-height: 25px;
+	margin-bottom: 0px;
+	font-size: 14px;
+}
+
 .wr-tool-panel .publish-date {
 	font-size: 15px;
 }
