@@ -41,6 +41,10 @@ public class User extends DomainObject<Long> {
 	@Column(length=500, nullable=false)
 	private String email;
 
+	@Lob
+	@Column
+	private String description;
+
 	@Formula("(" +
 			"select count(distinct article.id) from user " +
 			"inner join post post on post.author_id = user.id " +
@@ -88,6 +92,14 @@ public class User extends DomainObject<Long> {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public int getArticleCount() {

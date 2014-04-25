@@ -102,15 +102,15 @@ public class PostUtils {
 	}
 
 	public String metaKeywords(Post post) {
-		return null; //TODO
+		return post.getSeo().getKeywords();
 	}
 
 	public String metaAuthor(Post post) {
-		return null; //TODO
+		return post.getAuthor().getName().toString();
 	}
 
 	public String metaDescription(Post post) {
-		return null; //TODO
+		return post.getSeo().getDescription();
 	}
 
 	public String ogSiteName(Post post) {
