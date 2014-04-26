@@ -31,21 +31,21 @@ public class MailConfig {
 	@Bean
 	public JavaMailSender mailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setHost(environment.getRequiredProperty("mail.smtp.host"));
+		mailSender.setPort(Integer.parseInt(environment.getRequiredProperty("mail.smtp.port")));
+		mailSender.setUsername(environment.getRequiredProperty("mail.smtp.username"));
+		mailSender.setPassword(environment.getRequiredProperty("mail.smtp.password"));
 
 		Properties props = new Properties();
-		props.put("mail.smtp.host", environment.getRequiredProperty("smtp.host"));
-		props.put("mail.from", environment.getRequiredProperty("smtp.from"));
-		props.put("mail.smtp.from", environment.getRequiredProperty("smtp.from"));
-//		props.put("mail.smtp.host", settings.readSettingAsString(Setting.Key.MAIL_SMTP_HOST));
-//		props.put("mail.from", settings.readSettingAsString(Setting.Key.MAIL_FROM));
-//		props.put("mail.smtp.from", settings.readSettingAsString(Setting.Key.MAIL_FROM));
+		props.put("mail.smtp.auth", environment.getRequiredProperty("mail.smtp.auth"));
+		props.put("mail.smtp.starttls.enable", environment.getRequiredProperty("mail.smtp.starttls.enable"));
+		props.put("mail.smtp.starttls.required", environment.getRequiredProperty("mail.smtp.starttls.required"));
+		props.put("mail.smtp.from", environment.getRequiredProperty("mail.smtp.from"));
+		props.put("mail.from", environment.getRequiredProperty("mail.from"));
 		mailSender.setJavaMailProperties(props);
+		mailSender.setDefaultEncoding("ISO-2022-JP");
+//		mailSender.setDefaultEncoding("x-windows-iso2022jp"); //TODO -Dsun.nio.cs.map=x-windows-iso2022jp/ISO-2022-JP
 
-//		mailSender.setHost("");
-//		mailSender.setPort(0);
-//		mailSender.setProtocol("");
-//		mailSender.setUsername("");
-//		mailSender.setPassword("");
 		return mailSender;
 	}
 

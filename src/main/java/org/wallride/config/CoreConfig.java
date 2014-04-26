@@ -23,9 +23,9 @@ public class CoreConfig {
 	private Environment environment;
 
 	@Configuration
-	@Profile("default")
-	@PropertySource("classpath:environment-default.properties")
-	static class Default extends PropertySourcesPlaceholderConfigurer {
+	@Profile("product")
+	@PropertySource("classpath:environment-product.properties")
+	static class Product extends PropertySourcesPlaceholderConfigurer {
 	}
 
 
