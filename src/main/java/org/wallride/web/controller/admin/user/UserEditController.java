@@ -25,13 +25,18 @@ public class UserEditController {
 	@Inject
 	private UserService userService;
 
+	@ModelAttribute("user")
+	public User setupUser(@RequestParam long id) {
+		return userService.readUserById(id);
+	}
+
 	@RequestMapping(method= RequestMethod.GET)
 	public String edit(
 			@PathVariable String language,
 			@RequestParam long id,
 			Model model,
 			RedirectAttributes redirectAttributes) {
-		User user = userService.readUserById(id);
+		User user = (User)model.asMap().get("user");
 		UserEditForm form = UserEditForm.fromDomainObject(user);
 		model.addAttribute("form", form);
 		return "/user/edit";
@@ -64,7 +69,7 @@ public class UserEditController {
 		redirectAttributes.addFlashAttribute("savedUser", user);
 		redirectAttributes.addAttribute("language", language);
 		redirectAttributes.addAttribute("id", user.getId());
-		return "redirect:/_admin/{language}/user/edit?id={id}";
+		return "redirect:/_admin/{language}/users/describe?id={id}";
 	}
 
 	@RequestMapping(method= RequestMethod.POST, params="_step.cancel")
@@ -72,6 +77,6 @@ public class UserEditController {
 			@Valid @ModelAttribute("form") UserEditForm form,
 			RedirectAttributes redirectAttributes) {
 		redirectAttributes.addAttribute("id", form.getId());
-		return "redirect:/_admin/user/describe/{id}";
+		return "redirect:/_admin/users/describe?id={id}";
 	}
 }
