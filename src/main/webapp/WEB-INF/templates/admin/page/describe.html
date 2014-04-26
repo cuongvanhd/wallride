@@ -41,7 +41,10 @@
 							<h1 th:text="${page.title}">Page Title</h1>
 						</div>
 						<div class="clearfix">
-							<p th:utext="${#posts.body(page)}"></p>
+							<article class="wr-article-page" th:each="postBody, bodyStat : ${page.bodies}">
+								<p th:utext="${#posts.body(postBody)}"></p>
+								<hr th:if="${!bodyStat.last}" />
+							</article>
 						</div>
 						<hr/>
 						<span class="glyphicon glyphicon-user"></span> Created By <a th:href="@{__${ADMIN_PATH}__/users/describe(id=${page.author.id})}" th:text="${page.author}">Author</a>
@@ -84,6 +87,17 @@
 							<ul class="list-unstyled">
 								<li th:if="${page.parent ne null}" th:text="${page.parent.title}">Category Name</li>
 							</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>META情報</dt>
+							<dd>
+								<dl>
+									<dt>Keywords</dt>
+									<dd th:text="${page.seo != null} ? ${page.seo.keywords}"></dd>
+									<dt>Description</dt>
+									<dd th:text="${page.seo != null} ? ${page.seo.description}"></dd>
+								</dl>
 							</dd>
 						</dl>
 						<a th:href="@{__${ADMIN_PATH}__/pages/describe(part=delete-dialog,id=${page.id})}" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> <span th:text="#{DeletePage}">ページを削除</span></a>

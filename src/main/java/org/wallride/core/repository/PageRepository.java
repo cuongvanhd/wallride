@@ -19,7 +19,9 @@ import java.util.List;
 public interface PageRepository extends JpaRepository<Page, Long>, PageRepositoryCustom {
 	
 	static final String DEFAULT_SELECT_QUERY = 
-			"from Page page " + 
+			"from Page page " +
+			"left join fetch page.bodies bodies " +
+			"left join fetch page.seo seo " +
 			"left join fetch page.cover cover "+
 			"left join fetch page.author author " +
 			"left join fetch page.parent parent " +

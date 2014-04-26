@@ -4,6 +4,8 @@ import org.joda.time.LocalDateTime;
 import org.wallride.core.domain.Post;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class PageUpdateRequest implements Serializable {
@@ -12,10 +14,12 @@ public class PageUpdateRequest implements Serializable {
 	private String code;
 	private String coverId;
 	private String title;
-	private String body;
+	private List<String> bodies = new ArrayList<>();
 	private Long authorId;
 	private LocalDateTime date;
 	private Long parentId;
+	private String metaKeywords;
+	private String metaDescription;
 	private Post.Status status;
 	private String language;
 
@@ -35,8 +39,8 @@ public class PageUpdateRequest implements Serializable {
 		return title;
 	}
 
-	public String getBody() {
-		return body;
+	public List<String> getBodies() {
+		return bodies;
 	}
 
 	public Long getAuthorId() {
@@ -49,6 +53,14 @@ public class PageUpdateRequest implements Serializable {
 
 	public Long getParentId() {
 		return parentId;
+	}
+
+	public String getMetaKeywords() {
+		return metaKeywords;
+	}
+
+	public String getMetaDescription() {
+		return metaDescription;
 	}
 
 	public Post.Status getStatus() {
@@ -65,10 +77,12 @@ public class PageUpdateRequest implements Serializable {
 		private String code;
 		private String coverId;
 		private String title;
-		private String body;
+		private List<String> bodies;
 		private Long authorId;
 		private LocalDateTime date;
 		private Long parentId;
+		private String metaKeywords;
+		private String metaDescription;
 		private Post.Status status;
 		private String language;
 
@@ -95,8 +109,8 @@ public class PageUpdateRequest implements Serializable {
 			return this;
 		}
 
-		public Builder body(String body) {
-			this.body = body;
+		public Builder bodies(List<String> bodies) {
+			this.bodies = bodies;
 			return this;
 		}
 
@@ -112,6 +126,16 @@ public class PageUpdateRequest implements Serializable {
 
 		public Builder parentId(Long parentId) {
 			this.parentId = parentId;
+			return this;
+		}
+
+		public Builder metaKeywords(String metaKeywords) {
+			this.metaKeywords = metaKeywords;
+			return this;
+		}
+
+		public Builder metaDescription(String metaDescription) {
+			this.metaDescription = metaDescription;
 			return this;
 		}
 
@@ -131,10 +155,12 @@ public class PageUpdateRequest implements Serializable {
 			request.code = code;
 			request.coverId = coverId;
 			request.title = title;
-			request.body = body;
+			request.bodies = bodies;
 			request.authorId = authorId;
 			request.date = date;
 			request.parentId = parentId;
+			request.metaKeywords = metaKeywords;
+			request.metaDescription = metaDescription;
 			request.status = status;
 			request.language = language;
 			return request;
