@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>jp.qoly</groupId>
 	<artifactId>qoly-member</artifactId>
-	<version>1.0.0.SNAPSHOT-201404191747</version>
+	<version>1.0.0.SNAPSHOT-201404262151</version>
 	<packaging>war</packaging>
 
 	<properties>
@@ -386,7 +386,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.23</version>
+			<version>5.1.30</version>
 		</dependency>
 
 		<!-- JavaMail -->
