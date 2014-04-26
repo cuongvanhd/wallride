@@ -74,10 +74,11 @@ public class UserService {
 	private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
 	@CacheEvict(value="users", allEntries=true)
-	public User updateUser(UserUpdateRequest form, Errors errors, AuthorizedUser authorizedUser) throws ValidationException {
-		User user = userRepository.findByIdForUpdate(form.getId());
-//		user.setTitle(request.getTitle());
-//		user.setBody(request.getBody());
+	public User updateUser(UserUpdateRequest request, Errors errors, AuthorizedUser authorizedUser) throws ValidationException {
+		User user = userRepository.findByIdForUpdate(request.getId());
+		user.setName(request.getName());
+		user.setEmail(request.getEmail());
+		user.setDescription(request.getDescription());
 
 		user = userRepository.saveAndFlush(user);
 		return user;
