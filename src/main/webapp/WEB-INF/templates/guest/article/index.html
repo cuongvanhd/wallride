@@ -21,7 +21,7 @@
 							<section id="gkMainbody">
 								<section class="category">
 									<header th:if="${category ne null}">
-										<h1 th:text="${category.name}">ニュース｜football web magazine Qoly</h1>
+										<h1 th:text="'__${category.name}__｜football web magazine Qoly'">ニュース｜football web magazine Qoly</h1>
 									</header>
 									<form action="http://www.qoly.jp/index.php/news" method="post" name="adminForm" id="adminForm">
 										<table>
@@ -35,7 +35,7 @@
 												</tr>
 											</tbody>
 										</table>
-										<nav class="pagination">
+										<nav class="pagination" th:if="${category}">
 											<ul>
 												<li class="pagination-start">
 													<span th:if="${paginator.number eq paginator.end}" class="pagenav">Start</span>
