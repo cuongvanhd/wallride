@@ -107,6 +107,7 @@
 	font-size: 15px;
 	color: #5A5A5A;
 	font-weight: bold;
+	line-height: 34px;
 }
 .wr-tool-panel .wr-tool-check {
 	line-height: 34px;
@@ -188,7 +189,7 @@
 	color: #016B66;
 }
 
-.wr-post-status-DRAFT {
+.wr-post-status-UNPUBLISHED {
 	color: #cd5c5c;
 }
 

@@ -53,7 +53,7 @@
 						<div class="tools clearfix">
 							<div class="pull-left">
 								<div class="status">
-									<span th:if="${#strings.toString(article.status) eq 'DRAFT'}" class="glyphicon glyphicon-warning-sign"></span>
+									<span th:if="${#strings.toString(article.status) eq 'UNPUBLISHED'}" class="glyphicon glyphicon-warning-sign"></span>
 									<span th:if="${#strings.toString(article.status) eq 'SCHEDULED'}" class="glyphicon glyphicon-time"></span>
 									<span th:if="${#strings.toString(article.status) ne 'PUBLISHED'}" th:text="${#messages.msg('Post.Status.' + article.status)}">Published</span>
 									<a th:href="@{__${WEBSITE_PATH}__/__${article.date.toString('yyyy/MM/dd')}__/__${article.code}__}" th:if="${#strings.toString(article.status) eq 'PUBLISHED'}" target="_blank">

@@ -61,8 +61,8 @@ public class ArticleCreateController {
 		return "/article/create::#category-fieldset";
 	}
 
-	@RequestMapping(method=RequestMethod.POST, params="draft")
-	public String draft(
+	@RequestMapping(method=RequestMethod.POST, params="unpublish")
+	public String unpublish(
 			@PathVariable String language,
 			@Validated @ModelAttribute("form") ArticleCreateForm form,
 			BindingResult errors,
@@ -78,7 +78,7 @@ public class ArticleCreateController {
 
 		Article article = null;
 		try {
-			article = articleService.createArticle(form.buildArticleCreateRequest(), errors, Post.Status.DRAFT, authorizedUser);
+			article = articleService.createArticle(form.buildArticleCreateRequest(), errors, Post.Status.UNPUBLISHED, authorizedUser);
 		}
 		catch (BindException e) {
 			if (errors.hasErrors()) {

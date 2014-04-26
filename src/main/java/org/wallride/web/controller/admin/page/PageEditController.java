@@ -58,8 +58,8 @@ public class PageEditController {
 		return "/page/edit";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, params="draft")
-	public String draft(
+	@RequestMapping(method=RequestMethod.POST, params="unpublish")
+	public String unpublish(
 			@PathVariable String language,
 			@Validated @ModelAttribute("form") PageEditForm form,
 			BindingResult errors,
@@ -75,7 +75,7 @@ public class PageEditController {
 
 		Page page = null;
 		try {
-			page = pageService.updatePage(form.buildPageUpdateRequest(), errors, Post.Status.DRAFT, authorizedUser);
+			page = pageService.updatePage(form.buildPageUpdateRequest(), errors, Post.Status.UNPUBLISHED, authorizedUser);
 		}
 		catch (BindException e) {
 			if (errors.hasErrors()) {

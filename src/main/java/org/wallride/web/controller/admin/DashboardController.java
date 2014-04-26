@@ -75,4 +75,13 @@ public class DashboardController {
 		Paginator<Long> paginator = new Paginator<>(ids, 10);
 		return articleService.readArticles(paginator);
 	}
+
+	private List<Article> recentUnpublishedArtciles(String language) {
+		ArticleSearchForm form = new ArticleSearchForm();
+		form.setLanguage(language);
+		form.setStatus(Post.Status.UNPUBLISHED);
+		List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
+		Paginator<Long> paginator = new Paginator<>(ids, 10);
+		return articleService.readArticles(paginator);
+	}
 }
