@@ -6,7 +6,7 @@ import java.io.Serializable;
 /*
  * リーグ　(要同期:soccer)
  */
-@Entity
+//@Entity
 @Table(name="tm14_leage_sub")
 public class LeagueDetail implements Serializable {
 

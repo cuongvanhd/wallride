@@ -12,7 +12,7 @@ import java.io.Serializable;
 /*
  * Antennaからのニュース(要同期：antenna)
  */
-@Entity
+//@Entity
 @Table(name="player_news")
 @Immutable
 public class PlayerNews implements Serializable {
