@@ -15,59 +15,60 @@
 		<div id="gkPageWrap">
 			<section id="gkPageTop" th:replace="layout::#gkPageTop"></section>
 			<div id="gkPageContent">
-			<section id="gkPage" class="masonry">
-			<section id="gkContent" class="box">
-			<div>
-			<section id="gkMainbody">
-			<section class="category">
-				<header th:if="${category ne null}">
-					<h1 th:text="${category.name}">ニュース｜football web magazine Qoly</h1>
-				</header>
-				<form action="http://www.qoly.jp/index.php/news" method="post" name="adminForm" id="adminForm">
-					<table>
-						<tbody>
-							<tr th:each="article : ${articles}" class="cat-list-row0">
-								<td class="list-title">
-									<a th:href="${#posts.path(article)}" href="/index.php/news/22436-20140426-tito-vilanova" th:text="${article.title}">【速報】バルセロナ前監督ティト・ビラノバ氏、亡くなる</a>
-								</td>
-								<td class="list-date"><time datetime="2014-04-26T01:43:00+09:00" th:text="${article.date.toString('yyyy/MM/dd HH:mm')}">2014/04/26 01:43</time></td>
-								<td class="list-author" th:text="${article.author}">編集部S</td>
-							</tr>
-						</tbody>
-					</table>
-					<nav class="pagination">
-						<ul>
-							<li class="pagination-start"><span class="pagenav">Start</span></li>
-							<li class="pagination-prev"><span class="pagenav">Prev</span></li>
-							<li><span class="pagenav">1</span></li>
-							<li><a title="2" href="/index.php/news?start=10" class="pagenav">2</a></li>
-							<li><a title="3" href="/index.php/news?start=20" class="pagenav">3</a></li>
-							<li><span>&hellip;</span></li>
-							<li class="pagination-next"><a title="Next" href="/index.php/news?start=10" class="pagenav">Next</a></li>
-							<li class="pagination-end"><a title="End" href="/index.php/news?start=350" class="pagenav">End</a></li>
-							<li class="counter" th:text="'Page __${paginator.number}__ of __${paginator.pages()}__'">Page 1 of 36</li>
-						</ul>
-					</nav>
-				</form>
-			</section>
-			</section>
-
-			</div>
-			</section>
-
-			<div class="box">
-				<div>
-					<div class="content">
-						<div class="custom"  >
-							<div>
-								<iframe style="border: none; overflow: hidden; width: 290px; height: 258px;" src="http://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FQoly.jp&amp;width=290&amp;height=258&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=false&amp;show_border=false" frameborder="0" scrolling="no"></iframe>
-							</div>
+				<section id="gkPage" class="masonry">
+					<section id="gkContent" class="box">
+						<div>
+							<section id="gkMainbody">
+								<section class="category">
+									<header th:if="${category ne null}">
+										<h1 th:text="${category.name}">ニュース｜football web magazine Qoly</h1>
+									</header>
+									<form action="http://www.qoly.jp/index.php/news" method="post" name="adminForm" id="adminForm">
+										<table>
+											<tbody>
+												<tr th:each="article : ${articles}" class="cat-list-row0">
+													<td class="list-title">
+														<a th:href="${#posts.path(article)}" href="/index.php/news/22436-20140426-tito-vilanova" th:text="${article.title}">【速報】バルセロナ前監督ティト・ビラノバ氏、亡くなる</a>
+													</td>
+													<td class="list-date"><time datetime="2014-04-26T01:43:00+09:00" th:text="${article.date.toString('yyyy/MM/dd HH:mm')}">2014/04/26 01:43</time></td>
+													<td class="list-author" th:text="${article.author}">編集部S</td>
+												</tr>
+											</tbody>
+										</table>
+										<nav class="pagination">
+											<ul>
+												<li class="pagination-start">
+													<span th:if="${paginator.number eq paginator.end}" class="pagenav">Start</span>
+													<a th:if="${paginator.number ne paginator.end}" title="Start" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${paginator.end},token=${token})}" href="/index.php/news?start=350" class="pagenav">Start</a>
+												</li>
+												<li class="pagination-prev">
+													<span th:if="${!paginator.hasPrevious()}" class="pagenav">Prev</span>
+													<a th:if="${paginator.hasPrevious()}" title="Prev" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${paginator.previousNumber},token=${token})}" href="/index.php/news?start=10" class="pagenav">Prev</a>
+												</li>
+												<li th:if="${paginator.number gt 1}"><span>&hellip;</span></li>
+												<li th:each="no : ${paginator.numbers}">
+													<span th:if="${no eq paginator.number}" class="pagenav" th:text="${no}">1</span>
+													<a th:if="${no ne paginator.number}" title="2" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${no},token=${token})}" href="/index.php/news?start=10" class="pagenav" th:text="${no}">2</a>
+												</li>
+												<li><span>&hellip;</span></li>
+												<li class="pagination-next">
+													<span th:if="${!paginator.hasNext()}" class="pagenav">Next</span>
+													<a th:if="${paginator.hasNext()}" title="Next" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${paginator.nextNumber},token=${token})}" href="/index.php/news?start=10" class="pagenav">Next</a>
+												</li>
+												<li class="pagination-end">
+													<span th:if="${paginator.number eq paginator.end}" class="pagenav">End</span>
+													<a th:if="${paginator.number ne paginator.end}" title="End" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${paginator.end},token=${token})}" href="/index.php/news?start=350" class="pagenav">End</a>
+												</li>
+												<li class="counter" th:text="'Page __${paginator.number}__ of __${paginator.pages()}__'">Page 1 of 36</li>
+											</ul>
+										</nav>
+									</form>
+								</section>
+							</section>
 						</div>
-					</div>
-				</div>
-			</div>
-			<div th:replace="layout::sidebar"></div>
-			</section>
+					</section>
+					<div th:replace="layout::sidebar"></div>
+				</section>
 			</div>
 			<section th:replace="layout::#gkBottom"></section>
 			<footer class="gkFooter gkInsetUsed"><p>Template Design &copy; <a href="//www.gavick.com" title="Joomla Templates">Joomla Templates</a> GavickPro. All rights reserved.</p></footer>

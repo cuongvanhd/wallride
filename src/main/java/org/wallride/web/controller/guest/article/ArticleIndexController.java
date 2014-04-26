@@ -28,6 +28,9 @@ public class ArticleIndexController {
 //	/categories/[:code]/[:code]/[:code]/[:code]/
 //	/tag/[:code]/
 
+	public static final int PAGINATOR_PER_PAGE = 10;
+	public static final int PAGINATOR_DELTA = 2;
+
 	@Inject
 	private ArticleService articleService;
 
@@ -75,7 +78,7 @@ public class ArticleIndexController {
 			form.setDateFrom(new LocalDateTime(year, 1, 1, 0, 0, 0));
 			form.setDateTo(new LocalDateTime(year, 12, 31, 0, 0, 0));
 			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
-			Paginator<Long> paginator = new Paginator<>(ids, 20);
+			Paginator<Long> paginator = new Paginator<>(ids, PAGINATOR_PER_PAGE, PAGINATOR_DELTA);
 			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
 		}
 		if (page != null && condition.getPaginator().hasElement()) {
@@ -105,7 +108,7 @@ public class ArticleIndexController {
 			form.setDateFrom(new LocalDateTime(year, month, 1, 0, 0, 0));
 			form.setDateTo(new LocalDateTime(year, month, date.dayOfMonth().getMaximumValue(), 23, 59, 59));
 			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
-			Paginator<Long> paginator = new Paginator<>(ids, 20);
+			Paginator<Long> paginator = new Paginator<>(ids, PAGINATOR_PER_PAGE, PAGINATOR_DELTA);
 			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
 		}
 		if (page != null && condition.getPaginator().hasElement()) {
@@ -135,7 +138,7 @@ public class ArticleIndexController {
 			form.setDateFrom(new LocalDateTime(year, month, day, 0, 0, 0));
 			form.setDateTo(new LocalDateTime(year, month, day, 23, 59, 59));
 			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
-			Paginator<Long> paginator = new Paginator<>(ids, 20);
+			Paginator<Long> paginator = new Paginator<>(ids, PAGINATOR_PER_PAGE, PAGINATOR_DELTA);
 			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
 		}
 		if (page != null && condition.getPaginator().hasElement()) {
@@ -169,7 +172,7 @@ public class ArticleIndexController {
 			form.setLanguage(language);
 			form.getCategoryIds().add(category.getId());
 			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
-			Paginator<Long> paginator = new Paginator<>(ids, 10);
+			Paginator<Long> paginator = new Paginator<>(ids, PAGINATOR_PER_PAGE, PAGINATOR_DELTA);
 			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
 		}
 		if (page != null && condition.getPaginator().hasElement()) {
