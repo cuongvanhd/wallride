@@ -4,10 +4,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2.0" />
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="サッカー, Soccer, フットボール, Football, Calcio, カルチョ, webマガジン, Premiere League, プレミアリーグ, Serie A, セリエＡ, リーガ・エスパニョーラ, ユニフォーム, ニュース, チャンピオンズリーグ" />
-		<meta name="description" content="Qoly.jp は、最新移籍情報やマニアックなサッカーネタからデータを取り扱うウェブマガジンです。" />
-		<meta name="generator" content="Joomla! - Open Source Content Management" />
-		<title>Qoly.jp / 全てのフットボールラバーに捧ぐウェブマガジン</title>
+		<meta name="keywords" th:content="${WEBSITE_SEO_KEYWORDS}" content="サッカー, Soccer, フットボール, Football, Calcio, カルチョ, webマガジン, Premiere League, プレミアリーグ, Serie A, セリエＡ, リーガ・エスパニョーラ, ユニフォーム, ニュース, チャンピオンズリーグ" />
+		<meta name="description" th:content="${WEBSITE_SEO_DESCRIPTION}" content="Qoly.jp は、最新移籍情報やマニアックなサッカーネタからデータを取り扱うウェブマガジンです。" />
+		<meta name="generator" content="WallRide - Open Source Content Management" />
+		<title th:text="${WEBSITE_TITLE}">Qoly.jp / 全てのフットボールラバーに捧ぐウェブマガジン</title>
 		<link th:replace="layout::head-link" />
 		<script th:replace="layout::head-script"></script>
 	</head>

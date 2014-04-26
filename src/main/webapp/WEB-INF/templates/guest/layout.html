@@ -251,11 +251,11 @@
 								<div class="nspMain nspFs100" id="nsp-nsp_135" style="width:100%;">
 									<div class="nspArts bottom" style="width:100%;">
 										<div class="nspArt" style="width:100%!important;">
-											<div style="padding:0">
-												<a href="/index.php/story/22381-20140423-aaron-ramsey-arsenal" class="nspImageWrapper tleft fleft" style="margin:0;">
-													<img class="nspImage tleft fleft" th:src="${#posts.cover(article)}" src="https://i.imgur.com/klHBqWm.jpg?1" alt="ラムジーがいるといないでは大違いだった今季のアーセナル" style="width:300px;height:120px;"  />
+											<div style="padding:0" th:with="cover = ${#posts.cover(article)}">
+												<a th:if="${cover}" th:href="${#posts.path(article)}" href="/index.php/story/22381-20140423-aaron-ramsey-arsenal" class="nspImageWrapper tleft fleft" style="margin:0;">
+													<img class="nspImage tleft fleft" th:src="${cover}" src="https://i.imgur.com/klHBqWm.jpg?1" th:alt="${article.title}" alt="ラムジーがいるといないでは大違いだった今季のアーセナル" style="width:300px;height:120px;"  />
 												</a>
-												<h4 class="nspHeader tleft fnone"><a href="/index.php/story/22381-20140423-aaron-ramsey-arsenal" title="ラムジーがいるといないでは大違いだった今季のアーセナル" th:text="${article.title}">ラムジーがいるといないでは大違いだった今季のアーセナル</a></h4>
+												<h4 class="nspHeader tleft fnone"><a th:href="${#posts.path(article)}" href="/index.php/story/22381-20140423-aaron-ramsey-arsenal" th:title="${article.title}" title="ラムジーがいるといないでは大違いだった今季のアーセナル" th:text="${article.title}">ラムジーがいるといないでは大違いだった今季のアーセナル</a></h4>
 											</div>
 										</div>
 									</div>
