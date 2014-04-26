@@ -48,9 +48,20 @@
 								<th th:text="#{Posts}">投稿記事数</th>
 								<td th:text="${user.articleCount}">投稿記事数</td>
 							</tr>
+							<tr>
+								<th th:text="#{Profile}">紹介文</th>
+								<td th:text="${user.description}"></td>
+							</tr>
 						</table>
 					</div>
 					<div class="col-sm-3">
+						<fieldset style="margin-top: 0; margin-bottom: 1em;">
+							<div class="btn-toolbar pull-right" role="toolbar">
+								<div class="btn-group">
+									<a th:href="@{__${ADMIN_PATH}__/users/edit(id=${user.id})}" title="編集" type="button" class="btn btn-info" th:text="#{Edit}">編集</a>
+								</div>
+							</div>
+						</fieldset>
 						<div class="thumbnail">
 							<img th:src="${user.getGravatarUrl(170)}" src="http://placehold.it/170/eeeeee/ffffff" />
 						</div>
