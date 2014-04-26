@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -71,7 +72,7 @@ public class PageService {
 			}
 		}
 		else {
-			Page duplicate = pageRepository.findByCode(request.getCode(), request.getLanguage());
+			Page duplicate = pageRepository.findByCode(code, request.getLanguage());
 			if (duplicate != null) {
 				errors.rejectValue("code", "NotDuplicate");
 			}
@@ -112,7 +113,23 @@ public class PageService {
 		}
 		page.setCover(cover);
 		page.setTitle(request.getTitle());
-		//TODO page.setBody(request.getBody());
+
+		List<PostBody> bodies = new ArrayList<>();
+		if (CollectionUtils.isEmpty(request.getBodies())) {
+			errors.rejectValue("bodies", "NotNull");
+		}
+
+		if (errors.hasErrors()) {
+			throw new BindException(errors);
+		}
+
+		page.getBodies().clear();
+		for (String requestBody : request.getBodies()) {
+			PostBody body = new PostBody();
+			body.setBody(requestBody);
+			bodies.add(body);
+		}
+		page.setBodies(bodies);
 
 		User author = entityManager.getReference(User.class, authorizedUser.getId());
 //		User author = null;
@@ -133,19 +150,27 @@ public class PageService {
 		}
 		page.setDate(date);
 		page.setStatus(status);
+
+		Seo seo = new Seo();
+		seo.setKeywords(request.getMetaKeywords());
+		seo.setDescription(request.getMetaDescription());
+		page.setSeo(seo);
+
 		page.setLft(rgt);
 		page.setRgt(rgt + 1);
 //		page.setDepth(depth);
 //		page.setSort(sort);
 
 		List<Media> medias = new ArrayList<>();
-		if (StringUtils.hasText(request.getBody())) {
+		if (CollectionUtils.isEmpty(request.getBodies())) {
 			String mediaUrlPrefix = settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX);
 			Pattern mediaUrlPattern = Pattern.compile(String.format("%s([0-9a-zA-Z\\-]+)", mediaUrlPrefix));
-			Matcher mediaUrlMatcher = mediaUrlPattern.matcher(request.getBody());
-			while (mediaUrlMatcher.find()) {
-				Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
-				medias.add(media);
+			for(String body : request.getBodies()) {
+				Matcher mediaUrlMatcher = mediaUrlPattern.matcher(body);
+				while (mediaUrlMatcher.find()) {
+					Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
+					medias.add(media);
+				}
 			}
 		}
 		page.setMedias(medias);
@@ -203,13 +228,37 @@ public class PageService {
 		page.setCode(code);
 		page.setLanguage(request.getLanguage());
 
+		Seo seo = new Seo();
+		seo.setKeywords(request.getMetaKeywords());
+		seo.setDescription(request.getMetaDescription());
+		page.setSeo(seo);
+
 		Media cover = null;
 		if (request.getCoverId() != null) {
 			cover = entityManager.getReference(Media.class, request.getCoverId());
 		}
 		page.setCover(cover);
 		page.setTitle(request.getTitle());
-		//TODO page.setBody(request.getBody());
+		List<PostBody> bodies = new ArrayList<>();
+		if (CollectionUtils.isEmpty(request.getBodies())) {
+			for (String body : request.getBodies()) {
+				if (!StringUtils.hasText(body)) {
+					errors.rejectValue("bodies", "NotNull");
+				}
+			}
+		}
+
+		if (errors.hasErrors()) {
+			throw new BindException(errors);
+		}
+
+		page.getBodies().clear();
+		for (String requestBody : request.getBodies()) {
+			PostBody body = new PostBody();
+			body.setBody(requestBody);
+			bodies.add(body);
+		}
+		page.setBodies(bodies);
 
 //		User author = null;
 //		if (request.getAuthorId() != null) {
@@ -229,14 +278,17 @@ public class PageService {
 		page.setDate(date);
 		page.setStatus(status);
 
-		List<Media> medias = new ArrayList<>();
-		if (StringUtils.hasText(request.getBody())) {
+		List<Media> medias = null;
+		if (CollectionUtils.isEmpty(request.getBodies())) {
+			medias = new ArrayList<>();
 			String mediaUrlPrefix = settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX);
 			Pattern mediaUrlPattern = Pattern.compile(String.format("%s([0-9a-zA-Z\\-]+)", mediaUrlPrefix));
-			Matcher mediaUrlMatcher = mediaUrlPattern.matcher(request.getBody());
-			while (mediaUrlMatcher.find()) {
-				Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
-				medias.add(media);
+			for(String body : request.getBodies()) {
+				Matcher mediaUrlMatcher = mediaUrlPattern.matcher(body);
+				while (mediaUrlMatcher.find()) {
+					Media media = mediaRepository.findById(mediaUrlMatcher.group(1));
+					medias.add(media);
+				}
 			}
 		}
 		page.setMedias(medias);

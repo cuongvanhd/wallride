@@ -34,7 +34,10 @@ public class PageCreateController {
 
 	@ModelAttribute("form")
 	public PageCreateForm pageCreateForm() {
-		return new PageCreateForm();
+		PageCreateForm form = new PageCreateForm();
+		String[] bodies = new String[1];
+		form.setBodies(bodies);
+		return form;
 	}
 
 	@ModelAttribute("pageTree")

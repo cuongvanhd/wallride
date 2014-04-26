@@ -14,7 +14,7 @@
 					<li><a th:href="@{__${ADMIN_PATH}__/pages/index}" th:text="#{Pages}">Pages</a></li>
 					<li class="active" th:text="#{AddNewPage}">Add new page</li>
 				</ol>
-				<form th:fragment="form(title,id)" th:action="@{__${ADMIN_PATH}__/pages/create}" th:object="${form}" action="#" method="post">
+				<form id="page-create-form" th:fragment="form(title,id)" th:action="@{__${ADMIN_PATH}__/pages/create}" th:object="${form}" action="#" method="post">
 					<input type="hidden" name="id" th:if="${id} ne null" th:value="${id}"  />
 					<div class="row">
 						<div class="col-sm-9">
@@ -115,12 +115,32 @@
 								</div>
 							</fieldset>
 							<fieldset>
-								<div class="form-group" th:classappend="${#fields.hasErrors('body')}? has-error">
-									<textarea th:field="*{body}" class="form-control" placeholder="Enter body here" th:attr="placeholder=#{EnterBody}"></textarea>
-									<span class="help-block" th:each="err : ${#fields.errors('body')}" th:text="${err}" />
-									<script th:inline="javascript">
-										$(function() {
-											$('#main :input[name="body"]').redactor({
+								<div class="post-bodies">
+									<fieldset th:each="body, stat : *{bodies}" class="post-body">
+										<div class="form-group" th:classappend="${#fields.hasErrors('bodies')}? has-error">
+											<textarea name="bodies" class="form-control" th:attr="placeholder=#{EnterBody}" placeholder="Enter body here"><span th:text="${body}"></span></textarea>
+											<span class="help-block" th:each="err : ${#fields.errors('bodies')}" th:text="${err}" />
+										</div>
+									</fieldset>
+									<a href="#" class="add-page"><span class="glyphicon glyphicon-plus"></span> ページ追加</a> &nbsp;&nbsp;&nbsp;
+									<a href="#" class="delete-page"><span class="glyphicon glyphicon-remove"></span> ページ削除</a>
+								</div>
+								<script th:inline="javascript">
+									/*<![CDATA[*/
+									$(document).ready(function() {
+										$('#main :input[name="bodies"]').redactor({
+											minHeight: 300,
+											convertImageLinks: true,
+											convertVideoLinks: true,
+											imageUpload: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
+											imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#'
+										});
+										$('#page-create-form .add-page').on('click', function(e) {
+											e.preventDefault();
+											var target = $(this).prev('.post-body');
+											var nextBody = $('<fieldset class="post-body">'+'<div class="form-group">'+'<textarea name="bodies" class="form-control">'+'<'+'/textarea>'+'<'+'/div>'+'<'+'/fieldset>');
+											$(nextBody).insertAfter($(target)).hide().fadeIn(400);
+											$('#main :input[name="bodies"]').redactor({
 												minHeight: 300,
 												convertImageLinks: true,
 												convertVideoLinks: true,
@@ -128,8 +148,42 @@
 												imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#'
 											});
 										});
-									</script>
-								</div>
+										$('#page-create-form').submit(function() {
+											var disable = function(elements) {
+												var empty = true;
+												$(elements).each(function(i, element) {
+													$(element).val($.trim($(element).val()));
+													if ($(element).val() != '') {
+														empty = false;
+														return;
+													}
+												});
+												if (empty) {
+													$(elements).prop('disabled', true);
+													$(elements).closest('.form-group').parent().removeClass('post-body');
+												}
+											};
+											var replace = function(elements, index) {
+												$(elements).each(function(i, element) {
+													var name = $(element).attr("name");
+													if (name) {
+														var result = name.match(/\[.+?\]/g);
+														name = name.replace(result[0], "[" + index + "]");
+														$(element).attr("name", name);
+													}
+												});
+												index++;
+											};
+											$('#page-create-form .post-body').each(function(i, detail) {
+												disable($(':input', detail));
+											});
+											$('#page-create-form .post-body').each(function(i, detail) {
+												replace($(':input:enabled', detail), i);
+											});
+										});
+									});
+									/*]]>*/
+								</script>
 							</fieldset>
 						</div>
 						<div class="col-sm-3 wr-tool-panel">
@@ -187,6 +241,17 @@
 										<option value="">Select Parent Page</option>
 										<option th:each="page : ${pageTree.pages}" th:if="${page.id ne id}" th:value="${page.id}" th:text="${page.title}" th:selected="${page.id eq parentId}"></option>
 									</select>
+								</div>
+							</fieldset>
+							<fieldset id="seo-fieldset">
+								<legend>META</legend>
+								<div class="form-group" th:classappend="${#fields.hasErrors('metaKeywords')}? has-error">
+									<textarea th:field="*{metaKeywords}" class="form-control" placeholder="Keywords"></textarea>
+									<span th:if="${#fields.hasErrors('metaKeywords')}" class="help-block" th:text="${#fields.errors('metaKeywords')}" />
+								</div>
+								<div class="form-group" th:classappend="${#fields.hasErrors('metaDescription')}? has-error">
+									<textarea th:field="*{metaDescription}" class="form-control" placeholder="Description" style="min-height: 100px"></textarea>
+									<span th:if="${#fields.hasErrors('metaDescription')}" class="help-block" th:text="${#fields.errors('metaDescription')}" />
 								</div>
 							</fieldset>
 						</div>

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringWebContext;
 import org.wallride.core.domain.Page;
+import org.wallride.core.domain.PostBody;
 import org.wallride.core.service.MediaService;
 import org.wallride.core.support.AuthorizedUser;
 import org.wallride.web.support.DefaultModelAttributeInterceptor;
@@ -24,6 +25,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/{language}/pages/preview")
@@ -57,7 +60,11 @@ public class PagePreviewController {
 		Page page = new Page();
 		page.setCover(form.getCoverId() != null ? mediaService.readMedia(form.getCoverId()) : null);
 		page.setTitle(form.getTitle());
-		//TODO page.setBody(form.getBody());
+		List<PostBody> bodies = new ArrayList<>();
+		PostBody body = new PostBody();
+		body.setBody(form.getBody());
+		bodies.add(body);
+		page.setBodies(bodies);
 		page.setDate(form.getDate() != null ? form.getDate() : new LocalDateTime());
 		page.setAuthor(authorizedUser);
 
