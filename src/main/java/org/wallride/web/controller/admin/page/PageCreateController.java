@@ -54,8 +54,8 @@ public class PageCreateController {
 		return "/page/create::#page-fieldset";
 	}
 
-	@RequestMapping(method=RequestMethod.POST, params="draft")
-	public String draft(
+	@RequestMapping(method=RequestMethod.POST, params="unpublish")
+	public String unpublish(
 			@PathVariable String language,
 			@Validated @ModelAttribute("form") PageCreateForm form,
 			BindingResult errors,
@@ -71,7 +71,7 @@ public class PageCreateController {
 
 		Page page = null;
 		try {
-			form.setStatus(Post.Status.DRAFT);
+			form.setStatus(Post.Status.UNPUBLISHED);
 			page = pageService.createPage(form.buildPageCreateRequest(), errors, authorizedUser);
 		}
 		catch (BindException e) {

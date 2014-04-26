@@ -136,7 +136,7 @@
 							<div class="tools clearfix">
 								<div class="pull-left">
 									<div class="btn-group">
-										<button name="draft" class="btn btn-default" th:text="#{SaveDraft}">Save Draft</button>
+										<button name="unpublish" class="btn btn-default" th:text="#{Unpublish}">Unpublish</button>
 									</div>
 								</div>
 								<div class="pull-right">
@@ -151,7 +151,7 @@
 								</div>
 								<div class="pull-right">
 									<div class="status" th:if="${page} ne null">
-										<span th:if="${#strings.toString(page.status) eq 'DRAFT'}" class="glyphicon glyphicon-warning-sign"></span>
+										<span th:if="${#strings.toString(page.status) eq 'UNPUBLISHED'}" class="glyphicon glyphicon-warning-sign"></span>
 										<span th:if="${#strings.toString(page.status) eq 'SCHEDULED'}" class="glyphicon glyphicon-time"></span>
 										<span th:if="${#strings.toString(page.status) eq 'PUBLISHED'}" class="glyphicon glyphicon-globe"></span>
 										<span th:text="${#messages.msg('Post.Status.' + page.status)}">Published</span><br />

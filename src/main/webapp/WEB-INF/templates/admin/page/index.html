@@ -47,7 +47,7 @@
 									<li th:disabled="${form.status ne null}"><a th:href="@{__${ADMIN_PATH}__/pages/index}" th:text="#{All}">All</a> <span class="total" th:text="${'(' + countAll + ')'}">(0)</span> | </li>
 									<li th:disabled="${#strings.toString(form.status) eq 'PUBLISHED'}"><a th:href="@{__${ADMIN_PATH}__/pages/index?search(status=PUBLISHED)}" th:text="#{Post.Status.PUBLISHED}">Published</a> <span class="total" th:text="${'(' + countPublished + ')'}">(0)</span> | </li>
 									<li th:disabled="${#strings.toString(form.status) eq 'SCHEDULED'}"><a th:href="@{__${ADMIN_PATH}__/pages/index?search(status=SCHEDULED)}" th:text="#{Post.Status.SCHEDULED}">Scheduled</a> <span class="total" th:text="${'(' + countScheduled + ')'}">(0)</span> | </li>
-									<li th:disabled="${#strings.toString(form.status) eq 'DRAFT'}"><a th:href="@{__${ADMIN_PATH}__/pages/index?search(status=DRAFT)}" th:text="#{Post.Status.DRAFT}">Draft</a> <span class="total" th:text="${'(' + countDraft + ')'}">(0)</span></li>
+									<li th:disabled="${#strings.toString(form.status) eq 'UNPUBLISHED'}"><a th:href="@{__${ADMIN_PATH}__/pages/index?search(status=UNPUBLISHED)}" th:text="#{Post.Status.UNPUBLISHED}">Unpublished</a> <span class="total" th:text="${'(' + countUnpublished + ')'}">(0)</span></li>
 								</ul>
 							</div>
 							<div class="form-group pull-right" style="width: 300px;">
