@@ -33,9 +33,9 @@ public class ArticleSearchController extends DomainObjectSearchController<Articl
 		return articleService.countArticles(language);
 	}
 
-	@ModelAttribute("countDraft")
-	public long countDraft(@PathVariable String language) {
-		return articleService.countArticlesByStatus(Post.Status.DRAFT, language);
+	@ModelAttribute("countUnpublished")
+	public long countUnpublished(@PathVariable String language) {
+		return articleService.countArticlesByStatus(Post.Status.UNPUBLISHED, language);
 	}
 
 	@ModelAttribute("countScheduled")

@@ -466,6 +466,9 @@ legend {
 .label-publish {
 	background-color: #E47875;
 }
+.label-unpublish {
+	background-color: #A39B9B;
+}
 .label-draft {
 	background-color: #A39B9B;
 }

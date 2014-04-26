@@ -33,9 +33,9 @@ public class PageSearchController extends DomainObjectSearchController<Page, Pag
 		return pageService.countPages(language);
 	}
 
-	@ModelAttribute("countDraft")
-	public long countDraft(@PathVariable String language) {
-		return pageService.countPagesByStatus(Post.Status.DRAFT, language);
+	@ModelAttribute("countUnpublished")
+	public long countUnpublished(@PathVariable String language) {
+		return pageService.countPagesByStatus(Post.Status.UNPUBLISHED, language);
 	}
 
 	@ModelAttribute("countScheduled")

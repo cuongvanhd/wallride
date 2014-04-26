@@ -62,8 +62,8 @@ public class ArticleEditController {
 		return "/article/edit";
 	}
 
-	@RequestMapping(method=RequestMethod.POST, params="draft")
-	public String draft(
+	@RequestMapping(method=RequestMethod.POST, params="unpublish")
+	public String unpublish(
 			@PathVariable String language,
 			@Validated @ModelAttribute("form") ArticleEditForm form,
 			BindingResult errors,
@@ -79,7 +79,7 @@ public class ArticleEditController {
 
 		Article article = null;
 		try {
-			article = articleService.updateArticle(form.buildArticleUpdateRequest(), errors, Post.Status.DRAFT, authorizedUser);
+			article = articleService.updateArticle(form.buildArticleUpdateRequest(), errors, Post.Status.UNPUBLISHED, authorizedUser);
 		}
 		catch (BindException e) {
 			if (errors.hasErrors()) {
