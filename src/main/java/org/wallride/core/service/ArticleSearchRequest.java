@@ -1,5 +1,9 @@
 package org.wallride.core.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.codehaus.jackson.JsonGenerationException;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -8,6 +12,7 @@ import org.springframework.util.StringUtils;
 import org.wallride.core.domain.Post;
 import org.wallride.core.repository.ArticleFullTextSearchTerm;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -88,6 +93,8 @@ public class ArticleSearchRequest implements Serializable {
 		BeanUtils.copyProperties(this, term);
 		return term;
 	}
+
+
 
 	public static class Builder  {
 

@@ -300,9 +300,9 @@ public class ArticleService {
 	}
 	
 	public List<Long> searchArticles(ArticleSearchRequest request) {
-		if (request.isEmpty()) {
-			return articleRepository.findId();
-		}
+//		if (request.isEmpty()) {
+//			return articleRepository.findId();
+//		}
 		ArticleFullTextSearchTerm term = request.toFullTextSearchTerm();
 		term.setLanguage(LocaleContextHolder.getLocale().getLanguage());
 		return articleRepository.findByFullTextSearchTerm(request.toFullTextSearchTerm());
@@ -327,31 +327,36 @@ public class ArticleService {
 		return articles;
 	}
 
+	@Cacheable(value = "articles", key = "'list.category-code.' + #language + '.' + #code + '.' + #status")
 	public SortedSet<Article> readArticlesByCategoryCode(String language, String code, Post.Status status) {
 		return readArticlesByCategoryCode(language, code, status, -1);
 	}
 
-//	@Cacheable(value="articles", key="'list.category-code.'+#language+'.'+#code+'.'+#status+'.'+#size")
+	@Cacheable(value = "articles", key = "'list.category-code.' + #language + '.' + #code + '.' + #status + '.' + #size")
 	public SortedSet<Article> readArticlesByCategoryCode(String language, String code, Post.Status status, int size) {
 		ArticleFullTextSearchTerm term = new ArticleFullTextSearchTerm();
 		term.setLanguage(language);
 		term.getCategoryCodes().add(code);
 		term.setStatus(status);
+		term.setMaxResults(size);
 		List<Long> ids = articleRepository.findByFullTextSearchTerm(term);
 		if (CollectionUtils.isEmpty(ids)) {
 			return new TreeSet<>();
 		}
+		return new TreeSet<>(articleRepository.findByIdIn(ids));
+	}
 
-		SortedSet<Article> results;
-		if (size > 0) {
-			Paginator<Long> paginator = new Paginator<>(ids, size);
-			results = new TreeSet<>(articleRepository.findByIdIn(paginator.getElements()));
+	@Cacheable(value = "articles", key = "'list.latest.' + #language + '.' + #status + '.' + #size")
+	public SortedSet<Article> readLatestArticles(String language, Post.Status status, int size) {
+		ArticleFullTextSearchTerm term = new ArticleFullTextSearchTerm();
+		term.setLanguage(language);
+		term.setStatus(status);
+		term.setMaxResults(size);
+		List<Long> ids = articleRepository.findByFullTextSearchTerm(term);
+		if (CollectionUtils.isEmpty(ids)) {
+			return new TreeSet<>();
 		}
-		else {
-			Paginator<Long> paginator = new Paginator<>(ids);
-			results = new TreeSet<>(articleRepository.findByIdIn(paginator.getAllElements()));
-		}
-		return results;
+		return new TreeSet<>(articleRepository.findByIdIn(ids));
 	}
 
 	public Article readArticleById(long id, String language) {

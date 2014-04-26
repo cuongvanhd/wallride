@@ -3,6 +3,8 @@ package org.wallride.core.service;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -56,8 +58,9 @@ public class PageService {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	private static Logger logger = LoggerFactory.getLogger(PageService.class); 
+	private static Logger logger = LoggerFactory.getLogger(PageService.class);
 
+	@CacheEvict(value="pages", allEntries=true)
 	public Page createPage(PageCreateRequest request, BindingResult errors, AuthorizedUser authorizedUser) throws BindException {
 		LocalDateTime now = new LocalDateTime();
 
@@ -155,6 +158,7 @@ public class PageService {
 		return pageRepository.save(page);
 	}
 
+	@CacheEvict(value="pages", allEntries=true)
 	public Page updatePage(PageUpdateRequest request, BindingResult errors, Post.Status status, AuthorizedUser authorizedUser) throws BindException {
 		LocalDateTime now = new LocalDateTime();
 		Page page = pageRepository.findByIdForUpdate(request.getId());
@@ -243,6 +247,7 @@ public class PageService {
 		return pageRepository.save(page);
 	}
 
+	@CacheEvict(value="pages", allEntries=true)
 	public void updatePageHierarchy(List<Map<String, Object>> data, String language) {
 		for (int i = 0; i < data.size(); i++) {
 			Map<String, Object> map = data.get(i);
@@ -282,6 +287,7 @@ public class PageService {
 		return page;
 	}
 
+	@CacheEvict(value="pages", allEntries=true)
 	public Page deletePage(long id, String language) {
 		Page page = pageRepository.findByIdForUpdate(id);
 		Page parent = page.getParent();
@@ -300,6 +306,7 @@ public class PageService {
 		return page;
 	}
 
+	@CacheEvict(value="pages", allEntries=true)
 	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public List<Page> bulkDeletePage(PageBulkDeleteRequest bulkDeleteRequest, BindingResult result) {
 		List<Page> pages = new ArrayList<>();
@@ -371,11 +378,13 @@ public class PageService {
 		return pageRepository.findByCode(code, language);
 	}
 
+	@Cacheable(value = "pages", key = "'tree.' + #language")
 	public PageTree readPageTree(String language) {
 		List<Page> pages = pageRepository.findByLanguage(language);
 		return new PageTree(pages);
 	}
 
+	@Cacheable(value = "pages", key = "'tree.' + #language + '.' + #status")
 	public PageTree readPageTree(String language, Post.Status status) {
 		List<Page> pages = pageRepository.findByLanguageAndStatus(language, status);
 		return new PageTree(pages);

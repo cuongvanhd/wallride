@@ -39,7 +39,8 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 		
 		@SuppressWarnings("rawtypes")
 		BooleanJunction<BooleanJunction> junction = qb.bool();
-		
+		junction.must(qb.all().createQuery());
+
 		if (StringUtils.hasText(term.getKeyword())) {
 			Analyzer analyzer = fullTextEntityManager.getSearchFactory().getAnalyzer("synonyms");
 			String[] fields = new String[] {
@@ -95,6 +96,10 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 				.createFullTextQuery(searchQuery, Article.class)
 				.setProjection("id")
 				.setSort(sort);
+		if (term.getMaxResults() > 0) {
+			persistenceQuery.setMaxResults(term.getMaxResults());
+		}
+
 		@SuppressWarnings("unchecked")
 		List<Object[]> results = persistenceQuery.getResultList();
 		

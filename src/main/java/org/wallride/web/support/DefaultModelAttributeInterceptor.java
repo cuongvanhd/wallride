@@ -28,6 +28,9 @@ import java.util.Map;
 
 public class DefaultModelAttributeInterceptor extends HandlerInterceptorAdapter {
 
+	public static final int LATEST_ARTICLES_COUNT = 10;
+	public static final int RECOMMEND_ARTICLES_COUNT = 10;
+
 	private Settings settings;
 	private CategoryService categoryService;
 	private ArticleService articleService;
@@ -95,8 +98,8 @@ public class DefaultModelAttributeInterceptor extends HandlerInterceptorAdapter 
 		mv.addObject("PAGE_TREE", pageTreePublished);
 		mv.addObject("PAGE_TREE_ALL", pageTreeAll);
 
-//		mv.addObject("RECENTLY_ARTICLES", articleService.read);
-		mv.addObject("RECOMMEND_ARTICLES", articleService.readArticlesByCategoryCode(currentLanguage, "recommends", Post.Status.PUBLISHED, 10));
+		mv.addObject("LATEST_ARTICLES", articleService.readLatestArticles(currentLanguage, Post.Status.PUBLISHED, LATEST_ARTICLES_COUNT));
+		mv.addObject("RECOMMEND_ARTICLES", articleService.readArticlesByCategoryCode(currentLanguage, "recommends", Post.Status.PUBLISHED, RECOMMEND_ARTICLES_COUNT));
 		mv.addObject("PICKUP_ARTICLES", articleService.readArticlesByCategoryCode(currentLanguage, "pickup", Post.Status.PUBLISHED));
 	}
 

@@ -41,21 +41,21 @@ public class ArticleIndexController {
 			@RequestParam(required=false) String token,
 			HttpSession session,
 			Model model) {
-		DomainObjectSearchCondition<ArticleSearchForm> condition = DomainObjectSearchCondition.resolve(session, ArticleSearchForm.class, token);
-		if (condition == null) {
-			ArticleSearchForm form = new ArticleSearchForm() {};
-			form.setLanguage(language);
-			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
-			Paginator<Long> paginator = new Paginator<>(ids, 20);
-			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
-		}
-		if (page != null && condition.getPaginator().hasElement()) {
-			condition.getPaginator().setNumber(page);
-		}
-
-		List<Article> articles = articleService.readArticles(condition.getPaginator());
-		model.addAttribute("articles", articles);
-		model.addAttribute("paginator", condition.getPaginator());
+//		DomainObjectSearchCondition<ArticleSearchForm> condition = DomainObjectSearchCondition.resolve(session, ArticleSearchForm.class, token);
+//		if (condition == null) {
+//			ArticleSearchForm form = new ArticleSearchForm() {};
+//			form.setLanguage(language);
+//			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
+//			Paginator<Long> paginator = new Paginator<>(ids, 20);
+//			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
+//		}
+//		if (page != null && condition.getPaginator().hasElement()) {
+//			condition.getPaginator().setNumber(page);
+//		}
+//
+//		List<Article> articles = articleService.readArticles(condition.getPaginator());
+//		model.addAttribute("articles", articles);
+//		model.addAttribute("paginator", condition.getPaginator());
 		model.addAttribute("home", true);
 		return "/index";
 	}
