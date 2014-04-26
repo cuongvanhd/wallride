@@ -102,7 +102,11 @@ public class PostUtils {
 	}
 
 	public String metaKeywords(Post post) {
-		return post.getSeo().getKeywords();
+		String keywords = null;
+		if (post.getSeo() != null) {
+			keywords = post.getSeo().getKeywords();
+		}
+		return keywords;
 	}
 
 	public String metaAuthor(Post post) {
@@ -110,7 +114,11 @@ public class PostUtils {
 	}
 
 	public String metaDescription(Post post) {
-		return post.getSeo().getDescription();
+		String description = null;
+		if (post.getSeo() != null) {
+			description = post.getSeo().getDescription();
+		}
+		return description;
 	}
 
 	public String ogSiteName(Post post) {

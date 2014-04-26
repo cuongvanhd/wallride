@@ -21,7 +21,7 @@ public class PageDescribeController {
 	private PageService pageService;
 
 	@Inject
-private ArticleIndexController articleIndexController;
+	private ArticleIndexController articleIndexController;
 
 	@Inject
 	private LeagueDescribeController leagueDescribeController;
