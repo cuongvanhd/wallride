@@ -12,7 +12,7 @@ import java.util.List;
 /*
  * クラブチーム　(要同期:soccer)
  */
-@Entity
+//@Entity
 @Table(name="tm02_club")
 //@PrimaryKeyJoinColumn
 @Analyzer(definition="synonyms")

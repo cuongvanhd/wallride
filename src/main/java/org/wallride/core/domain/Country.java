@@ -10,7 +10,7 @@ import java.util.List;
 /*
  * 国
  */
-@Entity
+//@Entity
 @Table(name="tm06_world")
 public class Country implements Serializable {
 
