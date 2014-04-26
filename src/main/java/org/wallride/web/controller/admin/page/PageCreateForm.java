@@ -1,12 +1,15 @@
 package org.wallride.web.controller.admin.page;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.util.CollectionUtils;
 import org.wallride.core.domain.Post;
 import org.wallride.core.service.PageCreateRequest;
 import org.wallride.web.support.DomainObjectCreateForm;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class PageCreateForm extends DomainObjectCreateForm {
@@ -19,10 +22,10 @@ public class PageCreateForm extends DomainObjectCreateForm {
 
 	@NotNull(groups=GroupPublish.class)
 	private String title;
-	
-	@NotNull(groups=GroupPublish.class)
-	private String body;
-	
+
+	@NotEmpty(groups=GroupPublish.class)
+	private String[] bodies;
+
 	private Long authorId;
 	
 //	@NotNull
@@ -30,7 +33,11 @@ public class PageCreateForm extends DomainObjectCreateForm {
 	private LocalDateTime date;
 	
 	private Long parentId;
-	
+
+	private String metaKeywords;
+
+	private String metaDescription;
+
 	private Post.Status status;
 	
 	@NotNull
@@ -60,38 +67,58 @@ public class PageCreateForm extends DomainObjectCreateForm {
 		this.title = title;
 	}
 
-	public String getBody() {
-		return body;
+	public String[] getBodies() {
+		return bodies;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
+	public void setBodies(String[] bodies) {
+		this.bodies = bodies;
 	}
-	
+
 	public Long getAuthorId() {
 		return authorId;
 	}
-	
+
 	public void setAuthorId(Long authorId) {
 		this.authorId = authorId;
 	}
-	
+
 	public LocalDateTime getDate() {
 		return date;
 	}
-	
+
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+
 	public Long getParentId() {
 		return parentId;
 	}
-	
+
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
-	
+
+	public String getMetaKeywords() {
+		return metaKeywords;
+	}
+
+	public void setMetaKeywords(String metaKeywords) {
+		this.metaKeywords = metaKeywords;
+	}
+
+	public String getMetaDescription() {
+		return metaDescription;
+	}
+
+	public void setMetaDescription(String metaDescription) {
+		this.metaDescription = metaDescription;
+	}
+
 	public Post.Status getStatus() {
 		return status;
 	}
-	
+
 	public void setStatus(Post.Status status) {
 		this.status = status;
 	}
@@ -105,15 +132,18 @@ public class PageCreateForm extends DomainObjectCreateForm {
 	}
 
 	public PageCreateRequest buildPageCreateRequest() {
+		List<String> bodyList = (List<String>) CollectionUtils.arrayToList(bodies);
 		PageCreateRequest.Builder builder = new PageCreateRequest.Builder();
 		return builder
 				.code(code)
 				.coverId(coverId)
 				.title(title)
-				.body(body)
+				.bodies(bodyList)
 				.authorId(authorId)
 				.date(date)
 				.parentId(parentId)
+				.metaKeywords(metaKeywords)
+				.metaDescription(metaDescription)
 				.status(status)
 				.language(language)
 				.build();
