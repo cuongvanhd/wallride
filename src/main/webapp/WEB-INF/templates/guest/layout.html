@@ -147,11 +147,11 @@
 					<nav id="gkExtraMenu" class="gkMenu">
 						<ul class="gkmenu level0">
 							<li th:classappend="${home} ? 'active' : ''" class="first"><a th:href="@{__${WEBSITE_PATH}__/}" href="http://www.qoly.jp/"  class="first" id="menu101" title="Home" >Home</a></li>
-							<li th:classappend="${CATEGORY_TREE.getNodeByCode('News').contains(category)} ? 'active' : ''"><a th:href="@{/category/News}" href="/index.php/news"  id="menu102" title="News" >News</a></li>
-							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Story').contains(category)} ? 'active' : ''"><a th:href="@{/category/Story}" href="/index.php/story"  id="menu103" title="Story" >Story</a></li>
-							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Goods').contains(category)} ? 'active' : ''"><a th:href="@{/category/Goods}" href="/index.php/goods"  id="menu104" title="Goods" >Goods</a></li>
-							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Event').contains(category)} ? 'active' : ''"><a th:href="@{/category/Event}" href="/index.php/event"  id="menu105" title="Event" >Event</a></li>
-							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Special').contains(category)} ? 'active' : ''" class="last"><a th:href="@{/category/Special}" href="/index.php/special"  class=" last" id="menu106" title="Special" >Special</a></li>
+							<li th:classappend="${CATEGORY_TREE.getNodeByCode('News').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/News}" href="/index.php/news"  id="menu102" title="News" >News</a></li>
+							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Story').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/Story}" href="/index.php/story"  id="menu103" title="Story" >Story</a></li>
+							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Goods').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/Goods}" href="/index.php/goods"  id="menu104" title="Goods" >Goods</a></li>
+							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Event').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/Event}" href="/index.php/event"  id="menu105" title="Event" >Event</a></li>
+							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Special').contains(category)} ? 'active' : ''" class="last"><a th:href="@{__${WEBSITE_PATH}__/category/Special}" href="/index.php/special"  class=" last" id="menu106" title="Special" >Special</a></li>
 						</ul>
 					</nav>
 					<div id="gkMobileMenu">
@@ -337,35 +337,33 @@
 					<!--/*/ </th:block> /*/-->
 				</section>
 			</div>
-
 			<section id="gkBottom" class="masonry">
-				<div class="box_qoly1"><div><div class="content">
-
-					<div class="custom_qoly1"  >
-						<div id="footer_navi" style="margin-top: 30px; font-size: 80%;">
-							<ul>
-								<li class="footer_gaiyo" style="float: left;"><a href="/index.php/company">運営者情報</a><span>　|　</span></li>
-								<li class="footer_privacy" style="float: left;"><a href="/index.php/privacypolicy">プライバシーポリシー</a><span>　|　</span></li>
-								<li class="footer_sitepolicy" style="float: left;"><a href="/index.php/sitepolicy">サイトポリシー</a><span>　|　</span></li>
-								<li class="footer_contact" style="float: left;"><a href="/index.php/contact1">お問い合わせ</a><span>　|　</span></li>
-								<li class="footer_contact" style="float: left;"><a href="/index.php/sitemap">サイトマップ</a><span>　|　</span></li>
-								<li class="footer_contact" style="float: left;"><a class="iconTwitter" href="https://twitter.com/Qoly_jp" target="_blank">Twitter</a>　<a class="iconFacebook" href="https://www.facebook.com/Qoly.jp" target="_blank">Facebook</a>　<a class="iconRSS" href="/index.php/staff/15704-20130325-from-qoly-rss">RSS</a></li>
-							</ul>
+				<div class="box_qoly1">
+					<div>
+						<div class="content">
+							<div class="custom_qoly1">
+								<div id="footer_navi" style="margin-top: 30px; font-size: 80%;">
+									<ul>
+										<li class="footer_gaiyo" style="float: left;"><a th:href="@{__${WEBSITE_PATH}__/company}" href="/index.php/company">運営者情報</a><span>　|　</span></li>
+										<li class="footer_privacy" style="float: left;"><a th:href="@{__${WEBSITE_PATH}__/privacypolicy}" href="/index.php/privacypolicy">プライバシーポリシー</a><span>　|　</span></li>
+										<li class="footer_sitepolicy" style="float: left;"><a th:href="@{__${WEBSITE_PATH}__/sitepolicy}" href="/index.php/sitepolicy">サイトポリシー</a><span>　|　</span></li>
+										<li class="footer_contact" style="float: left;"><a th:href="@{__${WEBSITE_PATH}__/contact1}" href="/index.php/contact1">お問い合わせ</a><span>　|　</span></li>
+										<li class="footer_contact" style="float: left;"><a th:href="@{__${WEBSITE_PATH}__/sitemap}" href="/index.php/sitemap">サイトマップ</a><span>　|　</span></li>
+										<li class="footer_contact" style="float: left;"><a class="iconTwitter" href="https://twitter.com/Qoly_jp" target="_blank">Twitter</a>　<a class="iconFacebook" href="https://www.facebook.com/Qoly.jp" target="_blank">Facebook</a>　<a class="iconRSS" href="/index.php/staff/15704-20130325-from-qoly-rss">RSS</a></li>
+									</ul>
+								</div>
+								<div style="clear: both; height: 0;"> </div>
+								<div style="margin-left: 10px; color: #000; font-size: 80%;">© Qoly.jp / football webmagazine Qoly All rights reserved.</div>
+							</div>
 						</div>
-						<div style="clear: both; height: 0;"> </div>
-						<div style="margin-left: 10px; color: #000; font-size: 80%;">© Qoly.jp / football webmagazine Qoly All rights reserved.</div></div>
-				</div></div></div>
+					</div>
+				</div>
 			</section>
-
 			<footer class="gkFooter gkInsetUsed"><p>Template Design &copy; <a href="//www.gavick.com" title="Joomla Templates">Joomla Templates</a> GavickPro. All rights reserved.</p></footer>
-
 		</div>
 		<div id="gkPopupOverlay"></div>
 		<!-- twitter -->
-
-
 		<!-- Pinterest script -->
-
 		<script type="text/javascript">var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-10690895-1']); _gaq.push(['_trackPageview']);(function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();</script>
 	</body>
 </html>
