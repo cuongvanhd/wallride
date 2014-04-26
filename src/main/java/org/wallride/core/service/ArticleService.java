@@ -128,6 +128,9 @@ public class ArticleService {
 			article.getCategories().add(entityManager.getReference(Category.class, categoryId));
 		}
 
+		article.getSeo().setKeywords(request.getMetaKeywords());
+		article.getSeo().setDescription(request.getMetaDescription());
+
 		List<Media> medias = null;
 
 		if (CollectionUtils.isEmpty(request.getBodies())) {
@@ -225,6 +228,9 @@ public class ArticleService {
 		for (long categoryId : request.getCategoryIds()) {
 			article.getCategories().add(entityManager.getReference(Category.class, categoryId));
 		}
+
+		article.getSeo().setKeywords(request.getMetaKeywords());
+		article.getSeo().setDescription(request.getMetaDescription());
 
 		List<Media> medias = null;
 
