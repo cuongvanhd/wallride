@@ -56,7 +56,7 @@ public class ArticleIndexController {
 		List<Article> articles = articleService.readArticles(condition.getPaginator());
 		model.addAttribute("articles", articles);
 		model.addAttribute("paginator", condition.getPaginator());
-		return "/article/index";
+		return "/index";
 	}
 
 	@RequestMapping("/{language}/{year:[0-9]{4}}")
@@ -168,7 +168,7 @@ public class ArticleIndexController {
 			form.setLanguage(language);
 			form.getCategoryIds().add(category.getId());
 			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
-			Paginator<Long> paginator = new Paginator<>(ids, 20);
+			Paginator<Long> paginator = new Paginator<>(ids, 10);
 			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
 		}
 		if (page != null && condition.getPaginator().hasElement()) {

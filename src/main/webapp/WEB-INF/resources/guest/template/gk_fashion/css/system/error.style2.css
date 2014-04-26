@@ -1,0 +1,144 @@
+/*
+#------------------------------------------------------------------------
+# Fashion - May Joomla! template (for Joomla 2.5)
+#
+# Copyright (C) 2007-2012 Gavick.com. All Rights Reserved.
+# License: Copyrighted Commercial Software
+# Website: http://www.gavick.com
+# Support: support@gavick.com 
+*/
+
+/* Basic elements */
+::selection {
+	background: #5387ce;
+	color: #fff;
+}
+::-moz-selection {
+background: #5387ce;
+color: #fff;
+}
+::-webkit-selection {
+background: #5387ce;
+color: #fff;
+}
+body,
+html {
+	margin: 0;
+	padding: 0;
+	min-height: 100%;
+}
+body {
+	min-height: 100%;
+	background: #f9f9f9 url('../../images/style2/bg_pattern.png') repeat 0 0;
+	font-size: 14px;
+	line-height: 2;
+	color: #7d7b7a;
+	padding: 0 15px;
+	font-weight: 300;
+	font-family: 'Lato', Arial, sans-serif;
+}
+a {
+	text-decoration: none;
+	color: #5387ce;
+	-webkit-transition: color 0.15s linear;
+	-moz-transition: color 0.15s linear;
+	-o-transition: color 0.15s linear;
+	transition: color 0.15s linear;
+}
+a:hover,
+a:active,
+a:focus {
+	color: #222;
+}
+/* containers */
+#gkPage {
+	padding: 0;
+	margin: 0 auto;
+}
+#gkPageTop {
+	padding: 15px 0 0 0;
+}
+#gkPageWrap {
+	background: transparent;
+	padding: 0 0 30px 0;
+}
+#frame {
+	margin: 0;
+	background: #fff;
+	overflow: hidden;
+	padding: 40px 15px 10px 15px;
+	clear: both;
+	margin-top: 20px;
+}
+#errorboxbody {
+	width: 320px;
+	
+	padding: 12px 0;
+	margin: 0 auto;
+}
+#errorNumber {
+	float: left;
+	padding: 31px 0 0;
+	width: 39%;
+}
+/* Logo  */
+#gkLogo {
+	margin: 0 auto;
+	padding: 12px 0 0 0;
+	text-indent: -999em;
+	text-shadow: none;
+	width: 210px;
+	display: block;
+	float: none;
+}
+#gkLogo img {
+	display: block;
+	margin: 0;
+}
+#gkLogo.cssLogo { /* You can specify there logo size and background */
+	background: transparent url('../../images/style2/logo.png') no-repeat 0 center;
+	height: 66px;
+	width: 210px;
+}
+#gkLogo.text {
+	text-indent: 0;
+	text-transform: uppercase;
+	color: #fff;
+	text-shadow: 1px 1px 0 #d9d9d9;
+}
+#gkLogo.text > span {
+	display: block;
+	font-size: 44px;
+	line-height: 44px;
+}
+#gkLogo.text .gkLogoSlogan {
+	color: #adadad;
+	display: block;
+	font-size: 12px;
+	line-height: 12px;
+	text-shadow: 1px 1px 0 #fff;
+}
+/* Other elements */
+h2 {
+	font-size: 52px;
+	line-height: 1.2;
+	font-weight: 300;
+	text-align: center;
+	color: #5387ce;
+	margin: 0 0 6px;
+	padding: 0;
+}
+h3 {
+	margin: 0;
+	font-size: 20px;
+	font-weight: 300;
+	color: #737373;
+	text-align: center;
+}
+h2 strong {
+	font-weight: 700;
+}
+#errorboxbody {
+	text-align: center;
+	margin: 12x auto;
+}

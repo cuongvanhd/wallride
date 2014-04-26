@@ -143,6 +143,17 @@ public class PostUtils {
 				settings.readSettingAsString(Setting.Key.WEBSITE_TITLE, processingContext.getContext().getLocale().getLanguage()));
 	}
 
+	public String cover(Post post) {
+		for (PostBody body : post.getBodies()) {
+			Document document = Jsoup.parse(body.getBody());
+			Elements elements = document.select("img");
+			for (Element element : elements) {
+				return element.attr("src");
+			}
+		}
+		return null;
+	}
+
 	public String body(PostBody body) {
 		if (!StringUtils.hasText(body.getBody())) {
 			return null;

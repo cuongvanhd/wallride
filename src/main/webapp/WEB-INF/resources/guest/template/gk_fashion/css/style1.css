@@ -1,0 +1,555 @@
+/*
+#------------------------------------------------------------------------
+# Fashion -May Joomla! template (for Joomla 2.5)
+#
+# Copyright (C) 2007-2012 Gavick.com. All Rights Reserved.
+# License:  Copyrighted Commercial Software
+# Website:  http://www.gavick.com
+# Support:  support@gavick.com
+ */
+/* Style 1 */
+/* template.css */
+::selection {
+  background: #ee7f4e;
+  color: #fff;
+}
+
+body {
+  background: #f9f9f9 url('../images/style2/bg_pattern.png') repeat 0 0;
+  color: #000;
+}
+
+a,#gkBreadcrumb .breadcrumbs a:active,#gkBreadcrumb .breadcrumbs a:focus,#gkBreadcrumb .breadcrumbs a:hover {
+  color: #222;
+}
+
+a:hover,a:active,a:focus {
+  color: #cf8080;
+}
+
+h1,h2,h3,h4,h5 {
+  color: #000;
+}
+
+#gkPageWrap {
+  padding-top: 10px;
+}
+
+#gkPageTop {
+  background: transparent;
+  padding: 0;
+  margin-bottom: 10px !important;
+}
+
+#gkLogo.cssLogo {
+  background-image: url('../images/style1/logo.png');
+}
+
+#gkLogo.text {
+  color: #fff;
+  text-shadow: 1px 1px 0 #d9d9d9;
+}
+
+#gkLogo.text .gkLogoSlogan {
+  color: #adadad;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+#mod-search-searchword {
+  border: 1px solid #e7e7e7;
+  background-image: url('../images/style1/search_bg.png');
+  color: #aaa;
+}
+
+#gkTools a:hover {
+  border-color: #cf8080;
+}
+
+.gkFooter {
+  border: 1px solid #d2d2d2;
+  border-left: none;
+  border-right: none;
+}
+
+.gkFooter > small {
+  color: #9d9d9d;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+.gkFooter > p {
+  color: #9d9d9d;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+#gkInset .gkFooter > div {
+  border: 1px solid #d2d2d2;
+  border-left: none;
+  border-right: none;
+}
+
+.box > div,.box_text > div,.box_menu > div {
+  background: #fff;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: 0 0 5px #b9b9b9;
+}
+
+.box .header,.box_menu .header,.box_text .header,
+.box .header a,.box_menu .header a,.box_text .header a {
+  color: #000;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.box_menu > div {
+  background: #33353a !important;
+}
+
+.box_menu h3.header {
+  border-bottom: 1px solid #555860;
+  color: #fff;
+  font-size: 22px;
+  text-align: left;
+}
+
+.box_menu ul li a {
+  color: #a5a5a5;
+  font-size: 18px;
+  line-height: 32px;
+}
+
+.box_menu ul li a:active,.box_menu ul li a:focus,.box_menu ul li a:hover {
+  color: #fff;
+}
+
+#gkInset .box_menu h3.header {
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 22px;
+}
+
+#gkInset .box_menu ul li {
+  text-align: left;
+}
+
+.box.color1 h3.header {
+  color: #cf8080;
+}
+
+.box.color2 h3.header {
+  color: #9f5f5f;
+}
+
+.box.color2 {
+  color: #c79b9b;
+}
+
+.box.color2 a {
+  color: #9f5f5f !important;
+}
+
+.box.color2 a:active,.box.color2 a:focus,.box.color2 a:hover {
+  color: #fff !important;
+}
+
+.box.color2 > div {
+  background: #f3d5d5;
+}
+
+.box.color2 b,.box.color2 strong {
+  color: #c79b9b;
+}
+
+.box.dark > div {
+  background: #33353a !important;
+  color: #7D7B7A;
+}
+
+.box.dark h3.header {
+  color: #fff;
+}
+
+.box.dark ul li {
+  border-top: 1px solid #555350;
+}
+
+.box.dark a {
+  color: #a5a5a5;
+}
+
+.nspArt h4.nspHeader a,.itemComments h3 {
+  color: #353639;
+}
+
+.box.dark a:active,.box.dark a:focus,.box.dark a:hover {
+  color: #fff;
+}
+
+.box.dark b,.box.dark strong {
+  color: #7D7B7A;
+}
+
+.box .box.hot:first-child:before,.box .box.top:first-child:before,.box .box.new:first-child:before {
+  top: -6px;
+  right: -2px;
+}
+
+.box .box.hot:before,.box .box.top:before,.box .box.new:before {
+  top: -2px;
+  right: -2px;
+}
+
+.box.hot:before,.box.top:before,.box.new:before {
+  background-image: url('../images/style1/badge_hot.png');
+  height: 68px;
+  right: 4px;
+  top: 0;
+}
+
+.box.hot:before {
+  background-position: 0 0;
+}
+
+.box.top:before {
+  background-position: 0 -68px;
+}
+
+.box.new:before {
+  background-position: 0 -136px;
+}
+
+.gkUsermenu li {
+  background-image: url("../images/style1/typography/bullet-square2.png");
+}
+
+#gkPage > .box.gkSidebarPreloader > div {
+  background-image: url('../images/style1/loader.gif');
+}
+
+.nobg #gkContent > div .box > div {
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* menu.css */
+#gkMainMenu {
+  margin-top: 26px;
+}
+
+.gkMenu > ul > li {
+  height: 30px;
+  font-size: 16px;
+}
+
+.gkMenu > ul > li > a {
+  color: #999;
+  text-shadow: 1px 1px 0 #f9f9f9;
+}
+
+.gkMenu > ul > li:hover > a,.gkMenu > ul > li:active > a,.gkMenu > ul > li:focus > a,.gkMenu > ul > li.active:hover > a,.gkMenu > ul > li.active:active > a,.gkMenu > ul > li.active:focus > a,.gkMenu > ul > li.active > a {
+  color: #fff;
+  background: #33353a;
+  text-shadow: none;
+}
+
+.gkMenu > ul div.childcontent div.childcontent {
+  border: 1px solid #44464b;
+  border-bottom: none;
+  border-right: none;
+}
+
+.gkMenu > ul div.childcontent-inner {
+  background: #33353a;
+}
+
+.gkMenu > ul div.childcontent a {
+  color: #a5a5a5;
+}
+
+.gkMenu > ul div.childcontent small {
+  color: #6f7279;
+}
+
+.gkMenu > ul div.childcontent li.active > a,.gkMenu > ul div.childcontent li:hover > a,.gkMenu > ul div.childcontent li > a:hover {
+  color: #fff;
+}
+
+.gkMenu > ul div.childcontent header {
+  color: #fff;
+  border-bottom: 1px solid #5d6066;
+}
+
+.gkMenu > ul div.childcontent header a {
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  #gkPageWrap {
+    padding-top: 64px;
+  }
+
+  #gkExtraMenu {
+    display: none !important;
+  }
+  
+  #gkMainMenu {
+    clear: both;
+    color: #777;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    height: 45px;
+    margin: 0 !important;
+    line-height: 47px;
+    text-indent: 20px;
+    font-size: 20px;
+  }
+  
+  #gkMainMenu select {
+    width: 85%;
+    height: 45px;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  
+  #gkMobileMenu {
+    position: relative;
+  }
+  
+  #gkTabletMenu {
+    top: 10px !important;
+    right: 20px;
+  }
+  
+  #gkPageContent > #gkInset.visible {
+    top: 30px;
+    right: 16px !important;
+  }
+  
+  #gkMobileMenu {
+    display: block;
+    clear: both;
+    width: 100%;
+  }
+}
+
+/* joomla.css */
+button,input.button,span.button,button.button,div.button,input[type="submit"],input[type="button"],.pagenav-prev a,.pagenav-next a {
+  background: #33353A;
+  color: #fff;
+}
+
+button:hover,input.button:hover,span.button:hover,button.button:hover,div.button:hover,input[type="submit"]:hover,input[type="button"]:hover,.pagenav-prev a:hover,.pagenav-next a:hover {
+  background: #cf8080;
+  color: #fff;
+}
+
+article header h1 a:hover,article header h2 a:hover {
+  color: #CF8080;
+}
+
+p.img_caption {
+  background: #CF8080;
+}
+
+.tip-title {
+  background: #cf8080;
+}
+
+#system-message dd.error {
+  background: #cf8080;
+}
+
+.pagination ul li a:hover {
+  background: #CF8080;
+}
+
+#article-index li a:hover {
+  color: #cf8080;
+}
+
+.autocompleter-queried {
+  color: #cf8080 !important;
+}
+
+/* gk_stuff.css */
+.gkTabsWrap.vertical ol {
+  border-bottom: 3px solid #CF8080;
+}
+
+.gkTabsWrap.vertical ol li.active,.gkTabsWrap.horizontal ol li.active,.gkTabsWrap.vertical ol li.active:hover,.gkTabsWrap.horizontal ol li.active:hover {
+  color: #fff;
+  background: #CF8080;
+  border-color: #CF8080;
+}
+
+.nspPagination li:hover,.nspPagination li.active {
+  background: #cf8080;
+}
+
+.nspNext,.nspPrev {
+  background-image: url('../images/style1/nsp_interface.png');
+}
+
+.nspArt h4.nspHeader a:active,.nspArt h4.nspHeader a:focus,.nspArt h4.nspHeader a:hover {
+  color: #cf8080;
+}
+
+.dark .nspArt h4.nspHeader a {
+  color: #fff;
+}
+
+.dark .nspArt h4.nspHeader a:active,.dark .nspArt h4.nspHeader a:focus,.dark .nspArt h4.nspHeader a:hover {
+  color: #bbb;
+}
+
+.dark .nspArt p.nspInfo {
+  color: #7e8085;
+}
+
+.dark .nspPagination li {
+  background: #555860;
+}
+
+.dark .nspPagination li:hover,.dark .nspPagination li.active {
+  background: #a5a5a5;
+}
+
+.color2 .nspArt h4.nspHeader {
+  color: #9f5f5f;
+}
+
+.color2 .nspArt p.nspInfo {
+  color: #c79b9b;
+}
+
+.color2 .nspPagination li {
+  background: #c79b9b;
+}
+
+.color2 .nspPagination li:hover,.color2 .nspPagination li.active {
+  background: #9f5f5f;
+}
+
+.gkIsWrapper-gk_fashion .gkIsPreloader {
+  background-color: #f1f1f1;
+  background-image: url('../images/loader.gif');
+}
+
+.gkIsWrapper-gk_fashion figcaption {
+  background: #cf8080;
+  background: rgba(207, 128, 128, 0.65);
+}
+
+.gkIsWrapper-gk_fashion ol li:hover,.gkIsWrapper-gk_fashion ol li.active {
+  background: #cf8080;
+}
+
+.big .nspHeader {
+  font-size: 35px !important;
+}
+
+/* k2.css */
+.k2FeedIcon a,a.k2FeedIcon {
+  background-image: url('../images/style1/rss.png');
+}
+
+ul li.itemResizer a {
+  background-image: url('../images/style1/fonts.png');
+}
+
+.itemImageCaption {
+  background: #CF8080;
+}
+
+.itemExtraFields {
+  border-top: 4px solid #cf8080;
+}
+
+span#formLog {
+  background: #cf8080;
+}
+
+.itemRatingForm .formLogLoading {
+  background-image: url('../images/style1/loading.gif');
+}
+
+.itemRatingList,.itemRatingList a:hover,.itemRatingList .itemCurrentRating {
+  background-image: url('../images/style1/star.png');
+}
+
+.itemTags li a,.k2TagCloudBlock a,.moduleItemTags a {
+  background-color: #33353a;
+  background-image: url('../images/style1/tags.png');
+}
+
+.itemTags li a:hover,.moduleItemTags a:hover {
+  background-color: #cf8080;
+  background-image: url('../images/style1/tags.png');
+}
+
+.k2TagCloudBlock a:hover {
+  background: #cf8080;
+}
+
+.itemAuthorBlock .itemAuthorDetails a:hover {
+  color: #CF8080;
+}
+
+#itemListLinks li {
+  background-image: url('../images/style1/typography/bullet-square2.png');
+}
+
+.k2CommentItem a:hover {
+  color: #CF8080;
+}
+
+.k2CalendarBlock table.calendar tr td.calendarToday {
+  background: #CF8080;
+}
+
+/* tablet.css */
+#gkTabletMenu {
+  background: transparent url('../images/style1/tablet_menu_btn.png') no-repeat 0 0;
+  top: 62px;
+  right: 20px;
+}
+
+#gkPageContent > #gkInset.visible {
+  top: 90px;
+}
+
+#gkPageContent > #gkInset.visible .box_menu h3.header {
+  margin-top: 0;
+  color: #fff;
+}
+
+#gkPageContent > #gkInset.visible .box_menu a {
+  color: #a5a5a5;
+}
+
+#gkPageContent > #gkInset.visible .box_menu a:active,#gkPageContent > #gkInset.visible .box_menu a:focus,#gkPageContent > #gkInset.visible .box_menu a:hover {
+  color: #fff;
+}
+
+#gkPageContent > #gkInset.visible .box_menu > div {
+  background: #33353a !important;
+}
+.socialicon div {
+     float: left;
+     padding: 5px;
+}
+
+.socialicon {
+     height: 30px;
+     margin: 10px 0px 10px 10px;
+}

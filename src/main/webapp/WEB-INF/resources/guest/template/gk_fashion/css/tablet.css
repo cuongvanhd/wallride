@@ -1,0 +1,117 @@
+/*
+#------------------------------------------------------------------------
+# Fashion -May Joomla! template (for Joomla 2.5)
+#
+# Copyright (C) 2007-2012 Gavick.com. All Rights Reserved.
+# License:  Copyrighted Commercial Software
+# Website:  http://www.gavick.com
+# Support:  support@gavick.com
+ */
+#gkPage > #gkContent,#gkPage {
+  width: 100% !important;
+}
+
+#gkPage {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+#gkPageContent > #gkInset {
+  display: none !important;
+}
+
+#gkTabletMenu {
+  background: transparent url('../images/style1/tablet_menu_btn.png') no-repeat 0 0;
+  display: block !important;
+  height: 25px;
+  position: absolute;
+  text-indent: -9999px;
+  top: 62px;
+  width: 45px;
+  z-index: 5;
+  right: 20px;
+}
+
+#gkPageContent > #gkInset.visible {
+  position: absolute;
+  display: block !important;
+  top: 90px;
+  right: 15px;
+  z-index: 1000;
+}
+
+#gkPageContent > #gkInset.visible > * {
+  display: none;
+}
+
+#gkPageContent > #gkInset.visible > div.box_menu {
+  display: block;
+}
+
+#gkPageWrap > .gkFooter.gkInsetUsed {
+  display: none !important;
+}
+
+#gkMainMenu {
+  margin-top: 10px !important;
+  margin-left: -6px !important;
+}
+
+#gkMainMenu >nav > ul > li {
+  margin-top: 6px !important;
+}
+
+#gkTop .box.quarter,#gkBottom .box.quarter,#gkPage .box.quarter {
+  width: 25% !important;
+}
+
+#gkTop .box.half,#gkBottom .box.half,#gkPage .box.half,#gkTop .box.one,#gkBottom .box.one,#gkPage .box.one,#gkTop > .box,#gkBottom > .box,#gkPage > .box,#gkTop .box.double,#gkBottom .box.double,#gkPage .box.double,#gkTop .box.triple,#gkBottom .box.triple,#gkPage .box.triple,#gkTop .box.fourfold,#gkBottom .box.fourfold,#gkPage .box.fourfold,#gkTop .box.full,#gkBottom .box.full,#gkPage .box.full {
+  width: 50% !important;
+}
+
+#gkPage .box.gkSidebarPreloader {
+  width: 100% !important;
+}
+
+.box.notablet {
+  display: none!important;
+}
+
+.box.nomobile {
+  display: block!important;
+}
+
+.box.onlytablet {
+  display: block!important;
+}
+
+.box.onlymobile {
+  display: none!important;
+}
+
+/* Fix for the contact page */
+.contact .contact-image {
+  float: left !important;
+}
+
+.contact .contact-address {
+  clear: both !important;
+  padding-top: 20px !important;
+}
+
+.contact .contact-form input[type="text"],.contact .contact-form input[type="email"],.contact .contact-form textarea {
+  width: 100% !important;
+}
+
+/* Tabs */
+.gkTabsWrap.vertical ol li,.gkTabsWrap.horizontal ol li {
+  float: none !important;
+}
+
+/* K2 edit popup */
+#sbox-window,
+#sbox-window iframe {
+  width: 720px!important;
+  max-width: 720px!important;
+  left: 10px!important;
+}

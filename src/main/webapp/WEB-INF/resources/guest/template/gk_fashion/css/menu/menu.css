@@ -1,0 +1,250 @@
+/*
+#------------------------------------------------------------------------
+# Fashion -May Joomla! template (for Joomla 2.5)
+#
+# Copyright (C) 2007-2012 Gavick.com. All Rights Reserved.
+# License:  Copyrighted Commercial Software
+# Website:  http://www.gavick.com
+# Support:  support@gavick.com
+ */
+/* Base for all menus */
+#gkMainMenu {
+	float: left;
+	margin: 26px 0 0 60px;
+}
+
+#gkMainMenu .gkMenu {
+	display: block;
+	float: left;
+}
+
+.gkMenu > ul > li {
+	float: left;
+	width: auto;
+}
+
+.gkMenu > ul > li > a {
+	display: block;
+}
+
+.gkMenu > ul > li a small {
+	display: block;
+	font-size: 11px;
+	line-height: 13px;
+}
+
+.gkMenu > ul > li > .childcontent,.gkMenu > ul > li > .childcontent .childcontent {
+	position: absolute;
+	left: -999em;
+	z-index: 999;
+}
+
+.gkMenu > ul > li > .childcontent .gkcol {
+	float: left;
+}
+
+.gkMenu > ul > li:hover > .childcontent,.gkMenu > ul > li:hover > .childcontent li:hover > .childcontent {
+	left: inherit;
+}
+
+.gkMenu > ul > li:hover > .childcontent .childcontent {
+	margin-left: 140px;
+	margin-top: -25px !important;
+}
+
+/* main menu CSS */
+.gkMenu {
+	position: relative;
+	margin: 0;
+	z-index: 1000;
+}
+
+.gkMenu > ul {
+	height: 30px;
+	margin: 0;
+	padding: 0;
+}
+
+.gkMenu > ul > li {
+	height: 30px;
+	font-size: 16px;
+	background: transparent;
+	margin: 0 12px;
+}
+
+.gkMenu > ul > li:first-child {
+	background: none;
+}
+
+.gkMenu > ul > li > a {
+	color: #999;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	margin: 0;
+	padding: 0 7px;
+	text-transform: uppercase;
+	font-weight: 300;
+	text-shadow: 1px 1px 0 #f9f9f9;
+}
+
+.gkMenu > ul > li:hover > a,.gkMenu > ul > li:active > a,.gkMenu > ul > li:focus > a,.gkMenu > ul > li.active:hover > a,.gkMenu > ul > li.active:active > a,.gkMenu > ul > li.active:focus > a,.gkMenu > ul > li.active > a {
+	color: #fff;
+	background: #33353a;
+	text-shadow: none;
+}
+
+.gkMenu > ul ul {
+	margin: 0;
+	padding: 0;
+}
+
+.gkMenu > ul div.childcontent {
+	font-weight: 300 !important;
+}
+
+.gkMenu > ul div.childcontent div.childcontent:before {
+	display: none;
+}
+
+.gkMenu > ul div.childcontent div.childcontent {
+	padding-top: 0 !important;
+	margin-top: -10px;
+	border: 1px solid #44464b;
+	border-bottom: none;
+	border-right: none;
+}
+
+.gkMenu > ul div.childcontent-inner {
+	background: #33353a;
+	padding: 6px 0;
+	overflow: hidden;
+	text-align: left;
+}
+
+.gkMenu > ul > li > .childcontent .gkcol {
+	padding-bottom: 0;
+}
+
+.gkMenu > ul div.childcontent li {
+	margin: 0 20px;
+	padding: 3px 0;
+}
+
+.gkMenu > ul div.childcontent a {
+	font-size: 16px;
+	color: #a5a5a5;
+	display: block;
+	min-height: 24px;
+}
+
+.gkMenu > ul div.childcontent small {
+	color: #6f7279;
+	margin: 0 0 6px;
+}
+
+.gkMenu > ul div.childcontent li.group {
+	padding: 0;
+	margin: 0;
+	height: auto;
+	border: none !important;
+	background: none;
+}
+
+.gkMenu > ul div.childcontent li.active > a,.gkMenu > ul div.childcontent li:hover > a,.gkMenu > ul div.childcontent li > a:hover {
+	color: #fff;
+}
+
+.gkMenu > ul div.childcontent header {
+	padding: 8px 0 0;
+	display: block;
+	color: #fff;
+	border-bottom: 1px solid #5d6066;
+	margin: 2px 20px 6px;
+	font-weight: 400 !important;
+}
+
+.gkMenu > ul div.childcontent header a {
+	font-size: 16px;
+	line-height: 24px;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.gkMenu > ul div.childcontent header small {
+	display: block;
+	text-transform: none;
+}
+
+#gkMainMenu .module p {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+/* hide mobile menu */
+#gkMobileMenu {
+	display: none;
+}
+
+@media (max-width: 1024px) {
+	#gkMainMenu {
+		clear: both;
+		margin: 0 0 20px 0;
+	}
+}
+
+@media (max-width: 640px) {
+	#gkPageWrap {
+		padding-top: 64px;
+	}
+
+	#gkExtraMenu {
+		display: none !important;
+	}
+	
+	#gkMainMenu {
+		clear: both;
+		position: absolute !important;
+		top: 0;
+		left: 0;
+		width: 100% !important;
+		background: #fff;
+		border-bottom: 1px solid #ddd;
+		height: 45px;
+		margin: 0 !important;
+		line-height: 47px;
+		text-indent: 20px;
+		font-size: 20px;
+	}
+	
+	#gkMainMenu select {
+		width: 85%;
+		height: 45px;
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		filter: alpha(opacity=0);
+		opacity: 0;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	
+	#gkMobileMenu {
+		position: relative;
+	}
+	
+	#gkTabletMenu {
+		top: 10px;
+		right: 20px;
+	}
+	
+	#gkPageContent > #gkInset.visible {
+		top: 30px;
+		right: 16px !important;
+	}
+	
+	#gkMobileMenu {
+		display: block;
+		clear: both;
+		width: 100%;
+	}
+}
