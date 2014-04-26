@@ -5,8 +5,10 @@ import java.util.*;
 
 public class CategoryTree implements Serializable {
 
-	private HashMap<Long, Category> categoryIdMap = new LinkedHashMap<>();
+	private HashMap<Long, Node> nodeIdMap = new LinkedHashMap<>();
+	private HashMap<String, Node> nodeCodeMap = new LinkedHashMap<>();
 
+	private HashMap<Long, Category> categoryIdMap = new LinkedHashMap<>();
 	private HashMap<String, Category> categoryCodeMap = new LinkedHashMap<>();
 
 	private ArrayList<Node> rootNodes = new ArrayList<>();
@@ -22,7 +24,10 @@ public class CategoryTree implements Serializable {
 		while (i.hasNext()) {
 			Category category = i.next();
 			if (category.getParent() == null) {
-				rootNodes.add(new Node(category));
+				Node node = new Node(category);
+				rootNodes.add(node);
+				nodeIdMap.put(category.getId(), node);
+				nodeCodeMap.put(category.getCode(), node);
 				i.remove();
 			}
 		}
@@ -53,6 +58,14 @@ public class CategoryTree implements Serializable {
 
 	public List<Node> getRootNodes() {
 		return rootNodes;
+	}
+
+	public Node getNodeById(Long id) {
+		return nodeIdMap.get(id);
+	}
+
+	public Node getNodeByCode(String code) {
+		return nodeCodeMap.get(code);
 	}
 
 	public Collection<Category> getCategories() {
@@ -87,6 +100,18 @@ public class CategoryTree implements Serializable {
 
 		public List<Node> getChildren() {
 			return children;
+		}
+
+		public boolean contains(Category category) {
+			if (getCategory().equals(category)) {
+				return true;
+			}
+			for (Node node : getChildren()) {
+				if (node.contains(category)) {
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

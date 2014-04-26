@@ -4,6 +4,7 @@ import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -324,6 +325,33 @@ public class ArticleService {
 			}
 		}
 		return articles;
+	}
+
+	public SortedSet<Article> readArticlesByCategoryCode(String language, String code, Post.Status status) {
+		return readArticlesByCategoryCode(language, code, status, -1);
+	}
+
+//	@Cacheable(value="articles", key="'list.category-code.'+#language+'.'+#code+'.'+#status+'.'+#size")
+	public SortedSet<Article> readArticlesByCategoryCode(String language, String code, Post.Status status, int size) {
+		ArticleFullTextSearchTerm term = new ArticleFullTextSearchTerm();
+		term.setLanguage(language);
+		term.getCategoryCodes().add(code);
+		term.setStatus(status);
+		List<Long> ids = articleRepository.findByFullTextSearchTerm(term);
+		if (CollectionUtils.isEmpty(ids)) {
+			return new TreeSet<>();
+		}
+
+		SortedSet<Article> results;
+		if (size > 0) {
+			Paginator<Long> paginator = new Paginator<>(ids, size);
+			results = new TreeSet<>(articleRepository.findByIdIn(paginator.getElements()));
+		}
+		else {
+			Paginator<Long> paginator = new Paginator<>(ids);
+			results = new TreeSet<>(articleRepository.findByIdIn(paginator.getAllElements()));
+		}
+		return results;
 	}
 
 	public Article readArticleById(long id, String language) {

@@ -56,6 +56,7 @@ public class ArticleIndexController {
 		List<Article> articles = articleService.readArticles(condition.getPaginator());
 		model.addAttribute("articles", articles);
 		model.addAttribute("paginator", condition.getPaginator());
+		model.addAttribute("home", true);
 		return "/index";
 	}
 

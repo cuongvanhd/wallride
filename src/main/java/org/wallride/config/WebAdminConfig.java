@@ -27,6 +27,7 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
+import org.wallride.core.service.ArticleService;
 import org.wallride.core.service.CategoryService;
 import org.wallride.core.service.PageService;
 import org.wallride.core.support.CustomThymeleafDialect;
@@ -59,6 +60,9 @@ public class WebAdminConfig extends WebMvcConfigurerAdapter {
 
 	@Inject
 	private CategoryService categoryService;
+
+	@Inject
+	private ArticleService articleService;
 
 	@Inject
 	private PageService pageService;
@@ -135,6 +139,7 @@ public class WebAdminConfig extends WebMvcConfigurerAdapter {
 		DefaultModelAttributeInterceptor defaultModelAttributeInterceptor = new DefaultModelAttributeInterceptor();
 		defaultModelAttributeInterceptor.setSettings(settings);
 		defaultModelAttributeInterceptor.setCategoryService(categoryService);
+		defaultModelAttributeInterceptor.setArticleService(articleService);
 		defaultModelAttributeInterceptor.setPageService(pageService);
 		return defaultModelAttributeInterceptor;
 	}

@@ -15,6 +15,7 @@ import org.wallride.core.domain.CategoryTree;
 import org.wallride.core.domain.PageTree;
 import org.wallride.core.domain.Post;
 import org.wallride.core.domain.Setting;
+import org.wallride.core.service.ArticleService;
 import org.wallride.core.service.CategoryService;
 import org.wallride.core.service.PageService;
 import org.wallride.core.support.AuthorizedUser;
@@ -28,9 +29,8 @@ import java.util.Map;
 public class DefaultModelAttributeInterceptor extends HandlerInterceptorAdapter {
 
 	private Settings settings;
-
 	private CategoryService categoryService;
-
+	private ArticleService articleService;
 	private PageService pageService;
 
 	private static Logger logger = LoggerFactory.getLogger(DefaultModelAttributeInterceptor.class);
@@ -41,6 +41,10 @@ public class DefaultModelAttributeInterceptor extends HandlerInterceptorAdapter 
 
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
+	}
+
+	public void setArticleService(ArticleService articleService) {
+		this.articleService = articleService;
 	}
 
 	public void setPageService(PageService pageService) {
@@ -91,6 +95,9 @@ public class DefaultModelAttributeInterceptor extends HandlerInterceptorAdapter 
 		mv.addObject("PAGE_TREE", pageTreePublished);
 		mv.addObject("PAGE_TREE_ALL", pageTreeAll);
 
+//		mv.addObject("RECENTLY_ARTICLES", articleService.read);
+		mv.addObject("RECOMMEND_ARTICLES", articleService.readArticlesByCategoryCode(currentLanguage, "recommends", Post.Status.PUBLISHED, 10));
+		mv.addObject("PICKUP_ARTICLES", articleService.readArticlesByCategoryCode(currentLanguage, "pickup", Post.Status.PUBLISHED));
 	}
 
 	private String buildGuestLink() {

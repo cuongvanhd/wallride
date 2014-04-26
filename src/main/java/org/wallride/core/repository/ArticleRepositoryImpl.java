@@ -81,6 +81,11 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 				junction.must(qb.keyword().onField("categories.id").matching(categoryId).createQuery());
 			}
 		}
+		if (!CollectionUtils.isEmpty(term.getCategoryCodes())) {
+			for (String categoryCode : term.getCategoryCodes()) {
+				junction.must(qb.keyword().onField("categories.code").matching(categoryCode).createQuery());
+			}
+		}
 
 		Query searchQuery = junction.createQuery();
 		

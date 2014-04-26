@@ -32,6 +32,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.wallride.core.domain.Setting;
 import org.wallride.core.repository.MediaRepository;
+import org.wallride.core.service.ArticleService;
 import org.wallride.core.service.CategoryService;
 import org.wallride.core.service.PageService;
 import org.wallride.core.support.CustomThymeleafDialect;
@@ -64,6 +65,9 @@ public class WebGuestConfig extends WebMvcConfigurationSupport {
 
 	@Inject
 	private CategoryService categoryService;
+
+	@Inject
+	private ArticleService articleService;
 
 	@Inject
 	private PageService pageService;
@@ -196,6 +200,7 @@ public class WebGuestConfig extends WebMvcConfigurationSupport {
 		DefaultModelAttributeInterceptor defaultModelAttributeInterceptor = new DefaultModelAttributeInterceptor();
 		defaultModelAttributeInterceptor.setSettings(settings);
 		defaultModelAttributeInterceptor.setCategoryService(categoryService);
+		defaultModelAttributeInterceptor.setArticleService(articleService);
 		defaultModelAttributeInterceptor.setPageService(pageService);
 		return defaultModelAttributeInterceptor;
 	}
