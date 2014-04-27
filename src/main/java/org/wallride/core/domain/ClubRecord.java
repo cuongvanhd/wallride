@@ -10,7 +10,7 @@ import java.io.Serializable;
 /*
  * クラブ対戦成績
  */
-//@Entity
+@Entity
 @Table(name="td13_leageclub")
 //@PrimaryKeyJoinColumn
 @Analyzer(definition="synonyms")

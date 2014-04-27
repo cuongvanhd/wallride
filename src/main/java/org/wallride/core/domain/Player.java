@@ -11,7 +11,7 @@ import java.util.List;
 /*
  * 選手 (要同期:soccer)
  */
-//@Entity
+@Entity
 @Table(name="tm05_player")
 public class Player implements Serializable {
 

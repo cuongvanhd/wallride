@@ -10,7 +10,7 @@ import java.io.Serializable;
 /*
  * 移籍データView (要同期:soccer)
  */
-//@Entity
+@Entity
 @Table(name="movement")
 @Immutable
 public class Movement implements Serializable {

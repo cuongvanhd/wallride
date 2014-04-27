@@ -14,7 +14,7 @@ import java.util.List;
 /*
  * リーグ　(要同期:soccer)
  */
-//@Entity
+@Entity
 @Table(name="tm07_leage")
 //@PrimaryKeyJoinColumn
 @Analyzer(definition="synonyms")
