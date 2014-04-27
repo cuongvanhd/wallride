@@ -55,28 +55,6 @@ create table media (
   primary key (id)
 ) ENGINE=InnoDB;
 
-# create table movement (
-#   td11_id integer not null,
-#   td11_clubid integer,
-#   td11_leageid integer,
-#   td11_playerid integer,
-#   td11_participation1 integer,
-#   td11_participation1_2 integer,
-#   td11_score2 integer,
-#   td11_participation2_2 integer,
-#   td11_participation3_2 integer,
-#   td11_bikou longtext,
-#   td11_score integer,
-#   td11_participation2 integer,
-#   td11_participation3 integer,
-#   td11_uniformnumber varchar(255),
-#   s varchar(255),
-#   s2 varchar(255),
-#   seson2 varchar(255),
-#   seson1 varchar(255),
-#   primary key (td11_id)
-# ) ENGINE=InnoDB;
-
 create table navigation_item (
   id bigint not null auto_increment,
   type varchar(31) not null,
@@ -99,15 +77,6 @@ create table page (
   parent_id bigint,
   primary key (id)
 ) ENGINE=InnoDB;
-
-#create table player_news (
-#  id integer not null,
-#  permalink longtext,
-#  published datetime,
-#  source varchar(255),
-#  title varchar(255),
-#  primary key (id)
-#) ENGINE=InnoDB;
 
  create table post (
   id bigint not null auto_increment,
@@ -170,83 +139,6 @@ create table tag (
   updated_by varchar(100),
   primary key (id)
 ) ENGINE=InnoDB;
-
-#create table td13_leageclub (
-#  td13_id integer not null,
-#  td13_clubid integer,
-#  td13_leageid integer,
-#  primary key (td13_id)
-#) ENGINE=InnoDB;
-
-#create table tm02_club (
-#  tm02_id integer not null,
-#  tm02_alias varchar(255),
-#  tm02_alias_jp varchar(255),
-#  tm02_baseground varchar(255),
-#  tm02_chairmanname varchar(255),
-#  tm02_changememo varchar(255),
-#  tm02_countrycd integer,
-#  tm02_establishment varchar(255),
-#  tm02_etc varchar(255),
-#  tm02_realname varchar(255),
-#  tm02_real3tr varchar(255),
-#  tm02_realname_jp varchar(255),
-#  tm02_petname varchar(255),
-#  tm02_websiteurl varchar(255),
-#  tm02_years integer,
-#  primary key (tm02_id)
-#) ENGINE=InnoDB;
-
-#create table tm05_player (
-#  tm05_id integer not null,
-#  tm05_birthday varchar(255),
-#  tm05_comment longtext,
-#  tm05_tall float,
-#  tm05_home varchar(255),
-#  tm05_seekword varchar(255),
-#  tm05_movie longtext,
-#  tm05_fullname varchar(255),
-#  tm05_name varchar(255),
-#  tm05_fullname_jp varchar(255),
-#  tm05_position_division varchar(255),
-#  tm05_wait float,
-#  tm05_workingfoot integer,
-#  tm05_nationality1 integer,
-#  primary key (tm05_id)
-#) ENGINE=InnoDB;
-
-#create table tm06_world (
-#  tm06_id integer not null,
-#  tm06_fifa_abbreviation varchar(255),
-#  tm06_name varchar(255),
-#  tm06_englishname varchar(255),
-#  tm06_realname varchar(255),
-#  tm06_realname_jp varchar(255),
-#  primary key (tm06_id)
-#) ENGINE=InnoDB;
-
-#create table tm07_leage (
-#  tm07_id integer not null,
-#  tm07_countryid_sub varchar(255),
-#  tm07_division integer,
-#  tm07_leageend varchar(255) not null,
-#  tm07_foreigner varchar(255),
-#  tm07_image1 varchar(255),
-#  tm07_move varchar(255),
-#  tm07_leagename varchar(255),
-#  tm07_leagename2 varchar(255),
-#  tm07_leagestart varchar(255) not null,
-#  tm07_updateymd datetime,
-#  tm07_warning varchar(255),
-#  tm07_countryid integer,
-#  primary key (tm07_id)
-#) ENGINE=InnoDB;
-
-#create table tm14_leage_sub (
-#  tm14_id integer not null,
-#  td14_leageid integer,
-#  primary key (tm14_id)
-#) ENGINE=InnoDB;
 
 create table user (
   id bigint not null auto_increment,
@@ -322,24 +214,6 @@ add constraint FK_81thrbnb8c08gua7tvqj7xdqk
 foreign key (parent_id)
 references category (id);
 
-# alter table movement
-# add index FK_pxhq6yvjpm2kutp16kvmh5teq (td11_clubid),
-# add constraint FK_pxhq6yvjpm2kutp16kvmh5teq
-# foreign key (td11_clubid)
-# references tm02_club (tm02_id);
-#
-# alter table movement
-# add index FK_lvm1h9ehj7vw0mwwc622g82cu (td11_leageid),
-# add constraint FK_lvm1h9ehj7vw0mwwc622g82cu
-# foreign key (td11_leageid)
-# references tm07_leage (tm07_id);
-#
-# alter table movement
-# add index FK_1ryk64i97ten5q6qd6889a2i1 (td11_playerid),
-# add constraint FK_1ryk64i97ten5q6qd6889a2i1
-# foreign key (td11_playerid)
-# references tm05_player (tm05_id);
-
 alter table navigation_item
 add index FK_e986fb2rhw2a7a2m2col2f1fg (parent_id),
 add constraint FK_e986fb2rhw2a7a2m2col2f1fg
@@ -403,36 +277,6 @@ add constraint FK_rmb5w9waqw5fpy31j42wjirt3
 foreign key (post_id)
 references post (id);
 
-# alter table td13_leageclub
-# add index FK_qtmlc60r6i4u748rir29bvggv (td13_clubid),
-# add constraint FK_qtmlc60r6i4u748rir29bvggv
-# foreign key (td13_clubid)
-# references tm02_club (tm02_id);
-#
-# alter table td13_leageclub
-# add index FK_7voibt4v0ybt3vda952mrb1l6 (td13_leageid),
-# add constraint FK_7voibt4v0ybt3vda952mrb1l6
-# foreign key (td13_leageid)
-# references tm07_leage (tm07_id);
-#
-# alter table tm05_player
-# add index FK_1cu1l3l58j0r64cwv1gtbjiv9 (tm05_nationality1),
-# add constraint FK_1cu1l3l58j0r64cwv1gtbjiv9
-# foreign key (tm05_nationality1)
-# references tm06_world (tm06_id);
-#
-# alter table tm07_leage
-# add index FK_stv9nuq8hm7ajngv1o2dtxsiv (tm07_countryid),
-# add constraint FK_stv9nuq8hm7ajngv1o2dtxsiv
-# foreign key (tm07_countryid)
-# references tm06_world (tm06_id);
-#
-# alter table tm14_leage_sub
-# add index FK_93q4opvyf7ld3l4gsfdxa0qy7 (td14_leageid),
-# add constraint FK_93q4opvyf7ld3l4gsfdxa0qy7
-# foreign key (td14_leageid)
-# references tm07_leage (tm07_id);
-
 alter table user
 add constraint UK_6ntlp6n5ltjg6hhxl66jj5u0l unique (login_id);
 
@@ -442,3 +286,163 @@ create table persistent_logins (
 	token varchar(64) not null,
 	last_used timestamp not null
 );
+
+###選手名鑑用テーブル、本番環境のテーブルカラム全てマップをしているわけではない#####
+
+create table player_news (
+  id integer not null,
+  permalink longtext,
+  published datetime,
+  source varchar(255),
+  title varchar(255),
+  primary key (id)
+) ENGINE=InnoDB;
+
+create table td13_leageclub (
+  td13_id integer not null,
+  td13_clubid integer,
+  td13_leageid integer,
+  primary key (td13_id)
+) ENGINE=InnoDB;
+
+create table tm02_club (
+  tm02_id integer not null,
+  tm02_alias varchar(255),
+  tm02_alias_jp varchar(255),
+  tm02_baseground varchar(255),
+  tm02_chairmanname varchar(255),
+  tm02_changememo varchar(255),
+  tm02_countrycd integer,
+  tm02_establishment varchar(255),
+  tm02_etc varchar(255),
+  tm02_realname varchar(255),
+  tm02_real3tr varchar(255),
+  tm02_realname_jp varchar(255),
+  tm02_petname varchar(255),
+  tm02_websiteurl varchar(255),
+  tm02_years integer,
+  primary key (tm02_id)
+) ENGINE=InnoDB;
+
+create table tm05_player (
+  tm05_id integer not null,
+  tm05_birthday varchar(255),
+  tm05_comment longtext,
+  tm05_tall float,
+  tm05_home varchar(255),
+  tm05_seekword varchar(255),
+  tm05_movie longtext,
+  tm05_fullname varchar(255),
+  tm05_name varchar(255),
+  tm05_fullname_jp varchar(255),
+  tm05_position_division varchar(255),
+  tm05_wait float,
+  tm05_workingfoot integer,
+  tm05_nationality1 integer,
+  primary key (tm05_id)
+) ENGINE=InnoDB;
+
+create table tm06_world (
+  tm06_id integer not null,
+  tm06_fifa_abbreviation varchar(255),
+  tm06_name varchar(255),
+  tm06_englishname varchar(255),
+  tm06_realname varchar(255),
+  tm06_realname_jp varchar(255),
+  primary key (tm06_id)
+) ENGINE=InnoDB;
+
+create table tm07_leage (
+  tm07_id integer not null,
+  tm07_countryid_sub varchar(255),
+  tm07_division integer,
+  tm07_leageend varchar(255) not null,
+  tm07_foreigner varchar(255),
+  tm07_image1 varchar(255),
+  tm07_move varchar(255),
+  tm07_leagename varchar(255),
+  tm07_leagename2 varchar(255),
+  tm07_leagestart varchar(255) not null,
+  tm07_updateymd datetime,
+  tm07_warning varchar(255),
+  tm07_countryid integer,
+  primary key (tm07_id)
+) ENGINE=InnoDB;
+
+create table tm14_leage_sub (
+  tm14_id integer not null,
+  td14_leageid integer,
+  primary key (tm14_id)
+) ENGINE=InnoDB;
+
+create table movement (
+  td11_id integer not null,
+  td11_clubid integer,
+  td11_leageid integer,
+  td11_playerid integer,
+  td11_participation1 integer,
+  td11_participation1_2 integer,
+  td11_score2 integer,
+  td11_participation2_2 integer,
+  td11_participation3_2 integer,
+  td11_bikou longtext,
+  td11_score integer,
+  td11_participation2 integer,
+  td11_participation3 integer,
+  td11_uniformnumber varchar(255),
+  s varchar(255),
+  s2 varchar(255),
+  seson2 varchar(255),
+  seson1 varchar(255),
+  primary key (td11_id)
+) ENGINE=InnoDB;
+
+alter table movement
+add index FK_pxhq6yvjpm2kutp16kvmh5teq (td11_clubid),
+add constraint FK_pxhq6yvjpm2kutp16kvmh5teq
+foreign key (td11_clubid)
+references tm02_club (tm02_id);
+
+alter table movement
+add index FK_lvm1h9ehj7vw0mwwc622g82cu (td11_leageid),
+add constraint FK_lvm1h9ehj7vw0mwwc622g82cu
+foreign key (td11_leageid)
+references tm07_leage (tm07_id);
+
+alter table movement
+add index FK_1ryk64i97ten5q6qd6889a2i1 (td11_playerid),
+add constraint FK_1ryk64i97ten5q6qd6889a2i1
+foreign key (td11_playerid)
+references tm05_player (tm05_id);
+
+alter table td13_leageclub
+add index FK_qtmlc60r6i4u748rir29bvggv (td13_clubid),
+add constraint FK_qtmlc60r6i4u748rir29bvggv
+foreign key (td13_clubid)
+references tm02_club (tm02_id);
+
+alter table td13_leageclub
+add index FK_7voibt4v0ybt3vda952mrb1l6 (td13_leageid),
+add constraint FK_7voibt4v0ybt3vda952mrb1l6
+foreign key (td13_leageid)
+references tm07_leage (tm07_id);
+
+alter table tm05_player
+add index FK_1cu1l3l58j0r64cwv1gtbjiv9 (tm05_nationality1),
+add constraint FK_1cu1l3l58j0r64cwv1gtbjiv9
+foreign key (tm05_nationality1)
+references tm06_world (tm06_id);
+
+alter table tm07_leage
+add index FK_stv9nuq8hm7ajngv1o2dtxsiv (tm07_countryid),
+add constraint FK_stv9nuq8hm7ajngv1o2dtxsiv
+foreign key (tm07_countryid)
+references tm06_world (tm06_id);
+
+alter table tm14_leage_sub
+add index FK_93q4opvyf7ld3l4gsfdxa0qy7 (td14_leageid),
+add constraint FK_93q4opvyf7ld3l4gsfdxa0qy7
+foreign key (td14_leageid)
+references tm07_leage (tm07_id);
+
+############################################################
