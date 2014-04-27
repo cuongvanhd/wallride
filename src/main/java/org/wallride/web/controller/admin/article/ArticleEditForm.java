@@ -169,8 +169,10 @@ public class ArticleEditForm extends DomainObjectEditForm {
 	public static ArticleEditForm fromDomainObject(Article article) {
 		ArticleEditForm form = new ArticleEditForm();
 		BeanUtils.copyProperties(article, form);
-		form.setMetaKeywords(article.getSeo().getKeywords());
-		form.setMetaDescription(article.getSeo().getDescription());
+		if (article.getSeo() != null) {
+			form.setMetaKeywords(article.getSeo().getKeywords());
+			form.setMetaDescription(article.getSeo().getDescription());
+		}
 		form.setCoverId(article.getCover() != null ? article.getCover().getId() : null);
 		List<PostBody> postBodies = article.getBodies();
 		List<String> bodies = new ArrayList<>();

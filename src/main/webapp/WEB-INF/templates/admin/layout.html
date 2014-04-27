@@ -90,6 +90,13 @@
 				</ul>
 			</li>
 			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bullhorn"></span> <span th:text="#{Banners}">Banners</span></a>
+				<ul class="nav dropdown-menu">
+					<li><a th:href="@{__${ADMIN_PATH}__/banners/create}"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewBanner}">Banners</span></a></li>
+					<li><a th:href="@{__${ADMIN_PATH}__/banners/index}"><span class="glyphicon glyphicon-list"></span> <span th:text="#{AllBanners}">Banners</span></a></li>
+				</ul>
+			</li>
+			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <span th:text="#{Users}">Users</span></a>
 				<ul class="nav dropdown-menu">
 					<li><a th:href="@{__${ADMIN_PATH}__/users/invitations/index}"><span class="glyphicon glyphicon-send"></span> <span th:text="#{InviteNew}">Invite New</span></a></li>
