@@ -78,7 +78,7 @@
 	padding: 15px;
 }
 .form-control.wr-code {
-	width: 20%;
+	width: 60%;
 	display: inline;
 }
 .wr-tree-options .disclose {
@@ -196,6 +196,6 @@
 .wr-post-status-SCHEDULED {
 	color: #ffc31e;
 }
-.wr-article-page {
-	/*margin-bottom: ;*/
+.wr-article-page img {
+	max-width: 100%;
 }

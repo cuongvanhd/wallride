@@ -152,11 +152,16 @@ public class PostUtils {
 	}
 
 	public String cover(Post post) {
-		for (PostBody body : post.getBodies()) {
-			Document document = Jsoup.parse(body.getBody());
-			Elements elements = document.select("img");
-			for (Element element : elements) {
-				return element.attr("src");
+		if (post.getCover() != null) {
+			return String.format("/media/%s", post.getCover().getId());
+		}
+		else {
+			for (PostBody body : post.getBodies()) {
+				Document document = Jsoup.parse(body.getBody());
+				Elements elements = document.select("img");
+				for (Element element : elements) {
+					return element.attr("src");
+				}
 			}
 		}
 		return null;

@@ -14,7 +14,7 @@
 					<li><a th:href="@{__${ADMIN_PATH}__/pages/index}" th:text="#{Pages}">Pages</a></li>
 					<li class="active" th:text="#{AddNewPage}">Add new page</li>
 				</ol>
-				<form id="page-create-form" th:fragment="form(title,id)" th:action="@{__${ADMIN_PATH}__/pages/create}" th:object="${form}" action="#" method="post">
+				<form id="wr-post-form" th:fragment="form(title,id)" th:action="@{__${ADMIN_PATH}__/pages/create}" th:object="${form}" action="#" method="post">
 					<input type="hidden" name="id" th:if="${id} ne null" th:value="${id}"  />
 					<div class="row">
 						<div class="col-sm-9">
@@ -116,14 +116,17 @@
 							</fieldset>
 							<fieldset>
 								<div class="post-bodies">
-									<fieldset th:each="body, stat : *{bodies}" class="post-body">
-										<div class="form-group" th:classappend="${#fields.hasErrors('bodies')}? has-error">
-											<textarea name="bodies" class="form-control" th:attr="placeholder=#{EnterBody}" placeholder="Enter body here"><span th:text="${body}"></span></textarea>
-											<span class="help-block" th:each="err : ${#fields.errors('bodies')}" th:text="${err}" />
-										</div>
-									</fieldset>
-									<a href="#" class="add-page"><span class="glyphicon glyphicon-plus"></span> ページ追加</a> &nbsp;&nbsp;&nbsp;
-									<a href="#" class="delete-page"><span class="glyphicon glyphicon-remove"></span> ページ削除</a>
+									<div th:each="body, stat : *{bodies}" class="post-body">
+										<fieldset>
+											<div class="form-group" th:classappend="${#fields.hasErrors('bodies')}? has-error">
+												<textarea name="bodies" class="form-control" th:attr="placeholder=#{EnterBody}" placeholder="Enter body here"><span th:text="${body}"></span></textarea>
+												<span class="help-block" th:each="err : ${#fields.errors('bodies')}" th:text="${err}" />
+												<div class="delete-overlay"></div>
+											</div>
+										</fieldset>
+										<a href="#" class="add-page"><span class="glyphicon glyphicon-plus"></span> ページ追加</a>
+										<a th:if="${!stat.first}" href="#" class="delete-page"><span class="glyphicon glyphicon-remove"></span></a>
+									</div>
 								</div>
 								<script th:inline="javascript">
 									/*<![CDATA[*/
@@ -135,11 +138,15 @@
 											imageUpload: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
 											imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#'
 										});
-										$('#page-create-form .add-page').on('click', function(e) {
+										$('#main').on('click', '#wr-post-form .add-page', function(e) {
 											e.preventDefault();
-											var target = $(this).prev('.post-body');
-											var nextBody = $('<fieldset class="post-body">'+'<div class="form-group">'+'<textarea name="bodies" class="form-control">'+'<'+'/textarea>'+'<'+'/div>'+'<'+'/fieldset>');
-											$(nextBody).insertAfter($(target)).hide().fadeIn(400);
+											var target = $(this).parents('.post-body');
+											var nextBody = $('<div class="post-body"><fieldset><div class="form-group"><textarea name="bodies" class="form-control"></textarea>' +
+													'<div class="delete-overlay"></div><div></fieldset>' +
+													'<a href="#" class="add-page"><span class="glyphicon glyphicon-plus"></span> ページ追加</a> &nbsp;&nbsp;&nbsp;' +
+													'<a href="#" class="delete-page"><span class="glyphicon glyphicon-remove"></span> </a>'
+													+ '</div>');
+											$(nextBody).insertAfter($(target)).hide().fadeIn(300);
 											$('#main :input[name="bodies"]').redactor({
 												minHeight: 300,
 												convertImageLinks: true,
@@ -148,7 +155,24 @@
 												imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#'
 											});
 										});
-										$('#page-create-form').submit(function() {
+										$('#main').on({
+											'click': function(e) {
+												e.preventDefault();
+												var target = $(this).parents('.post-body');
+												if (window.confirm('削除します。よろしいですか？')) {
+													$(target).remove();
+												}
+											},
+											'mouseenter':  function(e) {
+												var target = $(this).parents('.post-body');
+												$('.delete-overlay', target).fadeIn('fast');
+											},
+											'mouseleave':  function(e) {
+												var target = $(this).parents('.post-body');
+												$('.delete-overlay', target).fadeOut('fast');
+											}
+										}, '#wr-post-form .delete-page');
+										$('#wr-post-form').submit(function() {
 											var disable = function(elements) {
 												var empty = true;
 												$(elements).each(function(i, element) {
@@ -174,10 +198,10 @@
 												});
 												index++;
 											};
-											$('#page-create-form .post-body').each(function(i, detail) {
+											$('#wr-post-form .post-body').each(function(i, detail) {
 												disable($(':input', detail));
 											});
-											$('#page-create-form .post-body').each(function(i, detail) {
+											$('#wr-post-form .post-body').each(function(i, detail) {
 												replace($(':input:enabled', detail), i);
 											});
 										});
