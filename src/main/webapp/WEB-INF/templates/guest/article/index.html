@@ -38,8 +38,8 @@
 										<nav class="pagination" th:if="${category}">
 											<ul>
 												<li class="pagination-start">
-													<span th:if="${pagination.currentPageNumber eq 1}" class="pagenav">Start</span>
-													<a th:if="${pagination.currentPageNumber ne 1}" title="Start" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=1)}" href="/index.php/news?start=350" class="pagenav">Start</a>
+													<span th:if="${pagination.currentPageNumber eq 0}" class="pagenav">Start</span>
+													<a th:if="${pagination.currentPageNumber ne 0}" title="Start" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=0)}" href="/index.php/news?start=350" class="pagenav">Start</a>
 												</li>
 												<li class="pagination-prev">
 													<span th:if="${!pagination.hasPreviousPage()}" class="pagenav">Prev</span>
@@ -58,8 +58,8 @@
 													<a th:if="${pagination.hasNextPage()}" title="Next" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${pagination.nextPageNumber})}" href="/index.php/news?start=10" class="pagenav">Next</a>
 												</li>
 												<li class="pagination-end">
-													<span th:if="${pagination.currentPageNumber eq pagination.totalPages}" class="pagenav">End</span>
-													<a th:if="${pagination.currentPageNumber ne pagination.totalPages}" title="End" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${pagination.totalPages})}" href="/index.php/news?start=350" class="pagenav">End</a>
+													<span th:if="${pagination.currentPageNumber eq pagination.totalPages - 1}" class="pagenav">End</span>
+													<a th:if="${pagination.currentPageNumber ne pagination.totalPages - 1}" title="End" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${pagination.totalPages - 1})}" href="/index.php/news?start=350" class="pagenav">End</a>
 												</li>
 												<li class="counter" th:text="'Page __${pagination.currentPageNumber}__ of __${pagination.totalPages}__'">Page 1 of 36</li>
 											</ul>
