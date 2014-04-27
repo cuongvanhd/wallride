@@ -411,6 +411,28 @@ ul.sortable {
 	content: ' \2212 ';
 }
 /**** article-edit *****/
+#wr-post-form .post-bodies .post-body {
+	margin-bottom: 20px;
+	position: relative;
+}
+#wr-post-form .post-bodies .post-body .delete-page {
+	position: absolute;
+	top: 9px;
+	left: 97%;
+	z-index: 1000;
+}
+#wr-post-form .post-bodies .post-body .form-group {
+	position: relative;
+}
+#wr-post-form .post-bodies .post-body .delete-overlay {
+	display: none;
+	position: absolute;
+	top: 0px;
+	background-color: rgba(0,0,0,0.1);
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
 @media (min-width: 768px) {
 	#category-fieldset .category-list {
 		height: 350px;
