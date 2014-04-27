@@ -92,9 +92,9 @@
 							<dd>
 								<dl>
 									<dt>Keywords</dt>
-									<dd th:text="${article.seo.keywords}"></dd>
+									<dd th:if="${article.seo != null}" th:text="${article.seo.keywords}"></dd>
 									<dt>Description</dt>
-									<dd th:text="${article.seo.description}"></dd>
+									<dd th:if="${article.seo != null}" th:text="${article.seo.description}"></dd>
 								</dl>
 							</dd>
 						</dl>
