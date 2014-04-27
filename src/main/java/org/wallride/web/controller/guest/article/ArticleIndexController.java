@@ -1,5 +1,6 @@
 package org.wallride.web.controller.guest.article;
 
+import org.joda.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -29,9 +30,6 @@ public class ArticleIndexController {
 //	/categories/[:code]/[:code]/[:code]/[:code]/
 //	/tag/[:code]/
 
-	public static final int PAGINATOR_PER_PAGE = 10;
-	public static final int PAGINATOR_DELTA = 2;
-
 	@Inject
 	private ArticleService articleService;
 
@@ -40,26 +38,7 @@ public class ArticleIndexController {
 
 	@RequestMapping("/{language}/")
 	public String index(
-			@PathVariable String language,
-			@RequestParam(required=false) Integer page,
-			@RequestParam(required=false) String token,
-			HttpSession session,
 			Model model) {
-//		DomainObjectSearchCondition<ArticleSearchForm> condition = DomainObjectSearchCondition.resolve(session, ArticleSearchForm.class, token);
-//		if (condition == null) {
-//			ArticleSearchForm form = new ArticleSearchForm() {};
-//			form.setLanguage(language);
-//			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
-//			Paginator<Long> paginator = new Paginator<>(ids, 20);
-//			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
-//		}
-//		if (page != null && condition.getPaginator().hasElement()) {
-//			condition.getPaginator().setNumber(page);
-//		}
-//
-//		List<Article> articles = articleService.readArticles(condition.getPaginator());
-//		model.addAttribute("articles", articles);
-//		model.addAttribute("paginator", condition.getPaginator());
 		model.addAttribute("home", true);
 		return "/index";
 	}
@@ -68,27 +47,17 @@ public class ArticleIndexController {
 	public String year(
 			@PathVariable String language,
 			@PathVariable int year,
-			@RequestParam(required=false) Integer page,
-			@RequestParam(required=false) String token,
-			HttpSession session,
+			@PageableDefault(10) Pageable pageable,
 			Model model) {
-//		DomainObjectSearchCondition<ArticleSearchForm> condition = DomainObjectSearchCondition.resolve(session, ArticleSearchForm.class, token);
-//		if (condition == null) {
-//			ArticleSearchForm form = new ArticleSearchForm() {};
-//			form.setLanguage(language);
-//			form.setDateFrom(new LocalDateTime(year, 1, 1, 0, 0, 0));
-//			form.setDateTo(new LocalDateTime(year, 12, 31, 0, 0, 0));
-//			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
-//			Paginator<Long> paginator = new Paginator<>(ids, PAGINATOR_PER_PAGE, PAGINATOR_DELTA);
-//			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
-//		}
-//		if (page != null && condition.getPaginator().hasElement()) {
-//			condition.getPaginator().setNumber(page);
-//		}
-//
-//		List<Article> articles = articleService.readArticles(condition.getPaginator());
-//		model.addAttribute("articles", articles);
-//		model.addAttribute("paginator", condition.getPaginator());
+		ArticleSearchForm form = new ArticleSearchForm() {};
+		form.setLanguage(language);
+		form.setDateFrom(new LocalDateTime(year, 1, 1, 0, 0, 0));
+		form.setDateTo(new LocalDateTime(year, 12, 31, 0, 0, 0));
+
+		Page<Article> articles = articleService.readArticles(form.buildArticleSearchRequest(), pageable);
+		model.addAttribute("articles", articles);
+		model.addAttribute("pageable", pageable);
+		model.addAttribute("pagination", new Pagination<>(articles));
 		return "/article/index";
 	}
 
@@ -97,28 +66,18 @@ public class ArticleIndexController {
 			@PathVariable String language,
 			@PathVariable int year,
 			@PathVariable int month,
-			@RequestParam(required=false) Integer page,
-			@RequestParam(required=false) String token,
-			HttpSession session,
+			@PageableDefault(10) Pageable pageable,
 			Model model) {
-//		DomainObjectSearchCondition<ArticleSearchForm> condition = DomainObjectSearchCondition.resolve(session, ArticleSearchForm.class, token);
-//		if (condition == null) {
-//			ArticleSearchForm form = new ArticleSearchForm() {};
-//			form.setLanguage(language);
-//			LocalDateTime date = new LocalDateTime(year, month, 1, 0, 0, 0);
-//			form.setDateFrom(new LocalDateTime(year, month, 1, 0, 0, 0));
-//			form.setDateTo(new LocalDateTime(year, month, date.dayOfMonth().getMaximumValue(), 23, 59, 59));
-//			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
-//			Paginator<Long> paginator = new Paginator<>(ids, PAGINATOR_PER_PAGE, PAGINATOR_DELTA);
-//			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
-//		}
-//		if (page != null && condition.getPaginator().hasElement()) {
-//			condition.getPaginator().setNumber(page);
-//		}
-//
-//		List<Article> articles = articleService.readArticles(condition.getPaginator());
-//		model.addAttribute("articles", articles);
-//		model.addAttribute("paginator", condition.getPaginator());
+		ArticleSearchForm form = new ArticleSearchForm() {};
+		form.setLanguage(language);
+		LocalDateTime date = new LocalDateTime(year, month, 1, 0, 0, 0);
+		form.setDateFrom(new LocalDateTime(year, month, 1, 0, 0, 0));
+		form.setDateTo(new LocalDateTime(year, month, date.dayOfMonth().getMaximumValue(), 23, 59, 59));
+
+		Page<Article> articles = articleService.readArticles(form.buildArticleSearchRequest(), pageable);
+		model.addAttribute("articles", articles);
+		model.addAttribute("pageable", pageable);
+		model.addAttribute("pagination", new Pagination<>(articles));
 		return "/article/index";
 	}
 
@@ -128,27 +87,17 @@ public class ArticleIndexController {
 			@PathVariable int year,
 			@PathVariable int month,
 			@PathVariable int day,
-			@RequestParam(required=false) Integer page,
-			@RequestParam(required=false) String token,
-			HttpSession session,
+			@PageableDefault(10) Pageable pageable,
 			Model model) {
-//		DomainObjectSearchCondition<ArticleSearchForm> condition = DomainObjectSearchCondition.resolve(session, ArticleSearchForm.class, token);
-//		if (condition == null) {
-//			ArticleSearchForm form = new ArticleSearchForm() {};
-//			form.setLanguage(language);
-//			form.setDateFrom(new LocalDateTime(year, month, day, 0, 0, 0));
-//			form.setDateTo(new LocalDateTime(year, month, day, 23, 59, 59));
-//			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
-//			Paginator<Long> paginator = new Paginator<>(ids, PAGINATOR_PER_PAGE, PAGINATOR_DELTA);
-//			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
-//		}
-//		if (page != null && condition.getPaginator().hasElement()) {
-//			condition.getPaginator().setNumber(page);
-//		}
-//
-//		List<Article> articles = articleService.readArticles(condition.getPaginator());
-//		model.addAttribute("articles", articles);
-//		model.addAttribute("paginator", condition.getPaginator());
+		ArticleSearchForm form = new ArticleSearchForm() {};
+		form.setLanguage(language);
+		form.setDateFrom(new LocalDateTime(year, month, day, 0, 0, 0));
+		form.setDateTo(new LocalDateTime(year, month, day, 23, 59, 59));
+
+		Page<Article> articles = articleService.readArticles(form.buildArticleSearchRequest(), pageable);
+		model.addAttribute("articles", articles);
+		model.addAttribute("pageable", pageable);
+		model.addAttribute("pagination", new Pagination<>(articles));
 		return "/article/index";
 	}
 

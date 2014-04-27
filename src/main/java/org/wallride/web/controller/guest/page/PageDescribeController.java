@@ -1,5 +1,6 @@
 package org.wallride.web.controller.guest.page;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,17 +24,13 @@ public class PageDescribeController {
 	@Inject
 	private ArticleIndexController articleIndexController;
 
-	@Inject
-	private LeagueDescribeController leagueDescribeController;
-
 	@RequestMapping
 	public String describe(
 			@PathVariable String code,
 			@PathVariable String language,
-			HttpSession session,
 			Model model) {
 		if (code.matches("[0-9]{4}")) {
-//			return articleIndexController.year(language, Integer.parseInt(code), new PageRequest(0, 10), session, model); //TODO
+			return articleIndexController.year(language, Integer.parseInt(code), new PageRequest(0, 50), model);
 		}
 
 		Page page = pageService.readPageByCode(code, language);
