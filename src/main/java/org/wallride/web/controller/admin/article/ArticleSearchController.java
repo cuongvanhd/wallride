@@ -3,6 +3,7 @@ package org.wallride.web.controller.admin.article;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -62,7 +63,7 @@ public class ArticleSearchController extends DomainObjectSearchController<Articl
 
 	@RequestMapping(params="page")
 	public String page(
-			Pageable pageable,
+			@PageableDefault(50) Pageable pageable,
 			Model model,
 			HttpServletRequest request,
 			HttpServletResponse response,

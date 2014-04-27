@@ -82,7 +82,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="article : ${articles}" th:attr="data-href=@{__${ADMIN_PATH}__/articles/describe(id=${article.id},token=${token})}" class="clickable">
+								<tr th:each="article : ${articles}" th:attr="data-href=@{__${ADMIN_PATH}__/articles/describe(id=${article.id})}" class="clickable">
 									<td class="wr-tr-checkbox" style="width:40px"><input type="checkbox" name="ids" th:value="${article.id}" /></td>
 									<td th:class="'wr-post-status-' + ${article.status}" th:text="${#messages.msg('Post.Status.' + article.status)}">Status</td>
 									<td th:text="${article.title?:'(No Titled)'}" style="font-weight: bold;">Title</td>
