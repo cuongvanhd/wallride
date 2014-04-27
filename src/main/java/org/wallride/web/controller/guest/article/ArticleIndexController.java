@@ -1,5 +1,8 @@
 package org.wallride.web.controller.guest.article;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.AntPathMatcher;
@@ -7,8 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.HandlerMapping;
+import org.wallride.core.domain.Article;
+import org.wallride.core.domain.Category;
+import org.wallride.core.domain.CategoryTree;
 import org.wallride.core.service.ArticleService;
 import org.wallride.core.service.CategoryService;
+import org.wallride.core.support.Pagination;
+import org.wallride.web.support.DomainObjectSearchCondition;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -147,35 +155,25 @@ public class ArticleIndexController {
 	@RequestMapping("/{language}/category/**")
 	public String category(
 			@PathVariable String language,
-			@RequestParam(required=false) Integer page,
-			@RequestParam(required=false) String token,
+			@PageableDefault(10) Pageable pageable,
 			HttpServletRequest request,
-			HttpSession session,
 			Model model) {
-//		String path = extractPathFromPattern(request);
-//		String[] codes = path.split("/");
-//		String lastCode = codes[codes.length - 1];
-//
-//		CategoryTree categoryTree = categoryService.readCategoryTree(language);
-//		Category category = categoryTree.getCategoryByCode(lastCode);
-//
-//		DomainObjectSearchCondition<ArticleSearchForm> condition = DomainObjectSearchCondition.resolve(session, ArticleSearchForm.class, token);
-//		if (condition == null) {
-//			ArticleSearchForm form = new ArticleSearchForm() {};
-//			form.setLanguage(language);
-//			form.getCategoryIds().add(category.getId());
-//			List<Long> ids = articleService.searchArticles(form.buildArticleSearchRequest());
-//			Paginator<Long> paginator = new Paginator<>(ids, PAGINATOR_PER_PAGE, PAGINATOR_DELTA);
-//			condition = new DomainObjectSearchCondition<ArticleSearchForm>(session, form, paginator);
-//		}
-//		if (page != null && condition.getPaginator().hasElement()) {
-//			condition.getPaginator().setNumber(page);
-//		}
-//
-//		List<Article> articles = articleService.readArticles(condition.getPaginator());
-//		model.addAttribute("category", category);
-//		model.addAttribute("articles", articles);
-//		model.addAttribute("paginator", condition.getPaginator());
+		String path = extractPathFromPattern(request);
+		String[] codes = path.split("/");
+		String lastCode = codes[codes.length - 1];
+
+		CategoryTree categoryTree = categoryService.readCategoryTree(language);
+		Category category = categoryTree.getCategoryByCode(lastCode);
+
+		ArticleSearchForm form = new ArticleSearchForm() {};
+		form.setLanguage(language);
+		form.getCategoryIds().add(category.getId());
+
+		Page<Article> articles = articleService.readArticles(form.buildArticleSearchRequest(), pageable);
+		model.addAttribute("category", category);
+		model.addAttribute("articles", articles);
+		model.addAttribute("pageable", pageable);
+		model.addAttribute("pagination", new Pagination<>(articles));
 		return "/article/index";
 	}
 

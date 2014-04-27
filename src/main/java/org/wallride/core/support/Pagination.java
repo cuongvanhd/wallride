@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Pagination<T> {
 
+	public static final int DEFAULT_INTERVAL = 5;
+
 	private Page<T> page;
 
 	public Pagination(Page<T> page) {
@@ -60,9 +62,12 @@ public class Pagination<T> {
 	}
 
 	public List<Pageable> getPageables(Pageable currentPageable) {
+		return getPageables(currentPageable, DEFAULT_INTERVAL);
+	}
+
+	public List<Pageable> getPageables(Pageable currentPageable, int interval) {
 		List<Pageable> pageables = new ArrayList<>();
 
-		int interval = 5;
 		int start = page.getNumber() - interval;
 		if (start < 0) {
 			start = 0;

@@ -38,30 +38,30 @@
 										<nav class="pagination" th:if="${category}">
 											<ul>
 												<li class="pagination-start">
-													<span th:if="${paginator.number eq 1}" class="pagenav">Start</span>
-													<a th:if="${paginator.number ne 1}" title="Start" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=1,token=${token})}" href="/index.php/news?start=350" class="pagenav">Start</a>
+													<span th:if="${pagination.currentPageNumber eq 1}" class="pagenav">Start</span>
+													<a th:if="${pagination.currentPageNumber ne 1}" title="Start" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=1)}" href="/index.php/news?start=350" class="pagenav">Start</a>
 												</li>
 												<li class="pagination-prev">
-													<span th:if="${!paginator.hasPrevious()}" class="pagenav">Prev</span>
-													<a th:if="${paginator.hasPrevious()}" title="Prev" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${paginator.previousNumber},token=${token})}" href="/index.php/news?start=10" class="pagenav">Prev</a>
+													<span th:if="${!pagination.hasPreviousPage()}" class="pagenav">Prev</span>
+													<a th:if="${pagination.hasPreviousPage()}" title="Prev" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${pagination.previousPageNumber})}" href="/index.php/news?start=10" class="pagenav">Prev</a>
 												</li>
-												<!--/*/ <th:block th:each="no : ${paginator.numbers}"> /*/-->
-												<li th:if="${noStat.first} and ${no ne 1}"><span>&hellip;</span></li>
+												<!--/*/ <th:block th:each="p : ${pagination.getPageables(pageable, 2)}"> /*/-->
+												<li th:if="${pStat.first} and ${p.pageNumber ne 0}"><span>&hellip;</span></li>
 												<li>
-													<span th:if="${no eq paginator.number}" class="pagenav" th:text="${no}">1</span>
-													<a th:if="${no ne paginator.number}" title="2" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${no},token=${token})}" href="/index.php/news?start=10" class="pagenav" th:text="${no}">2</a>
+													<span th:if="${p.pageNumber eq pagination.currentPageNumber}" class="pagenav" th:text="${p.pageNumber + 1}">1</span>
+													<a th:if="${p.pageNumber ne pagination.currentPageNumber}" title="2" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${p.pageNumber})}" href="/index.php/news?start=10" class="pagenav" th:text="${p.pageNumber + 1}">2</a>
 												</li>
-												<li th:if="${noStat.last} and ${no lt paginator.pages()}"><span>&hellip;</span></li>
+												<li th:if="${pStat.last} and ${p.pageNumber lt pagination.totalPages}"><span>&hellip;</span></li>
 												<!--/*/ </th:block> /*/-->
 												<li class="pagination-next">
-													<span th:if="${!paginator.hasNext()}" class="pagenav">Next</span>
-													<a th:if="${paginator.hasNext()}" title="Next" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${paginator.nextNumber},token=${token})}" href="/index.php/news?start=10" class="pagenav">Next</a>
+													<span th:if="${!pagination.hasNextPage()}" class="pagenav">Next</span>
+													<a th:if="${pagination.hasNextPage()}" title="Next" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${pagination.nextPageNumber})}" href="/index.php/news?start=10" class="pagenav">Next</a>
 												</li>
 												<li class="pagination-end">
-													<span th:if="${paginator.number eq paginator.pages()}" class="pagenav">End</span>
-													<a th:if="${paginator.number ne paginator.pages()}" title="End" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${paginator.pages()},token=${token})}" href="/index.php/news?start=350" class="pagenav">End</a>
+													<span th:if="${pagination.currentPageNumber eq pagination.totalPages}" class="pagenav">End</span>
+													<a th:if="${pagination.currentPageNumber ne pagination.totalPages}" title="End" th:href="@{__${WEBSITE_PATH}__/category/__${category.code}__(page=${pagination.totalPages})}" href="/index.php/news?start=350" class="pagenav">End</a>
 												</li>
-												<li class="counter" th:text="'Page __${paginator.number}__ of __${paginator.pages()}__'">Page 1 of 36</li>
+												<li class="counter" th:text="'Page __${pagination.currentPageNumber}__ of __${pagination.totalPages}__'">Page 1 of 36</li>
 											</ul>
 										</nav>
 									</form>
