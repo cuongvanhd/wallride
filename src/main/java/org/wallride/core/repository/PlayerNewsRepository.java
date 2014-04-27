@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.wallride.core.domain.Player;
 import org.wallride.core.domain.PlayerNews;
 
 import java.util.Collection;

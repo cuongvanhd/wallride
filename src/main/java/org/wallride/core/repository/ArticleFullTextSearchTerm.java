@@ -26,8 +26,6 @@ public class ArticleFullTextSearchTerm implements Serializable {
 
 	private String language;
 
-	private int maxResults;
-
 	public Post.Status getStatus() {
 		return status;
 	}
@@ -90,13 +88,5 @@ public class ArticleFullTextSearchTerm implements Serializable {
 
 	public void setLanguage(String language) {
 		this.language = language;
-	}
-
-	public int getMaxResults() {
-		return maxResults;
-	}
-
-	public void setMaxResults(int maxResults) {
-		this.maxResults = maxResults;
 	}
 }

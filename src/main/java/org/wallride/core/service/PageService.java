@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -25,7 +27,6 @@ import org.wallride.core.repository.MediaRepository;
 import org.wallride.core.repository.PageFullTextSearchTerm;
 import org.wallride.core.repository.PageRepository;
 import org.wallride.core.support.AuthorizedUser;
-import org.wallride.core.support.Paginator;
 import org.wallride.core.support.Settings;
 
 import javax.inject.Inject;
@@ -394,20 +395,26 @@ public class PageService {
 		return pages;
 	}
 	
-	public List<Long> searchPages(PageSearchRequest request) {
-		if (request.isEmpty()) {
-			return pageRepository.findId();
-		}
+//	public List<Long> searchPages(PageSearchRequest request) {
+//		if (request.isEmpty()) {
+//			return pageRepository.findId();
+//		}
+//		PageFullTextSearchTerm term = request.toFullTextSearchTerm();
+//		term.setLanguage(LocaleContextHolder.getLocale().getLanguage());
+//		return pageRepository.findByFullTextSearchTerm(request.toFullTextSearchTerm());
+//	}
+
+	public org.springframework.data.domain.Page<Page> readPages(PageSearchRequest request) {
+		Pageable pageable = new PageRequest(0, 10);
+		return readPages(request, pageable);
+	}
+
+	public org.springframework.data.domain.Page<Page> readPages(PageSearchRequest request, Pageable pageable) {
 		PageFullTextSearchTerm term = request.toFullTextSearchTerm();
 		term.setLanguage(LocaleContextHolder.getLocale().getLanguage());
-		return pageRepository.findByFullTextSearchTerm(request.toFullTextSearchTerm());
+		return pageRepository.findByFullTextSearchTerm(request.toFullTextSearchTerm(), pageable);
 	}
-	
-	public List<Page> readPages(Paginator<Long> paginator) {
-		if (paginator == null || !paginator.hasElement()) return new ArrayList<Page>();
-		return readPages(paginator.getElements());
-	}
-	
+
 	public List<Page> readPages(Collection<Long> ids) {
 		Set<Page> results = new LinkedHashSet<Page>(pageRepository.findByIdIn(ids));
 		List<Page> pages = new ArrayList<>();

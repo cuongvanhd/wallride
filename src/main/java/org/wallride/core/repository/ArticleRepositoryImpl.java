@@ -9,20 +9,24 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.apache.lucene.util.Version;
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.Session;
 import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.BooleanJunction;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.wallride.core.domain.Article;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 	
@@ -30,7 +34,7 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 	private EntityManager entityManager;
 	
 	@Override
-	public List<Long> findByFullTextSearchTerm(ArticleFullTextSearchTerm term) {
+	public Page<Article> findByFullTextSearchTerm(ArticleFullTextSearchTerm term, Pageable pageable) {
 		FullTextEntityManager fullTextEntityManager =  Search.getFullTextEntityManager(entityManager);
 		QueryBuilder qb = fullTextEntityManager.getSearchFactory()
 				.buildQueryBuilder()
@@ -90,25 +94,28 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 
 		Query searchQuery = junction.createQuery();
 		
+		Session session = (Session) entityManager.getDelegate();
+		Criteria criteria = session.createCriteria(Article.class)
+				.setFetchMode("cover", FetchMode.JOIN)
+				.setFetchMode("bodies", FetchMode.JOIN)
+				.setFetchMode("seo", FetchMode.JOIN)
+				.setFetchMode("author", FetchMode.JOIN)
+				.setFetchMode("categories", FetchMode.JOIN);
+
 		Sort sort = new Sort(new SortField("date", SortField.STRING, true));
-		
-		javax.persistence.Query persistenceQuery = fullTextEntityManager
+
+		FullTextQuery persistenceQuery = fullTextEntityManager
 				.createFullTextQuery(searchQuery, Article.class)
-				.setProjection("id")
+				.setCriteriaQuery(criteria)
+//				.setProjection("id")
 				.setSort(sort);
-		if (term.getMaxResults() > 0) {
-			persistenceQuery.setMaxResults(term.getMaxResults());
-		}
+		persistenceQuery.setFirstResult(pageable.getOffset());
+		persistenceQuery.setMaxResults(pageable.getPageSize());
+
+		int resultSize = persistenceQuery.getResultSize();
 
 		@SuppressWarnings("unchecked")
-		List<Object[]> results = persistenceQuery.getResultList();
-		
-		Set<Long> ids = new LinkedHashSet<Long>();
-		for (Object[] object : results) {
-			ids.add((Long) object[0]);
-		}
-		
-		return new ArrayList<>(ids);
+		List<Article> results = persistenceQuery.getResultList();
+		return new PageImpl<>(results, pageable, resultSize);
 	}
-
 }

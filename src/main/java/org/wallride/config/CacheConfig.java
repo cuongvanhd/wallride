@@ -24,8 +24,6 @@ import org.springframework.util.CollectionUtils;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Properties;
 

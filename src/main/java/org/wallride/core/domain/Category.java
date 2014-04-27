@@ -1,12 +1,12 @@
 package org.wallride.core.domain;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
 import org.hibernate.search.annotations.Field;
 
-import javax.persistence.CascadeType;
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -66,13 +66,13 @@ public class Category extends DomainObject<Long> implements Comparable<Category>
 	@Sort(type= SortType.NATURAL)
 	private SortedSet<Article> articles = new TreeSet<>();
 
-	@Formula("(" +
-			"select count(distinct article.id) from article article " +
-			"inner join post post on article.id = post.id " +
-			"inner join article_category category on article.id = category.article_id " +
-			"where category.category_id = id " +
-			"and post.status = 'PUBLISHED') ")
-	private int articleCount;
+//	@Formula("(" +
+//			"select count(distinct article.id) from article article " +
+//			"inner join post post on article.id = post.id " +
+//			"inner join article_category category on article.id = category.article_id " +
+//			"where category.category_id = id " +
+//			"and post.status = 'PUBLISHED') ")
+//	private int articleCount;
 
 	@Override
 	public Long getId() {
@@ -171,9 +171,9 @@ public class Category extends DomainObject<Long> implements Comparable<Category>
 		this.articles = articles;
 	}
 
-	public int getArticleCount() {
-		return articleCount;
-	}
+//	public int getArticleCount() {
+//		return articleCount;
+//	}
 
 	@Override
 	public String toString() {

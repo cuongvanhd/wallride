@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -24,7 +27,6 @@ import org.wallride.core.repository.ArticleFullTextSearchTerm;
 import org.wallride.core.repository.ArticleRepository;
 import org.wallride.core.repository.MediaRepository;
 import org.wallride.core.support.AuthorizedUser;
-import org.wallride.core.support.Paginator;
 import org.wallride.core.support.Settings;
 
 import javax.inject.Inject;
@@ -300,19 +302,23 @@ public class ArticleService {
 	}
 	
 	public List<Long> searchArticles(ArticleSearchRequest request) {
-//		if (request.isEmpty()) {
-//			return articleRepository.findId();
-//		}
-		ArticleFullTextSearchTerm term = request.toFullTextSearchTerm();
-		term.setLanguage(LocaleContextHolder.getLocale().getLanguage());
-		return articleRepository.findByFullTextSearchTerm(request.toFullTextSearchTerm());
+//		ArticleFullTextSearchTerm term = request.toFullTextSearchTerm();
+//		term.setLanguage(LocaleContextHolder.getLocale().getLanguage());
+//		return articleRepository.findByFullTextSearchTerm(request.toFullTextSearchTerm());
+		return new ArrayList<>();
 	}
 
-	public List<Article> readArticles(Paginator<Long> paginator) {
-		if (paginator == null || !paginator.hasElement()) return new ArrayList<Article>();
-		return readArticles(paginator.getElements());
+	public Page<Article> readArticles(ArticleSearchRequest request) {
+		Pageable pageable = new PageRequest(0, 10);
+		return readArticles(request, pageable);
 	}
-	
+
+	public Page<Article> readArticles(ArticleSearchRequest request, Pageable pageable) {
+		ArticleFullTextSearchTerm term = request.toFullTextSearchTerm();
+		term.setLanguage(LocaleContextHolder.getLocale().getLanguage());
+		return articleRepository.findByFullTextSearchTerm(request.toFullTextSearchTerm(), pageable);
+	}
+
 	public List<Article> readArticles(Collection<Long> ids) {
 		Set<Article> results = new LinkedHashSet<Article>(articleRepository.findByIdIn(ids));
 		List<Article> articles = new ArrayList<>();
@@ -329,7 +335,7 @@ public class ArticleService {
 
 	@Cacheable(value = "articles", key = "'list.category-code.' + #language + '.' + #code + '.' + #status")
 	public SortedSet<Article> readArticlesByCategoryCode(String language, String code, Post.Status status) {
-		return readArticlesByCategoryCode(language, code, status, -1);
+		return readArticlesByCategoryCode(language, code, status, 10); //TODO
 	}
 
 	@Cacheable(value = "articles", key = "'list.category-code.' + #language + '.' + #code + '.' + #status + '.' + #size")
@@ -338,12 +344,10 @@ public class ArticleService {
 		term.setLanguage(language);
 		term.getCategoryCodes().add(code);
 		term.setStatus(status);
-		term.setMaxResults(size);
-		List<Long> ids = articleRepository.findByFullTextSearchTerm(term);
-		if (CollectionUtils.isEmpty(ids)) {
-			return new TreeSet<>();
-		}
-		return new TreeSet<>(articleRepository.findByIdIn(ids));
+
+		Pageable pageable = new PageRequest(1, size);
+		Page<Article> page = articleRepository.findByFullTextSearchTerm(term, pageable);
+		return new TreeSet<>(page.getContent());
 	}
 
 	@Cacheable(value = "articles", key = "'list.latest.' + #language + '.' + #status + '.' + #size")
@@ -351,12 +355,10 @@ public class ArticleService {
 		ArticleFullTextSearchTerm term = new ArticleFullTextSearchTerm();
 		term.setLanguage(language);
 		term.setStatus(status);
-		term.setMaxResults(size);
-		List<Long> ids = articleRepository.findByFullTextSearchTerm(term);
-		if (CollectionUtils.isEmpty(ids)) {
-			return new TreeSet<>();
-		}
-		return new TreeSet<>(articleRepository.findByIdIn(ids));
+
+		Pageable pageable = new PageRequest(1, size);
+		Page<Article> page = articleRepository.findByFullTextSearchTerm(term, pageable);
+		return new TreeSet<>(page.getContent());
 	}
 
 	public Article readArticleById(long id, String language) {
@@ -373,5 +375,23 @@ public class ArticleService {
 
 	public long countArticlesByStatus(Post.Status status, String language) {
 		return articleRepository.countByStatus(status, language);
+	}
+
+	public Map<Long, Long> countArticlesByAuthorIdGrouped(Post.Status status, String language) {
+		List<Map<String, Object>> results = articleRepository.countByAuthorIdGrouped(status, language);
+		Map<Long, Long> counts = new HashMap<>();
+		for (Map<String, Object> row : results) {
+			counts.put((Long) row.get("userId"), (Long) row.get("count"));
+		}
+		return counts;
+	}
+
+	public Map<Long, Long> countArticlesByCategoryIdGrouped(Post.Status status, String language) {
+		List<Map<String, Object>> results = articleRepository.countByCategoryIdGrouped(status, language);
+		Map<Long, Long> counts = new HashMap<>();
+		for (Map<String, Object> row : results) {
+			counts.put((Long) row.get("categoryId"), (Long) row.get("count"));
+		}
+		return counts;
 	}
 }

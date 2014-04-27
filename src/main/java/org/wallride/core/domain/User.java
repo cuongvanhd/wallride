@@ -2,7 +2,6 @@ package org.wallride.core.domain;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Formula;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -45,13 +44,13 @@ public class User extends DomainObject<Long> {
 	@Column
 	private String description;
 
-	@Formula("(" +
-			"select count(distinct article.id) from user " +
-			"inner join post post on post.author_id = user.id " +
-			"inner join article article on article.id = post.id " +
-			"where post.author_id = id " +
-			"and post.status = 'PUBLISHED')")
-	private int articleCount;
+//	@Formula("(" +
+//			"select count(distinct article.id) from user " +
+//			"inner join post post on post.author_id = user.id " +
+//			"inner join article article on article.id = post.id " +
+//			"where post.author_id = id " +
+//			"and post.status = 'PUBLISHED')")
+//	private int articleCount;
 
 	@Override
 	public Long getId() {
@@ -102,9 +101,9 @@ public class User extends DomainObject<Long> {
 		this.description = description;
 	}
 
-	public int getArticleCount() {
-		return articleCount;
-	}
+//	public int getArticleCount() {
+//		return articleCount;
+//	}
 
 	public String getGravatarUrl(int size) throws UnsupportedEncodingException {
 		String hash = DigestUtils.md5DigestAsHex(getEmail().getBytes("CP1252"));
