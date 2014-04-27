@@ -28,6 +28,22 @@ create table article_tag (
   primary key (article_id, tag_id)
 ) ENGINE=InnoDB;
 
+create table banner (
+  id bigint not null auto_increment,
+  created_at datetime not null,
+  created_by varchar(100),
+  updated_at datetime not null,
+  updated_by varchar(100),
+  language varchar(3) not null,
+  link varchar(500),
+  link_target_blank bit not null,
+  sort integer not null,
+  title varchar(200),
+  type varchar(50) not null,
+  image_id varchar(50),
+  primary key (id)
+) ENGINE=InnoDB;
+
 create table category (
   id bigint not null auto_increment,
   created_at datetime not null,
@@ -204,6 +220,11 @@ add index FK_5ao70rbptu4cd93wbu7o38y1y (article_id),
 add constraint FK_5ao70rbptu4cd93wbu7o38y1y
 foreign key (article_id)
 references article (id);
+
+alter table banner
+add constraint FK_r0e321xypeja47xrqg4khbcn
+foreign key (image_id)
+references media (id);
 
 alter table category
 add constraint UK_86l62kycx6uuh2dbgymn8i065 unique (code, language);

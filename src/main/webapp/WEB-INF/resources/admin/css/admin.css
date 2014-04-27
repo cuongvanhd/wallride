@@ -373,7 +373,7 @@ ul.sortable {
 	margin: 10px 0 0 0;
 	padding: 0;
 }
-.sortable li div.category  {
+.sortable li div.category, .sortable li div.banner  {
 	border: 1px solid #d4d4d4;
 	padding: 0;
 	margin: 0;
