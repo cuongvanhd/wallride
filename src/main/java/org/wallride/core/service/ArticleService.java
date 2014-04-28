@@ -315,13 +315,6 @@ public class ArticleService {
 		return articles;
 	}
 	
-	public List<Long> searchArticles(ArticleSearchRequest request) {
-//		ArticleFullTextSearchTerm term = request.toFullTextSearchTerm();
-//		term.setLanguage(LocaleContextHolder.getLocale().getLanguage());
-//		return articleRepository.findByFullTextSearchTerm(request.toFullTextSearchTerm());
-		return new ArrayList<>();
-	}
-
 	public Page<Article> readArticles(ArticleSearchRequest request) {
 		Pageable pageable = new PageRequest(0, 10);
 		return readArticles(request, pageable);

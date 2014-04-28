@@ -395,15 +395,6 @@ public class PageService {
 		return pages;
 	}
 	
-//	public List<Long> searchPages(PageSearchRequest request) {
-//		if (request.isEmpty()) {
-//			return pageRepository.findId();
-//		}
-//		PageFullTextSearchTerm term = request.toFullTextSearchTerm();
-//		term.setLanguage(LocaleContextHolder.getLocale().getLanguage());
-//		return pageRepository.findByFullTextSearchTerm(request.toFullTextSearchTerm());
-//	}
-
 	public org.springframework.data.domain.Page<Page> readPages(PageSearchRequest request) {
 		Pageable pageable = new PageRequest(0, 10);
 		return readPages(request, pageable);

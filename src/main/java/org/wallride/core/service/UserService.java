@@ -228,14 +228,6 @@ public class UserService {
 		return invitation;
 	}
 
-//	@Cacheable(value="users", key="'id.'+#request")
-//	public List<Long> searchUsers(UserSearchRequest request) {
-//		if (request.isEmpty()) {
-//			return userRepository.findId();
-//		}
-//		return userRepository.findByFullTextSearchTerm(request.toFullTextSearchTerm());
-//	}
-
 	public Page<User> readUsers(UserSearchRequest request) {
 		Pageable pageable = new PageRequest(0, 10);
 		return readUsers(request, pageable);
