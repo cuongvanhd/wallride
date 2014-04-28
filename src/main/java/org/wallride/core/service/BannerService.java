@@ -4,6 +4,7 @@ import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
@@ -92,7 +93,7 @@ public class BannerService {
 		return banner;
 	}
 
-	@CacheEvict(value="banners", allEntries=true)
+	@CacheEvict(value = "banners", allEntries = true)
 	public void updateBannerSort(List<Map<String, Object>> data, String language) {
 		for (int i = 0; i < data.size(); i++) {
 			Map<String, Object> map = data.get(i);
@@ -106,6 +107,7 @@ public class BannerService {
 		}
 	}
 
+	@Cacheable(value = "banners", key = "'list.' + #type + '.' + #language")
 	public List<Banner> readBannersByType(Banner.Type type, String language) {
 		return bannerRepository.findByType(type, language);
 	}

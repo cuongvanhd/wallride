@@ -36,12 +36,12 @@ public class ArticleIndexController {
 	@Inject
 	private CategoryService categoryService;
 
-	@RequestMapping("/{language}/")
-	public String index(
-			Model model) {
-		model.addAttribute("home", true);
-		return "/index";
-	}
+//	@RequestMapping("/{language}/")
+//	public String index(
+//			Model model) {
+//		model.addAttribute("home", true);
+//		return "/index";
+//	}
 
 	@RequestMapping("/{language}/{year:[0-9]{4}}")
 	public String year(
