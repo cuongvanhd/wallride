@@ -27,7 +27,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/{language}/articles/index")
 public class ArticleSearchController extends DomainObjectSearchController<Article, ArticleSearchForm> {
-	
+
 	@Inject
 	private ArticleService articleService;
 

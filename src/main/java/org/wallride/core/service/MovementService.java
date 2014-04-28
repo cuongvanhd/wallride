@@ -3,18 +3,12 @@ package org.wallride.core.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.wallride.core.domain.Movement;
-import org.wallride.core.repository.MovementRepository;
-import org.wallride.core.support.Paginator;
-
-import javax.inject.Inject;
-import java.util.*;
 
 @Service
 @Transactional(rollbackFor=Exception.class)
 public class MovementService {
 
-	@Inject
+/*	@Inject
 	private MovementRepository movementRepository;
 	
 //	public List<Long> searchMovements(MovementSearchRequest request) {
@@ -55,5 +49,5 @@ public class MovementService {
 
 	public List<Movement> readMovementsByPlayerId(int playerId) {
 		return movementRepository.findByPlayerId(playerId);
-	}
+	}*/
 }

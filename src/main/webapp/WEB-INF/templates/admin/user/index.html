@@ -69,7 +69,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="user : ${users}" th:attr="data-href=@{__${ADMIN_PATH}__/users/describe(id=${user.id},token=${token})}" class="clickable">
+									<tr th:each="user : ${users}" th:attr="data-href=@{__${ADMIN_PATH}__/users/describe(id=${user.id})}" class="clickable">
 										<td class="wr-tr-checkbox" style="width:40px"><input type="checkbox" name="ids" th:value="${user.id}" /></td>
 										<td th:text="${user.name}"></td>
 										<td th:text="${user.loginId}"></td>

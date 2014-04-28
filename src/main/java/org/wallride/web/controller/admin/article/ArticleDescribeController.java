@@ -20,12 +20,12 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping(value="/{language}/articles/describe", method=RequestMethod.GET)
 public class ArticleDescribeController extends DomainObjectDescribeController<Article, ArticleSearchForm> {
-	
+
 	@Inject
 	private ArticleService articleService;
-	
+
 	@RequestMapping
-	public String describe( 
+	public String describe(
 			@RequestParam long id,
 			Model model,
 			HttpSession session) {

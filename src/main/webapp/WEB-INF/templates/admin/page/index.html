@@ -91,7 +91,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="page : ${pages}" th:attr="data-href=@{__${ADMIN_PATH}__/pages/describe(id=${page.id},token=${token})}" class="clickable">
+								<tr th:each="page : ${pages}" th:attr="data-href=@{__${ADMIN_PATH}__/pages/describe(id=${page.id})}" class="clickable">
 									<td class="wr-tr-checkbox" style="width:40px"><input type="checkbox" name="ids" th:value="${page.id}" /></td>
 									<td th:class="'wr-post-status-' + ${page.status}" th:text="${#messages.msg('Post.Status.' + page.status)}">Status</td>
 									<td th:text="${page.title?:'(No Titled)'}" style="font-weight: bold;">事務所移転のお知らせ</td>

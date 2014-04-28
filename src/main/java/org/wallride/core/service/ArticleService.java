@@ -314,7 +314,7 @@ public class ArticleService {
 		}
 		return articles;
 	}
-	
+
 	public Page<Article> readArticles(ArticleSearchRequest request) {
 		Pageable pageable = new PageRequest(0, 10);
 		return readArticles(request, pageable);

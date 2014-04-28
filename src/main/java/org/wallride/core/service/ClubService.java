@@ -3,18 +3,12 @@ package org.wallride.core.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.wallride.core.domain.Club;
-import org.wallride.core.repository.ClubRepository;
-import org.wallride.core.support.Paginator;
-
-import javax.inject.Inject;
-import java.util.*;
 
 @Service
 @Transactional(rollbackFor=Exception.class)
 public class ClubService {
 
-	@Inject
+/*	@Inject
 	private ClubRepository clubRepository;
 	
 //	public List<Long> searchClubs(ClubSearchRequest request) {
@@ -55,5 +49,5 @@ public class ClubService {
 
 	public List<Club> readClubsByLeagueId(int leagueId) {
 		return clubRepository.findByLeagueId(leagueId);
-	}
+	}*/
 }

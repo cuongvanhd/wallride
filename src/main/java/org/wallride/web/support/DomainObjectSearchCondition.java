@@ -8,9 +8,7 @@ import java.io.Serializable;
 public class DomainObjectSearchCondition<T extends DomainObjectSearchForm> implements Serializable {
 
 	private String sessionKey;
-//	private String token;
 	private T form;
-//	private Paginator<Long> paginator;
 	private Pageable pageable;
 
 	public DomainObjectSearchCondition(HttpSession session, T form) {
@@ -29,18 +27,10 @@ public class DomainObjectSearchCondition<T extends DomainObjectSearchForm> imple
 		return sessionKey;
 	}
 	
-//	public String getToken() {
-//		return token;
-//	}
-	
 	public T getForm() {
 		return form;
 	}
 	
-//	public Paginator<Long> getPaginator() {
-//		return paginator;
-//	}
-
 	public Pageable getPageable() {
 		return pageable;
 	}

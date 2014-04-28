@@ -73,12 +73,4 @@ public class DashboardController {
 		Page<Article> page = articleService.readArticles(form.buildArticleSearchRequest());
 		return page.getContent();
 	}
-
-	private List<Article> recentUnpublishedArtciles(String language) {
-		ArticleSearchForm form = new ArticleSearchForm();
-		form.setLanguage(language);
-		form.setStatus(Post.Status.UNPUBLISHED);
-		Page<Article> page = articleService.readArticles(form.buildArticleSearchRequest());
-		return page.getContent();
-	}
 }
