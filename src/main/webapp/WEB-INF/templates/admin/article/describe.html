@@ -41,10 +41,20 @@
 							<h1 th:text="${article.title}?:'(No Titled)'">(No Titled)</h1>
 						</div>
 						<div class="clearfix">
-							<article class="wr-article-page" th:each="postBody, bodyStat : ${article.bodies}">
+							<div class="pager pull-left">
+								<ul class="list-unstyled list-inline">
+									<li th:each="postBody, bodyStat : ${article.bodies}"><a th:href="'#page_'+ ${bodyStat.count}" th:text="${bodyStat.count}"></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="clearfix">
+							<th:block th:each="postBody, bodyStat : ${article.bodies}">
+							<article class="wr-article-page clearfix" th:id="'page_'+ ${bodyStat.count}">
+							<h4 th:text="'Page ' + ${bodyStat.count}"></h4>
 							<p th:utext="${#posts.body(postBody)}"></p>
-							<hr th:if="${!bodyStat.last}" />
 							</article>
+							<hr th:if="${!bodyStat.last}" />
+							</th:block>
 						</div>
 						<hr/>
 						<p><span class="glyphicon glyphicon-user"></span> Created By <a th:href="@{__${ADMIN_PATH}__/users/describe(id=${article.author.id})}" th:text="${article.author}">Author</a></p>

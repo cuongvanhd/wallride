@@ -41,10 +41,13 @@
 							<h1 th:text="${page.title}">Page Title</h1>
 						</div>
 						<div class="clearfix">
-							<article class="wr-article-page" th:each="postBody, bodyStat : ${page.bodies}">
-								<p th:utext="${#posts.body(postBody)}"></p>
+							<th:block th:each="postBody, bodyStat : ${page.bodies}">
+								<article class="wr-article-page clearfix" th:id="'page_'+ ${bodyStat.count}">
+									<h4 th:text="'Page ' + ${bodyStat.count}"></h4>
+									<p th:utext="${#posts.body(postBody)}"></p>
+								</article>
 								<hr th:if="${!bodyStat.last}" />
-							</article>
+							</th:block>
 						</div>
 						<hr/>
 						<span class="glyphicon glyphicon-user"></span> Created By <a th:href="@{__${ADMIN_PATH}__/users/describe(id=${page.author.id})}" th:text="${page.author}">Author</a>

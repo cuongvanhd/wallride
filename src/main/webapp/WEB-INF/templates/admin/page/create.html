@@ -136,7 +136,10 @@
 											convertImageLinks: true,
 											convertVideoLinks: true,
 											imageUpload: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
-											imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#'
+											imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#',
+											toolbarFixed: true,
+											toolbarFixedBox: true,
+											plugins: ['fontcolor', 'fontsize', 'fullscreen']
 										});
 										$('#main').on('click', '#wr-post-form .add-page', function(e) {
 											e.preventDefault();
@@ -147,12 +150,15 @@
 													'<a href="#" class="delete-page"><span class="glyphicon glyphicon-remove"></span> </a>'
 													+ '</div>');
 											$(nextBody).insertAfter($(target)).hide().fadeIn(300);
-											$('#main :input[name="bodies"]').redactor({
+											$(':input[name="bodies"]', $(nextBody)).redactor({
 												minHeight: 300,
 												convertImageLinks: true,
 												convertVideoLinks: true,
 												imageUpload: /*[[@{__${ADMIN_PATH}__/media/create.json}]]*/ '#',
-												imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#'
+												imageGetJson: /*[[@{__${ADMIN_PATH}__/media/index.json}]]*/ '#',
+												toolbarFixed: true,
+												toolbarFixedBox: true,
+												plugins: ['fontcolor', 'fontsize', 'fullscreen']
 											});
 										});
 										$('#main').on({
@@ -244,7 +250,7 @@
 										var action = /*[[@{__${ADMIN_PATH}__/pages/preview}]]*/ '#';
 										form.attr('action', action);
 										form.attr('target', '_blank');
-										$(':input[name="body"]', form).val($('#main :input[name="body"]').redactor('get'));
+										$(':input[name="bodies"]', form).val($($(':input[name="bodies"]').get(0)).redactor('get'));
 										form.submit();
 									});
 								});

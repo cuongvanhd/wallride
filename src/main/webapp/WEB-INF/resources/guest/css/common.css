@@ -12,4 +12,36 @@
 			#common ul.user li.member a { background: url(../images/common/icon-info.png) no-repeat left center; }
 			#common ul.user li.logout a { background: url(../images/common/icon-logout.png) no-repeat left center; }
 
-.main ul.list-inline > li { display: inline-block; }
+#gkMainbody ul.list-inline > li { display: inline-block; }
+#gkMainbody article.item-page .pager {
+	text-align: center;
+}
+#gkMainbody article.item-page .prev {
+	float: left;
+	background-position: 0 13px;
+	line-height: 44px;
+	text-align: left;
+}
+#gkMainbody article.item-page .pager ul {
+	display: inline-block;
+	vertical-align: middle;
+	height: 44px;
+	line-height: 40px;
+	text-align: center;
+}
+#gkMainbody article.item-page .pager ul li a {
+	color: #cccccc;
+}
+#gkMainbody article.item-page .pager ul li a:hover,
+#gkMainbody article.item-page .pager ul li a:focus {
+	color: #cf8080;
+}
+#gkMainbody article.item-page .pager ul li.active a {
+	color: #000000;
+}
+#gkMainbody article.item-page .pager .next {
+	float: right;
+	text-align: right;
+	background-position: 100% -107px;
+	line-height: 44px;
+}

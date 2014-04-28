@@ -578,9 +578,11 @@ legend {
 	font-family: Meiryo UI, Arial, Helvetica, Verdana, Tahoma, sans-serif !important;
 }
 .has-error .redactor_box {
-	border-color: #b94a48;
+	border-color: #B0BDC0;
 }
-
+.redactor_toolbar li a:hover {
+	background-color: #819FAA;
+}
 *[data-href] {
 	cursor: pointer;
 }

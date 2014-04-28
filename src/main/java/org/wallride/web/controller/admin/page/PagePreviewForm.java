@@ -13,7 +13,7 @@ public class PagePreviewForm implements Serializable {
 
 	private String title;
 
-	private String body;
+	private String[] bodies;
 
 	private Long authorId;
 
@@ -47,12 +47,12 @@ public class PagePreviewForm implements Serializable {
 		this.title = title;
 	}
 
-	public String getBody() {
-		return body;
+	public String[] getBodies() {
+		return bodies;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
+	public void setBodies(String[] bodies) {
+		this.bodies = bodies;
 	}
 
 	public Long getAuthorId() {

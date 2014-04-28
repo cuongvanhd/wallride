@@ -62,8 +62,9 @@ public class ArticlePreviewController {
 		article.setTitle(form.getTitle());
 		List<PostBody> bodies = new ArrayList<>();
 		PostBody body = new PostBody();
-		body.setBody(form.getBody());
+		body.setBody(form.getBodies()[0]);
 		bodies.add(body);
+
 		article.setBodies(bodies);
 		article.setDate(form.getDate() != null ? form.getDate() : new LocalDateTime());
 		article.setAuthor(authorizedUser);

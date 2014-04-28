@@ -27,7 +27,7 @@ public class ArticleDescribeController {
 			@PathVariable int month,
 			@PathVariable int day,
 			@PathVariable String code,
-			@RequestParam(value="page", required=false) Integer index,
+			@RequestParam(value="part", required=false) Integer part,
 			Model model,
 			RedirectAttributes redirectAttributes) {
 		Article article = articleService.readArticleByCode(code, language);
@@ -46,7 +46,7 @@ public class ArticleDescribeController {
 		}
 
 		model.addAttribute("article", article);
-		model.addAttribute("page", index);
+		model.addAttribute("part", (part != null) ? part : 1);
 		return "/article/describe";
 	}
 }

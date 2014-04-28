@@ -5,14 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.wallride.core.domain.Page;
 import org.wallride.core.service.PageService;
-import org.wallride.web.controller.guest.LeagueDescribeController;
 import org.wallride.web.controller.guest.article.ArticleIndexController;
 import org.wallride.web.support.HttpNotFoundException;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/{language}/{code}")
@@ -28,6 +27,7 @@ public class PageDescribeController {
 	public String describe(
 			@PathVariable String code,
 			@PathVariable String language,
+			@RequestParam(value="part", required=false) Integer part,
 			Model model) {
 		if (code.matches("[0-9]{4}")) {
 			return articleIndexController.year(language, Integer.parseInt(code), new PageRequest(0, 50), model);
@@ -39,6 +39,7 @@ public class PageDescribeController {
 		}
 
 		model.addAttribute("page", page);
+		model.addAttribute("part", (part != null) ? part : 1);
 		return "/page/describe";
 	}
 }

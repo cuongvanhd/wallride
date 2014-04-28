@@ -93,8 +93,26 @@
 										</div>
 									</header>
 									<ul class="content-links"></ul>
-									<div th:each="body : ${article.bodies}">
-										<div th:utext="${body.body}"></div>
+									<div class="clearfix">
+										<th:block th:each="postBody, bodyStat : ${article.bodies}">
+										<article class="item-page clearfix" th:id="'part_'+ ${bodyStat.count}">
+											<p th:if="${part != null} ? ${part == bodyStat.count} : ${bodyStat.count == 1}" th:utext="${#posts.body(postBody)}"></p>
+										</article>
+										</th:block>
+										<hr />
+										<div class="pager">
+											<div class="prev" th:if="${part != null} and ${part} gt 1">
+												<a style="font-weight: bold" th:href="${#posts.path(article)} + '?part=' + ${part - 1}">&lt;</a>
+											</div>
+											<ul class="list-unstyled list-inline" style="text-align: center">
+												<li th:each="postBody, bodyStat : ${article.bodies}" th:if="${bodyStat.size > 1}" th:class="${bodyStat.count == part} ? 'active'">
+													<a style="font-weight: bold" th:href="${#posts.path(article)} + '?part=' + ${bodyStat.count}" th:text="${bodyStat.count}"></a>
+												</li>
+											</ul>
+											<div class="next" th:if="${part != null} and ${part} lt ${#arrays.length(article.bodies)}">
+												<a style="font-weight: bold" th:href="${#posts.path(article)} + '?part=' + ${part + 1}">次のページ&nbsp;&nbsp;&gt;</a>
+											</div>
+										</div>
 									</div>
 									<hr/>
 									<div class="googleads" style="width:100%; text-align:center; margin-top:10px; padding-top:10px; border-top:0px solid #EEEEEE;">

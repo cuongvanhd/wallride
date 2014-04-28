@@ -161,9 +161,9 @@ public class PostUtils {
 				settings.readSettingAsString(Setting.Key.WEBSITE_TITLE, processingContext.getContext().getLocale().getLanguage()));
 	}
 
-	public String cover(Post post) {
+	public String thumbnail(Post post) {
 		if (post.getCover() != null) {
-			return String.format("/media/%s", post.getCover().getId());
+			return settings.readSettingAsString(Setting.Key.MEDIA_URL_PREFIX) + post.getCover().getId();
 		}
 		else {
 			for (PostBody body : post.getBodies()) {
