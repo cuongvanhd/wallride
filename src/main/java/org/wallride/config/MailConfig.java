@@ -42,6 +42,7 @@ public class MailConfig {
 		props.put("mail.smtp.starttls.required", environment.getRequiredProperty("mail.smtp.starttls.required"));
 		props.put("mail.smtp.from", environment.getRequiredProperty("mail.smtp.from"));
 		props.put("mail.from", environment.getRequiredProperty("mail.from"));
+		props.put("mail.smtp.localhost", environment.getRequiredProperty("mail.smtp.localhost"));
 
 		mailSender.setJavaMailProperties(props);
 		mailSender.setDefaultEncoding("ISO-2022-JP");
