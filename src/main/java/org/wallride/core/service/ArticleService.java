@@ -359,7 +359,7 @@ public class ArticleService {
 		term.getCategoryCodes().add(code);
 		term.setStatus(status);
 
-		Pageable pageable = new PageRequest(1, size);
+		Pageable pageable = new PageRequest(0, size);
 		Page<Article> page = articleRepository.findByFullTextSearchTerm(term, pageable);
 		return new TreeSet<>(page.getContent());
 	}
