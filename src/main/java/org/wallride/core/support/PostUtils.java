@@ -137,12 +137,22 @@ public class PostUtils {
 		return link(article);
 	}
 
+	public String ogUrl(Page page) {
+		return link(page, null);
+	}
+
 	public String ogUrl(Page page, PageTree pageTree) {
 		return link(page, pageTree);
 	}
 
 	public String ogImage(Post post) {
-		return null; //TODO
+		String path = cover(post);
+		if (path == null) {
+			return null;
+		}
+		UriComponentsBuilder builder = ServletUriComponentsBuilder.fromCurrentContextPath();
+		builder.path(path);
+		return builder.buildAndExpand().encode().toUriString();
 	}
 
 	public String title(Post post) {

@@ -7,10 +7,10 @@
 		<meta name="keywords" th:content="${#posts.metaKeywords(article)}" content="吉田麻也, サミュエル・エトー, ギャリー・ケイヒル, フッキ, 日本代表, 日本, カメルーン, イングランド, ブラジル, CM, ワールドカップ2014" />
 		<meta name="description" th:content="${#posts.metaDescription(article)}" content="W杯に向けたムードが高まるなか、ブラジルで「バドワイザー」によるこんなCMが放映されているようだ。" />
 		<meta name="author" th:content="${#posts.metaAuthor(article)}" content="[Qoly] Editorial Dep." />
-		<meta property="og:title" content="吉田麻也がロックスターに！ エトー、フッキらと共演した「バドワイザー」の新CM" />
-		<meta property="og:type" content="article" />
-		<meta property="og:url" content="http://www.qoly.jp/index.php/story/22423-20140425-budweiser-ad-maya-yoshida" />
-		<meta property="og:site_name" content="Qoly.jp / 全てのフットボールラバーに捧ぐウェブマガジン" />
+		<meta property="og:title" th:content="${#posts.ogTitle(article)}" content="吉田麻也がロックスターに！ エトー、フッキらと共演した「バドワイザー」の新CM" />
+		<meta property="og:type" th:content="${#posts.ogType(article)}" content="article" />
+		<meta property="og:url" th:content="${#posts.ogUrl(article)}" content="http://www.qoly.jp/index.php/story/22423-20140425-budweiser-ad-maya-yoshida" />
+		<meta property="og:site_name" th:content="${#posts.ogSiteName(article)}" content="Qoly.jp / 全てのフットボールラバーに捧ぐウェブマガジン" />
 		<meta name="generator" content="WallRide - Open Source Content Management" />
 		<title th:text="${#posts.title(article)}">吉田麻也がロックスターに！ エトー、フッキらと共演した「バドワイザー」の新CM</title>
 		<link th:replace="layout::head-link" />
