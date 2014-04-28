@@ -19,12 +19,12 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping(value="/{language}/pages/describe", method=RequestMethod.GET)
 public class PageDescribeController extends DomainObjectDescribeController<Page, PageSearchForm> {
-
+	
 	@Inject
 	private PageService pageService;
-
+	
 	@RequestMapping
-	public String describe(
+	public String describe( 
 			@RequestParam long id,
 			Model model,
 			HttpSession session) {

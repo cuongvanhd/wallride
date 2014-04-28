@@ -30,7 +30,7 @@ public class PageDescribeController {
 			@RequestParam(value="part", required=false) Integer part,
 			Model model) {
 		if (code.matches("[0-9]{4}")) {
-			return articleIndexController.year(language, Integer.parseInt(code), new PageRequest(0, 10), model);
+			return articleIndexController.year(language, Integer.parseInt(code), new PageRequest(0, 50), model);
 		}
 
 		Page page = pageService.readPageByCode(code, language);

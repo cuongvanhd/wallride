@@ -3,12 +3,18 @@ package org.wallride.core.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.wallride.core.domain.League;
+import org.wallride.core.repository.LeagueRepository;
+import org.wallride.core.support.Paginator;
+
+import javax.inject.Inject;
+import java.util.*;
 
 @Service
 @Transactional(rollbackFor=Exception.class)
 public class LeagueService {
 
-	/*@Inject
+	@Inject
 	private LeagueRepository leagueRepository;
 	
 //	public List<Long> searchLeagues(LeagueSearchRequest request) {
@@ -50,5 +56,5 @@ public class LeagueService {
 
 //	public boolean isPlayoffParticipate(int id) {
 //		return leagueRepository.findPlayOffById()
-//	}*/
+//	}
 }

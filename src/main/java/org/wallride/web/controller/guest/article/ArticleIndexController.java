@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.HandlerMapping;
 import org.wallride.core.domain.Article;
 import org.wallride.core.domain.Category;
@@ -16,6 +17,7 @@ import org.wallride.core.domain.CategoryTree;
 import org.wallride.core.service.ArticleService;
 import org.wallride.core.service.CategoryService;
 import org.wallride.core.support.Pagination;
+import org.wallride.web.support.DomainObjectSearchCondition;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -34,21 +36,12 @@ public class ArticleIndexController {
 	@Inject
 	private CategoryService categoryService;
 
-	@RequestMapping("/{language}/")
-	public String index(
-			@PathVariable String language,
-			@PageableDefault(10) Pageable pageable,
-			HttpSession session,
-			Model model) {
-		ArticleSearchForm form = new ArticleSearchForm() {};
-		form.setLanguage(language);
-
-		Page<Article> articles = articleService.readArticles(form.buildArticleSearchRequest(), pageable);
-		model.addAttribute("articles", articles);
-		model.addAttribute("pageable", pageable);
-		model.addAttribute("pagination", new Pagination<>(articles));
-		return "/article/index";
-	}
+//	@RequestMapping("/{language}/")
+//	public String index(
+//			Model model) {
+//		model.addAttribute("home", true);
+//		return "/index";
+//	}
 
 	@RequestMapping("/{language}/{year:[0-9]{4}}")
 	public String year(

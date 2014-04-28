@@ -97,6 +97,8 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 		Session session = (Session) entityManager.getDelegate();
 		Criteria criteria = session.createCriteria(Article.class)
 				.setFetchMode("cover", FetchMode.JOIN)
+				.setFetchMode("bodies", FetchMode.JOIN)
+				.setFetchMode("seo", FetchMode.JOIN)
 				.setFetchMode("author", FetchMode.JOIN)
 				.setFetchMode("categories", FetchMode.JOIN);
 

@@ -73,6 +73,8 @@ public class PageRepositoryImpl implements PageRepositoryCustom {
 		Session session = (Session) entityManager.getDelegate();
 		Criteria criteria = session.createCriteria(Page.class)
 				.setFetchMode("cover", FetchMode.JOIN)
+				.setFetchMode("bodies", FetchMode.JOIN)
+				.setFetchMode("seo", FetchMode.JOIN)
 				.setFetchMode("author", FetchMode.JOIN)
 				.setFetchMode("parent", FetchMode.JOIN)
 				.setFetchMode("children", FetchMode.JOIN);

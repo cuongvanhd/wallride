@@ -26,7 +26,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/{language}/users/index")
 public class UserSearchController extends DomainObjectSearchController<User, UserSearchForm> {
-
+	
 	@Inject
 	private UserService userService;
 

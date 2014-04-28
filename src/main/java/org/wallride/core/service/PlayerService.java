@@ -3,14 +3,20 @@ package org.wallride.core.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.wallride.core.domain.Player;
+import org.wallride.core.repository.PlayerRepository;
+import org.wallride.core.support.Paginator;
+
+import javax.inject.Inject;
+import java.util.*;
 
 @Service
 @Transactional(rollbackFor=Exception.class)
 public class PlayerService {
 
-/*	@Inject
+	@Inject
 	private PlayerRepository playerRepository;
-
+	
 //	public List<Long> searchPlayers(PlayerSearchRequest request) {
 //		if (request.isEmpty()) {
 //			return playerRepository.findId();
@@ -24,7 +30,7 @@ public class PlayerService {
 		return playerRepository.findId();
 	}
 
-	public List<Player> readPlayers(Page<Player> paginator) {
+	public List<Player> readPlayers(Paginator<Integer> paginator) {
 		if (paginator == null || !paginator.hasElement()) return new ArrayList<Player>();
 		return readPlayers(paginator.getElements());
 	}
@@ -49,5 +55,5 @@ public class PlayerService {
 
 //	public List<Player> readPlayersByLeagueIdAndClubId(int leagueId, int clubId) {
 //		return playerRepository.findByLeagueIdAndClubId(leagueId, clubId);
-//	}*/
+//	}
 }
