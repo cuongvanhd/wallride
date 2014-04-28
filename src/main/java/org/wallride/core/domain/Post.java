@@ -55,6 +55,10 @@ public class Post extends DomainObject<Long> {
 	@ManyToOne
 	private User author;
 
+	@Column(name="author_name")
+	@Field
+	private String authorName;
+
 	@Enumerated(EnumType.STRING)
 	@Column(length=50, nullable=false)
 	@Field
@@ -160,6 +164,14 @@ public class Post extends DomainObject<Long> {
 
 	public void setAuthor(User author) {
 		this.author = author;
+	}
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 
 	public Status getStatus() {

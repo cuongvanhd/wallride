@@ -37,6 +37,8 @@ public class User extends DomainObject<Long> {
 	@IndexedEmbedded
 	private PersonalName name = new PersonalName();
 
+	private String nickname;
+
 	@Column(length=500, nullable=false)
 	private String email;
 
@@ -83,6 +85,14 @@ public class User extends DomainObject<Long> {
 
 	public void setName(PersonalName name) {
 		this.name = name;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getEmail() {

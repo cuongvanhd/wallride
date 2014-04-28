@@ -117,6 +117,7 @@ create table page (
   status varchar(50) not null,
   title varchar(200),
   author_id bigint,
+  author_name varchar(255),
   cover_id varchar(50),
   primary key (id)
 ) ENGINE=InnoDB;
@@ -163,6 +164,7 @@ create table user (
   login_password varchar(500) not null,
   name_first varchar(50) not null,
   name_last varchar(50) not null,
+  nickname varchar(255),
   description longtext,
   created_at datetime not null,
   created_by varchar(100),
