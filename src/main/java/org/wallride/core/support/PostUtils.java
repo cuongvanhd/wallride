@@ -146,7 +146,7 @@ public class PostUtils {
 	}
 
 	public String ogImage(Post post) {
-		String path = cover(post);
+		String path = thumbnail(post);
 		if (path == null) {
 			return null;
 		}
