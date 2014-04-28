@@ -42,6 +42,7 @@ public class MailConfig {
 		props.put("mail.smtp.starttls.required", environment.getRequiredProperty("mail.smtp.starttls.required"));
 		props.put("mail.smtp.from", environment.getRequiredProperty("mail.smtp.from"));
 		props.put("mail.from", environment.getRequiredProperty("mail.from"));
+
 		mailSender.setJavaMailProperties(props);
 		mailSender.setDefaultEncoding("ISO-2022-JP");
 //		mailSender.setDefaultEncoding("x-windows-iso2022jp"); //TODO -Dsun.nio.cs.map=x-windows-iso2022jp/ISO-2022-JP

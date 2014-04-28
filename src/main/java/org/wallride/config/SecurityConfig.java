@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.AntPathRequestMatcher;
@@ -34,14 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
-				.userDetailsService(authorizedStaffDetailsService())
-				.passwordEncoder(new Md5PasswordEncoder());
+			.userDetailsService(authorizedStaffDetailsService())
+			.passwordEncoder(new StandardPasswordEncoder());
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web
-				.ignoring()
+			.ignoring()
 				.antMatchers("/_admin/resources/**")
 				.antMatchers("/_admin/setup**")
 				.antMatchers("/_admin/signup**");
@@ -50,16 +51,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.antMatcher("/_admin/**")
-				.authorizeRequests()
+			.authorizeRequests()
 				.antMatchers("/_admin/**").hasRole("USER")
 				.and()
-				.formLogin()
+			.formLogin()
 				.loginPage("/_admin/login").permitAll()
 				.loginProcessingUrl("/_admin/login")
 				.defaultSuccessUrl("/_admin/")
 				.failureUrl("/_admin/login?failed")
 				.and()
-				.logout()
+			.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/_admin/logout", "GET"))
 				.logoutSuccessUrl("/_admin/login")
 				.and()
@@ -68,10 +69,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().requiresSecure()
 				.and()
 */
-				.rememberMe()
+			.rememberMe()
 				.tokenRepository(persistentTokenRepository())
 				.and()
-				.csrf()
+			.csrf()
 				.disable();
 		if (environment.getProperty("security.admin.force.ssl", Boolean.class, false)) {
 			http.requiresChannel()
