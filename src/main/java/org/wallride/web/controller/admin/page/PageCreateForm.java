@@ -3,7 +3,6 @@ package org.wallride.web.controller.admin.page;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.util.CollectionUtils;
 import org.wallride.core.domain.Post;
 import org.wallride.core.service.PageCreateRequest;
 import org.wallride.web.support.DomainObjectCreateForm;
@@ -24,7 +23,7 @@ public class PageCreateForm extends DomainObjectCreateForm {
 	private String title;
 
 	@NotEmpty(groups=GroupPublish.class)
-	private String[] bodies;
+	private List<String> bodies;
 
 	private Long authorId;
 	
@@ -67,11 +66,11 @@ public class PageCreateForm extends DomainObjectCreateForm {
 		this.title = title;
 	}
 
-	public String[] getBodies() {
+	public List<String> getBodies() {
 		return bodies;
 	}
 
-	public void setBodies(String[] bodies) {
+	public void setBodies(List<String> bodies) {
 		this.bodies = bodies;
 	}
 
@@ -132,13 +131,12 @@ public class PageCreateForm extends DomainObjectCreateForm {
 	}
 
 	public PageCreateRequest buildPageCreateRequest() {
-		List<String> bodyList = (List<String>) CollectionUtils.arrayToList(bodies);
 		PageCreateRequest.Builder builder = new PageCreateRequest.Builder();
 		return builder
 				.code(code)
 				.coverId(coverId)
 				.title(title)
-				.bodies(bodyList)
+				.bodies(bodies)
 				.authorId(authorId)
 				.date(date)
 				.parentId(parentId)

@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.util.CollectionUtils;
 import org.wallride.core.domain.Page;
 import org.wallride.core.domain.Post;
 import org.wallride.core.domain.PostBody;
@@ -31,7 +30,7 @@ public class PageEditForm extends DomainObjectEditForm {
 	private String title;
 
 	@NotEmpty(groups=GroupPublish.class)
-	private String[] bodies;
+	private List<String> bodies;
 
 	private Long authorId;
 	
@@ -82,11 +81,11 @@ public class PageEditForm extends DomainObjectEditForm {
 		this.title = title;
 	}
 
-	public String[] getBodies() {
+	public List<String> getBodies() {
 		return bodies;
 	}
 
-	public void setBodies(String[] bodies) {
+	public void setBodies(List<String> bodies) {
 		this.bodies = bodies;
 	}
 
@@ -147,14 +146,13 @@ public class PageEditForm extends DomainObjectEditForm {
 	}
 
 	public PageUpdateRequest buildPageUpdateRequest() {
-		List<String> bodyList = (List<String>) CollectionUtils.arrayToList(bodies);
 		PageUpdateRequest.Builder builder = new PageUpdateRequest.Builder();
 		return builder
 				.id(id)
 				.code(code)
 				.coverId(coverId)
 				.title(title)
-				.bodies(bodyList)
+				.bodies(bodies)
 				.authorId(authorId)
 				.date(date)
 				.parentId(parentId)
@@ -174,8 +172,7 @@ public class PageEditForm extends DomainObjectEditForm {
 		for (PostBody body : postBodies) {
 			bodies.add(body.getBody());
 		}
-		String[] bodyArray = bodies.toArray(new String[bodies.size()]);
-		form.setBodies(bodyArray);
+		form.setBodies(bodies);
 		form.setParentId(page.getParent() != null ? page.getParent().getId() : null);
 		if (page.getSeo() != null) {
 			form.setMetaKeywords(page.getSeo().getKeywords());

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -20,6 +21,9 @@ import org.wallride.core.support.AuthorizedUser;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.groups.Default;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("/{language}/articles/edit")
@@ -69,6 +73,12 @@ public class ArticleEditController {
 			BindingResult errors,
 			AuthorizedUser authorizedUser,
 			RedirectAttributes redirectAttributes) {
+		form.getBodies().removeAll(Collections.singleton(null));
+		if (CollectionUtils.isEmpty(form.getBodies())) {
+			List<String> bodies = new ArrayList<>();
+			bodies.add("");
+			form.setBodies(bodies);
+		}
 		if (errors.hasErrors()) {
 			for (ObjectError error : errors.getAllErrors()) {
 				if (!"validation.NotNull".equals(error.getCode())) {
@@ -102,6 +112,12 @@ public class ArticleEditController {
 			BindingResult errors,
 			AuthorizedUser authorizedUser,
 			RedirectAttributes redirectAttributes) {
+		form.getBodies().removeAll(Collections.singleton(null));
+		if (CollectionUtils.isEmpty(form.getBodies())) {
+			List<String> bodies = new ArrayList<>();
+			bodies.add("");
+			form.setBodies(bodies);
+		}
 		if (errors.hasErrors()) {
 			return "/article/edit";
 		}

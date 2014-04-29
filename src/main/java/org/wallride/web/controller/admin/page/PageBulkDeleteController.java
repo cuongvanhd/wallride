@@ -73,9 +73,8 @@ public class PageBulkDeleteController {
 			}
 		}
 		
-		redirectAttributes.addAttribute("token", token);
 		redirectAttributes.addFlashAttribute("deletedPages", pages);
 		redirectAttributes.addFlashAttribute("errorMessages", errorMessages);
-		return "redirect:/_admin/{language}/pages/index?token={token}";
+		return "redirect:/_admin/{language}/pages/index";
 	}
 }

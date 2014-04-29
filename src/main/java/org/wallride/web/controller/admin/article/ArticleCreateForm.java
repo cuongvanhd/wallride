@@ -3,14 +3,11 @@ package org.wallride.web.controller.admin.article;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.util.CollectionUtils;
 import org.wallride.core.service.ArticleCreateRequest;
 import org.wallride.web.support.DomainObjectCreateForm;
 
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @SuppressWarnings("serial")
 public class ArticleCreateForm extends DomainObjectCreateForm {
@@ -25,7 +22,7 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 	private String title;
 
 	@NotEmpty(groups=GroupPublish.class)
-	private String[] bodies;
+	private List<String> bodies;
 
 	private Long authorId;
 
@@ -68,11 +65,11 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 		this.title = title;
 	}
 
-	public String[] getBodies() {
+	public List<String> getBodies() {
 		return bodies;
 	}
 
-	public void setBodies(String[] bodies) {
+	public void setBodies(List<String> bodies) {
 		this.bodies = bodies;
 	}
 
@@ -133,13 +130,14 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 	}
 
 	public ArticleCreateRequest buildArticleCreateRequest() {
-		List<String> bodyList = (List<String>)CollectionUtils.arrayToList(bodies);
+		//List<String> bodyList = new ArrayList<>(bodies);
+		bodies.removeAll(Collections.singleton(null));
 		ArticleCreateRequest.Builder builder = new ArticleCreateRequest.Builder();
 		return builder
 				.code(code)
 				.coverId(coverId)
 				.title(title)
-				.bodies(bodyList)
+				.bodies(bodies)
 				.authorId(authorId)
 				.date(date)
 				.categoryIds(categoryIds)

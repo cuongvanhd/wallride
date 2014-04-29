@@ -16,6 +16,7 @@
 		</ol>
 		<form id="wr-post-form" th:fragment="form(title,article)" th:action="@{__${ADMIN_PATH}__/articles/create}" th:object="${form}" action="#" method="post">
 			<input type="hidden" name="id" th:if="${article} ne null" th:value="${article.id}"  />
+			<input type="hidden" name="bodies" value="" />
 			<div class="row">
 				<div class="col-sm-9 wr-post-main">
 					<div class="page-header">
@@ -130,7 +131,7 @@
 					<script th:inline="javascript">
 						/*<![CDATA[*/
 						$(document).ready(function() {
-							$('#main :input[name="bodies"]').redactor({
+							$('#main .post-body :input[name="bodies"]').redactor({
 								minHeight: 300,
 								convertImageLinks: true,
 								convertVideoLinks: true,
