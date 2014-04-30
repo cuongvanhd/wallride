@@ -276,6 +276,63 @@
 							<a th:href="@{__${ADMIN_PATH}__/categories/index?part=category-create-dialog}" data-toggle="modal" data-target="#category-create-modal"><span class="glyphicon glyphicon-plus"></span> <span th:text="#{AddNewCategory}">Add New Category</span></a>
 						</section>
 					</fieldset>
+					<fieldset id="tag-fieldset">
+						<legend th:text="#{Tags}">Tags</legend>
+						<div class="form-group row" th:classappend="${#fields.hasErrors('tags')}? has-error">
+							<div class="col-sm-12">
+								<input type="text" th:field="*{tags}" style="width: 100%" placeholder=""/>
+							</div>
+							<span class="help-block" th:each="err : ${#fields.errors('tags')}"  th:text="${err}" />
+							<script th:inline="javascript">
+								/*<![CDATA[*/
+								$(function() {
+									$(':input[name="tags"]').select2({
+										minimumInputLength: 1,
+										multiple: true,
+										createSearchChoice:function(term, data) {
+											if ($(data).filter(function() {
+												return this.text.localeCompare(term)===0;
+											}).length===0) {
+												return {id: "_new_" + term, text:term};
+											}
+										},
+										ajax: {
+											url:  /*[[@{__${ADMIN_PATH}__/tags/select-search}]]*/ '#',
+											dataType: 'json',
+											data: function (term, page) {
+												return {
+													keyword: term
+												};
+											},
+											results: function (data, page) {
+												return {results: data};
+											}
+										},
+										initSelection: function(element, callback) {
+											var data = [];
+											$(element.val().split(',')).each(function() {
+												var id = this;
+												if (id !== "") {
+													if (this.match(/^_new_/)) {
+														data.push({id: id, text: id.replace('_new_', '')});
+													} else {
+														$.ajax(/*[[@{__${ADMIN_PATH}__/tags/select}]]*/ '#',  {
+															async: false,
+															dataType: "json",
+															data: { id: id }
+														}).done(function(response) { data.push(response); });
+													}
+												}
+											});
+											element.val('');
+											callback(data);
+										}
+									});
+								});
+								/*]]>*/
+							</script>
+						</div>
+					</fieldset>
 					<fieldset id="seo-fieldset">
 						<legend>META</legend>
 						<div class="form-group" th:classappend="${#fields.hasErrors('metaKeywords')}? has-error">

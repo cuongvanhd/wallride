@@ -41,6 +41,13 @@
 							<h1 th:text="${page.title}">Page Title</h1>
 						</div>
 						<div class="clearfix">
+							<div class="pager pull-left">
+								<ul class="list-unstyled list-inline">
+									<li th:each="postBody, bodyStat : ${page.bodies}"><a th:href="'#page_'+ ${bodyStat.count}" th:text="${bodyStat.count}"></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="clearfix">
 							<th:block th:each="postBody, bodyStat : ${page.bodies}">
 								<article class="wr-article-page clearfix" th:id="'page_'+ ${bodyStat.count}">
 									<h4 th:text="'Page ' + ${bodyStat.count}"></h4>

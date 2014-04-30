@@ -2,6 +2,8 @@ package org.wallride.core.domain;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 
@@ -9,6 +11,7 @@ import javax.persistence.*;
 @Table(name="tag")
 @DynamicInsert
 @DynamicUpdate
+@Indexed
 @SuppressWarnings("serial")
 public class Tag extends DomainObject<Long> implements Comparable<Tag> {
 
@@ -17,6 +20,7 @@ public class Tag extends DomainObject<Long> implements Comparable<Tag> {
 	private long id;
 
 	@Column(name="name", length=500, nullable=false)
+	@Field
 	private String name;
 
 	@Column(length=3, nullable=false)

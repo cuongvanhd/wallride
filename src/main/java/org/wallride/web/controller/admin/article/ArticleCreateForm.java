@@ -32,7 +32,7 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 
 	private Set<Long> categoryIds = new HashSet<>();
 
-	private Set<Long> tagIds = new HashSet<>();
+	private String tags;
 
 	private String metaKeywords;
 
@@ -113,12 +113,12 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 		this.categoryIds = categoryIds;
 	}
 
-	public Set<Long> getTagIds() {
-		return tagIds;
+	public String getTags() {
+		return tags;
 	}
 
-	public void setTagIds(Set<Long> tagIds) {
-		this.tagIds = tagIds;
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 	public String getLanguage() {
@@ -130,7 +130,6 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 	}
 
 	public ArticleCreateRequest buildArticleCreateRequest() {
-		//List<String> bodyList = new ArrayList<>(bodies);
 		bodies.removeAll(Collections.singleton(null));
 		ArticleCreateRequest.Builder builder = new ArticleCreateRequest.Builder();
 		return builder
@@ -143,7 +142,7 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 				.categoryIds(categoryIds)
 				.metaKeywords(metaKeywords)
 				.metaDescription(metaDescription)
-				.tagIds(tagIds)
+				.tags(tags)
 				.language(language)
 				.build();
 	}

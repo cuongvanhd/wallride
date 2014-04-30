@@ -1,5 +1,7 @@
 package org.wallride.core.service;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +28,14 @@ import org.wallride.core.domain.*;
 import org.wallride.core.repository.ArticleFullTextSearchTerm;
 import org.wallride.core.repository.ArticleRepository;
 import org.wallride.core.repository.MediaRepository;
+import org.wallride.core.repository.TagRepository;
 import org.wallride.core.support.AuthorizedUser;
 import org.wallride.core.support.Settings;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,7 +49,10 @@ public class ArticleService {
 
 	@Inject
 	private MediaRepository mediaRepository;
-	
+
+	@Inject
+	private TagRepository tagRepository;
+
 	@Inject
 	private MessageCodesResolver messageCodesResolver;
 	
@@ -61,7 +68,8 @@ public class ArticleService {
 	private static Logger logger = LoggerFactory.getLogger(ArticleService.class); 
 
 	@CacheEvict(value="articles", allEntries=true)
-	public Article createArticle(ArticleCreateRequest request, BindingResult errors, Post.Status status, AuthorizedUser authorizedUser) throws BindException {
+	public Article createArticle(ArticleCreateRequest request, BindingResult errors, Post.Status status, AuthorizedUser authorizedUser)
+			throws BindException, IOException {
 		LocalDateTime now = new LocalDateTime();
 
 		String code = (request.getCode() != null) ? request.getCode() : request.getTitle();
@@ -131,6 +139,27 @@ public class ArticleService {
 			article.getCategories().add(entityManager.getReference(Category.class, categoryId));
 		}
 
+		article.getTags().clear();
+		String[] tags = org.apache.commons.lang.StringUtils.splitByWholeSeparator(request.getTags(), ",");
+		if (!ArrayUtils.isEmpty(tags)) {
+			String language = LocaleContextHolder.getLocale().getLanguage();
+			for (String tagName : tags) {
+				if (tagName.startsWith("_new_")) {
+					Tag newTag = new Tag();
+					newTag.setName(org.apache.commons.lang.StringUtils.removeStart(tagName, "_new_"));
+					newTag.setLanguage(language);
+					tagRepository.save(newTag);
+					article.getTags().add(newTag);
+				}
+				else {
+					Tag tag = tagRepository.findById(Long.parseLong(tagName), language);
+					if (tag != null) {
+						article.getTags().add(tag);
+					}
+				}
+			}
+		}
+
 		if (article.getSeo() == null) {
 			Seo seo = new Seo();
 			seo.setKeywords(request.getMetaKeywords());
@@ -166,7 +195,8 @@ public class ArticleService {
 	}
 
 	@CacheEvict(value="articles", allEntries=true)
-	public Article updateArticle(ArticleUpdateRequest request, BindingResult errors, Post.Status status, AuthorizedUser authorizedUser) throws BindException {
+	public Article updateArticle(ArticleUpdateRequest request, BindingResult errors, Post.Status status, AuthorizedUser authorizedUser)
+			throws BindException, IOException {
 		LocalDateTime now = new LocalDateTime();
 		Article article = articleRepository.findByIdForUpdate(request.getId(), request.getLanguage());
 
@@ -237,6 +267,27 @@ public class ArticleService {
 		article.getCategories().clear();
 		for (long categoryId : request.getCategoryIds()) {
 			article.getCategories().add(entityManager.getReference(Category.class, categoryId));
+		}
+
+		article.getTags().clear();
+		String[] tags = org.apache.commons.lang.StringUtils.splitByWholeSeparator(request.getTags(), ",");
+		if (!ArrayUtils.isEmpty(tags)) {
+			String language = LocaleContextHolder.getLocale().getLanguage();
+			for (String tagName : tags) {
+				if (tagName.startsWith("_new_")) {
+					Tag newTag = new Tag();
+					newTag.setName(org.apache.commons.lang.StringUtils.removeStart(tagName, "_new_"));
+					newTag.setLanguage(language);
+					tagRepository.save(newTag);
+					article.getTags().add(newTag);
+				}
+				else {
+					Tag tag = tagRepository.findById(Long.parseLong(tagName), language);
+					if (tag != null) {
+						article.getTags().add(tag);
+					}
+				}
+			}
 		}
 
 		if (article.getSeo() == null) {

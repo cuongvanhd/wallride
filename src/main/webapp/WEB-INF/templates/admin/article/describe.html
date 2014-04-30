@@ -98,6 +98,14 @@
 							</dd>
 						</dl>
 						<dl>
+							<dt th:text="#{Tags}">タグ</dt>
+							<dd>
+								<ul class="list-unstyled list-inline list-inline-tag">
+									<li th:each="tag : ${article.tags}"><span class="label label-default" th:text="${tag.name}"></span></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
 							<dt>META情報</dt>
 							<dd>
 								<dl>

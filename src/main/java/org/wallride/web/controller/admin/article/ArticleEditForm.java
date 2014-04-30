@@ -1,5 +1,6 @@
 package org.wallride.web.controller.admin.article;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.BeanUtils;
@@ -7,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.wallride.core.domain.Article;
 import org.wallride.core.domain.Category;
 import org.wallride.core.domain.PostBody;
+import org.wallride.core.domain.Tag;
 import org.wallride.core.service.ArticleUpdateRequest;
 import org.wallride.web.support.DomainObjectEditForm;
 
@@ -41,7 +43,7 @@ public class ArticleEditForm extends DomainObjectEditForm {
 
 	private Set<Long> categoryIds = new HashSet<>();
 
-	private Set<Long> tagIds = new HashSet<>();
+	private String tags;
 
 	private String metaKeywords;
 
@@ -114,12 +116,12 @@ public class ArticleEditForm extends DomainObjectEditForm {
 		this.categoryIds = categoryIds;
 	}
 
-	public Set<Long> getTagIds() {
-		return tagIds;
+	public String getTags() {
+		return tags;
 	}
 
-	public void setTagIds(Set<Long> tagIds) {
-		this.tagIds = tagIds;
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 	public String getMetaKeywords() {
@@ -157,7 +159,7 @@ public class ArticleEditForm extends DomainObjectEditForm {
 				.authorId(authorId)
 				.date(date)
 				.categoryIds(categoryIds)
-				.tagIds(tagIds)
+				.tags(tags)
 				.metaKeywords(metaKeywords)
 				.metaDescription(metaDescription)
 				.language(language)
@@ -181,6 +183,11 @@ public class ArticleEditForm extends DomainObjectEditForm {
 		for (Category category : article.getCategories()) {
 			form.getCategoryIds().add(category.getId());
 		}
+		List<Long> tagList = new ArrayList<>();
+		for (Tag tag : article.getTags()) {
+			tagList.add(tag.getId());
+		}
+		form.setTags(StringUtils.join(tagList, ","));
 		return form;
 	}
 }

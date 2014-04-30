@@ -21,6 +21,7 @@ import org.wallride.core.support.AuthorizedUser;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.groups.Default;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -97,6 +98,12 @@ public class ArticleEditController {
 				return "/article/edit";
 			}
 			throw new RuntimeException(e);
+		} catch (IOException e) {
+			if (errors.hasErrors()) {
+				logger.debug("Errors: {}", errors);
+				return "/article/edit";
+			}
+			throw new RuntimeException(e);
 		}
 
 		redirectAttributes.addFlashAttribute("savedArticle", article);
@@ -127,6 +134,13 @@ public class ArticleEditController {
 			article = articleService.updateArticle(form.buildArticleUpdateRequest(), errors, Post.Status.PUBLISHED, authorizedUser);
 		}
 		catch (BindException e) {
+			if (errors.hasErrors()) {
+				logger.debug("Errors: {}", errors);
+				return "/article/edit";
+			}
+			throw new RuntimeException(e);
+		}
+		catch (IOException e) {
 			if (errors.hasErrors()) {
 				logger.debug("Errors: {}", errors);
 				return "/article/edit";
