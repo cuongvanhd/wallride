@@ -97,6 +97,33 @@ p {
   width: 100%;
 }
 
+@media (min-width: 721px) {
+	#gkPageContent,
+	#gkPageTop {
+		max-width: 640px;
+		margin: 0 auto;
+	}
+}
+@media (min-width: 980px) {
+	#gkPageContent,
+	#gkPageTop {
+		max-width: 960px;
+	}
+}
+@media (min-width: 1300px) {
+	#gkPageContent,
+	#gkPageTop {
+		max-width: 1300px;
+	}
+}
+@media (min-width: 1620px) {
+	#gkPageContent,
+	#gkPageTop {
+		max-width: 1600px;
+	}
+}
+
+
 #gkInset {
   display: block;
   position: absolute;
