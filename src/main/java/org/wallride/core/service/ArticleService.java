@@ -124,7 +124,7 @@ public class ArticleService {
 		LocalDateTime date = request.getDate();
 		if (Post.Status.PUBLISHED.equals(status)) {
 			if (date == null) {
-				date = now.withTime(0, 0, 0, 0);
+				date = now;
 			}
 			else if (date.isAfter(now)) {
 				status = Post.Status.SCHEDULED;

@@ -28,7 +28,7 @@ public class PageCreateForm extends DomainObjectCreateForm {
 	private Long authorId;
 	
 //	@NotNull
-	@DateTimeFormat(pattern="yyyy/MM/dd")
+	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm")
 	private LocalDateTime date;
 	
 	private Long parentId;

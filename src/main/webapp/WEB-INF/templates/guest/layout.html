@@ -148,11 +148,11 @@
 					<nav id="gkExtraMenu" class="gkMenu">
 						<ul class="gkmenu level0">
 							<li th:classappend="${home} ? 'active' : ''" class="first"><a th:href="@{__${WEBSITE_PATH}__/}" href="http://www.qoly.jp/"  class="first" id="menu101" title="Home" >Home</a></li>
-							<li th:classappend="${CATEGORY_TREE.getNodeByCode('News').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/News}" href="/index.php/news"  id="menu102" title="News" >News</a></li>
-							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Story').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/Story}" href="/index.php/story"  id="menu103" title="Story" >Story</a></li>
-							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Goods').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/Goods}" href="/index.php/goods"  id="menu104" title="Goods" >Goods</a></li>
-							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Event').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/Event}" href="/index.php/event"  id="menu105" title="Event" >Event</a></li>
-							<li th:classappend="${CATEGORY_TREE.getNodeByCode('Special').contains(category)} ? 'active' : ''" class="last"><a th:href="@{__${WEBSITE_PATH}__/category/Special}" href="/index.php/special"  class=" last" id="menu106" title="Special" >Special</a></li>
+							<li th:classappend="${CATEGORY_TREE.getNodeByCode('news').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/news}" href="/index.php/news"  id="menu102" title="News" >News</a></li>
+							<li th:classappend="${CATEGORY_TREE.getNodeByCode('story').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/story}" href="/index.php/story"  id="menu103" title="Story" >Story</a></li>
+							<li th:classappend="${CATEGORY_TREE.getNodeByCode('goods').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/goods}" href="/index.php/goods"  id="menu104" title="Goods" >Goods</a></li>
+							<li th:classappend="${CATEGORY_TREE.getNodeByCode('event').contains(category)} ? 'active' : ''"><a th:href="@{__${WEBSITE_PATH}__/category/event}" href="/index.php/event"  id="menu105" title="Event" >Event</a></li>
+							<li th:classappend="${CATEGORY_TREE.getNodeByCode('special').contains(category)} ? 'active' : ''" class="last"><a th:href="@{__${WEBSITE_PATH}__/category/special}" href="/index.php/special"  class=" last" id="menu106" title="Special" >Special</a></li>
 						</ul>
 					</nav>
 					<div id="gkMobileMenu">
