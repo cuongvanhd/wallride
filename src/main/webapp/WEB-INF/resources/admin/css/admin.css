@@ -345,6 +345,22 @@ pre {
 	padding-left: 4px;
 }
 
+#main .wr-describe-main .wr-article-page > table {
+	width: 100%;
+}
+#main .wr-describe-main .wr-article-page > table td {
+	padding: 8px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	border-top: 1px solid #ddd;
+}
+#main .wr-describe-main .wr-article-page > table tr:first-child td {
+	border-top: none;
+}
+#main .wr-describe-main .wr-article-page > table thead td {
+	border-top: none;
+	border-bottom: 2px solid #ddd;
+}
 /****search***/
 .search-condition .checkbox-inline {
 	margin-top:7px;
