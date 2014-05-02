@@ -615,6 +615,12 @@ legend {
 .redactor_editor img {
 	max-width: 100%;
 }
+@-moz-document url-prefix() {
+	.redactor_editor iframe,
+	.redactor_editor img {
+		width: 100%;
+	}
+}
 .has-error .redactor_box {
 	border-color: #B0BDC0;
 }
