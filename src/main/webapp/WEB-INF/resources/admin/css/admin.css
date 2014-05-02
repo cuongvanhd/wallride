@@ -347,7 +347,10 @@ pre {
 
 #main .wr-describe-main .wr-article-page > table {
 	width: 100%;
+	margin-bottom: 10px;
+	margin-top:10px;
 }
+
 #main .wr-describe-main .wr-article-page > table td {
 	padding: 8px;
 	line-height: 1.42857143;
