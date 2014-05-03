@@ -405,10 +405,10 @@ public class ArticleService {
 		return articles;
 	}
 
-	//TODO データ移行後削除
-	public Set<Article> readAllPublishedArticles() {
-		return articleRepository.findAllArticles();
-	}
+//	//TODO データ移行後削除
+//	public Set<Article> readAllPublishedArticles() {
+//		return articleRepository.findAllArticles();
+//	}
 
 	@Cacheable(value = "articles", key = "'list.category-code.' + #language + '.' + #code + '.' + #status")
 	public SortedSet<Article> readArticlesByCategoryCode(String language, String code, Post.Status status) {
@@ -422,7 +422,7 @@ public class ArticleService {
 		term.getCategoryCodes().add(code);
 		term.setStatus(status);
 
-		Pageable pageable = new PageRequest(0, size);
+		Pageable pageable = new PageRequest(0, size);.
 		Page<Article> page = articleRepository.findByFullTextSearchTerm(term, pageable);
 		return new TreeSet<>(page.getContent());
 	}

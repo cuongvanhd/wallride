@@ -32,9 +32,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
 	@Query("select article.id from Article article order by article.date desc ")
 	List<Long> findId();
 
-	//TODO データ移行後削除
-	@Query("from Article article left join fetch article.links links where article.status = 'PUBLISHED'")
-	Set<Article> findAllArticles();
+//	//TODO データ移行後削除
+//	@Query("from Article article left join fetch article.links links where article.status = 'PUBLISHED'")
+//	Set<Article> findAllArticles();
 
 	@Query(DEFAULT_SELECT_QUERY + "where article.id in (:ids) ")
 	List<Article> findByIdIn(@Param("ids") Collection<Long> ids);
