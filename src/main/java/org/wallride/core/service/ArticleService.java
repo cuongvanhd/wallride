@@ -46,9 +46,6 @@ public class ArticleService {
 	private ArticleRepository articleRepository;
 
 	@Inject
-	private ArticleLinkRepository articleLinkRepository;
-
-	@Inject
 	private MediaRepository mediaRepository;
 
 	@Inject
