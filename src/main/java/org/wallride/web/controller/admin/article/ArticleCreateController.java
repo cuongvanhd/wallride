@@ -90,7 +90,7 @@ public class ArticleCreateController {
 
 		Article article = null;
 		try {
-			article = articleService.createArticle(form.buildArticleCreateRequest(), errors, Post.Status.UNPUBLISHED, authorizedUser);
+			article = articleService.createArticle(form.buildArticleCreateRequest(language), errors, Post.Status.UNPUBLISHED, authorizedUser);
 		}
 		catch (BindException e) {
 			if (errors.hasErrors()) {
@@ -132,7 +132,7 @@ public class ArticleCreateController {
 
 		Article article = null;
 		try {
-			article = articleService.createArticle(form.buildArticleCreateRequest(), errors, Post.Status.PUBLISHED, authorizedUser);
+			article = articleService.createArticle(form.buildArticleCreateRequest(language), errors, Post.Status.PUBLISHED, authorizedUser);
 		}
 		catch (BindException e) {
 			if (errors.hasErrors()) {

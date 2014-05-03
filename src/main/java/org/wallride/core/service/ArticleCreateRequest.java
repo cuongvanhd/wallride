@@ -17,6 +17,7 @@ public class ArticleCreateRequest implements Serializable {
 	private Long authorId;
 	private LocalDateTime date;
 	private Set<Long> categoryIds = new HashSet<>();
+	private Set<Long> relatedArticleIds = new HashSet<>();
 	private String tags;
 	private String metaKeywords;
 	private String metaDescription;
@@ -54,6 +55,10 @@ public class ArticleCreateRequest implements Serializable {
 		return tags;
 	}
 
+	public Set<Long> getRelatedArticleIds() {
+		return relatedArticleIds;
+	}
+
 	public String getMetaKeywords() {
 		return metaKeywords;
 	}
@@ -75,6 +80,7 @@ public class ArticleCreateRequest implements Serializable {
 		private Long authorId;
 		private LocalDateTime date;
 		private Set<Long> categoryIds = new HashSet<>();
+		private Set<Long> relatedArticleIds = new HashSet<>();
 		private String tags;
 		private String metaKeywords;
 		private String metaDescription;
@@ -118,6 +124,11 @@ public class ArticleCreateRequest implements Serializable {
 			return this;
 		}
 
+		public Builder relatedArticleIds(Set<Long> relatedArticleIds) {
+			this.relatedArticleIds = relatedArticleIds;
+			return this;
+		}
+
 		public Builder tags(String tags) {
 			this.tags = tags;
 			return this;
@@ -147,6 +158,7 @@ public class ArticleCreateRequest implements Serializable {
 			request.authorId = authorId;
 			request.date = date;
 			request.categoryIds = categoryIds;
+			request.relatedArticleIds = relatedArticleIds;
 			request.tags = tags;
 			request.metaKeywords = metaKeywords;
 			request.metaDescription = metaDescription;

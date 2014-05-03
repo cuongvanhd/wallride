@@ -334,6 +334,52 @@
 							</script>
 						</div>
 					</fieldset>
+					<fieldset id="relatedArticle-fieldset">
+						<legend>関連記事</legend>
+						<div class="form-group row" th:classappend="${#fields.hasErrors('relatedArticleIds')}? has-error">
+							<div class="col-sm-12">
+								<input type="text" th:field="*{relatedArticleIds}" style="width: 100%" placeholder=""/>
+							</div>
+							<span th:if="${#fields.hasErrors('relatedArticleIds')}" class="help-block" th:text="${#fields.errors('relatedArticleIds')}" />
+							<script th:inline="javascript">
+								/*<![CDATA[*/
+								$(function() {
+									$(':input[name="relatedArticleIds"]').select2({
+										minimumInputLength: 1,
+										multiple: true,
+										ajax: {
+											url:  /*[[@{__${ADMIN_PATH}__/articles/select-search}]]*/ '#',
+											dataType: 'json',
+											data: function (term, page) {
+												return {
+													keyword: term
+												};
+											},
+											results: function (data, page) {
+												return {results: data};
+											}
+										},
+										initSelection: function(element, callback) {
+											var data = [];
+											$(element.val().split(',')).each(function() {
+												var id = this;
+												if (id !== "") {
+													$.ajax(/*[[@{__${ADMIN_PATH}__/articles/select}]]*/ '#',  {
+														async: false,
+														dataType: "json",
+														data: { id: id }
+													}).done(function(response) { data.push(response); });
+												}
+											});
+											element.val('');
+											callback(data);
+										}
+									});
+								});
+								/*]]>*/
+							</script>
+						</div>
+					</fieldset>
 					<fieldset id="seo-fieldset">
 						<legend>META</legend>
 						<div class="form-group" th:classappend="${#fields.hasErrors('metaKeywords')}? has-error">

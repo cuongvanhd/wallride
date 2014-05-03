@@ -106,6 +106,14 @@
 							</dd>
 						</dl>
 						<dl>
+							<dt>関連記事</dt>
+							<dd>
+								<ul class="list-unstyled list-inline list-inline-tag">
+									<li th:each="relatedArticle : ${article.relatedArticles}"><a th:href="@{__${ADMIN_PATH}__/articles/describe(id=${relatedArticle.id})}" th:text="${relatedArticle.title}" target="_blank"></a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
 							<dt>META情報</dt>
 							<dd>
 								<dl>

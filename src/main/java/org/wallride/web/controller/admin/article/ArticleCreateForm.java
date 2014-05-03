@@ -7,7 +7,10 @@ import org.wallride.core.service.ArticleCreateRequest;
 import org.wallride.web.support.DomainObjectCreateForm;
 
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("serial")
 public class ArticleCreateForm extends DomainObjectCreateForm {
@@ -31,6 +34,8 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 	private LocalDateTime date;
 
 	private Set<Long> categoryIds = new HashSet<>();
+
+	private Set<Long> relatedArticleIds = new HashSet<>();
 
 	private String tags;
 
@@ -109,6 +114,14 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 		return categoryIds;
 	}
 
+	public Set<Long> getRelatedArticleIds() {
+		return relatedArticleIds;
+	}
+
+	public void setRelatedArticleIds(Set<Long> relatedArticleIds) {
+		this.relatedArticleIds = relatedArticleIds;
+	}
+
 	public void setCategoryIds(Set<Long> categoryIds) {
 		this.categoryIds = categoryIds;
 	}
@@ -129,7 +142,7 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 		this.language = language;
 	}
 
-	public ArticleCreateRequest buildArticleCreateRequest() {
+	public ArticleCreateRequest buildArticleCreateRequest(String language) {
 		bodies.removeAll(Collections.singleton(null));
 		ArticleCreateRequest.Builder builder = new ArticleCreateRequest.Builder();
 		return builder
@@ -140,6 +153,7 @@ public class ArticleCreateForm extends DomainObjectCreateForm {
 				.authorId(authorId)
 				.date(date)
 				.categoryIds(categoryIds)
+				.relatedArticleIds(relatedArticleIds)
 				.metaKeywords(metaKeywords)
 				.metaDescription(metaDescription)
 				.tags(tags)

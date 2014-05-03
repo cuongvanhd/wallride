@@ -563,6 +563,9 @@ legend {
 	height: 34px;
 	background-image: none;
 }
+.select2-container-multi .select2-choices .select2-search-choice {
+	margin: 3px 5px;
+}
 .select2-container .select2-choice .select2-arrow {
 	background-image: none;
 	background: #eee;

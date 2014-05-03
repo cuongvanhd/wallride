@@ -5,10 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.wallride.core.domain.Article;
-import org.wallride.core.domain.Category;
-import org.wallride.core.domain.PostBody;
-import org.wallride.core.domain.Tag;
+import org.wallride.core.domain.*;
 import org.wallride.core.service.ArticleUpdateRequest;
 import org.wallride.web.support.DomainObjectEditForm;
 
@@ -42,6 +39,8 @@ public class ArticleEditForm extends DomainObjectEditForm {
 	private LocalDateTime date;
 
 	private Set<Long> categoryIds = new HashSet<>();
+
+	private Set<Long> relatedArticleIds = new HashSet<>();
 
 	private String tags;
 
@@ -116,6 +115,14 @@ public class ArticleEditForm extends DomainObjectEditForm {
 		this.categoryIds = categoryIds;
 	}
 
+	public Set<Long> getRelatedArticleIds() {
+		return relatedArticleIds;
+	}
+
+	public void setRelatedArticleIds(Set<Long> relatedArticleIds) {
+		this.relatedArticleIds = relatedArticleIds;
+	}
+
 	public String getTags() {
 		return tags;
 	}
@@ -159,6 +166,7 @@ public class ArticleEditForm extends DomainObjectEditForm {
 				.authorId(authorId)
 				.date(date)
 				.categoryIds(categoryIds)
+				.relatedArticleIds(relatedArticleIds)
 				.tags(tags)
 				.metaKeywords(metaKeywords)
 				.metaDescription(metaDescription)
@@ -182,6 +190,9 @@ public class ArticleEditForm extends DomainObjectEditForm {
 		form.setBodies(bodies);
 		for (Category category : article.getCategories()) {
 			form.getCategoryIds().add(category.getId());
+		}
+		for (Article relatedArticle : article.getRelatedArticles()) {
+			form.getRelatedArticleIds().add(relatedArticle.getId());
 		}
 		List<Long> tagList = new ArrayList<>();
 		for (Tag tag : article.getTags()) {

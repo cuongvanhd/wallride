@@ -1,7 +1,8 @@
 package org.wallride.core.service;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.codehaus.jackson.map.ObjectMapper;
+import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.SortField;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +26,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.MessageCodesResolver;
 import org.wallride.core.domain.*;
-import org.wallride.core.repository.ArticleFullTextSearchTerm;
-import org.wallride.core.repository.ArticleRepository;
-import org.wallride.core.repository.MediaRepository;
-import org.wallride.core.repository.TagRepository;
+import org.wallride.core.repository.*;
 import org.wallride.core.support.AuthorizedUser;
 import org.wallride.core.support.Settings;
 
@@ -46,6 +44,9 @@ public class ArticleService {
 	
 	@Inject
 	private ArticleRepository articleRepository;
+
+	@Inject
+	private ArticleLinkRepository articleLinkRepository;
 
 	@Inject
 	private MediaRepository mediaRepository;
@@ -191,6 +192,15 @@ public class ArticleService {
 		article.setUpdatedAt(now);
 		article.setUpdatedBy(authorizedUser.toString());
 
+		articleRepository.saveAndFlush(article);
+
+		article.getRelatedArticles().clear();
+		Set<Article> relatedArticles = new HashSet<>();
+		for (long relatedArticleId : request.getRelatedArticleIds()) {
+			relatedArticles.add(entityManager.getReference(Article.class, relatedArticleId));
+		}
+		article.setRelatedArticles(relatedArticles);
+
 		return articleRepository.save(article);
 	}
 
@@ -268,6 +278,13 @@ public class ArticleService {
 		for (long categoryId : request.getCategoryIds()) {
 			article.getCategories().add(entityManager.getReference(Category.class, categoryId));
 		}
+
+		article.getRelatedArticles().clear();
+		Set<Article> relatedArticles = new HashSet<>();
+		for (long relatedArticleId : request.getRelatedArticleIds()) {
+			relatedArticles.add(entityManager.getReference(Article.class, relatedArticleId));
+		}
+		article.setRelatedArticles(relatedArticles);
 
 		article.getTags().clear();
 		String[] tags = org.apache.commons.lang.StringUtils.splitByWholeSeparator(request.getTags(), ",");
@@ -389,6 +406,11 @@ public class ArticleService {
 			}
 		}
 		return articles;
+	}
+
+	//TODO データ移行後削除
+	public Set<Article> readAllPublishedArticles() {
+		return articleRepository.findAllArticles();
 	}
 
 	@Cacheable(value = "articles", key = "'list.category-code.' + #language + '.' + #code + '.' + #status")

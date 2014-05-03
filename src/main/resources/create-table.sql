@@ -22,6 +22,12 @@ create table article_link (
   primary key (id)
 ) ENGINE=InnoDB;
 
+create table article_related_article (
+  article_id bigint not null,
+  related_article_id bigint not null,
+  primary key (article_id, related_article_id)
+) ENGINE=InnoDB;
+
 create table article_tag (
   article_id bigint not null,
   tag_id bigint not null,
@@ -208,6 +214,16 @@ references category (id);
 alter table article_link
 add index FK_clklroeqrvgtqm2wgdkedvayx (article_id),
 add constraint FK_clklroeqrvgtqm2wgdkedvayx
+foreign key (article_id)
+references article (id);
+
+alter table article_related_article
+add constraint FK_g4echdjd5ojhcb9qtedc7g74c
+foreign key (related_article_id)
+references article (id);
+
+alter table article_related_article
+add constraint FK_skykofnv7kkiy9x5dnddauusq
 foreign key (article_id)
 references article (id);
 

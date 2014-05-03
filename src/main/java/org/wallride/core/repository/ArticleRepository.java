@@ -13,6 +13,7 @@ import javax.persistence.LockModeType;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Repository
 @Transactional
@@ -25,11 +26,16 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
 			"left join fetch article.cover cover " +
 			"left join fetch article.author author " +
 			"left join fetch article.categories category " +
+			"left join fetch article.relatedArticles relatedArticles " +
 			"left join fetch article.tags tag ";
 
 	@Query("select article.id from Article article order by article.date desc ")
 	List<Long> findId();
-	
+
+	//TODO データ移行後削除
+	@Query("from Article article left join fetch article.links links where article.status = 'PUBLISHED'")
+	Set<Article> findAllArticles();
+
 	@Query(DEFAULT_SELECT_QUERY + "where article.id in (:ids) ")
 	List<Article> findByIdIn(@Param("ids") Collection<Long> ids);
 	
