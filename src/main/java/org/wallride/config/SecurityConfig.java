@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -64,14 +63,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutRequestMatcher(new AntPathRequestMatcher("/_admin/logout", "GET"))
 				.logoutSuccessUrl("/_admin/login")
 				.and()
-/*
-			.requiresChannel()
-				.anyRequest().requiresSecure()
-				.and()
-*/
 			.rememberMe()
 				.tokenRepository(persistentTokenRepository())
 				.and()
+			.headers()
+				.frameOptions().disable()
 			.csrf()
 				.disable();
 		if (environment.getProperty("security.admin.force.ssl", Boolean.class, false)) {

@@ -48,7 +48,6 @@ public class SetupService {
 
 		User user = new User();
 		user.setLoginId(request.getLoginId());
-		
 		StandardPasswordEncoder passwordEncoder = new StandardPasswordEncoder();
 		user.setLoginPassword(passwordEncoder.encode(request.getLoginPassword()));
 
