@@ -92,14 +92,18 @@
 											</div>
 										</div>
 									</header>
-									<ul class="content-links"></ul>
 									<div class="clearfix">
 										<th:block th:each="postBody, bodyStat : ${article.bodies}">
 										<article class="item-page clearfix" th:id="'part_'+ ${bodyStat.count}">
 											<p th:if="${part != null} ? ${part == bodyStat.count} : ${bodyStat.count == 1}" th:utext="${#posts.body(postBody)}"></p>
 										</article>
 										</th:block>
+										<th:block th:if="(${part != null} and ${part == #lists.size(article.bodies)}) or ${part == null}">
 										<hr />
+										<ul class="content-links">
+											<li th:each="relatedArticle : ${article.relatedArticles}"><a th:text="${relatedArticle.title}" th:href="${#posts.path(relatedArticle)}" target="_blank"></a></li>
+										</ul>
+										</th:block>
 										<div class="pager">
 											<div class="prev" th:if="${part != null} and ${part} gt 1">
 												<a style="font-weight: bold" th:href="${#posts.path(article)} + '?part=' + ${part - 1}">&lt;</a>
