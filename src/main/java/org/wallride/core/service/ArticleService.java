@@ -46,9 +46,6 @@ public class ArticleService {
 	private ArticleRepository articleRepository;
 
 	@Inject
-	private ArticleLinkRepository articleLinkRepository;
-
-	@Inject
 	private MediaRepository mediaRepository;
 
 	@Inject
@@ -408,10 +405,10 @@ public class ArticleService {
 		return articles;
 	}
 
-	//TODO データ移行後削除
-	public Set<Article> readAllPublishedArticles() {
-		return articleRepository.findAllArticles();
-	}
+//	//TODO データ移行後削除
+//	public Set<Article> readAllPublishedArticles() {
+//		return articleRepository.findAllArticles();
+//	}
 
 	@Cacheable(value = "articles", key = "'list.category-code.' + #language + '.' + #code + '.' + #status")
 	public SortedSet<Article> readArticlesByCategoryCode(String language, String code, Post.Status status) {

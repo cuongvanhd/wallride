@@ -1,15 +1,15 @@
 package org.wallride.core.domain;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Sort;
-import org.hibernate.annotations.SortType;
+import org.hibernate.annotations.*;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.*;
 
 @Entity
@@ -40,14 +40,14 @@ public class Article extends Post implements Comparable<Article> {
 	@IndexedEmbedded
 	private SortedSet<Tag> tags = new TreeSet<>();
 
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name="article_related_article",
 			joinColumns = { @JoinColumn(name="article_id")},
 			inverseJoinColumns = { @JoinColumn(name="related_article_id") })
 	private Set<Article> relatedArticles = new HashSet<>();
 
-	@OneToMany(mappedBy="article", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private Set<ArticleLink> links = new HashSet<>();
+//	@OneToMany(mappedBy="article", fetch=FetchType.LAZY)
+//	private Set<ArticleLink> links = new HashSet<>();
 
 	public SortedSet<Category> getCategories() {
 		return categories;
@@ -73,13 +73,13 @@ public class Article extends Post implements Comparable<Article> {
 		this.relatedArticles = relatedArticles;
 	}
 
-	public Set<ArticleLink> getLinks() {
-		return links;
-	}
-
-	public void setLinks(Set<ArticleLink> links) {
-		this.links = links;
-	}
+//	public Set<ArticleLink> getLinks() {
+//		return links;
+//	}
+//
+//	public void setLinks(Set<ArticleLink> links) {
+//		this.links = links;
+//	}
 
 	public int compareTo(Article article) {
 		if (getDate() != null && article.getDate() == null) return 1;
