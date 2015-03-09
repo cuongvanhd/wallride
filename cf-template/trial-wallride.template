@@ -1,0 +1,888 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Trial WallRide",
+  "Parameters": {
+    "InstanceType": {
+      "Description": "Instancetype (Running WallRide)",
+      "Type": "String",
+      "Default": "t2.micro",
+      "AllowedValues": [
+        "t2.micro",
+        "t2.small",
+        "t2.medium",
+        "m3.medium",
+        "m3.large",
+        "m3.xlarge",
+        "m3.2xlarge"
+      ]
+    },
+    "KeyPairName": {
+      "Description": "Key pair name",
+      "Type": "String"
+    },
+    "MyIP": {
+      "Type": "String",
+      "Description": "Ip address for permit ssh access",
+      "MinLength": "7",
+      "MaxLength": "15",
+      "AllowedPattern": "[0-9]+?\\.[0-9]+?\\.[0-9]+?\\.[0-9]+"
+    },
+    "MailAddress": {
+      "Type": "String",
+      "Description": "Receive e-mail address from wallride notification",
+      "MinLength": "3"
+    },
+    "RDSUserName": {
+      "Type": "String",
+      "Description": "Admin account name for RDS",
+      "MinLength": "1",
+      "MaxLength": "16",
+      "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
+      "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters."
+    },
+    "RDSUserPassword": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Admin account password for RDS",
+      "MinLength": "8",
+      "MaxLength": "41",
+      "AllowedPattern": "[a-zA-Z0-9]*",
+      "ConstraintDescription": "must contain only alphanumeric characters."
+    },
+    "RDSDatabaseName": {
+      "Type": "String",
+      "Description": "Database name for RDS",
+      "MinLength": "1",
+      "MaxLength": "16",
+      "AllowedPattern": "[a-zA-Z0-9]*",
+      "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters."
+    }
+  },
+  "Mappings": {
+    "ElasticBeanstalkParameters": {
+      "MinSize": {
+        "Value": "1"
+      },
+      "MaxSize": {
+        "Value": "1"
+      },
+      "Xms": {
+        "Value": "256m"
+      },
+      "Xmx": {
+        "Value": "256m"
+      },
+      "MaxPermSize": {
+        "Value": "64m"
+      },
+      "JVMOptions": {
+        "Value": "-Dspring.profiles.active=test -Duser.timezone=\"Asia/Tokyo\" -Duser.language=\"ja\""
+      }
+    },
+    "MySQL":{
+      "AllocatedStorage": {
+        "Value": "5"
+      },
+      "DBInstanceClass": {
+        "Value": "db.t2.micro"
+      },
+      "Engine": {
+        "Value": "MySQL"
+      },
+      "EngineVersion": {
+        "Value": "5.6"
+      },
+      "MultiAZ": {
+        "Value": "false"
+      }
+    },
+    "CidrBlock": {
+      "VPC": {
+        "Value": "10.255.0.0/16"
+      },
+      "EC2Subnet": {
+        "Value": "10.255.110.0/24"
+      },
+      "RDSSubnet1": {
+        "Value": "10.255.111.0/24"
+      },
+      "RDSSubnet2": {
+        "Value": "10.255.112.0/24"
+      }
+    },
+    "S3": {
+      "BucketName": {
+        "Value": "wallride-bucket"
+      }
+    },
+    "War": {
+      "S3Bucket": {
+        "Value": "trial-wallride"
+      },
+      "S3Key": {
+        "Value": "war/wallride-1.0.0.BUILD-SNAPSHOT-201503091612.war"
+      }
+    }
+  },
+  "Resources": {
+    "WallRideVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Fn::FindInMap": [
+            "CidrBlock",
+            "VPC",
+            "Value"
+          ]
+        },
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  "WallRide",
+                  "VPC"
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "WallRideInternetGateway": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  "WallRide",
+                  "InternetGateway",
+                  {
+                    "Ref": "AWS::StackName"
+                  }
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "WallRideEC2Subnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            "0",
+            {
+              "Fn::GetAZs": {
+                "Ref": "AWS::Region"
+              }
+            }
+          ]
+        },
+        "CidrBlock": {
+          "Fn::FindInMap": [
+            "CidrBlock",
+            "EC2Subnet",
+            "Value"
+          ]
+        },
+        "VpcId": {
+          "Ref": "WallRideVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  "WallRIde",
+                  "EC2Subnet",
+                  {
+                    "Ref": "AWS::StackName"
+                  }
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "WallRideRDSSubnet1": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            "0",
+            {
+              "Fn::GetAZs": {
+                "Ref": "AWS::Region"
+              }
+            }
+          ]
+        },
+        "CidrBlock": {
+          "Fn::FindInMap": [
+            "CidrBlock",
+            "RDSSubnet1",
+            "Value"
+          ]
+        },
+        "VpcId": {
+          "Ref": "WallRideVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  "WallRide",
+                  "RDSSubnet-1",
+                  {
+                    "Ref": "AWS::StackName"
+                  }
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "WallRideRDSSubnet2": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            "1",
+            {
+              "Fn::GetAZs": {
+                "Ref": "AWS::Region"
+              }
+            }
+          ]
+        },
+        "CidrBlock": {
+          "Fn::FindInMap": [
+            "CidrBlock",
+            "RDSSubnet2",
+            "Value"
+          ]
+        },
+        "VpcId": {
+          "Ref": "WallRideVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  "WallRide",
+                  "RDSSubnet-2",
+                  {
+                    "Ref": "AWS::StackName"
+                  }
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "AttachGateway": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "WallRideInternetGateway"
+        },
+        "VpcId": {
+          "Ref": "WallRideVPC"
+        }
+      }
+    },
+    "WallRideRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "WallRideVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  "WallRide",
+                  "RouteTable",
+                  {
+                    "Ref": "AWS::StackName"
+                  }
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "WallRidePublicRoute": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "WallRideRouteTable"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "WallRideInternetGateway"
+        }
+      }
+    },
+    "WallRideRouteTableAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "WallRideRouteTable"
+        },
+        "SubnetId": {
+          "Ref": "WallRideEC2Subnet"
+        }
+      }
+    },
+    "WallRideIAMRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "ec2.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyName": "WallRide-Policy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:*"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "WallRideIAMInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [
+          {
+            "Ref": "WallRideIAMRole"
+          }
+        ]
+      }
+    },
+    "WallRideEC2SecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "WallRide-EC2-SG",
+        "VpcId": {
+          "Ref": "WallRideVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  "WallRide",
+                  "EC2SG",
+                  {
+                    "Ref": "AWS::StackName"
+                  }
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "WallRideEC2SGIngressSSH": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "WallRideEC2SecurityGroup"
+        },
+        "IpProtocol": "tcp",
+        "CidrIp": {
+          "Fn::Join": [
+            "/",
+            [
+              {
+                "Ref": "MyIP"
+              },
+              "32"
+            ]
+          ]
+        },
+        "FromPort": "22",
+        "ToPort": "22"
+      }
+    },
+    "EC2SGIngressHTTP": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "WallRideEC2SecurityGroup"
+        },
+        "IpProtocol": "tcp",
+        "CidrIp": "0.0.0.0/0",
+        "FromPort": "80",
+        "ToPort": "80"
+      }
+    },
+    "WallRideEC2SGIngressJGROUPS": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Fn::GetAtt": [
+            "WallRideEC2SecurityGroup",
+            "GroupId"
+          ]
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "WallRideEC2SecurityGroup",
+            "GroupId"
+          ]
+        },
+        "FromPort": "7800",
+        "ToPort": "7800"
+      }
+    },
+    "WallRideRDSSecurityGroup": {
+      "Type": "AWS::RDS::DBSecurityGroup",
+      "Properties": {
+        "EC2VpcId": {
+          "Ref": "WallRideVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  "WallRide",
+                  "RDSSG",
+                  {
+                    "Ref": "AWS::StackName"
+                  }
+                ]
+              ]
+            }
+          }
+        ],
+        "GroupDescription": "WallRideRDSSG"
+      }
+    },
+    "WallRideRDSSGIngress": {
+      "Type": "AWS::RDS::DBSecurityGroupIngress",
+      "Properties": {
+        "DBSecurityGroupName": {
+          "Ref" : "WallRideRDSSecurityGroup"
+        },
+        "EC2SecurityGroupId": {
+          "Ref" : "WallRideEC2SecurityGroup"
+        }
+      }
+    },
+    "WallRideRDSSubnetGroup": {
+      "Type": "AWS::RDS::DBSubnetGroup",
+      "Properties": {
+        "DBSubnetGroupDescription": "Subnets available for the RDS DB Instance",
+        "SubnetIds": [
+          {
+            "Ref": "WallRideRDSSubnet1"
+          },
+          {
+            "Ref": "WallRideRDSSubnet2"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  "WallRide",
+                  "RDS",
+                  "SubnetGroup",
+                  {
+                    "Ref": "AWS::StackName"
+                  }
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "WallRideRDSParamGroup": {
+      "Type": "AWS::RDS::DBParameterGroup",
+      "Properties": {
+        "Family": "mysql5.6",
+        "Description": "WallRide RDS Paramater Group",
+        "Parameters": {
+          "character_set_client": "utf8",
+          "character_set_connection": "utf8",
+          "character_set_database": "utf8",
+          "character_set_filesystem": "utf8",
+          "character_set_results": "utf8",
+          "character_set_server": "utf8",
+          "collation_connection": "utf8_general_ci"
+        }
+      }
+    },
+    "WallRideRDS": {
+      "Type": "AWS::RDS::DBInstance",
+      "Properties": {
+        "AllocatedStorage": {
+          "Fn::FindInMap": [
+            "MySQL",
+            "AllocatedStorage",
+            "Value"
+          ]
+        },
+        "DBInstanceClass": {
+          "Fn::FindInMap": [
+            "MySQL",
+            "DBInstanceClass",
+            "Value"
+          ]
+        },
+        "DBSecurityGroups": [
+          {
+            "Ref": "WallRideRDSSecurityGroup"
+          }
+        ],
+        "DBParameterGroupName": {
+          "Ref": "WallRideRDSParamGroup"
+        },
+        "DBSubnetGroupName": {
+          "Ref": "WallRideRDSSubnetGroup"
+        },
+        "Engine": {
+          "Fn::FindInMap": [
+            "MySQL",
+            "Engine",
+            "Value"
+          ]
+        },
+        "EngineVersion": {
+          "Fn::FindInMap": [
+            "MySQL",
+            "EngineVersion",
+            "Value"
+          ]
+        },
+        "MasterUsername": {
+          "Ref": "RDSUserName"
+        },
+        "MasterUserPassword": {
+          "Ref": "RDSUserPassword"
+        },
+        "MultiAZ": {
+          "Fn::FindInMap": [
+            "MySQL",
+            "MultiAZ",
+            "Value"
+          ]
+        },
+        "DBName": {
+          "Ref": "RDSDatabaseName"
+        },
+        "DBInstanceIdentifier": {
+          "Fn::Join": [
+            "-",
+            [
+              "WallRideDB",
+              {
+                "Ref": "AWS::StackName"
+              }
+            ]
+          ]
+        }
+      }
+    },
+    "WallRideApp": {
+      "Type": "AWS::ElasticBeanstalk::Application",
+      "Properties": {
+        "Description": "WallRide",
+        "ApplicationVersions": [
+          {
+            "Description": "WallRide Trial Version",
+            "VersionLabel": "WallRide Trial Version",
+            "SourceBundle": {
+              "S3Bucket": {
+                "Fn::FindInMap": [
+                  "War",
+                  "S3Bucket",
+                  "Value"
+                ]
+              },
+              "S3Key": {
+                "Fn::FindInMap": [
+                  "War",
+                  "S3Key",
+                  "Value"
+                ]
+              }
+            }
+          }
+        ],
+        "ConfigurationTemplates": [
+          {
+            "TemplateName": "TrialConfiguration",
+            "Description": "Default Configuration Version 1.0 - with SSH access",
+            "SolutionStackName": "64bit Amazon Linux 2014.09 v1.2.0 running Tomcat 7 Java 7",
+            "OptionSettings": [
+              {
+                "Namespace": "aws:autoscaling:launchconfiguration",
+                "OptionName": "EC2KeyName",
+                "Value": {
+                  "Ref": "KeyPairName"
+                }
+              },
+              {
+                "Namespace": "aws:autoscaling:launchconfiguration",
+                "OptionName": "IamInstanceProfile",
+                "Value": {
+                  "Ref": "WallRideIAMInstanceProfile"
+                }
+              },
+              {
+                "Namespace": "aws:autoscaling:launchconfiguration",
+                "OptionName": "SecurityGroups",
+                "Value": {
+                  "Ref": "WallRideEC2SecurityGroup"
+                }
+              },
+              {
+                "Namespace": "aws:ec2:vpc",
+                "OptionName": "VPCId",
+                "Value": {
+                  "Ref": "WallRideVPC"
+                }
+              },
+              {
+                "Namespace": "aws:ec2:vpc",
+                "OptionName": "Subnets",
+                "Value": {
+                  "Ref": "WallRideEC2Subnet"
+                }
+              },
+              {
+                "Namespace": "aws:ElasticBeanstalk:environment",
+                "OptionName": "EnvironmentType",
+                "Value": "SingleInstance"
+              },
+              {
+                "Namespace": "aws:ec2:vpc",
+                "OptionName": "DBSubnets",
+                "Value": {
+                  "Ref": "WallRideRDSSubnetGroup"
+                }
+              },
+              {
+                "Namespace": "aws:ec2:vpc",
+                "OptionName": "AssociatePublicIpAddress",
+                "Value": "true"
+              },
+              {
+                "Namespace": "aws:elasticbeanstalk:container:tomcat:jvmoptions",
+                "OptionName": "Xms",
+                "Value": {
+                  "Fn::FindInMap": [
+                    "ElasticBeanstalkParameters",
+                    "Xms",
+                    "Value"
+                  ]
+                }
+              },
+              {
+                "Namespace": "aws:elasticbeanstalk:container:tomcat:jvmoptions",
+                "OptionName": "Xmx",
+                "Value": {
+                  "Fn::FindInMap": [
+                    "ElasticBeanstalkParameters",
+                    "Xmx",
+                    "Value"
+                  ]
+                }
+              },
+              {
+                "Namespace": "aws:elasticbeanstalk:container:tomcat:jvmoptions",
+                "OptionName": "XX:MaxPermSize",
+                "Value": {
+                  "Fn::FindInMap": [
+                    "ElasticBeanstalkParameters",
+                    "MaxPermSize",
+                    "Value"
+                  ]
+                }
+              },
+              {
+                "Namespace": "aws:elasticbeanstalk:container:tomcat:jvmoptions",
+                "OptionName": "JVM Options",
+                "Value": {
+                  "Fn::FindInMap": [
+                    "ElasticBeanstalkParameters",
+                    "JVMOptions",
+                    "Value"
+                  ]
+                }
+              },
+              {
+                "Namespace": "aws:elasticbeanstalk:application:environment",
+                "OptionName": "wallride.home",
+                "Value": {
+                  "Fn::Join" : [
+                  "",
+                    [
+                      "s3://",
+                      {
+                        "Fn::GetAtt": [
+                          "WallRideS3Bucket",
+                          "DomainName"
+                        ]
+                      }
+                    ]
+                  ]
+                }
+              },
+              {
+                "Namespace": "aws:elasticbeanstalk:application:environment",
+                "OptionName": "spring.datasource.url",
+                "Value": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "jdbc:mysql://",
+                      {
+                        "Fn::GetAtt": [
+                          "WallRideRDS",
+                          "Endpoint.Address"
+                        ]
+                      },
+                      ":",
+                      {
+                        "Fn::GetAtt": [
+                          "WallRideRDS",
+                          "Endpoint.Port"
+                        ]
+                      },
+                      "/",
+                      {
+                        "Ref": "RDSDatabaseName"
+                      }
+                    ]
+                  ]
+                }
+              },
+              {
+                "Namespace": "aws:elasticbeanstalk:application:environment",
+                "OptionName": "spring.datasource.username",
+                "Value": {
+                  "Ref": "RDSUserName"
+                }
+              },
+              {
+                "Namespace": "aws:elasticbeanstalk:application:environment",
+                "OptionName": "spring.datasource.password",
+                "Value": {
+                  "Ref": "RDSUserPassword"
+                }
+              },
+              {
+                "Namespace": "aws:elasticbeanstalk:application:environment",
+                "OptionName": "spring.mail.host",
+                "Value": "localhost"
+              },
+              {
+                "Namespace": "aws:elasticbeanstalk:application:environment",
+                "OptionName": "spring.mail.port",
+                "Value": "25"
+              },
+              {
+                "Namespace": "aws:elasticbeanstalk:application:environment",
+                "OptionName": "jgroups.s3.bucket",
+                "Value": {
+                  "Fn::GetAtt": [
+                    "WallRideS3Bucket",
+                    "DomainName"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "WallRideEnvironment": {
+      "Type": "AWS::ElasticBeanstalk::Environment",
+      "Properties": {
+        "ApplicationName": {
+          "Ref": "WallRideApp"
+        },
+        "Description": "WallRide Trial Version",
+        "VersionLabel": "WallRide Trial Version",
+        "TemplateName" : "TrialConfiguration"
+      }
+    },
+    "WallRideS3Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "AccessControl": "BucketOwnerFullControl",
+        "BucketName": {
+          "Fn::FindInMap": [
+            "S3",
+            "BucketName",
+            "Value"
+          ]
+        }
+      }
+    }
+  }
+}
+  
