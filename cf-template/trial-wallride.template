@@ -1,9 +1,9 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Trial WallRide",
+  "Description": "AWS CloudFormation Trial WallRide template. Create an Elastic Beanstalk(Single Instance) and an Amazon S3 Bucket and an Amazon RDS Instance and an VPC Resources. **WARNING** This template creates one or more Amazon EC2 instances and an Amazon S3 Bucket and an Amazon RDS Instance. You will be billed for the AWS resources used if you create a stack from this template.",
   "Parameters": {
     "InstanceType": {
-      "Description": "Instancetype (Running WallRide)",
+      "Description": "Instance Type.(Running WallRide)",
       "Type": "String",
       "Default": "t2.micro",
       "AllowedValues": [
@@ -17,24 +17,24 @@
       ]
     },
     "KeyPairName": {
-      "Description": "Key pair name",
+      "Description": "Key pair name.",
       "Type": "String"
     },
     "MyIP": {
       "Type": "String",
-      "Description": "Ip address for permit ssh access",
+      "Description": "Ip address for permit ssh access.",
       "MinLength": "7",
       "MaxLength": "15",
       "AllowedPattern": "[0-9]+?\\.[0-9]+?\\.[0-9]+?\\.[0-9]+"
     },
     "MailAddress": {
       "Type": "String",
-      "Description": "Receive e-mail address from wallride notification",
+      "Description": "Receive e-mail address from WallRide notification.",
       "MinLength": "3"
     },
     "RDSUserName": {
       "Type": "String",
-      "Description": "Admin account name for RDS",
+      "Description": "Admin account name for RDS Instance.",
       "MinLength": "1",
       "MaxLength": "16",
       "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
@@ -43,7 +43,7 @@
     "RDSUserPassword": {
       "NoEcho": "true",
       "Type": "String",
-      "Description": "Admin account password for RDS",
+      "Description": "Admin account password for RDS Instance.",
       "MinLength": "8",
       "MaxLength": "41",
       "AllowedPattern": "[a-zA-Z0-9]*",
@@ -51,7 +51,7 @@
     },
     "RDSDatabaseName": {
       "Type": "String",
-      "Description": "Database name for RDS",
+      "Description": "Database name for RDS Instance.",
       "MinLength": "1",
       "MaxLength": "16",
       "AllowedPattern": "[a-zA-Z0-9]*",
@@ -204,7 +204,7 @@
               "Fn::Join": [
                 "-",
                 [
-                  "WallRIde",
+                  "WallRide",
                   "EC2Subnet",
                   {
                     "Ref": "AWS::StackName"
@@ -529,7 +529,7 @@
     "WallRideRDSSubnetGroup": {
       "Type": "AWS::RDS::DBSubnetGroup",
       "Properties": {
-        "DBSubnetGroupDescription": "Subnets available for the RDS DB Instance",
+        "DBSubnetGroupDescription": "WallRide Subnets available for the RDS DB Instance",
         "SubnetIds": [
           {
             "Ref": "WallRideRDSSubnet1"
@@ -648,7 +648,7 @@
     "WallRideApp": {
       "Type": "AWS::ElasticBeanstalk::Application",
       "Properties": {
-        "Description": "WallRide",
+        "Description": "WallRide App",
         "ApplicationVersions": [
           {
             "Description": "WallRide Trial Version",
@@ -674,7 +674,7 @@
         "ConfigurationTemplates": [
           {
             "TemplateName": "TrialConfiguration",
-            "Description": "Default Configuration Version 1.0 - with SSH access",
+            "Description": "Trial WallRide Configuration",
             "SolutionStackName": "64bit Amazon Linux 2014.09 v1.2.0 running Tomcat 7 Java 7",
             "OptionSettings": [
               {
