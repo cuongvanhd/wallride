@@ -73,10 +73,10 @@
         "Value": "256m"
       },
       "MaxPermSize": {
-        "Value": "64m"
+        "Value": "128m"
       },
       "JVMOptions": {
-        "Value": "-Dspring.profiles.active=test -Duser.timezone=\"Asia/Tokyo\" -Duser.language=\"ja\""
+        "Value": "-Dspring.profiles.active=product -Duser.timezone=\"Asia/Tokyo\" -Duser.language=\"ja\""
       }
     },
     "MySQL":{
@@ -144,7 +144,10 @@
                 "-",
                 [
                   "WallRide",
-                  "VPC"
+                  "VPC",
+                  {
+                    "Ref": "AWS::StackName"
+                  }
                 ]
               ]
             }
@@ -381,7 +384,17 @@
         "Path": "/",
         "Policies": [
           {
-            "PolicyName": "WallRide-Policy",
+            "PolicyName": {
+              "Fn::Join": [
+                "-",
+                [
+                  "WallRide-Policy",
+                  {
+                    "Ref": "AWS::StackName"
+                  }
+                ]
+              ]
+            },
             "PolicyDocument": {
               "Version": "2012-10-17",
               "Statement": [
@@ -777,14 +790,24 @@
                 "Namespace": "aws:elasticbeanstalk:application:environment",
                 "OptionName": "wallride.home",
                 "Value": {
-                  "Fn::Join" : [
-                  "",
-                    [
-                      "s3://",
+                  "Fn::Join": [
+                    "",
+                    ["s3://",
                       {
-                        "Fn::GetAtt": [
-                          "WallRideS3Bucket",
-                          "DomainName"
+                        "Fn::Join": [
+                          "-",
+                          [
+                            {
+                              "Fn::FindInMap": [
+                                "S3",
+                                "BucketName",
+                                "Value"
+                              ]
+                            },
+                            {
+                              "Ref": "AWS::StackName"
+                            }
+                          ]
                         ]
                       }
                     ]
@@ -848,9 +871,20 @@
                 "Namespace": "aws:elasticbeanstalk:application:environment",
                 "OptionName": "jgroups.s3.bucket",
                 "Value": {
-                  "Fn::GetAtt": [
-                    "WallRideS3Bucket",
-                    "DomainName"
+                  "Fn::Join": [
+                    "-",
+                    [
+                      {
+                        "Fn::FindInMap": [
+                          "S3",
+                          "BucketName",
+                          "Value"
+                        ]
+                      },
+                      {
+                        "Ref": "AWS::StackName"
+                      }
+                    ]
                   ]
                 }
               }
@@ -875,12 +909,22 @@
       "Properties": {
         "AccessControl": "BucketOwnerFullControl",
         "BucketName": {
-          "Fn::FindInMap": [
-            "S3",
-            "BucketName",
-            "Value"
+          "Fn::Join": [
+            "-",
+            [
+              {
+                "Fn::FindInMap": [
+                  "S3",
+                  "BucketName",
+                  "Value"
+                ]
+              },
+              {
+                "Ref": "AWS::StackName"
+              }
+            ]
           ]
-        }
+        }  
       }
     }
   }
