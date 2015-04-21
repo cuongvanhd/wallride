@@ -30,7 +30,6 @@ import org.wallride.core.domain.*;
 import org.wallride.core.service.ArticleService;
 import org.wallride.core.service.CategoryService;
 import org.wallride.core.service.TagService;
-import org.wallride.core.service.UserService;
 import org.wallride.core.support.Pagination;
 import org.wallride.web.support.HttpNotFoundException;
 
@@ -52,8 +51,6 @@ public class ArticleIndexController {
 	private CategoryService categoryService;
 	@Inject
 	private TagService tagService;
-	@Inject
-	private UserService userService;
 
 //	@RequestMapping("/")
 //	public String index(
@@ -189,29 +186,4 @@ public class ArticleIndexController {
 		model.addAttribute("pagination", new Pagination<>(articles));
 		return "article/index";
 	}
-
-	@RequestMapping("/author/{loginId}")
-	public String author(
-			@PathVariable String loginId,
-			@PageableDefault(10) Pageable pageable,
-			BlogLanguage blogLanguage,
-			HttpServletRequest request,
-			Model model) {
-		User author = userService.readUserByLoginId(loginId);
-		if (author == null) {
-			throw new HttpNotFoundException();
-		}
-
-		ArticleSearchForm form = new ArticleSearchForm() {};
-		form.setLanguage(blogLanguage.getLanguage());
-		form.setAuthorId(author.getId());
-
-		Page<Article> articles = articleService.readArticles(form.toArticleSearchRequest(), pageable);
-		model.addAttribute("author", author);
-		model.addAttribute("articles", articles);
-		model.addAttribute("pageable", pageable);
-		model.addAttribute("pagination", new Pagination<>(articles));
-		return "article/author";
-	}
-
 }

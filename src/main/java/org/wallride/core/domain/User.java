@@ -78,7 +78,10 @@ public class User extends DomainObject<Long> {
 	@ElementCollection
 	@SortNatural
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+	//@FieldBridge(impl=AppliedOnTypeAwareBridge.class)
 	@Enumerated(EnumType.STRING)
+	//@ContainedIn
+//	@IndexedEmbedded(includeEmbeddedObjectId = true)
 	@Column(name = "role", length = 20, nullable = false)
 	private SortedSet<Role> roles = new TreeSet<>();
 

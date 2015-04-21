@@ -25,6 +25,7 @@ import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.apache.lucene.util.Version;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
@@ -84,16 +85,18 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 		}
 
 		if (!CollectionUtils.isEmpty(request.getRoles())) {
+			BooleanJunction<BooleanJunction> subJunction = qb.bool();
 			for (User.Role role : request.getRoles()) {
-				junction.must(qb.keyword().onField("roles").matching(role).createQuery());
+				subJunction.must(qb.keyword().onField("roles.role").matching(role).createQuery());
 			}
+			junction.must(subJunction.createQuery());
 		}
 
 		Query searchQuery = junction.createQuery();
 		
 		Session session = (Session) entityManager.getDelegate();
-		Criteria criteria = session.createCriteria(User.class);
-
+		Criteria criteria = session.createCriteria(User.class)
+				.setFetchMode("roles", FetchMode.JOIN);
 		Sort sort = new Sort(new SortField("id", SortField.Type.STRING, false));
 
 		FullTextQuery persistenceQuery = fullTextEntityManager
