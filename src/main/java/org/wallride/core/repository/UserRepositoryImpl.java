@@ -87,7 +87,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 		if (!CollectionUtils.isEmpty(request.getRoles())) {
 			BooleanJunction<BooleanJunction> subJunction = qb.bool();
 			for (User.Role role : request.getRoles()) {
-				subJunction.must(qb.keyword().onField("roles.role").matching(role).createQuery());
+				subJunction.must(qb.keyword().onField("roles").matching(role).createQuery());
 			}
 			junction.must(subJunction.createQuery());
 		}
