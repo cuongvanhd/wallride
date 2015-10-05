@@ -1,5 +1,7 @@
 package org.wallride.core.support;
 
+import java.util.List;
+
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,33 +11,28 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by Cuong on 2015/09/30.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class PaginationTest extends TestCase {
-
+public class PaginationTest extends TestCase
+{
     @InjectMocks
     Pagination pagination;
 
     @Mock
     Page page;
 
-    @Mock
-    Pageable currentPageable;
-
     int interval;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         super.setUp();
         MockitoAnnotations.initMocks(this);
         interval = 5;
@@ -47,7 +44,8 @@ public class PaginationTest extends TestCase {
      * @throws Exception
      */
     @Test
-    public void testGetNumberOfFirstElement() throws Exception {
+    public void testGetNumberOfFirstElement() throws Exception
+    {
 
         //データベースの中にレコードが72です。
         when(page.hasContent()).thenReturn(true);
@@ -73,7 +71,8 @@ public class PaginationTest extends TestCase {
      * @throws Exception
      */
     @Test
-    public void testGetNumberOfLastElement() throws Exception {
+    public void testGetNumberOfLastElement() throws Exception
+    {
 
         // 最初のページの値のテスト
         when(page.hasContent()).thenReturn(true);
@@ -90,12 +89,15 @@ public class PaginationTest extends TestCase {
     }
 
     /**
-     * Pageableクラスのリストのテスト
-     *<p>Pageableクラスの目的はサイトのページの数</p>
+     * Test get Pageables when Page is start
+     *
      * @throws Exception
      */
     @Test
-    public void testGetPageables() throws Exception {
+    public void testGetPageablesWhenPageIsStart() throws Exception
+    {
+
+        Pageable currentPageable = new PageRequest(0, 10);
 
         // 例えば；ページのトータル８です。現在のページは０です。
         //それで　getPageables(,)のメソッドの結果は０ページ目から5ページ目まで表示です
@@ -104,17 +106,81 @@ public class PaginationTest extends TestCase {
         // 72レコードがあるし、それに各ページは１０レコードがある。それでページの数は８です
         when(page.getTotalPages()).thenReturn(8);
 
-        // Pageablesジュクトのオブジェクトの作成
-        when(currentPageable.next()).thenReturn(currentPageable);
-
         List<Pageable> pageableListActual = pagination.getPageables(currentPageable, interval);
 
         // 以下のメソッドは実行されることを確認
         verify(page).getTotalPages();
-        verify(currentPageable, times(5)).next();
         verify(page, times(4)).getNumber();
 
+        // リストのサイズを確認する
         assertEquals(6, pageableListActual.size());
+        // スタートのページを確認する
+        assertEquals(0, pageableListActual.get(0).getPageNumber());
+        // エンドのページを確認する
+        assertEquals(5, pageableListActual.get(5).getPageNumber());
+    }
 
+    /**
+     * Test get Pageables when Page is from start to end
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testGetPageablesWhenPageIs4() throws Exception
+    {
+
+        Pageable currentPageable = new PageRequest(4, 10);
+
+        // 例えば；ページのトータル８です。現在のページは０です。
+        //それで　getPageables(,)のメソッドの結果は０ページ目から5ページ目まで表示です
+        when(page.getNumber()).thenReturn(4);
+
+        // 72レコードがあるし、それに各ページは１０レコードがある。それでページの数は８です
+        when(page.getTotalPages()).thenReturn(8);
+
+        List<Pageable> pageableListActual = pagination.getPageables(currentPageable, interval);
+
+        // 以下のメソッドは実行されることを確認
+        verify(page, times(2)).getTotalPages();
+        verify(page, times(4)).getNumber();
+
+        // リストのサイズを確認する
+        assertEquals(8, pageableListActual.size());
+        // スタートのページを確認する
+        assertEquals(0, pageableListActual.get(0).getPageNumber());
+        // エンドのページを確認する
+        assertEquals(7, pageableListActual.get(7).getPageNumber());
+    }
+
+    /**
+     * Test get Pageables when Page is end
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testGetPageablesWhenPageIsEnd() throws Exception
+    {
+
+        Pageable currentPageable = new PageRequest(8, 10);
+
+        // 例えば；ページのトータル８です。現在のページは０です。
+        //それで　getPageables(,)のメソッドの結果は０ページ目から5ページ目まで表示です
+        when(page.getNumber()).thenReturn(8);
+
+        // 72レコードがあるし、それに各ページは１０レコードがある。それでページの数は８です
+        when(page.getTotalPages()).thenReturn(8);
+
+        List<Pageable> pageableListActual = pagination.getPageables(currentPageable, interval);
+
+        // 以下のメソッドは実行されることを確認
+        verify(page, times(2)).getTotalPages();
+        verify(page, times(4)).getNumber();
+
+        // リストのサイズを確認する
+        assertEquals(6, pageableListActual.size());
+        // スタートのページを確認する
+        assertEquals(3, pageableListActual.get(0).getPageNumber());
+        // エンドのページを確認する
+        assertEquals(8, pageableListActual.get(5).getPageNumber());
     }
 }
