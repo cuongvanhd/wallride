@@ -1,7 +1,5 @@
 package org.wallride.core.support;
 
-import java.util.List;
-
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +11,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -115,9 +115,9 @@ public class PaginationTest extends TestCase
         // リストのサイズを確認する
         assertEquals(6, pageableListActual.size());
         // スタートのページを確認する
-        assertEquals(0, pageableListActual.get(0).getPageNumber());
+        assertEquals(1, pageableListActual.get(0).getPageNumber() + 1);
         // エンドのページを確認する
-        assertEquals(5, pageableListActual.get(5).getPageNumber());
+        assertEquals(6, pageableListActual.get(5).getPageNumber() + 1);
     }
 
     /**
@@ -126,7 +126,7 @@ public class PaginationTest extends TestCase
      * @throws Exception
      */
     @Test
-    public void testGetPageablesWhenIndexPageIs3() throws Exception
+    public void testGetPageablesWhenIndexPageIs4() throws Exception
     {
         // pageのインデックスは0から始める。だから4ページのインデックスは3になる。
         Pageable currentPageable = new PageRequest(3, 10);
@@ -147,9 +147,9 @@ public class PaginationTest extends TestCase
         // リストのサイズを確認する
         assertEquals(8, pageableListActual.size());
         // スタートのページを確認する
-        assertEquals(0, pageableListActual.get(0).getPageNumber());
+        assertEquals(1, pageableListActual.get(0).getPageNumber() + 1);
         // エンドのページを確認する
-        assertEquals(7, pageableListActual.get(7).getPageNumber());
+        assertEquals(8, pageableListActual.get(7).getPageNumber() + 1);
     }
 
     /**
@@ -179,8 +179,8 @@ public class PaginationTest extends TestCase
         // リストのサイズを確認する
         assertEquals(6, pageableListActual.size());
         // スタートのページを確認する
-        assertEquals(2, pageableListActual.get(0).getPageNumber());
+        assertEquals(3, pageableListActual.get(0).getPageNumber() + 1);
         // エンドのページを確認する
-        assertEquals(7, pageableListActual.get(5).getPageNumber());
+        assertEquals(8, pageableListActual.get(5).getPageNumber() + 1);
     }
 }
