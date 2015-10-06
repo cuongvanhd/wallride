@@ -89,18 +89,16 @@ public class PaginationTest extends TestCase
     }
 
     /**
-     * Test get Pageables when Page is start
+     * ページのインデックスはスタートになって、Pageablesをゲットすることのテスト
      *
      * @throws Exception
      */
     @Test
-    public void testGetPageablesWhenPageIsStart() throws Exception
+    public void testGetPageablesWhenIndexPageIsStart() throws Exception
     {
-
+        // pageのインデックスは0から始める.
         Pageable currentPageable = new PageRequest(0, 10);
 
-        // 例えば；ページのトータル８です。現在のページは０です。
-        //それで　getPageables(,)のメソッドの結果は０ページ目から5ページ目まで表示です
         when(page.getNumber()).thenReturn(0);
 
         // 72レコードがあるし、それに各ページは１０レコードがある。それでページの数は８です
@@ -112,6 +110,8 @@ public class PaginationTest extends TestCase
         verify(page).getTotalPages();
         verify(page, times(4)).getNumber();
 
+        // 例えば；ページのトータル８です。現在のページは０です。
+        //それで　getPageables(,)のメソッドの結果は０ページ目から5ページ目まで表示です
         // リストのサイズを確認する
         assertEquals(6, pageableListActual.size());
         // スタートのページを確認する
@@ -121,19 +121,19 @@ public class PaginationTest extends TestCase
     }
 
     /**
-     * Test get Pageables when Page is from start to end
-     *
+     * ページのインデックスは3になって、Pageablesをゲットすることのテスト
+     *（０ページから５ページは何もいいです。例えばこっち）
      * @throws Exception
      */
     @Test
-    public void testGetPageablesWhenPageIs4() throws Exception
+    public void testGetPageablesWhenIndexPageIs3() throws Exception
     {
-
-        Pageable currentPageable = new PageRequest(4, 10);
+        // pageのインデックスは0から始める。だから4ページのインデックスは3になる。
+        Pageable currentPageable = new PageRequest(3, 10);
 
         // 例えば；ページのトータル８です。現在のページは０です。
         //それで　getPageables(,)のメソッドの結果は０ページ目から5ページ目まで表示です
-        when(page.getNumber()).thenReturn(4);
+        when(page.getNumber()).thenReturn(3);
 
         // 72レコードがあるし、それに各ページは１０レコードがある。それでページの数は８です
         when(page.getTotalPages()).thenReturn(8);
@@ -153,19 +153,19 @@ public class PaginationTest extends TestCase
     }
 
     /**
-     * Test get Pageables when Page is end
+     * ページのインデックスはエンドになって、Pageablesをゲットすることのテスト
      *
      * @throws Exception
      */
     @Test
-    public void testGetPageablesWhenPageIsEnd() throws Exception
+    public void testGetPageablesWhenIndexPageIsEnd() throws Exception
     {
-
-        Pageable currentPageable = new PageRequest(8, 10);
+        // pageのインデックスは0から始める。だから最後のページのインデックスは７になる。
+        Pageable currentPageable = new PageRequest(7, 10);
 
         // 例えば；ページのトータル８です。現在のページは０です。
         //それで　getPageables(,)のメソッドの結果は０ページ目から5ページ目まで表示です
-        when(page.getNumber()).thenReturn(8);
+        when(page.getNumber()).thenReturn(7);
 
         // 72レコードがあるし、それに各ページは１０レコードがある。それでページの数は８です
         when(page.getTotalPages()).thenReturn(8);
@@ -179,8 +179,8 @@ public class PaginationTest extends TestCase
         // リストのサイズを確認する
         assertEquals(6, pageableListActual.size());
         // スタートのページを確認する
-        assertEquals(3, pageableListActual.get(0).getPageNumber());
+        assertEquals(2, pageableListActual.get(0).getPageNumber());
         // エンドのページを確認する
-        assertEquals(8, pageableListActual.get(5).getPageNumber());
+        assertEquals(7, pageableListActual.get(5).getPageNumber());
     }
 }
