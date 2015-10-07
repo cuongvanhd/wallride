@@ -89,12 +89,12 @@ public class PaginationTest extends TestCase
     }
 
     /**
-     * ページのインデックスはスタートになって、Pageablesをゲットすることのテスト
+     * ページはスタートになって、Pageablesをゲットすることのテスト
      *
      * @throws Exception
      */
     @Test
-    public void testGetPageablesWhenIndexPageIsStart() throws Exception
+    public void testGetPageablesWhenPageIsStart() throws Exception
     {
         // pageのインデックスは0から始める.
         Pageable currentPageable = new PageRequest(0, 10);
@@ -121,12 +121,12 @@ public class PaginationTest extends TestCase
     }
 
     /**
-     * ページのインデックスは3になって、Pageablesをゲットすることのテスト
+     * ページは4になって、Pageablesをゲットすることのテスト
      *（０ページから５ページは何もいいです。例えばこっち）
      * @throws Exception
      */
     @Test
-    public void testGetPageablesWhenIndexPageIs4() throws Exception
+    public void testGetPageablesWhenPageIs4() throws Exception
     {
         // pageのインデックスは0から始める。だから4ページのインデックスは3になる。
         Pageable currentPageable = new PageRequest(3, 10);
@@ -153,12 +153,12 @@ public class PaginationTest extends TestCase
     }
 
     /**
-     * ページのインデックスはエンドになって、Pageablesをゲットすることのテスト
+     * ページはエンドになって、Pageablesをゲットすることのテスト
      *
      * @throws Exception
      */
     @Test
-    public void testGetPageablesWhenIndexPageIsEnd() throws Exception
+    public void testGetPageablesWhenPageIsEnd() throws Exception
     {
         // pageのインデックスは0から始める。だから最後のページのインデックスは７になる。
         Pageable currentPageable = new PageRequest(7, 10);
