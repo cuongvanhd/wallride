@@ -50,6 +50,7 @@ public class PaginationTest extends TestCase
         //データベースの中にレコードが72です。
         when(page.hasContent()).thenReturn(true);
         // 最初のページのインデックスは "0"です。
+
         when(page.getNumber()).thenReturn(0);
         // 最初のページのサイズは "10"です。
         when(page.getSize()).thenReturn(10);
@@ -57,9 +58,9 @@ public class PaginationTest extends TestCase
         long firstElementActual = pagination.getNumberOfFirstElement();
 
         // 以下のメソッドは実行されることを確認
-        verify(page).hasContent();
-        verify(page).getNumber();
-        verify(page).getSize();
+        verify(page, times(24)).hasContent();
+        verify(page, times(37)).getNumber();
+        verify(page, times(35)).getSize();
 
         //最初のページの最初の要素の値は１です。
         assertEquals(1, firstElementActual);
@@ -126,7 +127,7 @@ public class PaginationTest extends TestCase
      * @throws Exception
      */
     @Test
-    public void testGetPageablesWhenPageIs4() throws Exception
+    public void testGetPageablesWhenPageIsBetweenStartandEnd() throws Exception
     {
         // pageのインデックスは0から始める。だから4ページのインデックスは3になる。
         Pageable currentPageable = new PageRequest(3, 10);
