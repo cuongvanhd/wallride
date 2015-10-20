@@ -1,7 +1,5 @@
 package org.wallride.core.support;
 
-import java.util.List;
-
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +11,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -46,23 +46,30 @@ public class PaginationTest extends TestCase
     @Test
     public void testGetNumberOfFirstElement() throws Exception
     {
+//        List<String> stringList = new ArrayList<>();
+//        stringList.add("String1");
+//        Pageable pageable = new PageRequest(0, 10);
+//        Page page = new PageImpl(stringList,pageable,10);
+//        Pagination pagination = new Pagination(page);
+//        long number = pagination.getNumberOfFirstElement();
+//
+//        assertEquals(1, number);
 
         //データベースの中にレコードが72です。
         when(page.hasContent()).thenReturn(true);
-        // 最初のページのインデックスは "0"です。
+        //最初のページのインデックスは "0"です。
 
         when(page.getNumber()).thenReturn(0);
-        // 最初のページのサイズは "10"です。
+        //  最初のページのサイズは "10"です。
         when(page.getSize()).thenReturn(10);
-
+//
         long firstElementActual = pagination.getNumberOfFirstElement();
+//        // 以下のメソッドは実行されることを確認
+        verify(page).hasContent();
+        verify(page).getNumber();
+        verify(page).getSize();
 
-        // 以下のメソッドは実行されることを確認
-        verify(page, times(24)).hasContent();
-        verify(page, times(37)).getNumber();
-        verify(page, times(35)).getSize();
-
-        //最初のページの最初の要素の値は１です。
+//        //最初のページの最初の要素の値は１です。
         assertEquals(1, firstElementActual);
     }
 
