@@ -1,5 +1,7 @@
 package org.wallride.core.support;
 
+import java.util.List;
+
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,8 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
 /**
@@ -62,15 +64,15 @@ public class PaginationTest extends TestCase
         when(page.getNumber()).thenReturn(0);
         //  最初のページのサイズは "10"です。
         when(page.getSize()).thenReturn(10);
-//
+
         long firstElementActual = pagination.getNumberOfFirstElement();
-//        // 以下のメソッドは実行されることを確認
+
         verify(page).hasContent();
         verify(page).getNumber();
         verify(page).getSize();
 
-//        //最初のページの最初の要素の値は１です。
-        assertEquals(1, firstElementActual);
+        //assertEquals(1, firstElementActual);
+        assertThat(firstElementActual, is((long) 1));
     }
 
     /**
@@ -92,8 +94,8 @@ public class PaginationTest extends TestCase
         verify(page,times(2)).hasContent();
         verify(page).getNumberOfElements();
 
-        //最初のページの最後の要素の値は１０です
-        assertEquals(10, lastElementActual);
+        //assertEquals(10, lastElementActual);
+        assertThat(lastElementActual, is((long) 10));
     }
 
     /**
@@ -109,7 +111,6 @@ public class PaginationTest extends TestCase
 
         when(page.getNumber()).thenReturn(0);
 
-        // 72レコードがあるし、それに各ページは１０レコードがある。それでページの数は８です
         when(page.getTotalPages()).thenReturn(8);
 
         List<Pageable> pageableListActual = pagination.getPageables(currentPageable, interval);
@@ -118,14 +119,13 @@ public class PaginationTest extends TestCase
         verify(page).getTotalPages();
         verify(page, times(4)).getNumber();
 
-        // 例えば；ページのトータル８です。現在のページは０です。
-        //それで　getPageables(,)のメソッドの結果は０ページ目から5ページ目まで表示です
-        // リストのサイズを確認する
-        assertEquals(6, pageableListActual.size());
-        // スタートのページを確認する
-        assertEquals(1, pageableListActual.get(0).getPageNumber() + 1);
-        // エンドのページを確認する
-        assertEquals(6, pageableListActual.get(5).getPageNumber() + 1);
+
+//        assertEquals(6, pageableListActual.size())
+        assertThat(pageableListActual.size(), is(6));
+//        assertEquals(1, pageableListActual.get(0).getPageNumber() + 1);
+        assertThat(pageableListActual.get(0).getPageNumber() + 1, is(1));
+//        assertEquals(6, pageableListActual.get(5).getPageNumber() + 1);
+        assertThat(pageableListActual.get(5).getPageNumber() + 1, is(6));
     }
 
     /**
@@ -139,11 +139,8 @@ public class PaginationTest extends TestCase
         // pageのインデックスは0から始める。だから4ページのインデックスは3になる。
         Pageable currentPageable = new PageRequest(3, 10);
 
-        // 例えば；ページのトータル８です。現在のページは０です。
-        //それで　getPageables(,)のメソッドの結果は０ページ目から5ページ目まで表示です
         when(page.getNumber()).thenReturn(3);
 
-        // 72レコードがあるし、それに各ページは１０レコードがある。それでページの数は８です
         when(page.getTotalPages()).thenReturn(8);
 
         List<Pageable> pageableListActual = pagination.getPageables(currentPageable, interval);
@@ -152,12 +149,12 @@ public class PaginationTest extends TestCase
         verify(page, times(2)).getTotalPages();
         verify(page, times(4)).getNumber();
 
-        // リストのサイズを確認する
-        assertEquals(8, pageableListActual.size());
-        // スタートのページを確認する
-        assertEquals(1, pageableListActual.get(0).getPageNumber() + 1);
-        // エンドのページを確認する
-        assertEquals(8, pageableListActual.get(7).getPageNumber() + 1);
+//        assertEquals(8, pageableListActual.size());
+        assertThat(pageableListActual.size(), is(8));
+//        assertEquals(1, pageableListActual.get(0).getPageNumber() + 1);
+        assertThat(pageableListActual.get(0).getPageNumber() + 1, is(1));
+//        assertEquals(8, pageableListActual.get(7).getPageNumber() + 1);
+        assertThat(pageableListActual.get(7).getPageNumber() + 1, is(8));
     }
 
     /**
@@ -171,11 +168,8 @@ public class PaginationTest extends TestCase
         // pageのインデックスは0から始める。だから最後のページのインデックスは７になる。
         Pageable currentPageable = new PageRequest(7, 10);
 
-        // 例えば；ページのトータル８です。現在のページは０です。
-        //それで　getPageables(,)のメソッドの結果は０ページ目から5ページ目まで表示です
         when(page.getNumber()).thenReturn(7);
 
-        // 72レコードがあるし、それに各ページは１０レコードがある。それでページの数は８です
         when(page.getTotalPages()).thenReturn(8);
 
         List<Pageable> pageableListActual = pagination.getPageables(currentPageable, interval);
@@ -184,11 +178,11 @@ public class PaginationTest extends TestCase
         verify(page, times(2)).getTotalPages();
         verify(page, times(4)).getNumber();
 
-        // リストのサイズを確認する
-        assertEquals(6, pageableListActual.size());
-        // スタートのページを確認する
-        assertEquals(3, pageableListActual.get(0).getPageNumber() + 1);
-        // エンドのページを確認する
-        assertEquals(8, pageableListActual.get(5).getPageNumber() + 1);
+//        assertEquals(6, pageableListActual.size());
+        assertThat(pageableListActual.size(), is(6));
+//        assertEquals(3, pageableListActual.get(0).getPageNumber() + 1);
+        assertThat(pageableListActual.get(0).getPageNumber() + 1, is(3));
+//        assertEquals(8, pageableListActual.get(5).getPageNumber() + 1);
+        assertThat(pageableListActual.get(5).getPageNumber() + 1, is(8));
     }
 }
