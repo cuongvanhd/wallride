@@ -1,14 +1,14 @@
 package org.wallride.core.support;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -26,7 +26,7 @@ public class PaginationExampleTest extends TestCase {
     int totalRecord = 72;
 
     /**
-     * create list record for a page
+     * create list record for a page from start page to (page end -1 )
      *
      * @param pageSize
      * @return list record in a page
@@ -38,6 +38,25 @@ public class PaginationExampleTest extends TestCase {
             stringList.add("New String" + (i + 1));
             i++;
         }
+        return stringList;
+    }
+
+    /**
+     * create record for end page
+     *
+     * @param pageTest
+     * @param pageSize
+     * @param totalRecord
+     * @return list record in a page end
+     */
+    public List<String> createListRecordForPageEnd(int pageTest, int pageSize, int totalRecord) {
+        List<String> stringList = new ArrayList<>();
+        int index = pageTest * pageSize;
+        while (index < totalRecord) {
+            stringList.add("New String" + (index + 1));
+            index++;
+        }
+
         return stringList;
     }
 
@@ -69,6 +88,20 @@ public class PaginationExampleTest extends TestCase {
     public void constructorWithPageHasNotContent(int pageTest, int pageSize, int totalRecord) {
         pageable = new PageRequest(pageTest, pageSize);
         page = new PageImpl(new ArrayList(), pageable, totalRecord);
+        pagination = new Pagination(page);
+    }
+
+    /**
+     * constructor With Page is End
+     *
+     * @param pageTest
+     * @param pageSize
+     * @param totalRecord
+     * @throws Exception
+     */
+    public void constructorWithPageIsEnd(int pageTest, int pageSize, int totalRecord) throws Exception {
+        pageable = new PageRequest(pageTest, pageSize);
+        page = new PageImpl(createListRecordForPageEnd(pageTest, pageSize, totalRecord), pageable, totalRecord);
         pagination = new Pagination(page);
     }
 
@@ -183,7 +216,7 @@ public class PaginationExampleTest extends TestCase {
      */
     @Test
     public void testGetPagableWhenPageIsEnd() throws Exception {
-        constructorWithPageHasContent(7, pageSize, totalRecord);
+        constructorWithPageIsEnd(7, pageSize, totalRecord);
 
         List<Pageable> pageableListActual = pagination.getPageables(pageable, interval);
 
